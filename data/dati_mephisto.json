@@ -1,0 +1,1854 @@
+{
+  "versione": 2,
+  "definizioni": {
+    "priorita": "Organizzazione dei passaggi: 7 gruppi in ordine di urgenza (1 = più urgente).",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+  },
+  "brani": [
+    {
+      "id": "mephisto",
+      "nome": "Liszt, Mephisto Valzer n. 1",
+      "completo": true
+    }
+  ],
+  "priorita": [
+    {
+      "n": 1,
+      "nome": "Salti rapidi di accordi e ottave, a due mani",
+      "perche": "È il primo difetto che indichi. Qui il salto è a tempo pieno, spesso in tutte e due le mani insieme e senza una nota d'appoggio: l'atterraggio corto o lungo si sente subito."
+    },
+    {
+      "n": 2,
+      "nome": "Ottave e accordi ribattuti in f e ff (resistenza)",
+      "perche": "È il secondo difetto. Sono i passi lunghi in cui l'avambraccio non ha pause: la rigidità compare dopo poche battute e si accumula fino alla fine della sezione."
+    },
+    {
+      "n": 3,
+      "nome": "Salti di una mano mentre l'altra resta regolare",
+      "perche": "Stesso difetto dei salti, ma a carico di una mano sola (di solito la sinistra: basso, accordo, melodia), mentre l'altra ha una figura che non deve risentirne."
+    },
+    {
+      "n": 4,
+      "nome": "Ribattuti e tremoli a bassa e media dinamica (rilascio)",
+      "perche": "La rigidità di solito nasce qui, a p e mf, prima che nei ff: l'avambraccio resta contratto tra un ribattuto e l'altro. Si lavora il rimbalzo, non la forza."
+    },
+    {
+      "n": 5,
+      "nome": "Volate, figure spezzate, mani alternate e cadenze",
+      "perche": "Uniformità e chiarezza nelle figure veloci. Non è tra i difetti che hai indicato, quindi viene dopo; alcune (525, 813) restano tra i punti più difficili del brano."
+    },
+    {
+      "n": 6,
+      "nome": "Passi leggeri a p e pp: Presto, scherzando, staccato",
+      "perche": "Figure piccole e rapide vicino al tasto. Rischio di rigidità basso; il lavoro è sull'uguaglianza e sulla simultaneità dei bicordi."
+    },
+    {
+      "n": 7,
+      "nome": "Cantabile e passi lenti",
+      "perche": "Non dipendono dalla velocità. Il lavoro motorio riguarda il legato delle ottave a p, i salti lenti della sinistra e il controllo del pp."
+    }
+  ],
+  "famiglie": [
+    {
+      "id": "mephisto-fam-quinte-ribattute",
+      "nome": "Quinte e accordi ribattuti con acciaccatura (apertura)",
+      "frammenti": [
+        "mephisto-1-16",
+        "mephisto-35-49"
+      ]
+    },
+    {
+      "id": "mephisto-fam-accordi-arpeggiati-sf",
+      "nome": "Accordi arpeggiati sf su accordi ribattuti della sinistra",
+      "frammenti": [
+        "mephisto-17-29",
+        "mephisto-50-62"
+      ]
+    },
+    {
+      "id": "mephisto-fam-ottava-nota-interna",
+      "nome": "Ottava e nota interna staccate, a mani parallele",
+      "frammenti": [
+        "mephisto-63-74",
+        "mephisto-75-86"
+      ]
+    },
+    {
+      "id": "mephisto-fam-tema-tenore",
+      "nome": "Tema marcato in registro di tenore su terze ribattute",
+      "frammenti": [
+        "mephisto-111-126",
+        "mephisto-127-136"
+      ]
+    },
+    {
+      "id": "mephisto-fam-acciaccature-rapido",
+      "nome": "Con brio rapido: acciaccature saltate e arpeggio discendente",
+      "frammenti": [
+        "mephisto-137-144",
+        "mephisto-233-240"
+      ]
+    },
+    {
+      "id": "mephisto-fam-sf-scherzando",
+      "nome": "Sf rinforzando e coppie di biscrome scherzando",
+      "frammenti": [
+        "mephisto-145-156",
+        "mephisto-241-252"
+      ]
+    },
+    {
+      "id": "mephisto-fam-scherzando-acuto",
+      "nome": "Scherzando nell'acuto con sinistra ben staccato",
+      "frammenti": [
+        "mephisto-157-164",
+        "mephisto-253-260"
+      ]
+    },
+    {
+      "id": "mephisto-fam-volate-accelerando",
+      "nome": "Volata di semicrome «un poco accelerando» su basso e accordi",
+      "frammenti": [
+        "mephisto-165-172",
+        "mephisto-261-268"
+      ]
+    },
+    {
+      "id": "mephisto-fam-figure-spezzate",
+      "nome": "Figure spezzate della destra su accordi ribattuti",
+      "frammenti": [
+        "mephisto-173-181",
+        "mephisto-269-273"
+      ]
+    },
+    {
+      "id": "mephisto-fam-martellato",
+      "nome": "Mani alternate (martellato)",
+      "frammenti": [
+        "mephisto-182-190",
+        "mephisto-898-909"
+      ]
+    },
+    {
+      "id": "mephisto-fam-tema-ottave-sx",
+      "nome": "Tema in ottave della sinistra sotto accordi ribattuti",
+      "frammenti": [
+        "mephisto-207-222",
+        "mephisto-223-232"
+      ]
+    },
+    {
+      "id": "mephisto-fam-duine-saltate",
+      "nome": "Accordi a duine con salti e ottave staccate",
+      "frammenti": [
+        "mephisto-274-281",
+        "mephisto-282-296"
+      ]
+    },
+    {
+      "id": "mephisto-fam-diminuendo",
+      "nome": "Transizione in diminuendo su accordi ribattuti",
+      "frammenti": [
+        "mephisto-313-328",
+        "mephisto-329-340"
+      ]
+    },
+    {
+      "id": "mephisto-fam-cantabile-amoroso",
+      "nome": "Espressivo amoroso: melodia sincopata, basso e accordi",
+      "frammenti": [
+        "mephisto-341-356",
+        "mephisto-357-372",
+        "mephisto-373-388"
+      ]
+    },
+    {
+      "id": "mephisto-fam-ottave-cantabili",
+      "nome": "Ottave cantabili della destra (con l'ossia)",
+      "frammenti": [
+        "mephisto-389-400",
+        "mephisto-401-416",
+        "mephisto-417-432",
+        "mephisto-433-442"
+      ]
+    },
+    {
+      "id": "mephisto-fam-presto-pp",
+      "nome": "Presto pp: terze oscillanti e bicordi staccati",
+      "frammenti": [
+        "mephisto-457-472",
+        "mephisto-473-483",
+        "mephisto-526-541",
+        "mephisto-542-557",
+        "mephisto-814-829",
+        "mephisto-830-845"
+      ]
+    },
+    {
+      "id": "mephisto-fam-allegretto-rubato",
+      "nome": "Poco Allegretto e rubato: ottave in levare, arpeggi, trillo e volata",
+      "frammenti": [
+        "mephisto-484-492",
+        "mephisto-493-508",
+        "mephisto-509-524"
+      ]
+    },
+    {
+      "id": "mephisto-fam-melodia-sinistra",
+      "nome": "Tre righi: melodia nella sinistra, ribattute con salto nella destra",
+      "frammenti": [
+        "mephisto-558-573",
+        "mephisto-574-589",
+        "mephisto-590-605"
+      ]
+    },
+    {
+      "id": "mephisto-fam-ribattute-con-salto",
+      "nome": "Figure «ribattuta più salto» della destra su arpeggio largo",
+      "frammenti": [
+        "mephisto-606-617",
+        "mephisto-618-625",
+        "mephisto-626-637",
+        "mephisto-638-650"
+      ]
+    },
+    {
+      "id": "mephisto-fam-pesante-2-4",
+      "nome": "2/4 pesante: ottave della sinistra e sestine che cambiano registro",
+      "frammenti": [
+        "mephisto-683-690",
+        "mephisto-691-698"
+      ]
+    },
+    {
+      "id": "mephisto-fam-con-fuoco",
+      "nome": "Con fuoco: ottave staccate a salti, basso e accordi",
+      "frammenti": [
+        "mephisto-699-714",
+        "mephisto-715-722"
+      ]
+    },
+    {
+      "id": "mephisto-fam-stringendo",
+      "nome": "Stringendo: ottava e accordi a salti in tutte e due le mani",
+      "frammenti": [
+        "mephisto-723-734",
+        "mephisto-735-744"
+      ]
+    },
+    {
+      "id": "mephisto-fam-ottave-terzinate",
+      "nome": "Presto strepitoso: ottave in terzina, basso e accordo",
+      "frammenti": [
+        "mephisto-745-754",
+        "mephisto-755-770"
+      ]
+    },
+    {
+      "id": "mephisto-fam-salti-leggiero",
+      "nome": "Leggiero staccatissimo: salto nota singola → ottava acuta",
+      "frammenti": [
+        "mephisto-771-778",
+        "mephisto-779-786"
+      ]
+    }
+  ],
+  "frammenti": [
+    {
+      "id": "mephisto-1-16",
+      "brano": "mephisto",
+      "battute": "1-16",
+      "titolo": "Quinte ribattute con acciaccatura: sinistra, poi destra",
+      "priorita": 4,
+      "famiglia": "mephisto-fam-quinte-ribattute",
+      "nodo_motorio": "Tre crome ribattute per battuta per quindici battute: prima una nota, poi la quinta, poi accordi, con l'acciaccatura sul battere accentato. La destra entra a b. 10. Il rischio è tenere l'avambraccio contratto tra un ribattuto e l'altro.",
+      "andate": {
+        "1": {
+          "rep2": "PESO: un impulso sul battere accentato, le altre due crome di rimbalzo dallo stesso gesto, da metà corsa del tasto. Sinistra sola fino a b. 9, poi insieme.",
+          "rep3": "DIN: sinistra mp, destra pp (da b. 10). Acciaccatura e nota reale in un solo gesto, senza colpo di polso separato."
+        },
+        "2": {
+          "rep2": "ACC: accento sulla 2ª croma di ogni battuta, poi sulla 3ª; il battere pp.",
+          "rep3": "CLIC: un solo clic per battuta, raggruppando a quattro battute come indicano le cifre (1)-(4) stampate."
+        }
+      },
+      "rep4_verifica": "Ribattuti uguali, nessuna croma che manca. A b. 16 l'avambraccio è morbido come a b. 2. Il crescendo viene dalle note che si aggiungono, non dalla pressione.",
+      "note": "Peters p. 70, sistema 1 batt. 1 – sistema 2 batt. 7.\nLa b. 1 è vuota (cifra 1). Le cifre (1)-(4) indicano l'accentuazione ritmica a gruppi di quattro battute (nota Peters)."
+    },
+    {
+      "id": "mephisto-17-29",
+      "brano": "mephisto",
+      "battute": "17-29",
+      "titolo": "Accordi arpeggiati sf con caduta sulla nota grave",
+      "priorita": 4,
+      "famiglia": "mephisto-fam-accordi-arpeggiati-sf",
+      "nodo_motorio": "Destra: accordo arpeggiato e accentato, legato a una croma più bassa; da b. 23 la caduta arriva a un bicordo grave. Sinistra: accordo di quinte ribattuto tre volte per battuta, nove battute di fila in f, poi p.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, PESO: un impulso per battuta e due rimbalzi. Fermati a b. 22 tenendo l'accordo: il polso deve potersi muovere su e giù.",
+          "rep3": "Destra sola, CIECO shift–touch–play sulla caduta dall'accordo alla croma grave: suona l'accordo, sposta, tocca muto, suona."
+        },
+        "2": {
+          "rep2": "Insieme, DIN: destra f, sinistra pp di rimbalzo.",
+          "rep3": "BLOC: accordo della destra non arpeggiato sul battere e nota d'arrivo sulla 3ª croma, senza guardare. Poi con l'arpeggio rapido."
+        }
+      },
+      "rep4_verifica": "L'arpeggio dell'accordo è rapido e arriva insieme alla sinistra. La croma d'arrivo è corta ma udibile. A b. 25 la sinistra non ha aumentato la pressione.",
+      "note": "Peters p. 70, sistema 2 batt. 8 – sistema 3 batt. 10."
+    },
+    {
+      "id": "mephisto-30-34",
+      "brano": "mephisto",
+      "battute": "30-34",
+      "titolo": "Terzine di semicrome a mani parallele verso croma staccata",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Tre semicrome rapide a mani unite che finiscono su una croma staccata; ogni gruppo parte da una posizione nuova, un grado più su. p leggiero.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC muto: tocca in silenzio le tre note più l'arrivo con entrambe le mani, poi suonale come un unico impulso che finisce sulla croma.",
+          "rep3": "RIT: fermata sulla 1ª nota della terzina, le altre di scatto; poi fermata sulla 2ª."
+        },
+        "2": {
+          "rep2": "MUTA: sinistra suona, destra fantasma; poi il contrario.",
+          "rep3": "CHUNK: terzina più croma d'arrivo a tempo pieno, stop con le mani già sulla terzina seguente."
+        }
+      },
+      "rep4_verifica": "Tre note distinte in ogni terzina, mani esattamente insieme, croma d'arrivo corta e a tempo.",
+      "note": "Peters p. 70, sistema 4 batt. 1 – sistema 4 batt. 5."
+    },
+    {
+      "id": "mephisto-35-49",
+      "brano": "mephisto",
+      "battute": "35-49",
+      "titolo": "Quinte ribattute con acciaccatura (ripresa dell'apertura)",
+      "priorita": 4,
+      "famiglia": "mephisto-fam-quinte-ribattute",
+      "nodo_motorio": "Come 1-16: tre crome ribattute per battuta, prima nota sola, poi quinta, poi accordi con acciaccatura. La destra entra a b. 43. Il rischio è tenere l'avambraccio contratto tra un ribattuto e l'altro.",
+      "andate": {
+        "1": {
+          "rep2": "PESO: un impulso sul battere accentato, le altre due crome di rimbalzo dallo stesso gesto, da metà corsa del tasto. Sinistra sola fino a b. 42, poi insieme.",
+          "rep3": "DIN: sinistra mp, destra pp (da b. 43). Acciaccatura e nota reale in un solo gesto, senza colpo di polso separato."
+        },
+        "2": {
+          "rep2": "ACC: accento sulla 2ª croma di ogni battuta, poi sulla 3ª; il battere pp.",
+          "rep3": "CLIC: un solo clic per battuta, raggruppando a quattro battute come indicano le cifre (1)-(4) stampate."
+        }
+      },
+      "rep4_verifica": "Ribattuti uguali, nessuna croma che manca. A b. 49 l'avambraccio è morbido come a b. 35. Il crescendo viene dalle note che si aggiungono, non dalla pressione.",
+      "note": "Peters p. 70 sistema 4 batt. 6 – p. 71 sistema 1 batt. 3.\nRipresa accorciata di 2-16: stesso lavoro. La destra entra a b. 43."
+    },
+    {
+      "id": "mephisto-50-62",
+      "brano": "mephisto",
+      "battute": "50-62",
+      "titolo": "Accordi arpeggiati sf con caduta sulla nota grave (ripresa)",
+      "priorita": 4,
+      "famiglia": "mephisto-fam-accordi-arpeggiati-sf",
+      "nodo_motorio": "Come 17-29. Destra: accordo arpeggiato e accentato, legato a una croma più bassa, poi caduta sul bicordo grave. Sinistra: accordo ribattuto tre volte per battuta in f, poi p.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, PESO: un impulso per battuta e due rimbalzi. Fermati a b. 55 tenendo l'accordo: il polso deve potersi muovere su e giù.",
+          "rep3": "Destra sola, CIECO shift–touch–play sulla caduta dall'accordo alla croma grave: suona l'accordo, sposta, tocca muto, suona."
+        },
+        "2": {
+          "rep2": "Insieme, DIN: destra f, sinistra pp di rimbalzo.",
+          "rep3": "BLOC: accordo della destra non arpeggiato sul battere e nota d'arrivo sulla 3ª croma, senza guardare. Poi con l'arpeggio rapido."
+        }
+      },
+      "rep4_verifica": "L'arpeggio dell'accordo è rapido e arriva insieme alla sinistra. La croma d'arrivo è corta ma udibile. A b. 58 la sinistra non ha aumentato la pressione.",
+      "note": "Peters p. 71, sistema 1 batt. 4 – sistema 2 batt. 7.\nRipresa di 17-29: stesso lavoro. La b. 62 è vuota (cifra 1)."
+    },
+    {
+      "id": "mephisto-63-74",
+      "brano": "mephisto",
+      "battute": "63-74",
+      "titolo": "Terzine d'anacrusi, poi ottava e nota interna staccate",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-ottava-nota-interna",
+      "nodo_motorio": "63-66: terzine come a 30-34. Da 67: ottava sul battere e nota interna (dito 2) sulla 3ª croma, staccate, a mani parallele; la posizione sale di un semitono quasi a ogni battuta. L'ottava tende a restare aperta e tesa mentre suona il 2. 73-74: tre crome a zigzag.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ottava e nota interna insieme, come accordo di tre suoni, una posizione per battuta, a mani unite e senza guardare.",
+          "rep3": "STAC pp: ogni croma dal tasto. Dopo l'ottava la mano si richiude prima che il 2 suoni."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: solo pollici e 2 (senza mignoli), poi solo mignoli e 2.",
+          "rep3": "CHUNK: due battute più l'ottava seguente a tempo pieno, stop con le mani già sulla posizione nuova. Terzine 63-66: RIT con fermata sulla 1ª nota."
+        }
+      },
+      "rep4_verifica": "Ottave complete (nessun mignolo che manca), nota interna leggera, mani insieme. La mano si richiude tra una battuta e l'altra. p sempre.",
+      "note": "Peters p. 71, sistema 2 batt. 8 – sistema 4 batt. 2."
+    },
+    {
+      "id": "mephisto-75-86",
+      "brano": "mephisto",
+      "battute": "75-86",
+      "titolo": "Ottava e nota interna staccate, un'ottava sopra, poco a poco crescendo",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-ottava-nota-interna",
+      "nodo_motorio": "Come 67-74, un'ottava sopra: ottava sul battere e nota interna (dito 2) sulla 3ª croma, staccate, a mani parallele, con la posizione che sale per semitoni. 81-82: tre crome a zigzag. Da 83 poco a poco crescendo.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ottava e nota interna insieme, come accordo di tre suoni, una posizione per battuta, a mani unite e senza guardare.",
+          "rep3": "STAC pp: ogni croma dal tasto. Dopo l'ottava la mano si richiude prima che il 2 suoni."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: solo pollici e 2 (senza mignoli), poi solo mignoli e 2.",
+          "rep3": "CHUNK: due battute più l'ottava seguente a tempo pieno, stop con le mani già sulla posizione nuova. Il crescendo solo in Rep 4."
+        }
+      },
+      "rep4_verifica": "Ottave complete (nessun mignolo che manca), nota interna leggera, mani insieme. La mano si richiude tra una battuta e l'altra. Il crescendo di 83-86 non apre la mano.",
+      "note": "Peters p. 71, sistema 4 batt. 3 – sistema 5 batt. 5."
+    },
+    {
+      "id": "mephisto-87-98",
+      "brano": "mephisto",
+      "battute": "87-98",
+      "titolo": "Accordi a ritmo puntato a due mani e richiami marcatissimo",
+      "priorita": 4,
+      "famiglia": null,
+      "nodo_motorio": "87-93: accordi pieni a due mani in ritmo puntato (accordo, pausa, accordo corto, accordo), poi accordi ribattuti in f. 94-98: il richiamo mi–do# marcatissimo della destra alternato alle crome della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "PESO: accordo lungo con caduta e rilascio immediato; il corto e il successivo di rimbalzo, da metà corsa del tasto.",
+          "rep3": "BLOC muto sulle forme: tocca in silenzio gli accordi di 87-93 uno per battuta, senza guardare; poi suonali una volta per battuta."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: voce superiore suonata e resto dell'accordo muto; poi il contrario.",
+          "rep3": "CLIC: un solo clic per battuta; l'accordo corto non anticipa."
+        }
+      },
+      "rep4_verifica": "Accordi completi e insieme, accordo corto breve ma udibile. In 94-98 mi–do# è un gesto solo caduta–risalita, senza colpo sul do#.",
+      "note": "Peters p. 71, sistema 5 batt. 6 – sistema 6 batt. 9."
+    },
+    {
+      "id": "mephisto-99-110",
+      "brano": "mephisto",
+      "battute": "99-110",
+      "titolo": "Mi ribattuto con acciaccatura, crescendo pesante e arpeggio di semicrome",
+      "priorita": 4,
+      "famiglia": null,
+      "nodo_motorio": "Destra: nota e poi accordi ribattuti in crescendo per otto battute; da 107 arpeggio di semicrome che sale per tre ottave con passaggi del pollice. Sinistra: ottave e accordi ribattuti «pesante» da b. 104.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola 104-110, PESO: un impulso per battuta e due rimbalzi; il polso si muove mentre ribatti.",
+          "rep3": "Destra sola 107-110, BLOC: ogni posizione dell'arpeggio come accordo, cambio senza guardare. Poi RIT con fermata sulla nota prima di ogni pollice."
+        },
+        "2": {
+          "rep2": "Insieme 99-106, ACC: accento sulla 2ª croma, poi sulla 3ª.",
+          "rep3": "CHUNK a ritroso sull'arpeggio: ultima battuta più l'arrivo, ultime due, ultime tre. Sinistra come scritta, mp."
+        }
+      },
+      "rep4_verifica": "Crescendo senza accelerare. Arpeggio regolare ai passaggi del pollice. La sinistra arriva a b. 110 senza aver indurito l'avambraccio.",
+      "note": "Peters p. 72, sistema 1 batt. 1 – sistema 2 batt. 5."
+    },
+    {
+      "id": "mephisto-111-126",
+      "brano": "mephisto",
+      "battute": "111-126",
+      "titolo": "Tema marcato in registro di tenore, destra «sopra», terze ribattute",
+      "priorita": 4,
+      "famiglia": "mephisto-fam-tema-tenore",
+      "nodo_motorio": "La destra suona il tema nel registro della sinistra e in 115-118 (e 123-126) passa «sopra»: le mani si sovrappongono mentre la sinistra ribatte terze tre volte per battuta. A 119 la sinistra salta sull'accordo sf.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: terze ribattute STAC pp da metà corsa del tasto; salto sull'accordo sf con CIECO shift–touch–play.",
+          "rep3": "Insieme, sinistra MUTA: tema della destra con le sue articolazioni (legature a due, staccati), sinistra che tocca le terze senza abbassarle."
+        },
+        "2": {
+          "rep2": "DIN: destra f marcato, sinistra pp. Nei punti «sopra» decidi l'altezza dei polsi (destra alta, sinistra bassa e più dentro i tasti) e non cambiarla.",
+          "rep3": "RIT sulle due semicrome del tema (113-114, 121-122): fermata sulla croma che le precede, semicrome di scatto."
+        }
+      },
+      "rep4_verifica": "Tema sempre sopra l'accompagnamento. Nessuna collisione tra le mani nei punti «sopra». Terze della sinistra uguali. Accordo sf completo e a tempo.",
+      "note": "Peters p. 72, sistema 2 batt. 6 – sistema 5 batt. 3."
+    },
+    {
+      "id": "mephisto-127-136",
+      "brano": "mephisto",
+      "battute": "127-136",
+      "titolo": "Tema che sale: acciaccature, accordi arpeggiati e accordo sf grave",
+      "priorita": 4,
+      "famiglia": "mephisto-fam-tema-tenore",
+      "nodo_motorio": "Acciaccatura e nota tenuta ripetute in crescendo sopra accordi ribattuti della sinistra; poi due accordi arpeggiati, l'accordo in ottava alta e il salto di tutte e due le mani sull'accordo sf di b. 136.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play sugli ultimi quattro accordi (133-136), a mani unite.",
+          "rep3": "Sinistra sola 128-134, PESO: un impulso per battuta e due rimbalzi."
+        },
+        "2": {
+          "rep2": "MENT su 133-136, poi reale.",
+          "rep3": "BLOC: accordi di 133-136 non arpeggiati, uno per battuta, senza guardare; poi con l'arpeggio rapido."
+        }
+      },
+      "rep4_verifica": "Crescendo senza irrigidire la sinistra. Accordi arpeggiati che finiscono sul tempo. Accordo di b. 136 pieno e preso dal tasto.",
+      "note": "Peters p. 72, sistema 5 batt. 4 – sistema 6 batt. 6."
+    },
+    {
+      "id": "mephisto-137-144",
+      "brano": "mephisto",
+      "battute": "137-144",
+      "titolo": "Con brio rapido: acciaccature saltate tra le mani e arpeggio discendente",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-acciaccature-rapido",
+      "nodo_motorio": "Dopo l'accordo ff le due mani si passano quattro acciaccature con nota staccata, ognuna in un registro diverso: quattro salti in due battute. Poi salto all'accordo in ottava alta e arpeggio discendente di semicrome su accordi della sinistra. Tutto due volte.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: acciaccatura e nota reale come bicordo. Suona i quattro bicordi in crome nell'ordine scritto, mano per mano, senza guardare; poi aggiungi l'accordo di b. 139.",
+          "rep3": "CIECO shift–touch–play su ogni salto: suona un gruppo, sposta di scatto, tocca muto il seguente, controlla, suona."
+        },
+        "2": {
+          "rep2": "MENT: due battute mentali a tempo con le distanze immaginate, poi reali.",
+          "rep3": "CHUNK: 137-138 più l'accordo di 139 a tempo pieno, stop sull'accordo. Poi arpeggio 139-140 con RIT (fermata sulla 1ª nota di ogni posizione)."
+        }
+      },
+      "rep4_verifica": "Ogni acciaccatura attaccata alla sua nota, nessun salto corto. Accordo di b. 139 preso dal tasto. Arpeggio regolare fino all'ultima nota.",
+      "note": "Peters p. 73, sistema 1 batt. 1 – sistema 2 batt. 2.\nSopra il rigo c'è una «Leichtere Ausführung» (versione facilitata): ho analizzato il testo principale."
+    },
+    {
+      "id": "mephisto-145-156",
+      "brano": "mephisto",
+      "battute": "145-156",
+      "titolo": "Sf rinforzando con sinistra a salti; coppie di biscrome scherzando",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-sf-scherzando",
+      "nodo_motorio": "145-148 e 153-156: la destra alterna accordo staccato e figura di due semicrome più croma; la sinistra fa tre crome staccate basso–alto–basso per battuta, con due salti. 149-152: tre coppie legate di biscrome per battuta (4-3, 3-2) sopra crome staccate e accordo della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola 145-148, CIECO shift–touch–play: lo sguardo è sul tasto d'arrivo prima che la mano parta.",
+          "rep3": "Destra sola: BLOC (accordo e figura come due blocchi per battuta). Nelle coppie di 149-152 RIT: fermata sulla 1ª biscroma, la 2ª di scatto con rilascio."
+        },
+        "2": {
+          "rep2": "Insieme, sinistra MUTA: tocca i tre tasti di ogni battuta nel posto giusto mentre la destra suona.",
+          "rep3": "CHUNK: una battuta più il battere seguente a tempo pieno. Nelle coppie ACC sulla 2ª nota di ogni coppia."
+        }
+      },
+      "rep4_verifica": "Sinistra: tre crome uguali e staccate, senza buco dopo il salto. Coppie di biscrome tutte a due suoni, con la seconda corta. Sf solo sull'accordo.",
+      "note": "Peters p. 73, sistema 2 batt. 3 – sistema 4 batt. 3."
+    },
+    {
+      "id": "mephisto-157-164",
+      "brano": "mephisto",
+      "battute": "157-164",
+      "titolo": "Scherzando nell'acuto, sinistra ben staccato",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-scherzando-acuto",
+      "nodo_motorio": "Otto battute di coppie legate di biscrome (4-3, 3-2) nell'acuto, poco crescendo. La sinistra alterna crome staccate che salgono e un accordo tenuto, preso con un piccolo salto.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, RIT sulle coppie: fermata sulla 1ª nota, 2ª di scatto con rilascio. La mano scorre di lato, dita vicine al tasto.",
+          "rep3": "Sinistra sola, CIECO: crome staccate e accordo."
+        },
+        "2": {
+          "rep2": "ACC: accento sulla 2ª nota di ogni coppia.",
+          "rep3": "CLIC sul levare (2ª croma), tutto il passaggio."
+        }
+      },
+      "rep4_verifica": "Tre coppie uguali per battuta, nessuna nota muta. Il poco crescendo non accorcia le pause. Accordi della sinistra insieme.",
+      "note": "Peters p. 73, sistema 4 batt. 4 – sistema 5 batt. 5."
+    },
+    {
+      "id": "mephisto-165-172",
+      "brano": "mephisto",
+      "battute": "165-172",
+      "titolo": "Un poco accelerando: volata di semicrome su basso e accordi",
+      "priorita": 5,
+      "famiglia": "mephisto-fam-volate-accelerando",
+      "nodo_motorio": "Destra: otto battute di semicrome continue nell'acuto, con cambi di direzione e passaggi del pollice. Sinistra da valzer: basso accentato e due accordi, con un salto per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, RIT su coppie: lungo-corto, poi corto-lungo.",
+          "rep3": "Sinistra sola, CIECO shift–touch–play dal basso all'accordo; poi insieme con la sinistra MUTA."
+        },
+        "2": {
+          "rep2": "ACC: accento sulla 2ª semicroma di ogni coppia, tutto il resto pp.",
+          "rep3": "CHUNK: una battuta più una nota a tempo pieno; poi due battute più una nota. L'accelerando solo in Rep 4."
+        }
+      },
+      "rep4_verifica": "Semicrome uguali ai cambi di direzione. Il basso della sinistra non accenta la destra. Accelerando graduale su otto battute.",
+      "note": "Peters p. 74, sistema 1 batt. 1 – sistema 2 batt. 2.\nSopra il rigo è stampato un ossia: ho analizzato il testo principale."
+    },
+    {
+      "id": "mephisto-173-181",
+      "brano": "mephisto",
+      "battute": "173-181",
+      "titolo": "Sempre più crescendo: figure spezzate della destra su accordi ribattuti",
+      "priorita": 5,
+      "famiglia": "mephisto-fam-figure-spezzate",
+      "nodo_motorio": "Destra: semicrome a zigzag tra nota bassa e nota alta (intervalli larghi spezzati), una posizione per battuta. Sinistra: accordo ribattuto tre volte per battuta, in crescendo.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla destra: due battute di sola rotazione dell'avambraccio con dita ferme, due di sole dita, poi la miscela minima.",
+          "rep3": "BLOC: le note di ogni battuta come accordo (o due bicordi), cambio di posizione senza guardare. Sinistra PESO: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "DIN: destra mp, sinistra pp di rimbalzo. ACC sulle note alte, poi sulle basse.",
+          "rep3": "CHUNK: una battuta più una nota, a tempo pieno."
+        }
+      },
+      "rep4_verifica": "Note alte e basse entrambe udibili. Cambio di posizione senza accento. La sinistra cresce senza premere.",
+      "note": "Peters p. 74, sistema 2 batt. 3 – sistema 3 batt. 4."
+    },
+    {
+      "id": "mephisto-182-190",
+      "brano": "mephisto",
+      "battute": "182-190",
+      "titolo": "Martellato cromatico a mani alternate, crescendo",
+      "priorita": 5,
+      "famiglia": "mephisto-fam-martellato",
+      "nodo_motorio": "Sinistra in ottave staccate sui tempi, destra sulle semicrome in levare: un solo flusso di semicrome fatto da due mani sfasate, che sale per semitoni fino all'acuto. La b. 190 chiude a ritmo puntato.",
+      "andate": {
+        "1": {
+          "rep2": "Togli lo sfasamento: le due mani insieme, in crome, sulle stesse posizioni; la seconda volta CIECO.",
+          "rep3": "Come scritto, con CLIC sulla 2ª semicroma: senti la destra come battere."
+        },
+        "2": {
+          "rep2": "MUTA: sinistra suona, destra fantasma; poi il contrario.",
+          "rep3": "PESO: polsi bassi, staccato dal tasto, un impulso per battuta. ACC solo nella sinistra."
+        }
+      },
+      "rep4_verifica": "Semicrome composte uguali, senza galoppo. Crescendo di peso, non di velocità. Arrivo a b. 190 a tempo.",
+      "note": "Peters p. 74, sistema 3 batt. 5 – sistema 4 batt. 6."
+    },
+    {
+      "id": "mephisto-191-201",
+      "brano": "mephisto",
+      "battute": "191-201",
+      "titolo": "Arpeggi discendenti ff dall'acuto, sinistra che salta tra ottava e accordi",
+      "priorita": 3,
+      "famiglia": null,
+      "nodo_motorio": "La destra salta sulla nota acuta e scende in arpeggio di semicrome; la sinistra parte dall'ottava grave e salta agli accordi nel registro centrale; in mezzo, ottave ribattute a ritmo puntato a due mani. Da 195 l'arpeggio scende per tre battute fino al grave. 199-201: tre battute di pausa.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, CIECO shift–touch–play dall'ottava all'accordo.",
+          "rep3": "Destra sola: BLOC sulle posizioni dell'arpeggio, poi RIT con fermata sulla nota prima di ogni cambio di posizione."
+        },
+        "2": {
+          "rep2": "Solo gli attacchi (prima nota della destra e ottava della sinistra di ogni battuta) a tempo: prima MENT, poi reale.",
+          "rep3": "CHUNK: una battuta più il battere seguente, stop con le mani già sulla battuta dopo. 195-198 a ritroso."
+        }
+      },
+      "rep4_verifica": "Nota acuta presa dal tasto e non dall'aria. Ottave puntate insieme. Arpeggio 195-197 regolare fino in fondo. Tre battute di pausa contate.",
+      "note": "Peters p. 74, sistema 4 batt. 7 – sistema 5 batt. 7.\nLe battute 199-201 sono stampate come una sola battuta con la cifra 3."
+    },
+    {
+      "id": "mephisto-202-206",
+      "brano": "mephisto",
+      "battute": "202-206",
+      "titolo": "Glissando e ottave ribattute nell'acuto",
+      "priorita": 2,
+      "famiglia": null,
+      "nodo_motorio": "Glissando a due mani con arrivo sull'ottava ribattuta nell'acuto; la sinistra scende a salti d'ottava. La nota Peters propone: destra glissando, sinistra come scala.",
+      "andate": {
+        "1": {
+          "rep2": "CHUNK a ritroso: ultimo tratto del glissando più l'ottava d'arrivo, a tempo; poi tutto. Mano inclinata, braccio che traina.",
+          "rep3": "203-206: PESO sulle ottave ribattute, un impulso per battuta. Sinistra CIECO sui salti d'ottava."
+        },
+        "2": {
+          "rep2": "Se scegli la scala nella sinistra: sinistra sola con RIT, fermata prima di ogni pollice.",
+          "rep3": "MENT sull'aggancio tra glissando e ottava, poi reale."
+        }
+      },
+      "rep4_verifica": "Il glissando finisce esattamente sul battere di 203. Ottave ribattute complete. Nessuna pausa prima del ff di 207.",
+      "note": "Peters p. 75, sistema 1 batt. 1 – sistema 2 batt. 1.\nLa b. 202 è il glissando, stampato come battuta unica."
+    },
+    {
+      "id": "mephisto-207-222",
+      "brano": "mephisto",
+      "battute": "207-222",
+      "titolo": "Tema marcatissimo in ottave della sinistra sotto accordi ribattuti",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-tema-ottave-sx",
+      "nodo_motorio": "Sedici battute ff: la destra ribatte accordi pieni tre volte per battuta nell'acuto, la sinistra suona il tema in ottave con legature a due e staccati. Tutte e due le braccia lavorano senza sosta: è il punto in cui la rigidità si accumula.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola a mp, PESO: un impulso sul battere e due rimbalzi. Ogni due battute fermati sull'accordo e muovi il polso su e giù.",
+          "rep3": "Sinistra sola, DIN dentro la mano: solo pollici (legati dove è scritto), poi solo mignoli; poi ottave intere a mp."
+        },
+        "2": {
+          "rep2": "Insieme a mp, destra ridotta alla sola ottava esterna (senza note interne). ACC sulla 2ª croma, poi sulla 3ª.",
+          "rep3": "Insieme, DIN: sinistra f, destra pp di rimbalzo. CLIC: un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "A b. 222 l'avambraccio destro è libero come a b. 207. Tema della sinistra sopra gli accordi, con le legature a due. Nessun accordo incompleto.",
+      "note": "Peters p. 75, sistema 2 batt. 2 – sistema 3 batt. 8.\nSe senti bruciore o indurimento nell'avambraccio, fermati: non completare la Rep."
+    },
+    {
+      "id": "mephisto-223-232",
+      "brano": "mephisto",
+      "battute": "223-232",
+      "titolo": "Chiusa del tema: ottave legate a due della sinistra, accordi ribattuti",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-tema-ottave-sx",
+      "nodo_motorio": "La sinistra lega ottave a due per sette battute mentre la destra continua gli accordi ribattuti cambiando forma; due accordi isolati chiudono.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, DIN dentro la mano: pollice legato e mignolo muto, poi il contrario. Ogni coppia è una caduta e una risalita del polso.",
+          "rep3": "Destra sola a mp, PESO: un impulso per battuta e due rimbalzi; stop ogni due battute con polso mobile."
+        },
+        "2": {
+          "rep2": "Insieme a mp, destra ridotta all'ottava esterna. ACC sulla 2ª croma.",
+          "rep3": "DIN: sinistra f, destra pp di rimbalzo."
+        }
+      },
+      "rep4_verifica": "Coppie della sinistra legate, con la seconda ottava più leggera. Accordi della destra completi fino alla fine. I due accordi isolati a tempo.",
+      "note": "Peters p. 75, sistema 3 batt. 9 – sistema 4 batt. 9."
+    },
+    {
+      "id": "mephisto-233-240",
+      "brano": "mephisto",
+      "battute": "233-240",
+      "titolo": "Rapido: acciaccature saltate e arpeggio discendente (ripresa)",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-acciaccature-rapido",
+      "nodo_motorio": "Come 137-144: dopo l'accordo le due mani si passano quattro acciaccature con nota staccata, ognuna in un registro diverso; poi salto all'accordo in ottava alta e arpeggio discendente di semicrome. Tutto due volte.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: acciaccatura e nota reale come bicordo. Suona i quattro bicordi in crome nell'ordine scritto, mano per mano, senza guardare; poi aggiungi l'accordo di b. 235.",
+          "rep3": "CIECO shift–touch–play su ogni salto: suona un gruppo, sposta di scatto, tocca muto il seguente, controlla, suona."
+        },
+        "2": {
+          "rep2": "MENT: due battute mentali a tempo con le distanze immaginate, poi reali.",
+          "rep3": "CHUNK: 233-234 più l'accordo di 235 a tempo pieno, stop sull'accordo. Poi arpeggio 235-236 con RIT (fermata sulla 1ª nota di ogni posizione)."
+        }
+      },
+      "rep4_verifica": "Ogni acciaccatura attaccata alla sua nota, nessun salto corto. Accordo di b. 235 preso dal tasto. Arpeggio regolare fino all'ultima nota.",
+      "note": "Peters p. 75, sistema 5 batt. 1 – sistema 5 batt. 8.\nGemello di 137-144 in un'altra tonalità: stesso lavoro, forme d'accordo diverse."
+    },
+    {
+      "id": "mephisto-241-252",
+      "brano": "mephisto",
+      "battute": "241-252",
+      "titolo": "Sf rinforzando con sinistra a salti; coppie scherzando (ripresa)",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-sf-scherzando",
+      "nodo_motorio": "Come 145-156. 241-244 e 249-252: accordo staccato e figura di due semicrome più croma nella destra, tre crome staccate basso–alto–basso nella sinistra. 245-248: tre coppie legate di biscrome per battuta (4-3, 3-2).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola 241-244, CIECO shift–touch–play: lo sguardo è sul tasto d'arrivo prima che la mano parta.",
+          "rep3": "Destra sola: BLOC (accordo e figura come due blocchi per battuta). Nelle coppie di 245-248 RIT: fermata sulla 1ª biscroma, la 2ª di scatto con rilascio."
+        },
+        "2": {
+          "rep2": "Insieme, sinistra MUTA: tocca i tre tasti di ogni battuta nel posto giusto mentre la destra suona.",
+          "rep3": "CHUNK: una battuta più il battere seguente a tempo pieno. Nelle coppie ACC sulla 2ª nota di ogni coppia."
+        }
+      },
+      "rep4_verifica": "Sinistra: tre crome uguali e staccate, senza buco dopo il salto. Coppie di biscrome tutte a due suoni, con la seconda corta. Sf solo sull'accordo.",
+      "note": "Peters p. 76, sistema 1 batt. 1 – sistema 2 batt. 6.\nGemello di 145-156."
+    },
+    {
+      "id": "mephisto-253-260",
+      "brano": "mephisto",
+      "battute": "253-260",
+      "titolo": "Scherzando nell'acuto, sinistra staccata (ripresa)",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-scherzando-acuto",
+      "nodo_motorio": "Otto battute di coppie legate di biscrome (4-3, 3-2) nell'acuto, poco crescendo. La sinistra alterna crome staccate che salgono e un accordo tenuto, preso con un piccolo salto.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, RIT sulle coppie: fermata sulla 1ª nota, 2ª di scatto con rilascio. La mano scorre di lato, dita vicine al tasto.",
+          "rep3": "Sinistra sola, CIECO: crome staccate e accordo."
+        },
+        "2": {
+          "rep2": "ACC: accento sulla 2ª nota di ogni coppia.",
+          "rep3": "CLIC sul levare (2ª croma), tutto il passaggio."
+        }
+      },
+      "rep4_verifica": "Tre coppie uguali per battuta, nessuna nota muta. Il poco crescendo non accorcia le pause. Accordi della sinistra insieme.",
+      "note": "Peters p. 76, sistema 3 batt. 1 – sistema 4 batt. 3.\nGemello di 157-164."
+    },
+    {
+      "id": "mephisto-261-268",
+      "brano": "mephisto",
+      "battute": "261-268",
+      "titolo": "Un poco accelerando: volata di semicrome (ripresa)",
+      "priorita": 5,
+      "famiglia": "mephisto-fam-volate-accelerando",
+      "nodo_motorio": "Destra: otto battute di semicrome continue nell'acuto, con cambi di direzione e passaggi del pollice. Sinistra da valzer: basso accentato e due accordi, con un salto per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, RIT su coppie: lungo-corto, poi corto-lungo.",
+          "rep3": "Sinistra sola, CIECO shift–touch–play dal basso all'accordo; poi insieme con la sinistra MUTA."
+        },
+        "2": {
+          "rep2": "ACC: accento sulla 2ª semicroma di ogni coppia, tutto il resto pp.",
+          "rep3": "CHUNK: una battuta più una nota a tempo pieno; poi due battute più una nota. L'accelerando solo in Rep 4."
+        }
+      },
+      "rep4_verifica": "Semicrome uguali ai cambi di direzione. Il basso della sinistra non accenta la destra. Accelerando graduale su otto battute.",
+      "note": "Peters p. 76 sistema 4 batt. 4 – p. 77 sistema 1 batt. 1.\nGemello di 165-172. Anche qui è stampato un ossia: ho analizzato il testo principale."
+    },
+    {
+      "id": "mephisto-269-273",
+      "brano": "mephisto",
+      "battute": "269-273",
+      "titolo": "Più crescendo: figure spezzate su accordi ribattuti (ripresa breve)",
+      "priorita": 5,
+      "famiglia": "mephisto-fam-figure-spezzate",
+      "nodo_motorio": "Destra: semicrome a zigzag tra nota bassa e nota alta (intervalli larghi spezzati), una posizione per battuta. Sinistra: accordo ribattuto tre volte per battuta, in crescendo.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla destra: due battute di sola rotazione dell'avambraccio con dita ferme, due di sole dita, poi la miscela minima.",
+          "rep3": "BLOC: le note di ogni battuta come accordo (o due bicordi), cambio di posizione senza guardare. Sinistra PESO: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "DIN: destra mp, sinistra pp di rimbalzo. ACC sulle note alte, poi sulle basse.",
+          "rep3": "CHUNK: una battuta più una nota, a tempo pieno."
+        }
+      },
+      "rep4_verifica": "Note alte e basse entrambe udibili. Cambio di posizione senza accento. La sinistra cresce senza premere.",
+      "note": "Peters p. 77, sistema 1 batt. 2 – sistema 1 batt. 6.\nGemello di 173-181, quattro battute più l'accordo di b. 273."
+    },
+    {
+      "id": "mephisto-274-281",
+      "brano": "mephisto",
+      "battute": "274-281",
+      "titolo": "Accordi a duine con salti in moto contrario, poi ottave staccate",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-duine-saltate",
+      "nodo_motorio": "274-276: due accordi per battuta in duina. La destra salta dall'accordo acuto a uno più basso, la sinistra dall'ottava grave all'accordo: moto contrario, posizioni nuove a ogni battuta. 277: acciaccature e sf. 278-280: ottave staccate della destra che salgono a salti sopra accordi ribattuti.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play, una mano per volta e poi unite: suona il primo accordo, sposta, tocca muto il secondo, controlla, suona. Sei accordi in tutto.",
+          "rep3": "BLOC muto: tocca i sei accordi in silenzio a duine, a tempo ridotto, poi suonali. 278-280: ottave con PESO, pollice solo e poi ottava intera."
+        },
+        "2": {
+          "rep2": "MENT: tre battute mentali a tempo con le distanze immaginate, poi reali.",
+          "rep3": "RIT: fermata sul primo accordo della duina, il secondo e il salto alla battuta seguente di scatto; poi fermata sul secondo."
+        }
+      },
+      "rep4_verifica": "Sei accordi completi e presi dal tasto. Duine uguali, né terzinate né puntate. Ottave 278-280 staccate senza spinta di spalla. Accordo di 281 a tempo.",
+      "note": "Peters p. 77, sistema 2 batt. 1 – sistema 2 batt. 8."
+    },
+    {
+      "id": "mephisto-282-296",
+      "brano": "mephisto",
+      "battute": "282-296",
+      "titolo": "Duine, salita in ottave staccate, duine fff",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-duine-saltate",
+      "nodo_motorio": "282-284: duine con salti come a 274. 285: acciaccature e sf. 286-291: ottave staccate della destra che salgono a salti in crescendo (4 sui tasti neri) sopra accordi ribattuti. 292-294: duine fff nell'acuto. 295 pausa, 296 accordo fff.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play sulle duine (282-284 e 292-294), una mano per volta e poi unite.",
+          "rep3": "286-291: ottave con PESO a mp, un impulso per battuta; pollice solo, poi ottava intera. Sinistra di rimbalzo."
+        },
+        "2": {
+          "rep2": "MENT sulle due serie di duine, poi reali.",
+          "rep3": "CHUNK: una battuta di ottave più la prima della seguente a tempo pieno, stop con la mano già sulla posizione nuova. Duine: RIT con fermata sul primo accordo."
+        }
+      },
+      "rep4_verifica": "Accordi delle duine completi, anche a fff. Salita in ottave senza note sporche e senza spalla. Pausa di 295 esatta, accordo di 296 dal tasto.",
+      "note": "Peters p. 77, sistema 3 batt. 1 – sistema 4 batt. 8.\nLa b. 295 è vuota (cifra 1)."
+    },
+    {
+      "id": "mephisto-297-312",
+      "brano": "mephisto",
+      "battute": "297-312",
+      "titolo": "Tema ff a piene mani: melodia con accordi, sinistra ribattuta",
+      "priorita": 2,
+      "famiglia": null,
+      "nodo_motorio": "Destra a due strati: tema nella voce superiore e crome ribattute nelle dita basse. Sinistra: accordi pieni ribattuti tre volte per battuta, con salto al basso grave ogni otto battute.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, DIN dentro la mano: voce superiore suonata e note interne mute; poi il contrario.",
+          "rep3": "Sinistra sola a mp, PESO: un impulso per battuta e due rimbalzi. CIECO sul salto dal basso grave all'accordo."
+        },
+        "2": {
+          "rep2": "Insieme a mp, sinistra MUTA per quattro battute e suonata per quattro.",
+          "rep3": "RIT sulle due semicrome del tema (299-300, 307-308): fermata sulla croma prima, semicrome di scatto."
+        }
+      },
+      "rep4_verifica": "Tema sopra tutto. Ribattuti interni uguali. Sinistra libera a b. 312. Salto al basso senza ritardo.",
+      "note": "Peters p. 77 sistema 5 batt. 1 – p. 78 sistema 1 batt. 7."
+    },
+    {
+      "id": "mephisto-313-328",
+      "brano": "mephisto",
+      "battute": "313-328",
+      "titolo": "Diminuendo: frammenti del tema su accordi ribattuti",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-diminuendo",
+      "nodo_motorio": "Note lunghe e legature della destra sopra accordi ribattuti in diminuendo; la sinistra salta ogni poche battute dal basso agli accordi.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ribattuti pp da metà corsa del tasto, senza staccare le dita. CIECO sul salto dal basso.",
+          "rep3": "DIN: destra mf cantata, sinistra ppp."
+        },
+        "2": {
+          "rep2": "PESO sulle note lunghe della destra: caduta e rilascio, polso mobile durante la nota.",
+          "rep3": "CLIC: un solo clic per battuta, e CIECO."
+        }
+      },
+      "rep4_verifica": "Ribattuti uguali e sempre più piano, senza note mute. Nessun accento sul basso.",
+      "note": "Peters p. 78, sistema 1 batt. 8 – sistema 3 batt. 5."
+    },
+    {
+      "id": "mephisto-329-340",
+      "brano": "mephisto",
+      "battute": "329-340",
+      "titolo": "Più diminuendo: mi–re# alternato e note sole",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-diminuendo",
+      "nodo_motorio": "La destra alterna due note legate; la sinistra risponde con un accordo isolato, poi tace. 334-340: destra sola, una nota lunga per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a pp: ogni nota lunga dal tasto, con rilascio immediato della pressione.",
+          "rep3": "Sinistra sola: accordi isolati con CIECO shift–touch–play."
+        },
+        "2": {
+          "rep2": "MENT su 334-340 (durate e diminuendo), poi reale.",
+          "rep3": "CLIC: un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "Ogni nota parla, anche la più piano. Le battute di pausa hanno la loro durata. Nessun rallentando non scritto.",
+      "note": "Peters p. 78, sistema 3 batt. 6 – sistema 4 batt. 7."
+    },
+    {
+      "id": "mephisto-341-356",
+      "brano": "mephisto",
+      "battute": "341-356",
+      "titolo": "Un poco meno mosso, espressivo amoroso: melodia sincopata, basso e accordi",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-cantabile-amoroso",
+      "nodo_motorio": "Melodia sincopata a cavallo di battuta: i punti indicano di sollevare la mano, non di ribattere (nota Peters a p. 78). Sinistra: basso tenuto dal pedale e due accordi nel registro centrale, con un salto ogni una o due battute. Una corda.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, CIECO shift–touch–play dal basso all'accordo; accordi pp da metà corsa del tasto.",
+          "rep3": "DIN: destra mf legata, sinistra ppp. Lo stacco dopo ogni nota col punto è un sollevamento del polso: il dito lascia il tasto per ultimo."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma sulle posizioni; poi il contrario.",
+          "rep3": "CLIC: un solo clic per battuta; le sincopi non anticipano."
+        }
+      },
+      "rep4_verifica": "Nessuna nota ribattuta dove c'è solo il punto. Basso mai accentato. Accordi insieme a pp. Frase lunga quattro battute.",
+      "note": "Peters p. 78, sistema 4 batt. 8 – sistema 6 batt. 3."
+    },
+    {
+      "id": "mephisto-357-372",
+      "brano": "mephisto",
+      "battute": "357-372",
+      "titolo": "Espressivo amoroso: seconda frase",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-cantabile-amoroso",
+      "nodo_motorio": "Melodia sincopata a cavallo di battuta: i punti indicano di sollevare la mano, non di ribattere (nota Peters a p. 78). Sinistra: basso tenuto dal pedale e due accordi nel registro centrale, con un salto ogni una o due battute. Una corda.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, CIECO shift–touch–play dal basso all'accordo; accordi pp da metà corsa del tasto.",
+          "rep3": "DIN: destra mf legata, sinistra ppp. Lo stacco dopo ogni nota col punto è un sollevamento del polso: il dito lascia il tasto per ultimo."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma sulle posizioni; poi il contrario.",
+          "rep3": "CLIC: un solo clic per battuta; le sincopi non anticipano."
+        }
+      },
+      "rep4_verifica": "Nessuna nota ribattuta dove c'è solo il punto. Basso mai accentato. Accordi insieme a pp. Frase lunga quattro battute.",
+      "note": "Peters p. 78, sistema 6 batt. 4 – sistema 7 batt. 10."
+    },
+    {
+      "id": "mephisto-373-388",
+      "brano": "mephisto",
+      "battute": "373-388",
+      "titolo": "Dolce: melodia in ottave e accordi arpeggiati",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-cantabile-amoroso",
+      "nodo_motorio": "Come 341-356, con la destra che da b. 377 canta in ottave e accordi arpeggiati (379, 387). Sinistra: basso tenuto dal pedale e due accordi, con un salto ogni una o due battute.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, CIECO shift–touch–play dal basso all'accordo; accordi pp da metà corsa del tasto.",
+          "rep3": "DIN dentro la mano nelle ottave: voce superiore mf e pollice pp; sinistra ppp."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma sulle posizioni; poi il contrario.",
+          "rep3": "CLIC: un solo clic per battuta; le sincopi non anticipano."
+        }
+      },
+      "rep4_verifica": "Voce superiore delle ottave in evidenza, pollice leggero. Accordi arpeggiati che finiscono sul tempo. Basso mai accentato.",
+      "note": "Peters p. 79, sistema 1 batt. 1 – sistema 2 batt. 7."
+    },
+    {
+      "id": "mephisto-389-400",
+      "brano": "mephisto",
+      "battute": "389-400",
+      "titolo": "Dolce appassionato: ottave in levare e ossia in ottave",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-ottave-cantabili",
+      "nodo_motorio": "393-396: ottave della destra sulla 2ª e 3ª croma, legate a due, che scendono per gradi (4 e 5 nella voce superiore). 397-400: con l'ossia che suoni, melodia in ottave legate al posto della fioritura. Il compito è legare ottave a p senza fissare la mano. Sinistra: basso e accordi.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, DIN dentro la mano: voce superiore legata con 4-5 e pollice muto; poi pollice solo, leggero.",
+          "rep3": "PESO a pp: ogni coppia di ottave è una caduta e una risalita del polso; tra una coppia e l'altra la mano si richiude."
+        },
+        "2": {
+          "rep2": "Sinistra sola, CIECO dal basso agli accordi; poi insieme con la sinistra MUTA.",
+          "rep3": "DIN: voce superiore della destra mf, pollice della destra e sinistra pp."
+        }
+      },
+      "rep4_verifica": "Voce superiore legata davvero, senza pedale. Pollici leggeri. Il polso respira a ogni coppia. Ossia cantato, con l'accento solo dove è scritto.",
+      "note": "Peters p. 79, sistema 2 batt. 8 – sistema 3 batt. 9.\n397-400: analizzato l'ossia (ottave), come mi hai indicato, al posto della fioritura del testo principale. 389-392 sono il collegamento dalla frase precedente."
+    },
+    {
+      "id": "mephisto-401-416",
+      "brano": "mephisto",
+      "battute": "401-416",
+      "titolo": "Dolce appassionato: ottave in levare, melodia in ottave, ossia",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-ottave-cantabili",
+      "nodo_motorio": "401-404: ottave in levare legate a due, come a 393. 405-408 e 413-416: ossia in ottave. 409-412: melodia in ottave legate. Il compito è legare ottave a p senza fissare la mano. Sinistra: basso e accordi.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, DIN dentro la mano: voce superiore legata con 4-5 e pollice muto; poi pollice solo, leggero.",
+          "rep3": "PESO a pp: ogni coppia di ottave è una caduta e una risalita del polso; tra una coppia e l'altra la mano si richiude."
+        },
+        "2": {
+          "rep2": "Sinistra sola, CIECO dal basso agli accordi; poi insieme con la sinistra MUTA.",
+          "rep3": "DIN: voce superiore della destra mf, pollice della destra e sinistra pp."
+        }
+      },
+      "rep4_verifica": "Voce superiore legata davvero, senza pedale. Pollici leggeri. Il polso respira a ogni coppia. Ossia cantato, con l'accento solo dove è scritto.",
+      "note": "Peters p. 79, sistema 4 batt. 1 – sistema 5 batt. 8.\n405-408 e 413-416: analizzato l'ossia (ottave) al posto delle fioriture."
+    },
+    {
+      "id": "mephisto-417-432",
+      "brano": "mephisto",
+      "battute": "417-432",
+      "titolo": "Ottave cantabili, più appassionato, ossia",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-ottave-cantabili",
+      "nodo_motorio": "417-420 e 425-428: melodia in ottave legate. 421-424 e 429-432 (più appassionato): ossia in ottave. Il compito è legare ottave senza fissare la mano, anche quando la dinamica cresce. Sinistra: basso e accordi.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, DIN dentro la mano: voce superiore legata con 4-5 e pollice muto; poi pollice solo, leggero.",
+          "rep3": "PESO a pp: ogni coppia di ottave è una caduta e una risalita del polso; tra una coppia e l'altra la mano si richiude."
+        },
+        "2": {
+          "rep2": "Sinistra sola, CIECO dal basso agli accordi; poi insieme con la sinistra MUTA.",
+          "rep3": "DIN: voce superiore della destra mf, pollice della destra e sinistra pp."
+        }
+      },
+      "rep4_verifica": "Voce superiore legata davvero, senza pedale. Pollici leggeri. Il polso respira a ogni coppia. Ossia cantato, con l'accento solo dove è scritto.",
+      "note": "Peters p. 80, sistema 1 batt. 1 – sistema 2 batt. 8.\n421-424 e 429-432: analizzato l'ossia (ottave) al posto delle fioriture."
+    },
+    {
+      "id": "mephisto-433-442",
+      "brano": "mephisto",
+      "battute": "433-442",
+      "titolo": "Ottave discendenti a coppie, poco a poco diminuendo",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-ottave-cantabili",
+      "nodo_motorio": "Coppie di ottave legate (semiminima e croma) che scendono per gradi, in diminuendo; nelle ultime due battute un'ottava sola sulla 3ª croma. Sinistra: basso e accordi sempre più radi.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, DIN dentro la mano: voce superiore legata con 4-5 e pollice muto; poi pollice solo, leggero.",
+          "rep3": "PESO a pp: ogni coppia di ottave è una caduta e una risalita del polso; tra una coppia e l'altra la mano si richiude."
+        },
+        "2": {
+          "rep2": "Sinistra sola, CIECO dal basso agli accordi; poi insieme con la sinistra MUTA.",
+          "rep3": "DIN: voce superiore della destra mf, pollice della destra e sinistra pp."
+        }
+      },
+      "rep4_verifica": "Ogni coppia è caduta e risalita, con la seconda ottava più leggera. Voce superiore legata. Diminuendo senza note mute.",
+      "note": "Peters p. 80, sistema 3 batt. 1 – sistema 3 batt. 10.\nSopra 433-437 è stampato un ossia: non distinguo con sicurezza in che cosa differisce dal testo (sembra la stessa linea senza l'ottava alta)."
+    },
+    {
+      "id": "mephisto-443-456",
+      "brano": "mephisto",
+      "battute": "443-456",
+      "titolo": "Perdendosi: note lunghe e quattro battute di pausa",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Ottave e note singole lunghe a pp che si spengono; poi quattro battute di pausa prima del Presto.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a ppp dal tasto: le due note dell'ottava parlano insieme.",
+          "rep3": "DIN dentro la mano: mignolo suonato e pollice muto, poi il contrario."
+        },
+        "2": {
+          "rep2": "CIECO, tutto il frammento.",
+          "rep3": "MENT: le quattro battute di pausa contate e l'attacco del Presto immaginato; poi reale, con le prime due battute di 457."
+        }
+      },
+      "rep4_verifica": "Nessuna ottava spaccata. Le quattro battute di pausa hanno la loro durata. Attacco del Presto senza scatto preparatorio.",
+      "note": "Peters p. 80, sistema 4 batt. 1 – sistema 4 batt. 11.\nLe battute 453-456 sono stampate come una sola battuta con la cifra 4."
+    },
+    {
+      "id": "mephisto-457-472",
+      "brano": "mephisto",
+      "battute": "457-472",
+      "titolo": "Presto ppp: terze con nota oscillante e bicordi staccati",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-presto-pp",
+      "nodo_motorio": "Unità di quattro battute: una di semicrome (destra: terza ribattuta più nota superiore alternata, con 3/1 e 4; sinistra: due note alternate) e tre di bicordi staccati della destra su crome staccate della sinistra. Tutto ppp, mani vicine nell'acuto.",
+      "andate": {
+        "1": {
+          "rep2": "ROT nelle battute di semicrome: sola rotazione, poi sole dita, poi miscela minima; una mano per volta.",
+          "rep3": "STAC pp sui bicordi: dal tasto, le due note insieme, con la diteggiatura stampata."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano nei bicordi: voce superiore suonata e inferiore muta; poi il contrario.",
+          "rep3": "CLIC sul levare (2ª croma); poi un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "Sei semicrome uguali nelle battute di oscillazione, mani insieme. Bicordi a due suoni simultanei. Nessun accento all'inizio di ogni unità.",
+      "note": "Peters p. 80 sistema 5 batt. 1 – p. 81 sistema 2 batt. 1."
+    },
+    {
+      "id": "mephisto-473-483",
+      "brano": "mephisto",
+      "battute": "473-483",
+      "titolo": "Presto ppp: figure che cambiano registro, pause",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-presto-pp",
+      "nodo_motorio": "473-476 come prima. 477 pausa. 478-481: la figura di semicrome passa da un'ottava all'altra a ogni battuta, con salto di tutte e due le mani. 482-483 pausa.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play sui cambi di registro di 478-481.",
+          "rep3": "ROT sulle semicrome, una mano per volta."
+        },
+        "2": {
+          "rep2": "MENT 477-483 con le pause contate, poi reale.",
+          "rep3": "CHUNK: una battuta più la prima nota della seguente a tempo pieno, stop sulla posizione nuova."
+        }
+      },
+      "rep4_verifica": "Cambio d'ottava senza accento né ritardo. Pause esatte. ppp fino alla fine.",
+      "note": "Peters p. 81, sistema 2 batt. 2 – sistema 3 batt. 3.\nLa b. 477 è vuota (cifra 1); 482-483 sono stampate come una battuta con la cifra 2."
+    },
+    {
+      "id": "mephisto-484-492",
+      "brano": "mephisto",
+      "battute": "484-492",
+      "titolo": "Poco Allegretto e rubato: ottave in levare, arpeggi, trillo e volata",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-allegretto-rubato",
+      "nodo_motorio": "Ogni battuta: pausa e ottava staccata della destra, con salto da un'ottava all'altra. Sinistra: arpeggio largo di quattro semicrome, in su e in giù a battute alterne. 490: trillo. 491-492: volata leggiero fino all'acuto.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, CIECO shift–touch–play sulle ottave.",
+          "rep3": "Sinistra sola: BLOC (le quattro note come accordo o due bicordi, secondo l'apertura), poi legato con ROT ai cambi di direzione."
+        },
+        "2": {
+          "rep2": "TRILL a 4 e poi a 6 note sul trillo di b. 490. Volata 491-492: RIT su coppie.",
+          "rep3": "Insieme, sinistra MUTA; poi DIN: destra mp, sinistra pp."
+        }
+      },
+      "rep4_verifica": "Ottave prese dal tasto e leggere. Arpeggio della sinistra senza accento sul pollice. Trillo con numero di note fisso. Volata uguale fino all'ultima nota.",
+      "note": "Peters p. 81, sistema 3 batt. 4 – sistema 4 batt. 5.\nLe battute con l'ottava in levare contengono due crome contro quattro semicrome: le leggo come duine e quartine sottintese (nessuna cifra stampata)."
+    },
+    {
+      "id": "mephisto-493-508",
+      "brano": "mephisto",
+      "battute": "493-508",
+      "titolo": "Poco Allegretto: seconda e terza frase",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-allegretto-rubato",
+      "nodo_motorio": "Due frasi come 484-492: pausa e ottava staccata della destra con salto da un'ottava all'altra, arpeggio largo della sinistra; trilli a 498 e 506, volate leggiero a 499-500 e 507-508.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, CIECO shift–touch–play sulle ottave.",
+          "rep3": "Sinistra sola: BLOC (le quattro note come accordo o due bicordi, secondo l'apertura), poi legato con ROT ai cambi di direzione."
+        },
+        "2": {
+          "rep2": "TRILL a 4 e poi a 6 note sui trilli di 498 e 506. Volate 499-500 e 507-508: RIT su coppie.",
+          "rep3": "Insieme, sinistra MUTA; poi DIN: destra mp, sinistra pp."
+        }
+      },
+      "rep4_verifica": "Ottave prese dal tasto e leggere. Arpeggio della sinistra senza accento sul pollice. Trillo con numero di note fisso. Volata uguale fino all'ultima nota.",
+      "note": "Peters p. 81, sistema 4 batt. 6 – sistema 6 batt. 7."
+    },
+    {
+      "id": "mephisto-509-524",
+      "brano": "mephisto",
+      "battute": "509-524",
+      "titolo": "Poco Allegretto: quarta frase e ottave un poco crescendo",
+      "priorita": 7,
+      "famiglia": "mephisto-fam-allegretto-rubato",
+      "nodo_motorio": "509-516: frase come 484-492, con trillo a 514 e volata a 515-516 fino all'acuto. 517-524: otto battute di sole ottave in levare, un poco crescendo, sopra gli arpeggi della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, CIECO shift–touch–play sulle ottave.",
+          "rep3": "Sinistra sola: BLOC (le quattro note come accordo o due bicordi, secondo l'apertura), poi legato con ROT ai cambi di direzione."
+        },
+        "2": {
+          "rep2": "TRILL a 4 e poi a 6 note sul trillo di 514. Volata 515-516: RIT su coppie.",
+          "rep3": "Insieme, sinistra MUTA; poi DIN: destra mp, sinistra pp."
+        }
+      },
+      "rep4_verifica": "Ottave prese dal tasto e leggere anche nel crescendo. Arpeggio della sinistra senza accento sul pollice. Trillo con numero di note fisso. Volata uguale fino all'ultima nota.",
+      "note": "Peters p. 82, sistema 1 batt. 1 – sistema 3 batt. 1."
+    },
+    {
+      "id": "mephisto-525",
+      "brano": "mephisto",
+      "battute": "525",
+      "titolo": "Cadenza: salita a due mani con note doppie nella destra",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Battuta unica senza misura. Le due mani salgono insieme per circa tre ottave: la destra con note doppie diteggiate 5/3 e 5/2 alternate al pollice, la sinistra in note singole con 4-3-2-1. In cima una figura ripetuta porta al Presto.",
+      "andate": {
+        "1": {
+          "rep2": "NODO: fermati sui passaggi del pollice (che nelle due mani non coincidono), verifica che i tasti scendano insieme, poi suona da nodo a nodo.",
+          "rep3": "Destra sola, DIN dentro la mano: voce superiore suonata e pollice muto; poi il contrario."
+        },
+        "2": {
+          "rep2": "RIT a gruppi di 4: fermata sulla 1ª nota, poi sulla 3ª.",
+          "rep3": "CHUNK a ritroso: ultima posizione più l'attacco del Presto (526), poi le ultime due, le ultime tre."
+        }
+      },
+      "rep4_verifica": "Mani insieme su ogni nodo. Note doppie a due suoni. Accelerazione senza irrigidire il pollice. Aggancio al Presto senza buco.",
+      "note": "Peters p. 82, sistema 3 batt. 2.\nNon ho potuto verificare le note di questa battuta: la descrizione viene dalle diteggiature e dal profilo."
+    },
+    {
+      "id": "mephisto-526-541",
+      "brano": "mephisto",
+      "battute": "526-541",
+      "titolo": "Presto pp: terze con nota oscillante e bicordi staccati (ripresa)",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-presto-pp",
+      "nodo_motorio": "Unità di quattro battute: una di semicrome (destra: terza ribattuta più nota superiore alternata, con 3/1 e 4; sinistra: due note alternate) e tre di bicordi staccati della destra su crome staccate della sinistra. Tutto ppp, mani vicine nell'acuto.",
+      "andate": {
+        "1": {
+          "rep2": "ROT nelle battute di semicrome: sola rotazione, poi sole dita, poi miscela minima; una mano per volta.",
+          "rep3": "STAC pp sui bicordi: dal tasto, le due note insieme, con la diteggiatura stampata."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano nei bicordi: voce superiore suonata e inferiore muta; poi il contrario.",
+          "rep3": "CLIC sul levare (2ª croma); poi un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "Sei semicrome uguali nelle battute di oscillazione, mani insieme. Bicordi a due suoni simultanei. Nessun accento all'inizio di ogni unità.",
+      "note": "Peters p. 82, sistema 4 batt. 1 – sistema 5 batt. 8.\nGemello di 457-472 in un'altra tonalità."
+    },
+    {
+      "id": "mephisto-542-557",
+      "brano": "mephisto",
+      "battute": "542-557",
+      "titolo": "Presto ppp: cambi di registro, pause e accordi poco ritenuto",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-presto-pp",
+      "nodo_motorio": "542-545 come prima. 546 pausa. 547-550: la figura di semicrome cambia ottava a ogni battuta. 551-552 pausa. 553-557: note lunghe e accordi arpeggiati, poco ritenuto.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play sui cambi di registro di 547-550.",
+          "rep3": "ROT sulle semicrome, una mano per volta."
+        },
+        "2": {
+          "rep2": "MENT 546-552 con le pause contate, poi reale.",
+          "rep3": "PESO a p sugli accordi arpeggiati di 553-557: tutte le note parlano, rilascio immediato."
+        }
+      },
+      "rep4_verifica": "Cambio d'ottava senza accento né ritardo. Pause esatte. Accordi arpeggiati morbidi, con la nota superiore chiara.",
+      "note": "Peters p. 82 sistema 6 batt. 1 – p. 83 sistema 1 batt. 7.\nGemello di 473-483, più il collegamento 553-557. La b. 546 è vuota (cifra 1); 551-552 sono stampate come una battuta con la cifra 2."
+    },
+    {
+      "id": "mephisto-558-573",
+      "brano": "mephisto",
+      "battute": "558-573",
+      "titolo": "Come prima, su tre righi: ribattute con salto nella destra, melodia nella sinistra",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-melodia-sinistra",
+      "nodo_motorio": "Destra (rigo piccolo): tre note ribattute con cambio di dito 3-2-1 e salto verso la nota alta, a ogni battuta su un'altezza diversa. Sinistra da sola su due righi: basso, nota di melodia col punto (stacco della mano) e bicordo d'accompagnamento, cioè due o tre spostamenti per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, CIECO shift–touch–play su ogni spostamento; melodia mf, bicordi e basso pp.",
+          "rep3": "Destra sola: STAC pp sulle ribattute con 3-2-1, dal tasto; poi BLOC (nota ribattuta e nota alta come bicordo, uno per battuta, senza guardare)."
+        },
+        "2": {
+          "rep2": "Insieme, destra MUTA (segue le posizioni senza abbassare i tasti) e sinistra come scritta; poi il contrario.",
+          "rep3": "DIN: melodia della sinistra mf, tutto il resto ppp. CLIC: un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "La melodia della sinistra canta sopra le ribattute. Nessun buco dopo gli spostamenti della sinistra. Ribattute della destra uguali, nota alta non accentata.",
+      "note": "Peters p. 83, sistema 1 batt. 8 – sistema 3 batt. 3."
+    },
+    {
+      "id": "mephisto-574-589",
+      "brano": "mephisto",
+      "battute": "574-589",
+      "titolo": "Tre righi: seconda parte della melodia nella sinistra",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-melodia-sinistra",
+      "nodo_motorio": "Destra (rigo piccolo): tre note ribattute con cambio di dito 3-2-1 e salto verso la nota alta, a ogni battuta su un'altezza diversa. Sinistra da sola su due righi: basso, nota di melodia col punto (stacco della mano) e bicordo d'accompagnamento, cioè due o tre spostamenti per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, CIECO shift–touch–play su ogni spostamento; melodia mf, bicordi e basso pp.",
+          "rep3": "Destra sola: STAC pp sulle ribattute con 3-2-1, dal tasto; poi BLOC (nota ribattuta e nota alta come bicordo, uno per battuta, senza guardare)."
+        },
+        "2": {
+          "rep2": "Insieme, destra MUTA (segue le posizioni senza abbassare i tasti) e sinistra come scritta; poi il contrario.",
+          "rep3": "DIN: melodia della sinistra mf, tutto il resto ppp. CLIC: un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "La melodia della sinistra canta sopra le ribattute. Nessun buco dopo gli spostamenti della sinistra. Ribattute della destra uguali, nota alta non accentata.",
+      "note": "Peters p. 83, sistema 3 batt. 4 – sistema 4 batt. 9."
+    },
+    {
+      "id": "mephisto-590-605",
+      "brano": "mephisto",
+      "battute": "590-605",
+      "titolo": "Tre righi: molto espressivo, con due volate pp della destra",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-melodia-sinistra",
+      "nodo_motorio": "Come 558-573. In più, a 594-597 e 602-605 la destra lascia le ribattute per una volata pp (terzina e discesa cromatica) mentre la sinistra continua basso, melodia e bicordi.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, CIECO shift–touch–play su ogni spostamento; melodia mf, bicordi e basso pp.",
+          "rep3": "Destra sola: STAC pp sulle ribattute con 3-2-1, dal tasto; poi BLOC (nota ribattuta e nota alta come bicordo, uno per battuta, senza guardare)."
+        },
+        "2": {
+          "rep2": "Insieme, destra MUTA (segue le posizioni senza abbassare i tasti) e sinistra come scritta; poi il contrario.",
+          "rep3": "Volate 594-597 e 602-605: RIT a gruppi di 4 (fermata sulla 1ª nota, poi sulla 3ª), sinistra MUTA. Poi DIN: melodia della sinistra mf, resto ppp."
+        }
+      },
+      "rep4_verifica": "La melodia della sinistra canta sopra le ribattute. Volate pp uguali, senza accento all'attacco e senza spostare la sinistra. Nessun buco dopo gli spostamenti.",
+      "note": "Peters p. 83 sistema 5 batt. 1 – p. 84 sistema 1 batt. 8."
+    },
+    {
+      "id": "mephisto-606-617",
+      "brano": "mephisto",
+      "battute": "606-617",
+      "titolo": "Poco animando: figura «ribattuta più salto» e arpeggio largo della sinistra",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-ribattute-con-salto",
+      "nodo_motorio": "606-609: ancora tre righi. Da 610 la destra ha gruppi di semicrome «nota, ribattuta, salto alla nota alta, ritorno», che cambiano altezza a ogni gruppo. Sinistra: arpeggio largo in crome (610-613), poi crome staccate che salgono dal grave alla chiave di violino (614-617).",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, ROT: il salto alla nota alta è una rotazione dell'avambraccio verso il mignolo, non un'estensione del dito. Due battute di sola rotazione, due di sole dita.",
+          "rep3": "BLOC: nota ribattuta e nota alta come bicordo, uno per gruppo, senza guardare. Sinistra CIECO sulle posizioni."
+        },
+        "2": {
+          "rep2": "RIT a gruppi di 4: fermata sulla 1ª nota, poi sulla 3ª (quella alta).",
+          "rep3": "Insieme, sinistra MUTA; poi ACC sulla 2ª semicroma di ogni gruppo."
+        }
+      },
+      "rep4_verifica": "Le due note ribattute entrambe udibili. Nota alta chiara ma non accentata. Sinistra legata dove è scritto e staccata a 614-617, sempre a tempo.",
+      "note": "Peters p. 84, sistema 2 batt. 1 – sistema 3 batt. 4."
+    },
+    {
+      "id": "mephisto-618-625",
+      "brano": "mephisto",
+      "battute": "618-625",
+      "titolo": "Figura «ribattuta più salto» (ripetizione)",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-ribattute-con-salto",
+      "nodo_motorio": "Come 610-617: gruppi di semicrome «nota, ribattuta, salto alla nota alta, ritorno» nella destra; arpeggio largo in crome e poi crome staccate che salgono nella sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, ROT: il salto alla nota alta è una rotazione dell'avambraccio verso il mignolo, non un'estensione del dito. Due battute di sola rotazione, due di sole dita.",
+          "rep3": "BLOC: nota ribattuta e nota alta come bicordo, uno per gruppo, senza guardare. Sinistra CIECO sulle posizioni."
+        },
+        "2": {
+          "rep2": "RIT a gruppi di 4: fermata sulla 1ª nota, poi sulla 3ª (quella alta).",
+          "rep3": "Insieme, sinistra MUTA; poi ACC sulla 2ª semicroma di ogni gruppo."
+        }
+      },
+      "rep4_verifica": "Le due note ribattute entrambe udibili. Nota alta chiara ma non accentata. Sinistra legata dove è scritto e staccata a 622-625, sempre a tempo.",
+      "note": "Peters p. 84, sistema 3 batt. 5 – sistema 4 batt. 6."
+    },
+    {
+      "id": "mephisto-626-637",
+      "brano": "mephisto",
+      "battute": "626-637",
+      "titolo": "Più appassionato ma non accelerando: figure con salto, sinistra non legato",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-ribattute-con-salto",
+      "nodo_motorio": "Semicrome continue della destra nell'acuto, sempre a gruppi «nota, ribattuta, salto, ritorno». Sinistra: crome non legate in arpeggio largo che attraversa le due chiavi, con la diteggiatura stampata (3-1, 4-2-1, 2-4-1); accordo arpeggiato a 633.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, ROT: il salto alla nota alta è una rotazione dell'avambraccio verso il mignolo, non un'estensione del dito. Due battute di sola rotazione, due di sole dita.",
+          "rep3": "BLOC: nota ribattuta e nota alta come bicordo, uno per gruppo, senza guardare. Sinistra sola CIECO shift–touch–play sulle crome non legate, con la diteggiatura stampata."
+        },
+        "2": {
+          "rep2": "RIT a gruppi di 4: fermata sulla 1ª nota, poi sulla 3ª (quella alta).",
+          "rep3": "Insieme, sinistra MUTA; poi ACC sulla 2ª semicroma di ogni gruppo."
+        }
+      },
+      "rep4_verifica": "Le due note ribattute entrambe udibili. Nota alta chiara ma non accentata. Sinistra non legata e a tempo, senza accento dopo gli spostamenti. Più appassionato senza accelerare.",
+      "note": "Peters p. 84, sistema 5 batt. 1 – sistema 6 batt. 6."
+    },
+    {
+      "id": "mephisto-638-650",
+      "brano": "mephisto",
+      "battute": "638-650",
+      "titolo": "Figure con salto, diminuendo e perdendo fino alla corona",
+      "priorita": 3,
+      "famiglia": "mephisto-fam-ribattute-con-salto",
+      "nodo_motorio": "Come 626-637 per sei battute (accordo arpeggiato a 640). Da 644 la destra resta sola: la figura scende, diminuendo, perdendo, pp ritenuto, fino alla corona.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, ROT: il salto alla nota alta è una rotazione dell'avambraccio verso il mignolo, non un'estensione del dito. Due battute di sola rotazione, due di sole dita.",
+          "rep3": "BLOC: nota ribattuta e nota alta come bicordo, uno per gruppo, senza guardare. Sinistra sola CIECO shift–touch–play sulle crome non legate."
+        },
+        "2": {
+          "rep2": "RIT a gruppi di 4: fermata sulla 1ª nota, poi sulla 3ª (quella alta).",
+          "rep3": "Insieme, sinistra MUTA; poi 644-650 MENT (diminuendo e ritenuto immaginati) e subito reale."
+        }
+      },
+      "rep4_verifica": "Le due note ribattute udibili fino al pp. Il perdendo non perde note. Ritenuto graduale, corona sul silenzio.",
+      "note": "Peters p. 85, sistema 1 batt. 1 – sistema 2 batt. 7."
+    },
+    {
+      "id": "mephisto-651-666",
+      "brano": "mephisto",
+      "battute": "651-666",
+      "titolo": "Più mosso: tremolo grave della sinistra pp sotto il tema",
+      "priorita": 4,
+      "famiglia": null,
+      "nodo_motorio": "Sedici battute di tremolo misurato della sinistra nel grave (4-1, sei semicrome per battuta) a pp, sotto il tema della destra in registro di tenore. Il rischio è irrigidire l'avambraccio sinistro per tenere il pp.",
+      "andate": {
+        "1": {
+          "rep2": "ROT: due battute di sola rotazione dell'avambraccio con dita ferme, due di sole dita, alternate; poi la miscela minima. Sinistra sola.",
+          "rep3": "ACC ogni 4 note, poi ogni 3; destra MUTA."
+        },
+        "2": {
+          "rep2": "CLIC sul levare; sinistra sola e poi insieme.",
+          "rep3": "DIN: destra mp con le sue articolazioni, sinistra ppp. RIT sulle due semicrome del tema."
+        }
+      },
+      "rep4_verifica": "Sei semicrome per battuta, senza buchi ai cambi di battuta. Il pp viene dall'ampiezza piccola della rotazione, non dalla pressione trattenuta. Tema chiaro sopra.",
+      "note": "Peters p. 85, sistema 3 batt. 1 – sistema 5 batt. 2."
+    },
+    {
+      "id": "mephisto-667-682",
+      "brano": "mephisto",
+      "battute": "667-682",
+      "titolo": "Volate pp della destra su crome staccate; scala fino al grave",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "667-675: figure d'arpeggio spezzato in semicrome, una posizione per battuta, sopra una croma staccata della sinistra sul battere. 676: scala ascendente. 677-681: discesa di cinque battute fino al grave. 682: collegamento al 2/4.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC sulle figure 668-675: ogni battuta come accordo, senza guardare; poi STAC pp.",
+          "rep3": "RIT su coppie nella scala 676-681: lungo-corto, poi corto-lungo."
+        },
+        "2": {
+          "rep2": "ACC sulla 2ª semicroma di ogni coppia; sinistra MUTA.",
+          "rep3": "CHUNK a ritroso sulla discesa: ultima battuta più l'arrivo di 682, ultime due, ultime tre."
+        }
+      },
+      "rep4_verifica": "pp uniforme. Passaggi del pollice inudibili nella discesa. Nessun buco dove la figura cambia rigo. Arrivo a 682 a tempo.",
+      "note": "Peters p. 85 sistema 5 batt. 3 – p. 86 sistema 1 batt. 4.\nNon ho potuto verificare se le ultime battute della discesa (680-681, in chiave di basso) passano alla sinistra."
+    },
+    {
+      "id": "mephisto-683-690",
+      "brano": "mephisto",
+      "battute": "683-690",
+      "titolo": "2/4: melodia in ottave «ben marcato e pesante», sestine che cambiano registro",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-pesante-2-4",
+      "nodo_motorio": "Sinistra: melodia in ottave nel grave, con salti e ritmo puntato. Destra: a ogni quarto una sestina (pausa più cinque semicrome, con bicordo al vertice) in un registro diverso, grave–acuto–grave. Nelle battute 3-4 di ogni frase: arpeggio con terze che sale per tre ottave e ridiscende, con sfz al vertice.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, BLOC: ogni sestina come un accordo, uno per quarto, a tempo dimezzato; la seconda volta CIECO.",
+          "rep3": "Sinistra sola, PESO: ogni ottava dal tasto con rilascio immediato. CIECO shift–touch–play sui salti."
+        },
+        "2": {
+          "rep2": "CHUNK: una sestina più la prima nota della seguente a tempo pieno, stop con la mano già sulla posizione nuova.",
+          "rep3": "Insieme, DIN: sinistra f, destra pp. Arpeggio 685-686 e 689-690: RIT con fermata sulla 1ª nota di ogni posizione."
+        }
+      },
+      "rep4_verifica": "Melodia della sinistra sempre in primo piano. Nessuna sestina iniziata in ritardo dopo il cambio di registro. Vertice dell'arpeggio senza allargare il tempo. Ottave gravi senza spinta di spalla.",
+      "note": "Peters p. 86, sistema 1 batt. 5 – sistema 3 batt. 3.\nLa b. 683 è l'ultima battuta del sistema 1 di p. 86, dopo il cambio di tempo in 2/4."
+    },
+    {
+      "id": "mephisto-691-698",
+      "brano": "mephisto",
+      "battute": "691-698",
+      "titolo": "2/4 pesante: poco a poco crescendo, più crescendo",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-pesante-2-4",
+      "nodo_motorio": "Sinistra: melodia in ottave nel grave, con salti e ritmo puntato. Destra: a ogni quarto una sestina (pausa più cinque semicrome, con bicordo al vertice) in un registro diverso, grave–acuto–grave. Nelle battute 3-4 di ogni frase: arpeggio con terze che sale per tre ottave e ridiscende, con sfz al vertice.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, BLOC: ogni sestina come un accordo, uno per quarto, a tempo dimezzato; la seconda volta CIECO.",
+          "rep3": "Sinistra sola, PESO: ogni ottava dal tasto con rilascio immediato. CIECO shift–touch–play sui salti."
+        },
+        "2": {
+          "rep2": "CHUNK: una sestina più la prima nota della seguente a tempo pieno, stop con la mano già sulla posizione nuova.",
+          "rep3": "Insieme, DIN: sinistra f, destra pp. Arpeggio 693-694 e 697-698: RIT con fermata sulla 1ª nota di ogni posizione. Il crescendo solo in Rep 4."
+        }
+      },
+      "rep4_verifica": "Melodia della sinistra sempre in primo piano. Nessuna sestina iniziata in ritardo dopo il cambio di registro. Vertice dell'arpeggio senza allargare il tempo. Ottave gravi senza spinta di spalla.",
+      "note": "Peters p. 86, sistema 3 batt. 4 – sistema 5 batt. 3.\nGemello di 683-690 su altre armonie."
+    },
+    {
+      "id": "mephisto-699-714",
+      "brano": "mephisto",
+      "battute": "699-714",
+      "titolo": "Con fuoco: ottave staccate della destra a salti, basso e accordi",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-con-fuoco",
+      "nodo_motorio": "Destra: ottave staccate che salgono a salti e ricadono in coppie legate, nell'acuto. Sinistra: basso sf nel grave e subito salto agli accordi ribattuti in chiave di violino, tre per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, DIN dentro la mano: solo pollice, poi solo mignolo (4 sui tasti neri); poi ottave a mp con PESO, un impulso per battuta.",
+          "rep3": "Sinistra sola, CIECO shift–touch–play dal basso all'accordo; accordi ribattuti di rimbalzo."
+        },
+        "2": {
+          "rep2": "Insieme a mp, sinistra MUTA per due battute e suonata per due.",
+          "rep3": "CHUNK: due battute più il battere seguente a tempo pieno; durante lo stop polsi e spalle rilasciati, mani già sulla posizione seguente."
+        }
+      },
+      "rep4_verifica": "Ottave complete e leggere di polso. Nessun ritardo della sinistra dopo il basso. Sf solo sul basso. A b. 714 l'avambraccio non si è indurito.",
+      "note": "Peters p. 87, sistema 1 batt. 1 – sistema 3 batt. 2."
+    },
+    {
+      "id": "mephisto-715-722",
+      "brano": "mephisto",
+      "battute": "715-722",
+      "titolo": "Con fuoco, ff: ottave a salti, basso e accordi",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-con-fuoco",
+      "nodo_motorio": "Destra: ottave staccate che salgono a salti e ricadono in coppie legate, nell'acuto. Sinistra: basso sf nel grave e subito salto agli accordi ribattuti in chiave di violino, tre per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, DIN dentro la mano: solo pollice, poi solo mignolo (4 sui tasti neri); poi ottave a mp con PESO, un impulso per battuta.",
+          "rep3": "Sinistra sola, CIECO shift–touch–play dal basso all'accordo; accordi ribattuti di rimbalzo."
+        },
+        "2": {
+          "rep2": "Insieme a mp, sinistra MUTA per due battute e suonata per due.",
+          "rep3": "CHUNK: due battute più il battere seguente a tempo pieno; durante lo stop polsi e spalle rilasciati, mani già sulla posizione seguente."
+        }
+      },
+      "rep4_verifica": "Ottave complete e leggere di polso. Nessun ritardo della sinistra dopo il basso. Sf solo dove è scritto. A b. 722 l'avambraccio non si è indurito.",
+      "note": "Peters p. 87, sistema 3 batt. 3 – sistema 4 batt. 2.\nContinuazione di 699-714 in ff su un altro basso."
+    },
+    {
+      "id": "mephisto-723-734",
+      "brano": "mephisto",
+      "battute": "723-734",
+      "titolo": "Stringendo: ottava e accordi a salti in tutte e due le mani",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-stringendo",
+      "nodo_motorio": "Ogni battuta: la destra suona un'ottava sf e due accordi più in basso, la sinistra un basso e due accordi più in alto. Un salto per mano a ogni battuta, in stringendo, salendo di posizione ogni due battute.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: per ogni battuta due soli eventi (ottava e accordo nella destra, basso e accordo nella sinistra), a tempo dimezzato e senza guardare; la seconda volta CIECO.",
+          "rep3": "PESO a mp: un impulso sul battere, i due accordi di rimbalzo. Ogni quattro battute stop sull'accordo con il polso che si muove."
+        },
+        "2": {
+          "rep2": "MUTA: una mano suona, l'altra fantasma; poi si scambia.",
+          "rep3": "Stringendo a gradini: 8-10 clic in più ogni quattro battute. Lo stringendo continuo solo in Rep 4."
+        }
+      },
+      "rep4_verifica": "Accordi completi fino all'ultima battuta. Lo stringendo non accorcia la 3ª croma. Nessuna spinta di spalla. Il suono cresce per caduta, non per pressione.",
+      "note": "Peters p. 87, sistema 4 batt. 3 – sistema 5 batt. 6.\nSe senti bruciore o indurimento nell'avambraccio, fermati: non completare la Rep."
+    },
+    {
+      "id": "mephisto-735-744",
+      "brano": "mephisto",
+      "battute": "735-744",
+      "titolo": "Stringendo: culmine, sei battute sullo stesso accordo, pausa",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-stringendo",
+      "nodo_motorio": "Come 723-734 per due battute; poi sei battute (737-742) sulla stessa ottava con accordi ribattuti, al culmine dello stringendo. 743 pausa in 2/4, 744 anacrusi in terzina verso il Presto.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: per ogni battuta due soli eventi (ottava e accordo nella destra, basso e accordo nella sinistra), a tempo dimezzato e senza guardare; la seconda volta CIECO.",
+          "rep3": "PESO a mp: un impulso sul battere, i due accordi di rimbalzo. Ogni quattro battute stop sull'accordo con il polso che si muove."
+        },
+        "2": {
+          "rep2": "MUTA: una mano suona, l'altra fantasma; poi si scambia.",
+          "rep3": "CHUNK a ritroso: 741-742 più la pausa e l'anacrusi di 744; poi da 739, poi da 737. A mp."
+        }
+      },
+      "rep4_verifica": "Sei battute uguali senza crescere di tensione. Accordi completi. Pausa di 743 esatta. Anacrusi di 744 a tempo del Presto.",
+      "note": "Peters p. 87, sistema 5 batt. 7 – sistema 6 batt. 8.\nLa b. 743 è vuota (cifra 1), già in 2/4. Se senti bruciore o indurimento nell'avambraccio, fermati."
+    },
+    {
+      "id": "mephisto-745-754",
+      "brano": "mephisto",
+      "battute": "745-754",
+      "titolo": "Presto strepitoso: ottave in terzina, sinistra ottava grave e accordo",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-ottave-terzinate",
+      "nodo_motorio": "Destra: a ogni quarto terzina «pausa, ottava, ottava», con la seconda più bassa (4 sui tasti neri), in sequenza discendente. Sinistra: ottava nel grave sul primo quarto e accordo sul secondo, con un salto a ogni quarto.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola a mp, PESO: le due ottave di ogni terzina sono un solo gesto caduta–risalita. Pollice solo, poi ottava intera.",
+          "rep3": "Sinistra sola, CIECO shift–touch–play dall'ottava grave all'accordo."
+        },
+        "2": {
+          "rep2": "Insieme a mp, RIT: fermata sulla 1ª ottava della terzina, la 2ª e l'attacco seguente di scatto; poi fermata sulla 2ª.",
+          "rep3": "CHUNK: una battuta più il battere seguente a tempo pieno, stop con le mani già sulla battuta dopo."
+        }
+      },
+      "rep4_verifica": "Tutte e due le ottave di ogni coppia complete. La pausa della terzina è reale: la mano si richiude. Sinistra precisa sul basso senza guardarlo. ff di caduta, non di pressione.",
+      "note": "Peters p. 88, sistema 1 batt. 1 – sistema 2 batt. 5."
+    },
+    {
+      "id": "mephisto-755-770",
+      "brano": "mephisto",
+      "battute": "755-770",
+      "titolo": "Ottave cromatiche in terzina, figure puntate scambiate, accordi legati a due",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-ottave-terzinate",
+      "nodo_motorio": "Battute alterne: ottave della destra che salgono cromaticamente in terzina e figura puntata di due ottave scambiata tra destra e sinistra; in mezzo torna il disegno di 745. 768-770: accordi ff legati a due che saltano di registro, sf finale.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, salite cromatiche: PESO, un impulso per terzina. Pollice solo, poi mignoli (4 sui neri), poi ottave a mp.",
+          "rep3": "Figure puntate (756, 760, 764, 766): MUTA, una mano suona e l'altra tocca; poi insieme, con la nota corta di rimbalzo."
+        },
+        "2": {
+          "rep2": "768-770: CIECO shift–touch–play sugli accordi a coppie, a mani unite.",
+          "rep3": "CHUNK: una battuta di salita più la figura puntata a tempo pieno, stop."
+        }
+      },
+      "rep4_verifica": "Salite cromatiche pulite tra tasti bianchi e neri. Scambio destra–sinistra a tempo. Accordi 768-770 completi. Sf finale dal tasto.",
+      "note": "Peters p. 88, sistema 3 batt. 1 – sistema 6 batt. 1."
+    },
+    {
+      "id": "mephisto-771-778",
+      "brano": "mephisto",
+      "battute": "771-778",
+      "titolo": "Leggiero, p staccatissimo: salto dalla nota singola all'ottava acuta",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-salti-leggiero",
+      "nodo_motorio": "A ogni quarto la destra suona una nota singola col 2 e salta all'ottava circa due ottave più su; la sinistra suona il basso e salta all'accordo. L'ottava della destra e l'accordo della sinistra cadono insieme. Ogni quarta battuta: accordi pieni rinforzando.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, CIECO shift–touch–play: nota singola, spostamento rapido, ottava toccata muta, controllo, suono. Lo sguardo va sull'ottava d'arrivo prima che la mano parta.",
+          "rep3": "Sinistra sola allo stesso modo (basso → accordo). Poi solo gli arrivi: BLOC di ottava destra più accordo sinistro, uno per quarto, senza guardare."
+        },
+        "2": {
+          "rep2": "MENT: due battute mentali a tempo con le distanze immaginate, poi reali.",
+          "rep3": "RIT: fermata sulla nota singola e sul basso, salto e arrivo di scatto; poi fermata sull'arrivo, ritorno di scatto."
+        }
+      },
+      "rep4_verifica": "Ottava d'arrivo presa dal tasto, p e staccatissimo. Nessun arrivo corto. Mani insieme sull'arrivo. Il braccio descrive un arco basso, non un salto in alto. Rinforzando solo negli accordi.",
+      "note": "Peters p. 88 sistema 6 batt. 2 – p. 89 sistema 1 batt. 4."
+    },
+    {
+      "id": "mephisto-779-786",
+      "brano": "mephisto",
+      "battute": "779-786",
+      "titolo": "Leggiero staccatissimo: salti su altre armonie",
+      "priorita": 1,
+      "famiglia": "mephisto-fam-salti-leggiero",
+      "nodo_motorio": "A ogni quarto la destra suona una nota singola col 2 e salta all'ottava circa due ottave più su; la sinistra suona il basso e salta all'accordo. L'ottava della destra e l'accordo della sinistra cadono insieme. Ogni quarta battuta: accordi pieni rinforzando.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, CIECO shift–touch–play: nota singola, spostamento rapido, ottava toccata muta, controllo, suono. Lo sguardo va sull'ottava d'arrivo prima che la mano parta.",
+          "rep3": "Sinistra sola allo stesso modo (basso → accordo). Poi solo gli arrivi: BLOC di ottava destra più accordo sinistro, uno per quarto, senza guardare."
+        },
+        "2": {
+          "rep2": "MENT: due battute mentali a tempo con le distanze immaginate, poi reali.",
+          "rep3": "RIT: fermata sulla nota singola e sul basso, salto e arrivo di scatto; poi fermata sull'arrivo, ritorno di scatto."
+        }
+      },
+      "rep4_verifica": "Ottava d'arrivo presa dal tasto, p e staccatissimo. Nessun arrivo corto. Mani insieme sull'arrivo. Il braccio descrive un arco basso, non un salto in alto. Rinforzando solo negli accordi.",
+      "note": "Peters p. 89, sistema 1 batt. 5 – sistema 3 batt. 2.\nGemello di 771-778: stesse distanze su tasti diversi. Lavorali in circuiti diversi finché uno dei due non è in drop-out."
+    },
+    {
+      "id": "mephisto-787-798",
+      "brano": "mephisto",
+      "battute": "787-798",
+      "titolo": "Salti in crescendo, poi accordi ribattuti leggiero e salto all'ottava",
+      "priorita": 1,
+      "famiglia": null,
+      "nodo_motorio": "787-790: salti come a 771, in crescendo, con la sinistra che alterna basso, accordo acuto e nota grave. 791-798: dopo il basso, tre accordi ribattuti (due semicrome e una croma) a mani unite e salto all'ottava acuta, a ogni battuta su un'armonia diversa.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC muto: tocca in silenzio basso, accordo e ottava di ogni battuta a mani unite, a tempo dimezzato; poi suona.",
+          "rep3": "PESO: i tre accordi ribattuti sono un impulso e due rimbalzi dal tasto. CIECO sul salto all'ottava."
+        },
+        "2": {
+          "rep2": "MENT: due battute mentali a tempo, poi reali.",
+          "rep3": "CHUNK: una battuta più il basso seguente a tempo pieno, stop con le mani già sul basso."
+        }
+      },
+      "rep4_verifica": "Accordi ribattuti tutti e tre udibili e leggeri. Ottava d'arrivo presa dal tasto. Nessun ritardo dopo il basso. Crescendo di 787-790 senza indurire.",
+      "note": "Peters p. 89, sistema 3 batt. 3 – sistema 6 batt. 1."
+    },
+    {
+      "id": "mephisto-799-812",
+      "brano": "mephisto",
+      "battute": "799-812",
+      "titolo": "Tutta forza: volate di biscrome su e giù, ottave gravi e accordi",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Sette volte: la destra sale in una battuta per più di due ottave (diteggiatura 1-2-3-5 ripetuta) e ridiscende nella successiva. La sinistra attacca con due ottave rapide nel grave, salta agli accordi in terzina e poi tiene l'accordo.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, BLOC: ogni posizione 1-2-3-5 come accordo, in su e in giù, senza guardare.",
+          "rep3": "RIT a gruppi di 4: fermata sulla 1ª nota, poi sulla 4ª (prima del pollice)."
+        },
+        "2": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play dalle ottave gravi agli accordi; PESO sull'accordo tenuto.",
+          "rep3": "CHUNK: una posizione più una nota a tempo pieno; poi la salita intera più il vertice; poi salita e discesa."
+        }
+      },
+      "rep4_verifica": "Volata uguale ai passaggi del pollice. Vertice a tempo. Accordi della sinistra insieme e non in ritardo. fff di braccio, dita vicine al tasto.",
+      "note": "Peters p. 89 sistema 6 batt. 2 – p. 90 sistema 6 batt. 2.\nNon ho verificato nota per nota le sette volate: la descrizione viene dalle diteggiature e dal profilo."
+    },
+    {
+      "id": "mephisto-813",
+      "brano": "mephisto",
+      "battute": "813",
+      "titolo": "Cadenza: note doppie a mani alternate in salita, discesa a terze spezzate",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Senza misura. Salita ff: le mani si alternano a coppie di note doppie in biscrome (sinistra 2-3-4 e 1, destra 4-2 e 3-1) per circa tre ottave, con pedale tenuto; in cima la figura si ripete rinforzando molto. Poi discesa diminuendo della destra, cromatica a terze spezzate, diteggiata 4-2-3-1.",
+      "andate": {
+        "1": {
+          "rep2": "Salita: togli l'alternanza. Le due mani insieme a blocchi (BLOC), una posizione dopo l'altra, senza guardare.",
+          "rep3": "Discesa: RIT a gruppi di 4 (fermata sulla 1ª nota, poi sulla 3ª) con la diteggiatura 4-2-3-1."
+        },
+        "2": {
+          "rep2": "Salita come scritta, MUTA: una mano suona e l'altra fantasma; poi si scambia.",
+          "rep3": "CHUNK: quattro gruppi più uno a tempo pieno. Discesa a ritroso: ultima ottava, ultime due."
+        }
+      },
+      "rep4_verifica": "Alternanza senza galoppo e senza che le mani si urtino. Crescendo di peso. Discesa uguale fino in fondo, diminuendo vero. Attacco del Presto pp a tempo.",
+      "note": "Peters p. 91, sistema 1 batt. 1.\nOccupa i sistemi 1-3 di p. 91 senza stanghette: la conto come una battuta. Non ho potuto verificare le singole note."
+    },
+    {
+      "id": "mephisto-814-829",
+      "brano": "mephisto",
+      "battute": "814-829",
+      "titolo": "Presto pp sempre, una corda: sinistra in semicrome alternate, bicordi staccati",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-presto-pp",
+      "nodo_motorio": "Sinistra: sedici battute di semicrome alternate su due note vicine (3-1, 2-1), una sorta di trillo misurato. Destra da b. 818: unità di quattro battute come a 457 (una di terze con nota oscillante, tre di bicordi staccati).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, TRILL misurato a sei note per battuta, dita vicine al tasto. ROT: due battute di sola rotazione, due di sole dita.",
+          "rep3": "Destra STAC pp sui bicordi, sinistra MUTA."
+        },
+        "2": {
+          "rep2": "ACC nella sinistra ogni 3 note, poi ogni 2.",
+          "rep3": "CLIC sul levare (2ª croma)."
+        }
+      },
+      "rep4_verifica": "Sinistra uguale per tutte le sedici battute, senza accento ai cambi di nota. Bicordi simultanei. pp senza trattenere.",
+      "note": "Peters p. 91 sistema 4 batt. 1 – p. 92 sistema 1 batt. 1."
+    },
+    {
+      "id": "mephisto-830-845",
+      "brano": "mephisto",
+      "battute": "830-845",
+      "titolo": "Presto ppp: terze oscillanti, poi ritenuto con la sinistra sola",
+      "priorita": 6,
+      "famiglia": "mephisto-fam-presto-pp",
+      "nodo_motorio": "830-833 come prima. 834-841 ppp: terze oscillanti della destra in semicrome su gruppi di quattro semicrome della sinistra, poi destra sola. 842-845: ritenuto il tempo, una nota lunga per battuta nella sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulle terze oscillanti della destra: sola rotazione, poi sole dita, poi miscela minima.",
+          "rep3": "Sinistra sola 834-838: BLOC (ogni gruppo come accordo), poi legato."
+        },
+        "2": {
+          "rep2": "ACC nella destra ogni 3 note, poi ogni 2; sinistra MUTA.",
+          "rep3": "MENT su 839-845 (ritenuto e durate), poi reale."
+        }
+      },
+      "rep4_verifica": "Terze a due suoni sempre simultanei. ppp senza note mute. Ritenuto graduale, quattro note lunghe uguali.",
+      "note": "Peters p. 92, sistema 1 batt. 2 – sistema 3 batt. 7."
+    },
+    {
+      "id": "mephisto-846-861",
+      "brano": "mephisto",
+      "battute": "846-861",
+      "titolo": "2/4, dolce espressivo: recitativo, note ribattute e trilli con corona",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Frasi libere a una voce con accordi arpeggiati pp, una corda. Nelle due cadenze (858 e 860): note ribattute portate, trillo con corona, terzine e semicrome ad libitum. 861: accordo arpeggiato, smorzando.",
+      "andate": {
+        "1": {
+          "rep2": "Note ribattute delle cadenze: STAC pp con cambio di dito, da metà corsa del tasto.",
+          "rep3": "TRILL a 4 e poi a 6 note sui due trilli, con la chiusa scritta."
+        },
+        "2": {
+          "rep2": "PESO a pp sugli accordi arpeggiati: tutte le note parlano, rilascio immediato.",
+          "rep3": "MENT su tutto il frammento a tempo libero, poi reale."
+        }
+      },
+      "rep4_verifica": "Ribattute tutte udibili e in crescendo. Trillo regolare che non si blocca prima della corona. Accordi arpeggiati morbidi. Smorzando fino al silenzio.",
+      "note": "Peters p. 92, sistema 4 batt. 1 – sistema 6 batt. 2.\nLe due cadenze (858 e 860) e la b. 861 sono battute lunghe senza misura: le conto come una battuta ciascuna."
+    },
+    {
+      "id": "mephisto-862-877",
+      "brano": "mephisto",
+      "battute": "862-877",
+      "titolo": "Presto: ottave gravi della sinistra e accordi in levare della destra, crescendo",
+      "priorita": 4,
+      "famiglia": null,
+      "nodo_motorio": "Sinistra: ottave nel registro più grave, lunghe e brevi. Destra: due accordi in levare per battuta, che salgono di posizione a ogni battuta, da p in crescendo per quindici battute. Tre corde.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, BLOC muto e poi suonato: una forma d'accordo per battuta, senza guardare.",
+          "rep3": "PESO: i due accordi in levare sono un impulso e un rimbalzo. Sinistra: pollice solo, poi ottava."
+        },
+        "2": {
+          "rep2": "CLIC: un solo clic per battuta; destra sola, poi insieme.",
+          "rep3": "DIN: sinistra mf, destra pp. Il crescendo solo in Rep 4."
+        }
+      },
+      "rep4_verifica": "Accordi in levare esatti (non anticipati) e completi. Crescendo graduale. Ottave gravi senza durezza. Arrivo al ff di 878 senza tensione accumulata.",
+      "note": "Peters p. 92 sistema 6 batt. 3 – p. 93 sistema 2 batt. 6.\nLa b. 862 è vuota (cifra 1)."
+    },
+    {
+      "id": "mephisto-878-887",
+      "brano": "mephisto",
+      "battute": "878-887",
+      "titolo": "ff: coppie di accordi a ritmo puntato che saltano di registro",
+      "priorita": 1,
+      "famiglia": null,
+      "nodo_motorio": "Coppie di accordi semicroma–croma a mani unite. Ogni coppia è in un registro diverso da quella prima, quindi tutte e due le mani saltano tra una coppia e l'altra, per dieci battute.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni coppia ridotta a un solo accordo, a mani unite, in crome; la seconda volta CIECO.",
+          "rep3": "CIECO shift–touch–play tra una coppia e la successiva."
+        },
+        "2": {
+          "rep2": "MENT: quattro battute mentali a tempo con le distanze immaginate, poi reali.",
+          "rep3": "RIT: fermata sul secondo accordo della coppia, salto e coppia seguente di scatto. PESO: un impulso per coppia, il secondo accordo di rimbalzo."
+        }
+      },
+      "rep4_verifica": "Tutti e due gli accordi di ogni coppia completi. Il salto non accorcia la croma. ff di caduta, con rilascio tra le coppie. Mani insieme.",
+      "note": "Peters p. 93, sistema 2 batt. 7 – sistema 3 batt. 8."
+    },
+    {
+      "id": "mephisto-888-897",
+      "brano": "mephisto",
+      "battute": "888-897",
+      "titolo": "2/4: accordi in crome, volata su e giù, accordi staccati",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Due battute di accordi pieni in crome a due mani nell'acuto e due accordi isolati; poi volata della destra che sale da p in crescendo e ridiscende rinforzando sopra accordi ribattuti della sinistra; due accordi staccati.",
+      "andate": {
+        "1": {
+          "rep2": "Volata 892-895: BLOC sulle posizioni, poi RIT con fermata prima di ogni cambio di posizione.",
+          "rep3": "Accordi 888-891: PESO a mp, un impulso ogni due accordi. CIECO sui due accordi isolati."
+        },
+        "2": {
+          "rep2": "CHUNK a ritroso sulla discesa fino all'accordo di 896.",
+          "rep3": "DIN: destra mp, sinistra pp di rimbalzo."
+        }
+      },
+      "rep4_verifica": "Accordi in crome completi e uguali. Volata regolare al cambio di direzione. Accordi di 896-897 dal tasto e a tempo.",
+      "note": "Peters p. 93, sistema 4 batt. 1 – sistema 5 batt. 3."
+    },
+    {
+      "id": "mephisto-898-909",
+      "brano": "mephisto",
+      "battute": "898-909",
+      "titolo": "Ottave alternate tra le mani ff e accordi finali",
+      "priorita": 2,
+      "famiglia": "mephisto-fam-martellato",
+      "nodo_motorio": "Ottave in semicrome alternate tra sinistra e destra, che salgono cromaticamente per otto battute fino all'acuto; poi tre colpi finali con salto al grave e corona sulla pausa.",
+      "andate": {
+        "1": {
+          "rep2": "Togli lo sfasamento: ottave delle due mani insieme, in crome, a mp; la seconda volta CIECO.",
+          "rep3": "DIN dentro la mano: solo pollici alternati, poi solo mignoli; polsi bassi."
+        },
+        "2": {
+          "rep2": "Come scritto a mp, con CLIC sulla 2ª semicroma: senti la destra come battere.",
+          "rep3": "PESO: un impulso per battuta e gli altri colpi di rimbalzo. CIECO shift–touch–play sui tre accordi finali."
+        }
+      },
+      "rep4_verifica": "Semicrome composte uguali, senza galoppo. Ottave complete. Crescendo di peso. Avambracci liberi all'arrivo. Accordi finali presi dal tasto.",
+      "note": "Peters p. 93, sistema 5 batt. 4 – sistema 6 batt. 8.\nSe senti bruciore o indurimento nell'avambraccio, fermati: non completare la Rep."
+    }
+  ]
+}

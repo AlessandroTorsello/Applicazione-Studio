@@ -1,0 +1,815 @@
+{
+  "versione": 2,
+  "fonte": "Analisi di Claude, «Fantasia op. 28 — lavoro motorio per passaggio» (11/11/2026), Peters (ed. Philipp)",
+  "brani": [
+    {
+      "id": "scriabin fantasie",
+      "nome": "Scriabin, Fantasia op. 28",
+      "completo": true
+    }
+  ],
+  "frammenti": [
+    {
+      "id": "scriabin fantasie-1-4",
+      "brano": "scriabin fantasie",
+      "battute": "1-4",
+      "titolo": "Tema iniziale, p",
+      "priorita": 1,
+      "famiglia": "fam-scriabin-tema-iniziale",
+      "nodo_motorio": "Accordi di 3-4 note della destra a p con la voce superiore che canta e le note interne che restano sotto; terzine di crome ad accordi ribattuti legati al canto (b. 1). Sinistra: terzine con basso grave e accordo nel medio, piccolo salto a ogni quarto.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano (destra): voce superiore suonata mp, resto dell'accordo muto; poi il contrario, interne pp e voce muta.",
+          "rep3": "Scheletro: basso della sinistra e voce superiore della destra, legati senza pedale; poi rimetti le parti interne pp."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano con le dita invertite di ruolo: interne suonate e uguali tra loro, voce superiore muta; poi tutto, voce mp e interne pp.",
+          "rep3": "Sinistra sola: PESO sul basso di ogni terzina, accordo di rimbalzo leggero. Poi insieme, destra pp."
+        }
+      },
+      "rep4_verifica": "La voce superiore si sente sopra l'accordo senza spinta; nelle terzine di b. 1 l'accordo ribattuto non ripete anche il canto più forte; le terzine della sinistra sono un fondo, basso presente e accordo più leggero, che nel pedale non impasta.",
+      "note": "A b. 2 c'è un tuo segno a matita vicino al pedale (lo leggo «tutto», con incertezza)."
+    },
+    {
+      "id": "scriabin fantasie-5-12",
+      "brano": "scriabin fantasie",
+      "battute": "5-12",
+      "titolo": "Accordi f, quintine della destra, ridistribuzioni m.g./m.d.",
+      "priorita": 7,
+      "famiglia": "fam-scriabin-quintine-moderato",
+      "nodo_motorio": "Quintine discendenti di semicrome della destra con accordo sulla prima nota; ridistribuzioni in cui una mano prende note dell'altra a metà gesto (m.g. a b. 5, m.d. a bb. 7, 9, 10, 11); terzine larghe della sinistra dal basso grave. A b. 12 (cerchiata) salto della sinistra in terzina dal basso all'accordo.",
+      "andate": {
+        "1": {
+          "rep2": "ACC sulle quintine: raggruppa 2+3, poi 3+2.",
+          "rep3": "NODO sulle ridistribuzioni: fermati sulla nota presa dall'altra mano, verifica che scenda insieme a quella della mano titolare, poi suona da nodo a nodo."
+        },
+        "2": {
+          "rep2": "STAC pp sulle quintine, poi legato; la seconda volta CIECO.",
+          "rep3": "Scheletro: basso della sinistra e voce superiore della destra; poi le quintine pp sopra. Se b. 12 si sporca, CIECO shift–touch–play sul solo salto della sinistra."
+        }
+      },
+      "rep4_verifica": "Quintine uguali e senza accento nel punto in cui cambia la mano; la ridistribuzione non si sente; il f è pieno sul basso e sugli accordi, non sulle quintine, che restano leggere."
+    },
+    {
+      "id": "scriabin fantasie-13-16",
+      "brano": "scriabin fantasie",
+      "battute": "13-16",
+      "titolo": "Tema iniziale, ripresa con voce di tenore",
+      "priorita": 1,
+      "famiglia": "fam-scriabin-tema-iniziale",
+      "nodo_motorio": "Come 1-4; in più, a bb. 15-16, la sinistra ha note accentate (>) legate di valore che formano una voce di tenore dentro le terzine.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano (destra): voce superiore suonata mp, resto muto; poi il contrario.",
+          "rep3": "Sinistra sola: le note accentate di 15-16 tenute e cantate, il resto delle terzine pp."
+        },
+        "2": {
+          "rep2": "Scheletro: basso, tenore e voce superiore della destra; poi le parti interne pp.",
+          "rep3": "DIN: sinistra mp, destra pp; poi il contrario. Il tenore deve restare udibile in entrambi i casi."
+        }
+      },
+      "rep4_verifica": "Il tenore di 15-16 emerge come seconda voce senza rompere il p; la voce superiore della destra resta la prima; nel pedale (tua matita a b. 15) il tenore non si confonde con il basso."
+    },
+    {
+      "id": "scriabin fantasie-17-23",
+      "brano": "scriabin fantasie",
+      "battute": "17-23",
+      "titolo": "Ripresa delle quintine, poi mp cresc. e f",
+      "priorita": 7,
+      "famiglia": "fam-scriabin-quintine-moderato",
+      "nodo_motorio": "bb. 17-18 come 5-6, con m.g.; b. 19 m.d. sugli accordi della sinistra; da b. 20 crescendo con accordi della destra che cambiano forma a ogni quarto e terzine della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "ACC sulle quintine: 2+3, poi 3+2.",
+          "rep3": "NODO sulle ridistribuzioni di b. 17 (m.g.) e b. 19 (m.d.)."
+        },
+        "2": {
+          "rep2": "BLOC sulle bb. 20-23: ogni forma della destra come accordo a tempo di quarti, con la sinistra; la seconda volta CIECO.",
+          "rep3": "DIN: sinistra f, destra pp; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Il crescendo di 20-22 è costruito sul basso, non sugli accordi della destra; le quintine restano leggere anche nel f; nessun vuoto quando la mano destra prende gli accordi della sinistra a b. 19."
+    },
+    {
+      "id": "scriabin fantasie-24-29",
+      "brano": "scriabin fantasie",
+      "battute": "24-29",
+      "titolo": "Accordi ff a due mani, poi diminuendo con quintine",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Accordi pieni ff in entrambe le mani con cambio di forma a ogni quarto e terzine (24-26); poi diminuendo rapido fino al p (26-29) con quintine discendenti della destra.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accordo, rilascio subito; mentre tieni l'accordo il polso deve potersi muovere.",
+          "rep3": "BLOC sui cambi di forma di 24-26, CIECO."
+        },
+        "2": {
+          "rep2": "DIN dentro le mani: voce superiore della destra e basso della sinistra suonati, il resto pp.",
+          "rep3": "ACC sulle quintine di 27-29: 2+3, poi 3+2."
+        }
+      },
+      "rep4_verifica": "ff pieno ma non percosso, senza rumore di tasto sul fondo; il diminuendo 26-29 arriva al p senza rallentare; quintine finali leggere."
+    },
+    {
+      "id": "scriabin fantasie-30-38",
+      "brano": "scriabin fantasie",
+      "battute": "30-38",
+      "titolo": "Più vivo: secondo tema sopra gli arpeggi della sinistra",
+      "priorita": 3,
+      "famiglia": "fam-scriabin-secondo-tema",
+      "nodo_motorio": "Sinistra in crome su circa due ottave per battuta: basso da tenere col pedale, culmine nell'acuto, voce di tenore da far emergere (tua matita «Tenore ↑»). Destra: canto legato; da b. 34 canto più voce interna nella stessa mano (diteggiature 5-3, 4-2).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, scheletro: il basso di ogni battuta, tenuto col dito, e la voce di tenore; poi tutte le crome pp sotto.",
+          "rep3": "Destra sola da b. 34: DIN dentro la mano, canto suonato e voce interna muta; poi il contrario."
+        },
+        "2": {
+          "rep2": "Sinistra sola: RIT a coppie, lungo-corto e poi corto-lungo, pp, con il polso che segue la curva dell'arpeggio.",
+          "rep3": "Insieme: destra suona, sinistra MUTA, la curva fatta sulla superficie dei tasti; poi si scambia."
+        }
+      },
+      "rep4_verifica": "Il basso dura nel pedale per tutta la battuta e le crome si spengono salendo; al culmine dell'arpeggio la sinistra non copre il canto; la voce interna di 35-37 si sente, ma sotto il canto.",
+      "note": "In queste battute hai molte annotazioni a matita sul suono; ne leggo con sicurezza solo alcune (vedi «Cosa non ho potuto verificare»)."
+    },
+    {
+      "id": "scriabin fantasie-39-47",
+      "brano": "scriabin fantasie",
+      "battute": "39-47",
+      "titolo": "Secondo tema, crescendo fino al f",
+      "priorita": 3,
+      "famiglia": "fam-scriabin-secondo-tema",
+      "nodo_motorio": "Come 30-38, con la destra spesso a doppie note (terze e seste) legate; crescendo da b. 40 a b. 45; a b. 44 tre pollici consecutivi nella sinistra (1-1-1 stampato).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ACC pp, accento sulla 2ª croma di ogni gruppo di tre, poi sulla 3ª.",
+          "rep3": "Destra sola: doppie note con voce superiore legata e inferiore staccata pp; poi il contrario."
+        },
+        "2": {
+          "rep2": "Scheletro: basso e canto; poi le crome pp.",
+          "rep3": "CLIC, un solo clic per battuta, tutto il frammento: l'onda della sinistra senza appoggio sul battere."
+        }
+      },
+      "rep4_verifica": "Il crescendo 40-45 viene dal basso e dal canto, non dalle crome interne; a b. 44 i pollici ripetuti non battono; il legato delle doppie note della destra regge senza pedale in Rep 2-3 e non si impasta in Rep 4.",
+      "note": "Sopra le bb. 39 e 41 c'è una parola a matita che leggo «legg.» (leggero?), con incertezza."
+    },
+    {
+      "id": "scriabin fantasie-48-54",
+      "brano": "scriabin fantasie",
+      "battute": "48-54",
+      "titolo": "Crescendo e ff appassionato ad accordi ribattuti",
+      "priorita": 2,
+      "famiglia": "fam-scriabin-ribattuti-due-mani",
+      "parti": [
+        "48-50",
+        "51-54"
+      ],
+      "nodo_motorio": "bb. 48-50: la destra tiene il canto e ribatte accordi in crome nella stessa mano (m.d.), poi crescendo verso b. 51.\nbb. 51-54: accordi ribattuti in crome a due mani, ff appassionato, canto sulla nota superiore della destra; il basso della sinistra cambia registro.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 48-50: DIN dentro la mano: canto tenuto e suonato, accordi ribattuti muti; poi ribattuti pp e canto muto.\nbb. 51-54: PESO a mp, un impulso per battuta e gli altri accordi di rimbalzo.",
+          "rep3": "bb. 51-54: DIN dentro la mano destra: voce superiore f, resto dell'accordo pp."
+        },
+        "2": {
+          "rep2": "BLOC sui cambi di accordo: solo il primo accordo di ogni forma, a tempo di quarti, CIECO.",
+          "rep3": "Ribattuti dalla metà corsa del tasto, senza staccare le dita, pp; canto f."
+        },
+        "3": {
+          "rep2": "Sinistra sola: basso e accordo come un'unica caduta del braccio; CIECO sul basso.",
+          "rep3": "CHUNK a tempo: un quarto più il primo accordo del seguente, stop con la mano già sulla forma seguente."
+        },
+        "4": {
+          "rep2": "MENT del crescendo 49-51: dove culmina e con che suono. Subito dopo la ripetizione reale.",
+          "rep3": "CLIC sul levare (2ª croma), 51-54 di fila."
+        }
+      },
+      "rep4_verifica": "Il ff appassionato ha profondità senza colpi: canto della destra sopra, accordi interni come massa e non come colpi; il crescendo 49-51 arriva al ff senza accelerare; dopo b. 54 l'avambraccio è morbido.",
+      "note": "Sopra b. 49 leggo a matita, con incertezza: «cresci con destra quasi violenta così esce il ff appassionato». Va nella stessa direzione della DIN: il crescendo lo guida la destra. Carico tra i più alti del brano: Rep 2-3 a mp come da regola."
+    },
+    {
+      "id": "scriabin fantasie-55-63",
+      "brano": "scriabin fantasie",
+      "battute": "55-63",
+      "titolo": "Più vivo ♩ = 126: marcia ad accordi puntati",
+      "priorita": 6,
+      "famiglia": "fam-scriabin-marcia",
+      "nodo_motorio": "Accordi puntati (croma puntata–semicroma) a due mani; accordi della destra che cambiano forma a ogni quarto; salti della sinistra dal basso agli accordi in semicroma (bb. 57, 61-62); accel. da b. 59.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni forma della destra come accordo a tempo di quarti, CIECO.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sui salti di 57 e 61-62: atterra muta sull'accordo, controlla al tatto, suona."
+        },
+        "2": {
+          "rep2": "RIT: fermata sulla croma puntata, semicroma di scatto e vicina al tasto.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "La semicroma del puntato non diventa terzina né acciaccatura; i salti della sinistra atterrano dal tasto; il f resta compatto anche nell'accel. di b. 59."
+    },
+    {
+      "id": "scriabin fantasie-64-72",
+      "brano": "scriabin fantasie",
+      "battute": "64-72",
+      "titolo": "Presto cromatico, allarg. e cadenza",
+      "priorita": 6,
+      "famiglia": "fam-scriabin-presto-cromatico",
+      "parti": [
+        "64-67",
+        "68-72"
+      ],
+      "nodo_motorio": "bb. 64-67: accordi di quattro note della destra con moto cromatico interno, sinistra in crome cromatiche discendenti (forcelle a matita).\nbb. 68-72: corsa di semicrome della destra, poi accordi puntati sopra il basso fermo.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 64-67: NODO sui cambi di posizione, dove una mano cambia forma e l'altra no.\nbb. 68-72: PESO, un impulso per battuta.",
+          "rep3": "bb. 64-67: BLOC in crome, CIECO.\nbb. 68-72: DIN dentro la mano destra: voce superiore f, resto pp."
+        },
+        "2": {
+          "rep2": "bb. 64-67: CHUNK a tempo, mezza battuta più un accordo.\nbb. 68-72: come in andata 1.",
+          "rep3": "CLIC, un clic per battuta, tutto il frammento di fila."
+        }
+      },
+      "rep4_verifica": "A tempo di Presto gli accordi restano completi, nessuna nota che non parla; le forcelle di 65-67 vengono dal basso della sinistra; in 69-72 il canto della destra sta sopra gli accordi e il basso è pieno senza colpo."
+    },
+    {
+      "id": "scriabin fantasie-73-80",
+      "brano": "scriabin fantasie",
+      "battute": "73-80",
+      "titolo": "Tempo I accel.: discese della sinistra sotto accordi puntati",
+      "priorita": 4,
+      "famiglia": null,
+      "nodo_motorio": "Sinistra: salto dal basso grave accentato a una discesa di semicrome in quintina o sestina (73, 75, 77, 79-80); risalite in arpeggio (74, 78, con 5-4 stampati a b. 78). Destra: accordi puntati p nell'acuto, poi terzine a b. 78.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ACC sulle quintine 2+3, poi 3+2; sulle sestine 3+3, poi 2+2+2.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play dal basso accentato alla prima nota della discesa."
+        },
+        "2": {
+          "rep2": "Sinistra sola: CHUNK a tempo, basso più gruppo, stop sulla prima nota del gruppo seguente.",
+          "rep3": "Insieme: destra MUTA; poi destra suona e sinistra MUTA."
+        }
+      },
+      "rep4_verifica": "Il basso accentato risuona nel pedale e la discesa è più leggera del basso; gli accordi puntati della destra restano p e sopra; l'accel. poco a poco è distribuito su tutte le battute."
+    },
+    {
+      "id": "scriabin fantasie-81-84",
+      "brano": "scriabin fantasie",
+      "battute": "81-84",
+      "titolo": "ff: salti della sinistra verso la chiave di violino",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Sinistra: dal basso grave agli accordi in chiave di violino a ogni quarto. Destra: ottave e accordi nell'acuto, con terzine (82-84).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play: basso, salto, atterraggio muto sull'accordo, poi suona.",
+          "rep3": "Destra sola: PESO, un impulso per gruppo, ottave e accordi seguenti di rimbalzo."
+        },
+        "2": {
+          "rep2": "MENT, poi la ripetizione reale.",
+          "rep3": "DIN: destra f, sinistra pp; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Basso e accordo della sinistra suonano come un'unica armonia nel pedale; il ff di 81 è pieno senza durezza; a b. 83 il peso viene dal braccio sopra il tasto.",
+      "note": "Sopra b. 83 leggo a matita, con incertezza: «usalo come peso, dall'esterno del tasto»."
+    },
+    {
+      "id": "scriabin fantasie-85-90",
+      "brano": "scriabin fantasie",
+      "battute": "85-90",
+      "titolo": "Accel.: canto sopra accordi ribattuti, sfff",
+      "priorita": 2,
+      "famiglia": "fam-scriabin-canto-su-ribattuti",
+      "nodo_motorio": "Destra: canto tenuto e accordi ribattuti in crome nella stessa mano. Sinistra: salti dal basso grave agli accordi, con una voce di tenore (tua matita «canto» a b. 88). sfff a b. 89, dim. a b. 90.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano destra: canto tenuto e suonato, accordi ribattuti pp dalla metà corsa del tasto.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sul salto basso–accordo; tenore f, resto pp."
+        },
+        "2": {
+          "rep2": "Scheletro: basso e canto, senza ribattuti; poi ribattuti pp.",
+          "rep3": "CHUNK a tempo, un quarto più un accordo; lo sfff di 89 a mp."
+        }
+      },
+      "rep4_verifica": "Nell'accel. il canto resta sopra i ribattuti; lo sfff di 89 è una caduta del braccio, non una spinta; dopo lo sfff i ribattuti tornano subito più leggeri (dim. di 90).",
+      "note": "A matita leggo «mp» a b. 85, «poco» a b. 87, «canto» a b. 88 (sinistra)."
+    },
+    {
+      "id": "scriabin fantasie-91-96",
+      "brano": "scriabin fantasie",
+      "battute": "91-96",
+      "titolo": "Allarg., poi Tempo I pp sugli arpeggi della sinistra",
+      "priorita": 3,
+      "famiglia": "fam-scriabin-arpeggi-sx-semicrome",
+      "parti": [
+        "91-92",
+        "93-96"
+      ],
+      "nodo_motorio": "bb. 91-92: arpeggi di semicrome della sinistra larghi circa due ottave sotto accordi della destra.\nbb. 93-96: pp, arpeggio della sinistra che scende al basso grave (cerchiato) e risale; a 94 e 96 arpeggio della destra e quintine della sinistra insieme.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: BLOC, ogni posizione dell'arpeggio come accordo, poi lo spostamento CIECO.",
+          "rep3": "bb. 93-96: sinistra sola, ACC pp sulle quintine, 2+3 e poi 3+2."
+        },
+        "2": {
+          "rep2": "Scheletro: basso cerchiato e voce superiore della destra; poi gli arpeggi pp.",
+          "rep3": "bb. 94 e 96: destra suona, sinistra MUTA; poi si scambia."
+        }
+      },
+      "rep4_verifica": "Nel pp il basso grave cerchiato risuona per tutta la battuta e gli arpeggi non hanno culmini; a 94 e 96 i due arpeggi si incontrano senza accenti; l'allarg. di 91-92 si chiude dentro il pp di 93, senza buco."
+    },
+    {
+      "id": "scriabin fantasie-97-103",
+      "brano": "scriabin fantasie",
+      "battute": "97-103",
+      "titolo": "Arpeggi di biscrome e semicrome a due mani",
+      "priorita": 4,
+      "famiglia": "fam-scriabin-figurazioni-rapide",
+      "parti": [
+        "97-98",
+        "99-103"
+      ],
+      "nodo_motorio": "bb. 97-98: arpeggio di biscrome della sinistra su tre ottave dal basso grave (cerchiato); destra ad accordi con quintine discendenti.\nbb. 99-103: semicrome continue nelle due mani; figure spezzate della destra con cambi di posizione, sinistra in arpeggi larghi; accel. e cresc. poco a poco da b. 101.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 97-98: sinistra sola, BLOC per posizioni, poi CIECO.\nbb. 99-103: BLOC, ogni posizione della destra come accordo, mani unite a tempo di quarti.",
+          "rep3": "RIT con fermata sulla 1ª nota di ogni gruppo di quattro, le tre seguenti di scatto: destra sola, poi sinistra sola."
+        },
+        "2": {
+          "rep2": "RIT con fermata sulla 3ª nota: lo scatto attraversa il cambio di posizione.",
+          "rep3": "STAC pp a mani unite."
+        },
+        "3": {
+          "rep2": "ACC sulla 2ª e sulla 4ª semicroma, mani unite, con DIN (sinistra p, destra pp).",
+          "rep3": "CHUNK a tempo pieno: un quarto più una nota, poi mezza battuta più una nota."
+        },
+        "4": {
+          "rep2": "MUTA: destra suona, sinistra fantasma; poi si scambia.",
+          "rep3": "CLIC sul levare, tutto il frammento."
+        }
+      },
+      "rep4_verifica": "Semicrome uguali e leggere; il cresc. poco a poco di 101-103 viene dall'ampiezza del gesto, non dalla pressione; nessuna nota della destra accentata dal cambio di posizione.",
+      "note": "Sopra 99-100 leggo a matita «molto scorrevole e leggero», con discreta sicurezza."
+    },
+    {
+      "id": "scriabin fantasie-104-108",
+      "brano": "scriabin fantasie",
+      "battute": "104-108",
+      "titolo": "Presto, poi allargando verso il ff",
+      "priorita": 4,
+      "famiglia": "fam-scriabin-figurazioni-rapide",
+      "nodo_motorio": "Presto in semicrome a due mani, con figure quasi uguali a 105-106; da b. 107 allargando, con la sinistra che passa ad accordi e salti verso il basso grave.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: BLOC per posizioni, CIECO.",
+          "rep3": "RIT con fermata sulla 1ª nota di ogni gruppo, mani unite."
+        },
+        "2": {
+          "rep2": "CHUNK a tempo: un quarto più una nota.",
+          "rep3": "bb. 107-108: sinistra sola, CIECO shift–touch–play sui salti; destra MUTA."
+        }
+      },
+      "rep4_verifica": "Presto senza durezza; l'allargando è distribuito su 107-108 e l'arrivo al ff di 109 è pronto, senza tensione nell'avambraccio.",
+      "note": "Sotto b. 104 leggo a matita, con incertezza, «non forzare»; la riga sopra non la leggo."
+    },
+    {
+      "id": "scriabin fantasie-109-116",
+      "brano": "scriabin fantasie",
+      "battute": "109-116",
+      "titolo": "Più vivo ♩ = 76, ff: canto sopra accordi ribattuti",
+      "priorita": 2,
+      "famiglia": "fam-scriabin-canto-su-ribattuti",
+      "nodo_motorio": "Destra: canto in cima ad accordi ribattuti di 3-4 note, con ritmi puntati. Sinistra: basso grave tenuto col pedale e salti verso accordi nel medio. È il primo grande culmine della ripresa.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano destra: canto suonato, resto dell'accordo muto; poi il contrario pp.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play dal basso grave al primo accordo; poi PESO, un impulso per battuta."
+        },
+        "2": {
+          "rep2": "Scheletro: basso e canto; poi accordi pp.",
+          "rep3": "Ribattuti dalla metà corsa del tasto; nota corta del puntato di scatto, vicina al tasto."
+        }
+      },
+      "rep4_verifica": "ff pieno e profondo: il basso nel pedale regge la massa, il canto sta sopra, gli accordi interni non coprono; nessuna tensione tenuta tra un accordo e l'altro.",
+      "note": "Accanto a ♩ = 76 hai scritto «65» e una parola che leggo «rilassato» (incerto): se 65 è il tuo tempo, le percentuali si riferiscono a quello. Le note della Peters a bb. 110 e 115 (h'' omissibile, accordo della sinistra forse inteso diversamente) sono scelte di edizione: usa in Rep 2-3 la versione che suoni."
+    },
+    {
+      "id": "scriabin fantasie-117-122",
+      "brano": "scriabin fantasie",
+      "battute": "117-122",
+      "titolo": "Arpeggi della sinistra su tre ottave",
+      "priorita": 3,
+      "famiglia": "fam-scriabin-arpeggi-sx-semicrome",
+      "nodo_motorio": "Arpeggio di semicrome della sinistra su circa tre ottave per battuta, con cambi di chiave e diteggiature non regolari (stampate e a matita). Destra: accordi legati con canto, mf, cresc. a b. 118.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: BLOC per posizioni, ogni gruppo di note sotto la mano come accordo; CIECO sui cambi.",
+          "rep3": "Sinistra sola: CHUNK, una posizione più la prima nota della seguente, stop con la mano già sopra."
+        },
+        "2": {
+          "rep2": "Sinistra sola: ACC pp sulla nota d'arrivo di ogni posizione.",
+          "rep3": "Scheletro: basso della sinistra e canto della destra; poi gli arpeggi pp."
+        }
+      },
+      "rep4_verifica": "L'arpeggio è un'onda unica dal basso al culmine e ritorno, senza scalini al cambio di posizione; il canto della destra non viene coperto quando la sinistra sale nel suo registro.",
+      "note": "Sopra b. 121 leggo a matita, con incertezza, qualcosa come «uso movimenti e “spinte” della sinistra a gruppi»: è coerente con il CHUNK per posizione."
+    },
+    {
+      "id": "scriabin fantasie-123-128",
+      "brano": "scriabin fantasie",
+      "battute": "123-128",
+      "titolo": "f-ff sugli arpeggi, poi ottave ribattute e semicrome della destra",
+      "priorita": 3,
+      "famiglia": "fam-scriabin-arpeggi-sx-semicrome",
+      "parti": [
+        "123-125",
+        "126-128"
+      ],
+      "nodo_motorio": "bb. 123-125: come 117-122, f e poi ff, con la sinistra che copre più spazio.\nbb. 126-128: destra in semicrome spezzate sopra ottave ribattute della sinistra (126); poi arpeggi della sinistra mp, cresc. (127-128).",
+      "andate": {
+        "1": {
+          "rep2": "bb. 123-125: sinistra sola, BLOC per posizioni, CIECO.\nbb. 126-128: destra sola, ROT tra pollice e nota superiore.",
+          "rep3": "bb. 123-125: PESO sui bassi, un impulso per gruppo, arpeggio di rimbalzo.\nbb. 126-128: sinistra sola, ACC pp sulla 2ª e sulla 4ª semicroma."
+        },
+        "2": {
+          "rep2": "bb. 123-125: CHUNK per posizione.\nbb. 126-128: DIN, sinistra pp e destra p.",
+          "rep3": "Scheletro di tutto il frammento; poi completo pp."
+        }
+      },
+      "rep4_verifica": "Il ff di 125 nasce dal basso della sinistra, non dagli accordi della destra; a 126 le semicrome della destra sono uguali sopra ottave che non battono; il mp di 127 arriva subito, senza coda del ff.",
+      "note": "A matita leggo, con incertezza, «prendi con polso» a b. 124 e «più lente…» sotto b. 126."
+    },
+    {
+      "id": "scriabin fantasie-129-132",
+      "brano": "scriabin fantasie",
+      "battute": "129-132",
+      "titolo": "fff appassionato: ottave e accordi ribattuti della sinistra",
+      "priorita": 2,
+      "famiglia": "fam-scriabin-ribattuti-due-mani",
+      "nodo_motorio": "Sinistra: ottava grave più accordi ribattuti in semicrome, con cambi di basso (tua matita «cambio di basso»). Destra: accordi con canto e salti verso l'acuto. È il carico più alto del brano.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: PESO a mp, un impulso per gruppo, accordi ribattuti di rimbalzo dalla metà corsa del tasto.",
+          "rep3": "DIN dentro la mano destra: canto f, resto dell'accordo pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola: BLOC, solo il primo accordo di ogni gruppo, CIECO sui cambi di basso.",
+          "rep3": "Destra sola: CIECO shift–touch–play sui salti verso l'acuto."
+        },
+        "3": {
+          "rep2": "Scheletro: ottava grave e canto, senza ribattuti.",
+          "rep3": "CHUNK a tempo: un quarto più il primo accordo del seguente."
+        },
+        "4": {
+          "rep2": "MENT del fff: dove sta il culmine e che suono ha. Poi la ripetizione reale.",
+          "rep3": "CLIC, un clic per battuta."
+        }
+      },
+      "rep4_verifica": "fff con il suono più grande del brano ma senza rumore di tasto; i ribattuti della sinistra sono un fondo che vibra, non colpi; a b. 131 il canto della destra domina sopra i ribattuti.",
+      "note": "A b. 131 la Peters stampa il ritmo della prima edizione e in nota propone una lettura analoga a b. 53. Usa in Rep 2-3 la versione che suoni in Rep 4."
+    },
+    {
+      "id": "scriabin fantasie-133-140",
+      "brano": "scriabin fantasie",
+      "battute": "133-140",
+      "titolo": "Più vivo ♩ = 126: marcia, ritorno",
+      "priorita": 6,
+      "famiglia": "fam-scriabin-marcia",
+      "nodo_motorio": "Come 55-63, ff, in un'altra tonalità; accelerando poco a poco da b. 137.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni forma della destra come accordo a tempo di quarti, CIECO.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sui salti dal basso agli accordi in semicroma."
+        },
+        "2": {
+          "rep2": "RIT: fermata sulla croma puntata, semicroma di scatto e vicina al tasto.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Come 55-63: semicroma del puntato netta, salti che atterrano dal tasto, ff compatto anche nell'accelerando.",
+      "note": "Non metterla nello stesso circuito di 55-63 finché una delle due non è in drop-out. Dopo, mettile apposta una dopo l'altra, per verificare che le due versioni non si confondano."
+    },
+    {
+      "id": "scriabin fantasie-141-149",
+      "brano": "scriabin fantasie",
+      "battute": "141-149",
+      "titolo": "Ritorno del passaggio cromatico, allarg. e cadenza",
+      "priorita": 6,
+      "famiglia": "fam-scriabin-presto-cromatico",
+      "parti": [
+        "141-144",
+        "145-149"
+      ],
+      "nodo_motorio": "bb. 141-144: come 64-67, dentro l'accelerando.\nbb. 145-149: allarg., corsa di semicrome della destra, poi accordi con dim. sopra il basso.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 141-144: NODO sui cambi di posizione.\nbb. 145-149: PESO, un impulso per battuta.",
+          "rep3": "bb. 141-144: BLOC in crome, CIECO.\nbb. 145-149: DIN dentro la mano destra: voce superiore f, resto pp."
+        },
+        "2": {
+          "rep2": "bb. 141-144: CHUNK a tempo, mezza battuta più un accordo.\nbb. 145-149: come in andata 1.",
+          "rep3": "CLIC, un clic per battuta, tutto di fila."
+        }
+      },
+      "rep4_verifica": "Accordi completi a tempo; il dim. di 146-149 si ottiene riducendo la caduta, non trattenendo il braccio; il canto della destra resta sopra fino all'ultimo accordo.",
+      "note": "Stessa regola di 133-140: in circuiti diversi da 64-72 finché una non è in drop-out."
+    },
+    {
+      "id": "scriabin fantasie-150-156",
+      "brano": "scriabin fantasie",
+      "battute": "150-156",
+      "titolo": "♩ = 76: tema con canto e semicrome nella destra",
+      "priorita": 1,
+      "famiglia": "fam-scriabin-due-voci-dx",
+      "parti": [
+        "150-153",
+        "154-156"
+      ],
+      "nodo_motorio": "bb. 150-153: accordi della destra sopra bassi e accordi staccati della sinistra; a b. 153 arpeggio della sinistra verso il f.\nbb. 154-156: pp; la destra porta il canto sopra e una linea di semicrome sotto, nella stessa mano.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 150-153: scheletro, basso e canto.\nbb. 154-156: DIN dentro la mano: canto suonato e semicrome mute; poi semicrome pp e canto muto.",
+          "rep3": "bb. 153: CHUNK sull'arpeggio della sinistra.\nbb. 154-156: STAC pp sulle semicrome, canto tenuto legato."
+        },
+        "2": {
+          "rep2": "bb. 154-156: ACC pp sulle semicrome (2ª, poi 3ª, poi 4ª), canto tenuto.",
+          "rep3": "Insieme: destra suona, sinistra MUTA."
+        }
+      },
+      "rep4_verifica": "Il canto lega sopra le semicrome come se lo suonasse un'altra mano; le semicrome sono tutte allo stesso livello, sotto; il f di 153 nasce dal basso e si spegne subito nel pp di 154.",
+      "note": "In cima alla p. 12 c'è una parola a matita che leggo «con espressione» (incerto)."
+    },
+    {
+      "id": "scriabin fantasie-157-164",
+      "brano": "scriabin fantasie",
+      "battute": "157-164",
+      "titolo": "Canto e semicrome nella destra, crescendo, m.g.",
+      "priorita": 1,
+      "famiglia": "fam-scriabin-due-voci-dx",
+      "nodo_motorio": "Come 154-156 su quattro battute in progressione (mf, cresc., f), con note della destra prese dalla sinistra (m.g., bb. 160 e 162). bb. 163-164: accel. e arpeggio della sinistra in salita su tre chiavi.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano destra: canto suonato e semicrome mute; poi il contrario pp.",
+          "rep3": "NODO sulle note prese dalla sinistra (bb. 160 e 162): fermati, verifica che scendano insieme a quelle della destra, poi da nodo a nodo."
+        },
+        "2": {
+          "rep2": "Scheletro: basso e canto; poi le semicrome pp.",
+          "rep3": "bb. 163-164: sinistra sola, CHUNK sull'arpeggio; poi insieme."
+        }
+      },
+      "rep4_verifica": "Il crescendo 157-159 viene dal canto e dal basso, le semicrome restano un passo sotto; lo scambio m.g. di 160 e 162 non si sente; a b. 164 la destra cresce sopra la sinistra senza che l'arpeggio la copra.",
+      "note": "A b. 164 leggo a matita, con incertezza, «cresc. dx» e «diminuisci sx»: se è così, la verifica di Rep 4 è proprio quella."
+    },
+    {
+      "id": "scriabin fantasie-165-172",
+      "brano": "scriabin fantasie",
+      "battute": "165-172",
+      "titolo": "Più vivo ♩ = 88, pp: accordi sopra semicrome continue",
+      "priorita": 3,
+      "famiglia": "fam-scriabin-arpeggi-sx-semicrome",
+      "nodo_motorio": "Sinistra in semicrome continue che scendono al basso grave (cerchiato) col pollice e risalgono. Destra: accordi pp con canto (diteggiature 4-3, 5-4). A b. 172 arpeggio m.d. che continua la linea.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play sul solo basso grave cerchiato.",
+          "rep3": "Sinistra sola: ACC pp, raggruppa ogni 3, poi ogni 4, per togliere l'appoggio sul battere."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano destra: canto suonato, resto muto; poi il contrario.",
+          "rep3": "CLIC, un clic per battuta, tutto il frammento."
+        }
+      },
+      "rep4_verifica": "pp senza culmini nell'arpeggio, con il basso grave che risuona e regge la battuta; canto della destra appena sopra; a b. 172 l'arpeggio m.d. continua la sinistra senza giunture.",
+      "note": "A matita leggo «magico» a b. 165 e, con incertezza, «quasi statico» a b. 166: indicazioni di colore coerenti con questa verifica."
+    },
+    {
+      "id": "scriabin fantasie-173-180",
+      "brano": "scriabin fantasie",
+      "battute": "173-180",
+      "titolo": "pp a due voci nella destra, poi allargando f",
+      "priorita": 1,
+      "famiglia": "fam-scriabin-due-voci-dx",
+      "parti": [
+        "173-178",
+        "179-180"
+      ],
+      "nodo_motorio": "bb. 173-178: la destra porta il canto in crome e una linea di semicrome nella stessa mano; alcune note della linea passano alla sinistra (le linee oblique della Peters).\nbb. 179-180: figure spezzate f della destra con l'accordo in cima (5-4), allargando verso il Tempo I.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano destra: canto suonato, semicrome mute; poi il contrario pp.",
+          "rep3": "NODO sui passaggi alla sinistra: fermati sulla nota passata e verifica che continui la linea."
+        },
+        "2": {
+          "rep2": "Scheletro: basso e canto.",
+          "rep3": "bb. 179-180: ROT sulla destra tra l'accordo in cima e le note sotto; poi PESO sull'accordo d'arrivo."
+        },
+        "3": {
+          "rep2": "STAC pp sulla linea di semicrome, canto tenuto legato.",
+          "rep3": "CHUNK a tempo: mezza battuta più una nota."
+        },
+        "4": {
+          "rep2": "ACC sulle semicrome (2ª, poi 4ª), canto tenuto.",
+          "rep3": "MENT di tutto il frammento con il suono del pp. Poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "pp con il canto legato sopra una linea interna uniforme; il passaggio di note alla sinistra non si sente; il crescendo poco a poco di 177-180 non accelera, e l'allargando arriva al ff di 181 con la mano libera.",
+      "note": "In cima alla p. 14 hai scritto «60» (tempo?) e una riga lunga sul crescendo che non riesco a leggere."
+    },
+    {
+      "id": "scriabin fantasie-181-185",
+      "brano": "scriabin fantasie",
+      "battute": "181-185",
+      "titolo": "Tempo I ff: cascate di biscrome a gruppi irregolari",
+      "priorita": 4,
+      "famiglia": "fam-scriabin-cascate",
+      "nodo_motorio": "Cascate di biscrome in entrambe le mani a gruppi di 9 e di 7, su tre-quattro ottave, con incroci di registro tra le mani e la sinistra che attraversa le chiavi.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni posizione dell'arpeggio come accordo, destra e poi sinistra; CIECO sul cambio.",
+          "rep3": "ACC: le nonuple raggruppate 3+3+3, poi 4+5; le settimine 3+4."
+        },
+        "2": {
+          "rep2": "CHUNK a tempo: un gruppo irregolare più la prima nota del seguente, stop con la mano già in posizione.",
+          "rep3": "MUTA dove le mani si incrociano di registro: destra suona e sinistra fantasma, poi si scambia."
+        }
+      },
+      "rep4_verifica": "Le cascate sono onde di suono con il culmine sulla nota più acuta, non file di note uguali; il basso grave del ff risuona sotto; nessun buco nel passaggio tra le mani.",
+      "note": "Sotto b. 183 leggo a matita «stai basso»; sopra 183-184 una riga che leggo, con incertezza, «stringi entrando le mani»."
+    },
+    {
+      "id": "scriabin fantasie-186-192",
+      "brano": "scriabin fantasie",
+      "battute": "186-192",
+      "titolo": "Ripresa delle cascate, poi accordi ribattuti in cresc.",
+      "priorita": 4,
+      "famiglia": "fam-scriabin-cascate",
+      "parti": [
+        "186-189",
+        "190-192"
+      ],
+      "nodo_motorio": "bb. 186-189: come 182-185.\nbb. 190-192: arpeggi più brevi e accordi; a b. 192 accordi ribattuti con accenti (>) in crescendo verso l'ff di 193.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 186-189: BLOC per posizioni, CIECO.\nbb. 190-192: DIN, sinistra f e destra pp.",
+          "rep3": "bb. 186-189: ACC, nonuple 3+3+3 e poi 4+5.\nbb. 190-192: ribattuti di 192 dalla metà corsa del tasto, ogni accento con un impulso del braccio."
+        },
+        "2": {
+          "rep2": "CHUNK a tempo sui gruppi irregolari.",
+          "rep3": "bb. 190-191: RIT con fermata sulla 1ª nota di ogni gruppo."
+        }
+      },
+      "rep4_verifica": "Come 181-185; a b. 192 il crescendo degli accenti porta all'ff di 193 senza irrigidire l'avambraccio."
+    },
+    {
+      "id": "scriabin fantasie-193-196",
+      "brano": "scriabin fantasie",
+      "battute": "193-196",
+      "titolo": "Finale ff: accordi, quintine e terzine gravi",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Destra: accordi pieni e quintine di semicrome ad accordi in discesa. Sinistra: basso e accordi, con terzine di biscrome ad accordi ribattuti nel grave; poi arpeggio in ottave e accordi finali.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accordo, rilascio completo nelle pause.",
+          "rep3": "Sinistra sola: terzine di biscrome ribattute dalla metà corsa del tasto, pp."
+        },
+        "2": {
+          "rep2": "BLOC sugli accordi della destra, CIECO.",
+          "rep3": "DIN dentro la mano destra: voce superiore f, resto pp."
+        }
+      },
+      "rep4_verifica": "Il finale ff si apre invece di chiudersi: rilascio completo dopo ogni accordo; le terzine gravi della sinistra rullano sotto senza coprire; l'ultimo accordo lasciato vibrare.",
+      "note": "A b. 194 la Peters indica in nota cosa suona il curatore: scegli una versione e usala anche in Rep 2-3."
+    }
+  ],
+  "priorita": [
+    {
+      "n": 1,
+      "nome": "Canto e parti interne nella stessa mano",
+      "perche": "È il tuo difetto nella forma più diretta: il colore nasce da quanto il canto si stacca dalle parti interne suonate dalla stessa mano, e il pedale non lo corregge."
+    },
+    {
+      "n": 2,
+      "nome": "Canto sopra accordi ribattuti nel ff-fff",
+      "perche": "È dove il suono si indurisce più facilmente: molte note, ripetute, forti. È anche il carico più alto per mano e avambraccio."
+    },
+    {
+      "n": 3,
+      "nome": "Arpeggi larghi della sinistra sotto il canto",
+      "perche": "Fanno il fondo del colore: basso che risuona, note interne che si spengono. Con la tua decima l'estensione non è il problema; lo è l'uguaglianza a mezza voce."
+    },
+    {
+      "n": 4,
+      "nome": "Figurazioni rapide e cascate",
+      "perche": "È il materiale che decade per primo se il lavoro tecnico si ferma; e qui la leggerezza è già una questione di suono."
+    },
+    {
+      "n": 5,
+      "nome": "Accordi f-ff con salti",
+      "perche": "Suono pieno senza durezza e precisione tattile; passaggi brevi e meno frequenti."
+    },
+    {
+      "n": 6,
+      "nome": "Marcia e passaggio cromatico",
+      "perche": "Ritmo puntato e accordi a tempo veloce: tenuta tecnica più che colore."
+    },
+    {
+      "n": 7,
+      "nome": "Quintine e terzine del Moderato",
+      "perche": "Gruppi irregolari a tempo lento: uguaglianza e leggerezza, poco rischio."
+    }
+  ],
+  "famiglie": [
+    {
+      "id": "fam-scriabin-tema-iniziale",
+      "nome": "Tema iniziale: accordi con canto e terzine della sinistra",
+      "frammenti": [
+        "scriabin fantasie-1-4",
+        "scriabin fantasie-13-16"
+      ]
+    },
+    {
+      "id": "fam-scriabin-quintine-moderato",
+      "nome": "Quintine e ridistribuzioni del Moderato",
+      "frammenti": [
+        "scriabin fantasie-5-12",
+        "scriabin fantasie-17-23"
+      ]
+    },
+    {
+      "id": "fam-scriabin-secondo-tema",
+      "nome": "Secondo tema sopra arpeggi della sinistra in crome",
+      "frammenti": [
+        "scriabin fantasie-30-38",
+        "scriabin fantasie-39-47"
+      ]
+    },
+    {
+      "id": "fam-scriabin-ribattuti-due-mani",
+      "nome": "Accordi ribattuti a due mani, ff-fff appassionato",
+      "frammenti": [
+        "scriabin fantasie-48-54",
+        "scriabin fantasie-129-132"
+      ]
+    },
+    {
+      "id": "fam-scriabin-canto-su-ribattuti",
+      "nome": "Canto sopra accordi ribattuti, salti della sinistra",
+      "frammenti": [
+        "scriabin fantasie-85-90",
+        "scriabin fantasie-109-116"
+      ]
+    },
+    {
+      "id": "fam-scriabin-marcia",
+      "nome": "Marcia ad accordi puntati",
+      "frammenti": [
+        "scriabin fantasie-55-63",
+        "scriabin fantasie-133-140"
+      ]
+    },
+    {
+      "id": "fam-scriabin-presto-cromatico",
+      "nome": "Passaggio cromatico ad accordi e cadenza",
+      "frammenti": [
+        "scriabin fantasie-64-72",
+        "scriabin fantasie-141-149"
+      ]
+    },
+    {
+      "id": "fam-scriabin-arpeggi-sx-semicrome",
+      "nome": "Arpeggi di semicrome della sinistra sotto accordi e canto",
+      "frammenti": [
+        "scriabin fantasie-91-96",
+        "scriabin fantasie-117-122",
+        "scriabin fantasie-123-128",
+        "scriabin fantasie-165-172"
+      ]
+    },
+    {
+      "id": "fam-scriabin-figurazioni-rapide",
+      "nome": "Semicrome a due mani della ripresa (97-108)",
+      "frammenti": [
+        "scriabin fantasie-97-103",
+        "scriabin fantasie-104-108"
+      ]
+    },
+    {
+      "id": "fam-scriabin-due-voci-dx",
+      "nome": "Canto e linea di semicrome nella stessa mano",
+      "frammenti": [
+        "scriabin fantasie-150-156",
+        "scriabin fantasie-157-164",
+        "scriabin fantasie-173-180"
+      ]
+    },
+    {
+      "id": "fam-scriabin-cascate",
+      "nome": "Cascate di biscrome a gruppi irregolari",
+      "frammenti": [
+        "scriabin fantasie-181-185",
+        "scriabin fantasie-186-192"
+      ]
+    }
+  ],
+  "definizioni": {
+    "priorita": "Organizzazione dei passaggi: i 7 gruppi dell'analisi, in ordine di urgenza (1 = più urgente).",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo (es. 55-63 e 133-140). Un frammento con famiglia null non ha frammenti simili."
+  }
+}

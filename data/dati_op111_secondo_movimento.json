@@ -1,0 +1,1165 @@
+{
+  "versione": 2,
+  "definizioni": {
+    "priorita": "Organizzazione dei passaggi: 7 gruppi in ordine di urgenza (1 = più urgente). Le priorità dell'Arietta sono proprie del II movimento.",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+  },
+  "brani": [
+    {
+      "id": "op111",
+      "nome": "Beethoven, Sonata op. 111",
+      "completo": true
+    }
+  ],
+  "priorita": [
+    {
+      "n": 1,
+      "nome": "Velocità in forte (Var. III e arpeggi col pedale)",
+      "perche": "Tutti e due i tuoi difetti al massimo: è la variazione più veloce e in f il suono tende a indurirsi. I MAX 63-67 a matita dicono che è sotto tempo."
+    },
+    {
+      "n": 2,
+      "nome": "Biscrome leggere in pp nell'acuto",
+      "perche": "Velocità e suono insieme: nove note per tempo, uguali e udibili, in pp. È il punto in cui una mano irrigidita si sente subito."
+    },
+    {
+      "n": 3,
+      "nome": "Tremolo grave in pp sotto accordi sincopati",
+      "perche": "Problema soprattutto di suono: tremolo pp nel registro grave senza ronzio, accordi che entrano dopo la pausa con tutte le note insieme."
+    },
+    {
+      "n": 4,
+      "nome": "Trilli lunghi con melodia nella stessa mano",
+      "perche": "Suono e resistenza: il trillo deve restare pp e continuo sotto il canto. Carico alto sui muscoli piccoli della mano."
+    },
+    {
+      "n": 5,
+      "nome": "Melodia sopra un accompagnamento continuo",
+      "perche": "Suono: equilibrio tra canto e terzine di biscrome della sinistra, che devono restare uniformi e sotto."
+    },
+    {
+      "n": 6,
+      "nome": "Figure puntate a mani alternate (Var. II)",
+      "perche": "Precisione ritmica e coordinazione a velocità media. Meno esposta alla velocità finale."
+    },
+    {
+      "n": 7,
+      "nome": "Canto ad accordi e passi lenti",
+      "perche": "Non dipendono dalla velocità: il lavoro è di suono (voce superiore, simultaneità, legato), meglio fatto in Rep 4 che con vincoli motori."
+    }
+  ],
+  "famiglie": [
+    {
+      "id": "op 111 secondo movimento-fam-tema-accordi",
+      "nome": "Tema: canto ad accordi",
+      "frammenti": [
+        "op 111 secondo movimento-1-4",
+        "op 111 secondo movimento-5-8",
+        "op 111 secondo movimento-9-12",
+        "op 111 secondo movimento-13-16"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-var1-legato",
+      "nome": "Var. I: melodia puntata su semicrome legate",
+      "frammenti": [
+        "op 111 secondo movimento-17-20",
+        "op 111 secondo movimento-21-24",
+        "op 111 secondo movimento-25-28",
+        "op 111 secondo movimento-29-32"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-var2-puntate",
+      "nome": "Var. II: figure puntate a mani alternate",
+      "frammenti": [
+        "op 111 secondo movimento-33-36",
+        "op 111 secondo movimento-37-40",
+        "op 111 secondo movimento-41-44",
+        "op 111 secondo movimento-45-48"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-var3-arpeggi",
+      "nome": "Var. III: accordi ribattuti puntati e arpeggi rapidi della sinistra",
+      "frammenti": [
+        "op 111 secondo movimento-49-50",
+        "op 111 secondo movimento-51-52",
+        "op 111 secondo movimento-60-61",
+        "op 111 secondo movimento-62-63"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-var3-terze",
+      "nome": "Var. III: figure puntate in terze a due mani",
+      "frammenti": [
+        "op 111 secondo movimento-56-57",
+        "op 111 secondo movimento-58-59",
+        "op 111 secondo movimento-64"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-tremolo-grave",
+      "nome": "Var. IV: tremolo grave e accordi sincopati in pp",
+      "frammenti": [
+        "op 111 secondo movimento-65-68",
+        "op 111 secondo movimento-69-71",
+        "op 111 secondo movimento-81-84",
+        "op 111 secondo movimento-85-88"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-biscrome-acuto",
+      "nome": "Var. IV: biscrome leggere nell'acuto con sinistra staccata",
+      "frammenti": [
+        "op 111 secondo movimento-72-75",
+        "op 111 secondo movimento-76-80",
+        "op 111 secondo movimento-89-92",
+        "op 111 secondo movimento-93-96",
+        "op 111 secondo movimento-97-99"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-trilli-melodia",
+      "nome": "Trilli lunghi con melodia nella stessa mano",
+      "frammenti": [
+        "op 111 secondo movimento-106-111",
+        "op 111 secondo movimento-112-115",
+        "op 111 secondo movimento-116-119",
+        "op 111 secondo movimento-160-164",
+        "op 111 secondo movimento-165-168",
+        "op 111 secondo movimento-169-171"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-ribattuti-canto",
+      "nome": "Accordi ribattuti pp con melodia nella voce superiore",
+      "frammenti": [
+        "op 111 secondo movimento-120-123",
+        "op 111 secondo movimento-124-127"
+      ]
+    },
+    {
+      "id": "op 111 secondo movimento-fam-sx-continua",
+      "nome": "Accompagnamento continuo in terzine di biscrome",
+      "frammenti": [
+        "op 111 secondo movimento-100-102",
+        "op 111 secondo movimento-128-130",
+        "op 111 secondo movimento-131-134",
+        "op 111 secondo movimento-135-138",
+        "op 111 secondo movimento-139-142",
+        "op 111 secondo movimento-143-146",
+        "op 111 secondo movimento-147-150",
+        "op 111 secondo movimento-151-154",
+        "op 111 secondo movimento-155-159"
+      ]
+    }
+  ],
+  "frammenti": [
+    {
+      "id": "op 111 secondo movimento-1-4",
+      "brano": "op111",
+      "battute": "1-4",
+      "titolo": "Arietta · Tema, prima frase: accordi con voce superiore",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-tema-accordi",
+      "nodo_motorio": "Accordi di 3-4 note in p, con la voce superiore che canta sopra le altre; ritmo puntato lento. Sinistra a ottave e accordi gravi. Il legato tra accordi va fatto con le dita, non con il pedale.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto dell'accordo muto; poi il contrario.",
+          "rep3": "PESO: ogni accordo dal tasto con un impulso del braccio, rilascio a fondo tasto; sulla nota lunga muovi il polso su e giù."
+        },
+        "2": {
+          "rep2": "DIN tra le mani: sinistra pp, destra con la sola voce superiore mp e le altre pp.",
+          "rep3": "CIECO: sguardo fuori dalla tastiera; il cambio da un accordo all'altro si controlla al tatto, senza staccare."
+        }
+      },
+      "rep4_verifica": "La voce superiore sta un livello sopra le altre; tutte le note di ogni accordo scendono insieme; legato udibile anche con pedale solo di risonanza.",
+      "note": "Nel Tema il lavoro è quasi tutto di suono. Se Rep 1 è pulita due andate di fila, va in drop-out."
+    },
+    {
+      "id": "op 111 secondo movimento-5-8",
+      "brano": "op111",
+      "battute": "5-8",
+      "titolo": "Arietta · Tema: forcelle e fine della prima metà (1ª e 2ª volta)",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-tema-accordi",
+      "nodo_motorio": "Forcelle di b. 6 dentro un ritmo che non deve cedere; sinistra con salto d'ottava e voce interna legata (53 a b. 5). Alla 2ª volta di b. 8 il levare porta alla seconda metà.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano nella destra, come in 1-4.",
+          "rep3": "Sinistra sola, legato senza pedale; poi PESO sul basso di ogni battuta."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma; poi si scambia.",
+          "rep3": "CHUNK a ritroso: ultimo tempo di b. 8 (2ª volta) più l'attacco di b. 9."
+        }
+      },
+      "rep4_verifica": "Il crescendo e il diminuendo di b. 6 vengono dal peso, non dall'accelerare; il levare della 2ª volta arriva a tempo."
+    },
+    {
+      "id": "op 111 secondo movimento-9-12",
+      "brano": "op111",
+      "battute": "9-12",
+      "titolo": "Arietta · Tema, seconda metà: melodia su seconda voce",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-tema-accordi",
+      "nodo_motorio": "Voce superiore cantabile con una seconda voce nella stessa mano; sinistra con salti tra basso e accordo (b. 10-11, diteggiature 3 e 4 stampate).",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano: voce superiore mp, seconda voce pp.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sui salti dal basso all'accordo."
+        },
+        "2": {
+          "rep2": "DIN tra le mani: sinistra pp.",
+          "rep3": "PESO sugli accordi della destra di b. 12."
+        }
+      },
+      "rep4_verifica": "La seconda voce non copre il canto; i bassi della sinistra arrivano insieme alla destra."
+    },
+    {
+      "id": "op 111 secondo movimento-13-16",
+      "brano": "op111",
+      "battute": "13-16",
+      "titolo": "Arietta · Tema: accordi in crescendo e sf>p (1ª e 2ª volta)",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-tema-accordi",
+      "nodo_motorio": "Accordi pieni in crescendo fino allo sf>p di b. 16, che va ripetuto due volte (1ª e 2ª volta); alla 2ª volta dolce e levare della Var. I.",
+      "andate": {
+        "1": {
+          "rep2": "PESO: un impulso per accordo nel crescendo, polso mobile.",
+          "rep3": "DIN dentro la mano sugli accordi di b. 14-15."
+        },
+        "2": {
+          "rep2": "CIECO sugli accordi di b. 13-14.",
+          "rep3": "CHUNK a ritroso: b. 16 (2ª volta) più l'attacco di b. 17."
+        }
+      },
+      "rep4_verifica": "Crescendo senza indurire: l'accordo più forte suona ancora pieno, non battuto; lo sf>p è un impulso e il p arriva subito."
+    },
+    {
+      "id": "op 111 secondo movimento-17-20",
+      "brano": "op111",
+      "battute": "17-20",
+      "titolo": "Arietta · Var. I: melodia puntata sopra semicrome legate",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-var1-legato",
+      "nodo_motorio": "Sinistra in semicrome «sempre ligato» con note legate di valore sopra il tempo (sincopi); destra con melodia puntata e accordi.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, legato senza pedale; la nota che segue ogni legatura di valore pp.",
+          "rep3": "Insieme con DIN: destra (sola voce superiore) mp, sinistra pp."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma; poi si scambia.",
+          "rep3": "CLIC sul levare (2ª semicroma di ogni tempo)."
+        }
+      },
+      "rep4_verifica": "La sinistra non accenta la nota dopo la legatura di valore; il puntato della destra resta netto, non terzinato."
+    },
+    {
+      "id": "op 111 secondo movimento-21-24",
+      "brano": "op111",
+      "battute": "21-24",
+      "titolo": "Arietta · Var. I: accordi con sostituzioni e semicrome a due mani (24, 2ª volta)",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-var1-legato",
+      "nodo_motorio": "Accordi della destra con sostituzione 5-4 (b. 22); alla 2ª volta di b. 24 semicrome in entrambe le mani. A matita leggo 3-2 sopra la destra e una diteggiatura sotto la sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano sugli accordi di 21-22.",
+          "rep3": "Solo b. 24 (2ª volta): RIT a mani unite, fermata sulla 1ª di ogni tempo."
+        },
+        "2": {
+          "rep2": "Solo b. 24 (2ª volta): NODO sui punti in cui le diteggiature delle due mani cambiano posizione.",
+          "rep3": "CHUNK: un tempo più una nota sulla 2ª volta di b. 24."
+        }
+      },
+      "rep4_verifica": "Sostituzioni senza buchi nel legato; nella 2ª volta di b. 24 le due mani suonano come una sola."
+    },
+    {
+      "id": "op 111 secondo movimento-25-28",
+      "brano": "op111",
+      "battute": "25-28",
+      "titolo": "Arietta · Var. I, seconda metà: doppie note legate",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-var1-legato",
+      "nodo_motorio": "Doppie note della destra «sempre ligato» con sostituzioni e incroci di dita (5-4, 5-4-5, 3-2, 2-1), sopra le semicrome legate della sinistra; cresc. verso b. 28.",
+      "andate": {
+        "1": {
+          "rep2": "Voce superiore legata, inferiore staccata.",
+          "rep3": "Il contrario."
+        },
+        "2": {
+          "rep2": "DIN tra le mani: destra mp, sinistra pp.",
+          "rep3": "CIECO sulle sostituzioni della destra."
+        }
+      },
+      "rep4_verifica": "Legato vero, senza pedale, in tutte e due le voci; il crescendo non indurisce la mano.",
+      "note": "Nota Henle (*) sulla legatura mi–mi a b. 26: segui quella dell'autografo, come stampato."
+    },
+    {
+      "id": "op 111 secondo movimento-29-32",
+      "brano": "op111",
+      "battute": "29-32",
+      "titolo": "Arietta · Var. I: salti della sinistra e sf finale (1ª e 2ª volta)",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-var1-legato",
+      "nodo_motorio": "Sinistra con salti all'ottava grave dentro il legato (b. 30-31) e portato a b. 31; sf a b. 32 a due mani, seguito da semicrome legate.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play sui bassi gravi.",
+          "rep3": "Destra sola: DIN dentro la mano."
+        },
+        "2": {
+          "rep2": "PESO sugli sf di b. 32 a due mani, poi pp.",
+          "rep3": "CHUNK a ritroso: b. 32 (2ª volta) più l'attacco della Var. II."
+        }
+      },
+      "rep4_verifica": "I bassi gravi arrivano a tempo e senza colpo; lo sf parte dal tasto."
+    },
+    {
+      "id": "op 111 secondo movimento-33-36",
+      "brano": "op111",
+      "battute": "33-36",
+      "titolo": "Arietta · Var. II: figure puntate a mani alternate, mano sinistra nel rigo superiore",
+      "priorita": 6,
+      "famiglia": "op 111 secondo movimento-fam-var2-puntate",
+      "nodo_motorio": "Figure puntate a due voci; a b. 34 la voce inferiore del rigo superiore va alla sinistra («mano sinistra»): le mani lavorano nello stesso registro. A b. 36 «sempre ligato».",
+      "andate": {
+        "1": {
+          "rep2": "Ritmo pareggiato: togli il puntato, tutte le note uguali, per controllare note e consegna tra le mani.",
+          "rep3": "MUTA: la sinistra suona la voce che prende nel rigo superiore, la destra fa da fantasma; poi si scambia."
+        },
+        "2": {
+          "rep2": "DIN: voce superiore mp, voce della sinistra pp.",
+          "rep3": "CLIC sul levare (2ª croma della battuta da 6/16)."
+        }
+      },
+      "rep4_verifica": "Il puntato è esatto e identico nelle due mani: la nota corta è corta davvero; le due mani non si urtano nello stesso registro.",
+      "note": "A b. 36 leggo a matita una diteggiatura sopra la destra (forse 4-1 e 4-1-2); non sono sicuro dei numeri."
+    },
+    {
+      "id": "op 111 secondo movimento-37-40",
+      "brano": "op111",
+      "battute": "37-40",
+      "titolo": "Arietta · Var. II: cresc. con sinistra a ottave spezzate (1ª e 2ª volta)",
+      "priorita": 6,
+      "famiglia": "op 111 secondo movimento-fam-var2-puntate",
+      "nodo_motorio": "Destra con terze e figure puntate in cresc.; sinistra a ottave spezzate nel grave, per cui a matita leggo 3-5 ripetuto (b. 37).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ROT sulle ottave spezzate, con la tua diteggiatura 3-5.",
+          "rep3": "Destra sola: RIT sulle figure puntate, fermata sulla nota lunga e corta di scatto."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma.",
+          "rep3": "CHUNK: un tempo più la prima nota del successivo, a mani unite."
+        }
+      },
+      "rep4_verifica": "Ottave della sinistra senza accento sul pollice; crescendo regolare fino a b. 40."
+    },
+    {
+      "id": "op 111 secondo movimento-41-44",
+      "brano": "op111",
+      "battute": "41-44",
+      "titolo": "Arietta · Var. II, seconda metà: doppie note e accordi puntati",
+      "priorita": 6,
+      "famiglia": "op 111 secondo movimento-fam-var2-puntate",
+      "nodo_motorio": "Figure puntate parallele nelle due mani (41); sinistra a due voci con basso tenuto (42); successione di accordi con diteggiature 5/2, 4/1, 5/3/2, 5/4/2 (43); accordi ribattuti puntati in cresc. (44).",
+      "andate": {
+        "1": {
+          "rep2": "BLOC su b. 43: ogni accordo a tempo, cambio di posizione senza guardare.",
+          "rep3": "Sinistra sola su 42: basso tenuto, figura pp."
+        },
+        "2": {
+          "rep2": "Ribattuti di b. 44 da metà corsa del tasto, senza staccare le dita.",
+          "rep3": "MUTA nelle due direzioni."
+        }
+      },
+      "rep4_verifica": "Le note di ogni accordo insieme; il basso tenuto di 42 resta giù; ribattuti uguali nel cresc.",
+      "note": "Sotto la sinistra di 41-42 leggo a matita 5 e 4; altrove non riesco a leggere le cifre."
+    },
+    {
+      "id": "op 111 secondo movimento-45-48",
+      "brano": "op111",
+      "battute": "45-48",
+      "titolo": "Arietta · Var. II: sinistra nel registro medio e passaggio alla Var. III",
+      "priorita": 6,
+      "famiglia": "op 111 secondo movimento-fam-var2-puntate",
+      "nodo_motorio": "Sinistra nel registro medio con doppie note e figure puntate, destra con terze; sf>p a b. 48 (1ª e 2ª volta). La 2ª volta passa alla Var. III: L'istesso tempo.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: DOPPIE a pulsazione dimezzata.",
+          "rep3": "DIN: sinistra mp, destra pp."
+        },
+        "2": {
+          "rep2": "PESO sugli sf>p di b. 48.",
+          "rep3": "CHUNK a ritroso: b. 48 (2ª volta) più il primo tempo di b. 49."
+        }
+      },
+      "rep4_verifica": "La pulsazione di b. 48 continua identica a b. 49; il f della Var. III arriva senza preparazione visibile.",
+      "note": "Sotto la sinistra di b. 48 leggo a matita una serie di cifre (forse 5-4-3-4…): non sono sicuro."
+    },
+    {
+      "id": "op 111 secondo movimento-49-50",
+      "brano": "op111",
+      "battute": "49-50",
+      "titolo": "Arietta · Var. III: arpeggi della sinistra dal grave e accordi ribattuti",
+      "priorita": 1,
+      "famiglia": "op 111 secondo movimento-fam-var3-arpeggi",
+      "nodo_motorio": "Sinistra: arpeggi di semibiscrome che partono da un basso profondo, due per battuta; salto e arpeggio in un solo gesto. Destra: terze e accordi ribattuti in ritmo puntato, poi una discesa rapida a fine battuta.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni arpeggio della sinistra come una o due posizioni a blocco; il salto verso il basso CIECO.",
+          "rep3": "CHUNK: arpeggio della sinistra più il primo accordo della destra che segue, a tempo pieno; durante lo stop la mano è già sulla posizione successiva."
+        },
+        "2": {
+          "rep2": "Destra sola: ribattuti da metà corsa del tasto con DIN dentro la mano (voce superiore mp, resto pp); la discesa con RIT, fermata sulla 1ª nota e il resto di scatto.",
+          "rep3": "MUTA: sinistra suona, destra fantasma; poi si scambia."
+        }
+      },
+      "rep4_verifica": "Gli arpeggi partono dal basso senza ritardo e arrivano legati all'accordo; f pieno ma non battuto, ogni accordo con caduta e rilascio; la discesa della destra non accelera.",
+      "note": "Sotto la sinistra di b. 49 leggo a matita alcune cifre (forse 4-3-2-1): non sono sicuro."
+    },
+    {
+      "id": "op 111 secondo movimento-51-52",
+      "brano": "op111",
+      "battute": "51-52",
+      "titolo": "Arietta · Var. III: accordi tenuti, discesa della destra sopra ribattuti gravi",
+      "priorita": 1,
+      "famiglia": "op 111 secondo movimento-fam-var3-arpeggi",
+      "nodo_motorio": "b. 51: accordi della destra puntati e legati di valore, con arpeggi della sinistra (1-5). b. 52: discesa cromatica della destra in semibiscrome sopra ottave e accordi ribattuti della sinistra, poi di nuovo accordi e arpeggio.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola su 52: RIT su gruppi di 4, fermata sulla 1ª e le altre tre di scatto; poi fermata sulla 2ª.",
+          "rep3": "Sinistra sola: arpeggi di 51-52 con CHUNK, partenza CIECO sul basso."
+        },
+        "2": {
+          "rep2": "ACC sulla 2ª e sulla 4ª nota di ogni gruppo della destra a 52, il resto pp.",
+          "rep3": "CLIC: un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "Discesa di 52 regolare, senza accento sul pollice; i ribattuti della sinistra uguali e sotto la destra."
+    },
+    {
+      "id": "op 111 secondo movimento-53-55",
+      "brano": "op111",
+      "battute": "53-55",
+      "titolo": "Arietta · Var. III: sf su ogni gruppo e salti della sinistra",
+      "priorita": 1,
+      "famiglia": null,
+      "nodo_motorio": "Uno sf per gruppo, sulla nota alta della destra (cerchiata a matita); a b. 55 la sinistra salta a ogni gruppo verso un basso grave (cerchiati a matita). Dopo ogni sf la mano deve tornare morbida.",
+      "andate": {
+        "1": {
+          "rep2": "Senza sf, STAC pp su tutto: mappa delle note.",
+          "rep3": "PESO: sf come impulso del braccio sulla sola nota cerchiata, rilascio immediato, il resto pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola su 55: CIECO shift–touch–play sui bassi cerchiati.",
+          "rep3": "CHUNK: da uno sf al successivo più la nota sf, a tempo pieno."
+        }
+      },
+      "rep4_verifica": "Gli sf escono dal braccio, non dalla spalla, e non induriscono il suono; la nota dopo lo sf non viene mangiata; i bassi di 55 arrivano a tempo.",
+      "note": "I cerchi a matita li interpreto come note da curare (sf e salti). Se indicano altro, dimmelo."
+    },
+    {
+      "id": "op 111 secondo movimento-56-57",
+      "brano": "op111",
+      "battute": "56-57",
+      "titolo": "Arietta · Var. III: figure puntate in terze (1ª e 2ª volta) e f/p di b. 57",
+      "priorita": 1,
+      "famiglia": "op 111 secondo movimento-fam-var3-terze",
+      "nodo_motorio": "b. 56: figure puntate in terze e seste nella destra, sinistra in moto parallelo, cromatismi; alla 2ª volta la sinistra scende al grave (3, 4) verso il f di 57. b. 57: scala ascendente della sinistra sotto accordi f, poi melodia p della destra sopra accordi ribattuti.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni posizione di terze come bicordo, mani unite.",
+          "rep3": "RIT nella sola destra: fermata sulla nota lunga di ogni figura puntata, la corta e l'arrivo di scatto."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma; poi si scambia.",
+          "rep3": "CHUNK a ritroso: ultimo tempo di 56 (2ª volta) più l'attacco f di 57; poi fino al p."
+        }
+      },
+      "rep4_verifica": "Le due note di ogni terza insieme; puntato netto in entrambe le mani; il p di 57 è davvero p subito dopo il f.",
+      "note": "Sotto la sinistra di 56 (1ª volta) e sopra la destra leggo a matita alcune cifre (2-1-2, 3-3, 4-3-1-2?): non sono sicuro."
+    },
+    {
+      "id": "op 111 secondo movimento-58-59",
+      "brano": "op111",
+      "battute": "58-59",
+      "titolo": "Arietta · Var. III: f/p e semibiscrome in cresc. sopra ottave spezzate",
+      "priorita": 1,
+      "famiglia": "op 111 secondo movimento-fam-var3-terze",
+      "nodo_motorio": "b. 58: terze puntate f della destra con arpeggio ascendente della sinistra, poi melodia p in semibiscrome sopra accordi ribattuti. b. 59: figura continua della destra in cresc., ottave spezzate della sinistra con salti.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: arpeggio di 58 BLOC e CIECO, poi gli accordi ribattuti p da metà corsa.",
+          "rep3": "Destra sola su 59: ACC sulla 2ª e sulla 4ª di ogni gruppo, pollice pp."
+        },
+        "2": {
+          "rep2": "RIT nella destra di 58 (parte p) e 59.",
+          "rep3": "CLIC sul levare, tutto il frammento."
+        }
+      },
+      "rep4_verifica": "Il p di 58 arriva subito dopo il f; il cresc. di 59 viene dal peso, non dall'accelerare; ottave spezzate senza buchi."
+    },
+    {
+      "id": "op 111 secondo movimento-60-61",
+      "brano": "op111",
+      "battute": "60-61",
+      "titolo": "Arietta · Var. III: sf sincopati e arpeggio di b. 61 (MAX 67)",
+      "priorita": 1,
+      "famiglia": "op 111 secondo movimento-fam-var3-arpeggi",
+      "nodo_motorio": "b. 60: sf sincopati, destra con ottave e seste spezzate, sinistra con note lunghe e salti sf (a matita 5-3 e 3-2). b. 61: accordi ribattuti della destra (5/4) e discesa in semibiscrome; arpeggio della sinistra dal grave, poi accordi ribattuti legati.",
+      "andate": {
+        "1": {
+          "rep2": "PESO sugli sf della sinistra (60) e sugli accordi di 61: impulso, rilascio, polso mobile.",
+          "rep3": "CHUNK: arpeggio di 61 più il primo accordo ribattuto."
+        },
+        "2": {
+          "rep2": "Destra sola su 61: DIN dentro la mano sui ribattuti, poi la discesa con RIT.",
+          "rep3": "CIECO shift–touch–play sui salti della sinistra di 60."
+        }
+      },
+      "rep4_verifica": "Gli sf sincopati di 60 non anticipano il tempo; l'arpeggio di 61 parte senza ritardo; annota il tempo di Rep 4 accanto al tuo MAX 67.",
+      "note": "MAX 67 a matita sopra b. 61."
+    },
+    {
+      "id": "op 111 secondo movimento-62-63",
+      "brano": "op111",
+      "battute": "62-63",
+      "titolo": "Arietta · Var. III: arpeggio a 9 note della sinistra e doppie note «legg.»",
+      "priorita": 1,
+      "famiglia": "op 111 secondo movimento-fam-var3-arpeggi",
+      "nodo_motorio": "b. 62: accordi ribattuti legati della destra con gruppi sf; arpeggio ascendente della sinistra con la tua diteggiatura a matita 4-2-1-3-2-1-4-2-1. b. 63: doppie note cromatiche della destra (3/2, 4/1, 5/2, 4/1-2) con la tua indicazione «legg.», sf sincopati.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: arpeggio di 62 BLOC per posizioni (4-2-1 / 3-2-1 / 4-2-1), poi CHUNK.",
+          "rep3": "Destra sola su 63: STAC pp sulle doppie note, poi legato."
+        },
+        "2": {
+          "rep2": "RIT sull'arpeggio di 62: fermata sulla 1ª di ogni posizione, il resto di scatto.",
+          "rep3": "PESO sugli sf, poi MUTA: sinistra suona, destra fantasma."
+        }
+      },
+      "rep4_verifica": "Arpeggio senza accenti sui passaggi del pollice; il «legg.» di 63 è davvero leggero dopo gli sf; gli sf sono impulsi e non spinte.",
+      "note": "A b. 63 leggo a matita «legg» e un 3; sotto la sinistra 1-4."
+    },
+    {
+      "id": "op 111 secondo movimento-64",
+      "brano": "op111",
+      "battute": "64",
+      "titolo": "Arietta · Var. III, b. 64 (1ª e 2ª volta, MAX 63) e passaggio alla Var. IV",
+      "priorita": 1,
+      "famiglia": "op 111 secondo movimento-fam-var3-terze",
+      "nodo_motorio": "Destra: voce superiore tenuta con il 5 mentre le note sotto cambiano dito (5/1, 5/2, 5/3), poi terze e accordi puntati; sinistra con accordi ribattuti legati e scala. 2ª volta: dim. e discesa della sinistra al grave, poi 9/16 e pp.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: DIN dentro la mano, voce del 5 tenuta mp, note interne ribattute pp.",
+          "rep3": "Sinistra sola: accordi ribattuti legati e scala con CHUNK."
+        },
+        "2": {
+          "rep2": "MUTA nelle due direzioni.",
+          "rep3": "Solo 2ª volta: CHUNK a ritroso fino al primo tempo della Var. IV (b. 65)."
+        }
+      },
+      "rep4_verifica": "Annota il tempo di Rep 4 accanto al tuo MAX 63; il passaggio a b. 65 non perde la pulsazione e il pp arriva subito.",
+      "note": "MAX 63 a matita sopra la 1ª volta; MAX (senza numero) sopra la 2ª."
+    },
+    {
+      "id": "op 111 secondo movimento-65-68",
+      "brano": "op111",
+      "battute": "65-68",
+      "titolo": "Arietta · Var. IV: tremolo grave pp e accordi dopo la pausa",
+      "priorita": 3,
+      "famiglia": "op 111 secondo movimento-fam-tremolo-grave",
+      "nodo_motorio": "Sinistra: terzine di biscrome tra basso e quinta/ottava (nove note per tempo), pp e continue. Destra: coppie di accordi legati che entrano dopo una pausa (pause cerchiate a matita a b. 65), sempre pp. Levare compreso.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla sinistra: due tempi di sola rotazione, uno di sole dita, alternati, pp.",
+          "rep3": "Destra sola: CIECO shift–touch–play sugli accordi; la pausa contata prima di ogni ingresso."
+        },
+        "2": {
+          "rep2": "ACC nella sinistra: raggruppa la terzina in 2, poi in 4, il resto pp.",
+          "rep3": "MUTA: sinistra suona, destra fantasma che tocca gli accordi senza abbassarli; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Tremolo pp senza ronzio né buchi, nove note per tempo; gli accordi entrano esattamente dopo la pausa, tutte le note insieme e un poco sopra la sinistra; nessun accento sul basso.",
+      "note": "A b. 66 c'è un'annotazione a matita con una freccia sul primo accordo che non riesco a leggere."
+    },
+    {
+      "id": "op 111 secondo movimento-69-71",
+      "brano": "op111",
+      "battute": "69-71",
+      "titolo": "Arietta · Var. IV: accordi che salgono al registro medio, bassi che cambiano",
+      "priorita": 3,
+      "famiglia": "op 111 secondo movimento-fam-tremolo-grave",
+      "nodo_motorio": "Accordi della destra con alterazioni (mi♭, si♭) e cambi di chiave: salti di registro tra un accordo e l'altro (69-71). Il basso del tremolo cambia nota (70-71).",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: BLOC, ogni accordo a tempo, cambio di registro CIECO.",
+          "rep3": "Sinistra sola: fermati sulla prima nota di ogni nuovo basso, poi suona fino al cambio successivo."
+        },
+        "2": {
+          "rep2": "ROT nella sinistra pp, destra MUTA.",
+          "rep3": "CLIC: un solo clic per battuta."
+        }
+      },
+      "rep4_verifica": "Gli accordi alti hanno lo stesso pp di quelli gravi; il tremolo non si interrompe ai cambi di basso."
+    },
+    {
+      "id": "op 111 secondo movimento-81-84",
+      "brano": "op111",
+      "battute": "81-84",
+      "titolo": "Arietta · Var. IV: ritorno al grave dopo l'acuto, accordi in chiave di basso",
+      "priorita": 3,
+      "famiglia": "op 111 secondo movimento-fam-tremolo-grave",
+      "nodo_motorio": "Come 65-68, con l'arrivo dall'acuto (b. 80) e il tremolo su do; accordi della destra in chiave di basso (4/2, 3/1, 5/3/1), ingresso dopo la pausa.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla sinistra, pp.",
+          "rep3": "Destra sola: CIECO sugli accordi, pausa contata."
+        },
+        "2": {
+          "rep2": "CHUNK a ritroso: ultimo tempo di 80 più il primo di 81, per l'arrivo nel grave.",
+          "rep3": "MUTA nelle due direzioni."
+        }
+      },
+      "rep4_verifica": "Il pp di 81 arriva subito, senza assestamento; accordi completi e insieme."
+    },
+    {
+      "id": "op 111 secondo movimento-85-88",
+      "brano": "op111",
+      "battute": "85-88",
+      "titolo": "Arietta · Var. IV: basso in movimento e accordi verso l'acuto",
+      "priorita": 3,
+      "famiglia": "op 111 secondo movimento-fam-tremolo-grave",
+      "nodo_motorio": "Il basso del tremolo si muove (85-87); a b. 88 gli accordi della destra salgono verso la chiave di violino e preparano l'acuto di b. 89.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: fermati sulla prima nota di ogni nuovo basso, poi suona fino al cambio successivo.",
+          "rep3": "Destra sola: BLOC con cambi di registro CIECO."
+        },
+        "2": {
+          "rep2": "ACC nella sinistra (terzina raggruppata in 2).",
+          "rep3": "CHUNK a ritroso: ultimo tempo di 88 più il primo di 89."
+        }
+      },
+      "rep4_verifica": "Tremolo continuo sotto i cambi di basso; il passaggio a b. 89 non spezza la pulsazione."
+    },
+    {
+      "id": "op 111 secondo movimento-72-75",
+      "brano": "op111",
+      "battute": "72-75",
+      "titolo": "Arietta · Var. IV: scala a due mani e biscrome leggere nell'acuto",
+      "priorita": 2,
+      "famiglia": "op 111 secondo movimento-fam-biscrome-acuto",
+      "nodo_motorio": "b. 72: scala ascendente a due mani in terzine di biscrome, cresc., con il pollice su ogni terzina; poi subito pp nell'acuto. Da 73: figura della destra in posizione stretta, molti passaggi del pollice (1-3-1-2…), sinistra staccata leggera.",
+      "andate": {
+        "1": {
+          "rep2": "RIT su terzine: fermata sulla 1ª, le altre due e l'arrivo di scatto; poi fermata sulla 2ª.",
+          "rep3": "ACC: accento sulla 2ª nota di ogni terzina, poi sulla 3ª, il resto pp."
+        },
+        "2": {
+          "rep2": "Destra sola: STAC pp.",
+          "rep3": "CHUNK: un tempo (nove note) più la prima del successivo, a tempo pieno, con la sinistra staccata."
+        }
+      },
+      "rep4_verifica": "Le nove note di ogni tempo uguali e udibili in pp; il pollice non si sente come accento; la scala di 72 non accelera nel cresc.; sinistra più leggera della destra.",
+      "note": "A b. 75 leggo a matita un 3 (forse 2-3) sopra la destra."
+    },
+    {
+      "id": "op 111 secondo movimento-76-80",
+      "brano": "op111",
+      "battute": "76-80",
+      "titolo": "Arietta · Var. IV: figure larghe della destra, «sempre staccato»",
+      "priorita": 2,
+      "famiglia": "op 111 secondo movimento-fam-biscrome-acuto",
+      "nodo_motorio": "Figure della destra con salti di sesta e ottava dentro il gruppo (78): la mano si apre e si richiude a velocità. Sinistra «sempre staccato» con doppie note; a b. 80 la sinistra scende al grave e si torna al pp di 81.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: le posizioni della destra di 78 come accordi.",
+          "rep3": "RIT su terzine, fermata sulla 1ª."
+        },
+        "2": {
+          "rep2": "ACC: raggruppa in 2 la figura scritta in 3.",
+          "rep3": "CHUNK a ritroso: ultimo tempo di 80 più il primo di 81."
+        }
+      },
+      "rep4_verifica": "Figure larghe senza buchi tra le posizioni; staccato della sinistra uguale e pp.",
+      "note": "A b. 76-77 leggo a matita qualche cifra sopra la destra (2-3-4?, 2-3?): non sono sicuro."
+    },
+    {
+      "id": "op 111 secondo movimento-89-92",
+      "brano": "op111",
+      "battute": "89-92",
+      "titolo": "Arietta · Var. IV: seconda volta nell'acuto, sinistra ribattuta",
+      "priorita": 2,
+      "famiglia": "op 111 secondo movimento-fam-biscrome-acuto",
+      "nodo_motorio": "Come 72-75, con la figura della destra che sale gradualmente; sinistra ribattuta staccata sulla stessa nota (89-90), poi semicrome senza staccato (91) e salto a 92. A b. 91 hai scritto a matita una tua diteggiatura sopra la destra.",
+      "andate": {
+        "1": {
+          "rep2": "RIT su terzine, fermata sulla 1ª, con la tua diteggiatura di 91.",
+          "rep3": "Sinistra sola: ribattuti pp dal tasto, polso fermo."
+        },
+        "2": {
+          "rep2": "ACC sulla 2ª nota di ogni terzina.",
+          "rep3": "CHUNK: un tempo più una nota, a mani unite."
+        }
+      },
+      "rep4_verifica": "Ribattuti della sinistra uguali e sotto la destra; figura della destra uguale nella salita.",
+      "note": "Diteggiatura a matita di b. 91: leggo una serie di 3 e 5 (forse 1-5-5-3-5-3-5-3-3…). Controlla che quella che usi sia quella scritta."
+    },
+    {
+      "id": "op 111 secondo movimento-93-96",
+      "brano": "op111",
+      "battute": "93-96",
+      "titolo": "Arietta · Var. IV: cromatismi della destra e accordi della sinistra",
+      "priorita": 2,
+      "famiglia": "op 111 secondo movimento-fam-biscrome-acuto",
+      "nodo_motorio": "Figure cromatiche della destra con diteggiatura 1-3 fitta (93-94, molte alterazioni); a 96 la sinistra passa ad accordi ribattuti. A b. 96 hai scritto a matita 3, 4, 2-4 e una parola che non leggo.",
+      "andate": {
+        "1": {
+          "rep2": "RIT su terzine sulle sole 93-94.",
+          "rep3": "Destra sola: fermati, tenendo il tasto, sulle note in cui passa il pollice; poi suona fino alla successiva."
+        },
+        "2": {
+          "rep2": "ACC: accento sulla 3ª nota di ogni terzina.",
+          "rep3": "CHUNK, un tempo più una nota."
+        }
+      },
+      "rep4_verifica": "Cromatismi senza zoppia e senza accento sul pollice; accordi della sinistra con le note insieme."
+    },
+    {
+      "id": "op 111 secondo movimento-97-99",
+      "brano": "op111",
+      "battute": "97-99",
+      "titolo": "Arietta · Var. IV: fine dell'acuto, interruzione e ripresa",
+      "priorita": 2,
+      "famiglia": "op 111 secondo movimento-fam-biscrome-acuto",
+      "nodo_motorio": "Figura della destra sopra terze ribattute della sinistra (97); a 98 la destra si ferma, la sinistra fa accordi e una discesa rapida (1-1-1), poi la destra riparte (4); 99 su terze ribattute della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "CHUNK sulla ripresa della destra a 98: ultimo tempo prima della pausa più la ripartenza.",
+          "rep3": "Sinistra sola: terze ribattute STAC pp."
+        },
+        "2": {
+          "rep2": "RIT su terzine.",
+          "rep3": "MENT sul punto di ripartenza di 98, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "La ripartenza della destra a 98 è a tempo; terze della sinistra uguali."
+    },
+    {
+      "id": "op 111 secondo movimento-100-102",
+      "brano": "op111",
+      "battute": "100-102",
+      "titolo": "Arietta · Transizione: arpeggi spezzati della sinistra sotto accordi lunghi",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Sinistra in arpeggi spezzati di biscrome (diteggiature 2, 5, 3 stampate) in cresc.; destra accordi lunghi di tre note, poi sf a b. 102.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: BLOC per posizioni, poi ACC sulla 2ª nota di ogni gruppo.",
+          "rep3": "PESO sugli accordi della destra."
+        },
+        "2": {
+          "rep2": "Sinistra sola: RIT, fermata sulla 1ª di ogni gruppo.",
+          "rep3": "MUTA: sinistra suona, destra fantasma."
+        }
+      },
+      "rep4_verifica": "Cresc. della sinistra uniforme, senza accenti sul pollice; accordi della destra completi."
+    },
+    {
+      "id": "op 111 secondo movimento-103-105",
+      "brano": "op111",
+      "battute": "103-105",
+      "titolo": "Arietta · Arpeggi passati da sinistra a destra col pedale, verso sf",
+      "priorita": 1,
+      "famiglia": null,
+      "nodo_motorio": "Arpeggi che partono dal grave nella sinistra e proseguono nella destra (cambi di chiave), cresc. fino allo sf; poi figure della destra nell'acuto. A b. 105 due arpeggi della sinistra dal grave profondo (3, 4). Pedale scritto.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: la porzione della sinistra come accordo, quella della destra come accordo, a tempo.",
+          "rep3": "CHUNK con stop sulla prima nota della destra; quella nota volutamente pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola su 105: CIECO shift–touch–play sui bassi profondi.",
+          "rep3": "MENT, poi RIT con fermata sulla nota di consegna tra le mani."
+        }
+      },
+      "rep4_verifica": "Il punto di consegna tra le mani non si sente; lo sf arriva senza ritardo e senza durezza; pedale cambiato dove scritto."
+    },
+    {
+      "id": "op 111 secondo movimento-106-111",
+      "brano": "op111",
+      "battute": "106-111",
+      "titolo": "Arietta · Trillo lungo della destra con melodia sopra",
+      "priorita": 4,
+      "famiglia": "op 111 secondo movimento-fam-trilli-melodia",
+      "nodo_motorio": "Trillo su re con le dita interne (13 stampato, a matita 2-3), f e poi p, per sei battute; da 107 il 4-5 della stessa mano canta la melodia sopra il trillo; la sinistra suona note ribattute nello stesso registro (109-110) e scende al si♭ (53).",
+      "andate": {
+        "1": {
+          "rep2": "TRILL misurato: 2 note per semicroma, poi 3; partenza dalla nota reale.",
+          "rep3": "Melodia sola della destra con il trillo ridotto alla nota tenuta, voce superiore cantabile."
+        },
+        "2": {
+          "rep2": "TRILL pp con la voce superiore solo appoggiata (muta), poi melodia mp sopra trillo pp.",
+          "rep3": "Insieme, DIN: sinistra pp, melodia mp, trillo pp."
+        }
+      },
+      "rep4_verifica": "Trillo continuo, uniforme e sotto il canto; non si ferma quando il 4-5 attacca una nota; i ribattuti della sinistra non urtano il trillo.",
+      "note": "Il 13 stampato e il 23 a matita: Rep 2 e Rep 3 sempre con quella che usi a tempo."
+    },
+    {
+      "id": "op 111 secondo movimento-112-115",
+      "brano": "op111",
+      "battute": "112-115",
+      "titolo": "Arietta · Trilli simultanei nelle due mani, poi trillo con melodia",
+      "priorita": 4,
+      "famiglia": "op 111 secondo movimento-fam-trilli-melodia",
+      "nodo_motorio": "Trillo nella destra (5-4) e nella sinistra (1-2) insieme, ciascuno con un'altra voce tenuta (112-113, con ossia); poi il trillo della destra prosegue sotto la melodia (54, 24), p cresc.",
+      "andate": {
+        "1": {
+          "rep2": "TRILL a mani separate, ciascuna con la sua voce tenuta, pp.",
+          "rep3": "Insieme, con i due trilli misurati: 2 note per semicroma in entrambe le mani."
+        },
+        "2": {
+          "rep2": "Una mano trilla, l'altra MUTA; poi si scambia.",
+          "rep3": "Su 114-115: melodia con trillo ridotto alla nota reale, poi TRILL misurato."
+        }
+      },
+      "rep4_verifica": "Le voci tenute restano giù per tutta la durata; i due trilli non si sincronizzano a forza ma restano entrambi regolari; il cresc. di 115 è della melodia, non del trillo.",
+      "note": "Ossia di b. 112: scegline una e usala sempre in Rep 2-4.",
+      "trillo_3_5": true
+    },
+    {
+      "id": "op 111 secondo movimento-116-119",
+      "brano": "op111",
+      "battute": "116-119",
+      "titolo": "Arietta · Fine del trillo in mi♭ e melodia a salti",
+      "priorita": 4,
+      "famiglia": "op 111 secondo movimento-fam-trilli-melodia",
+      "nodo_motorio": "Trillo (13) con sf e passaggio a mi♭ maggiore; poi melodia p cresc. con salti ampi (52) e accordi (14, 51, 32), dim.; sinistra a bassi e ottave dopo lo sf>p.",
+      "andate": {
+        "1": {
+          "rep2": "TRILL misurato con sf solo sull'attacco.",
+          "rep3": "Destra sola su 118-119: CIECO shift–touch–play sui salti della melodia."
+        },
+        "2": {
+          "rep2": "PESO sugli sf della sinistra (116-117).",
+          "rep3": "MENT su 118-119, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Chiusa del trillo a tempo; salti della melodia legati all'orecchio, senza buchi."
+    },
+    {
+      "id": "op 111 secondo movimento-120-123",
+      "brano": "op111",
+      "battute": "120-123",
+      "titolo": "Arietta · Episodio in mi♭: accordi ribattuti espressivo",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-ribattuti-canto",
+      "nodo_motorio": "Accordi ribattuti in semicrome della destra con la melodia nella voce superiore (espressivo, p, dim., pp); sinistra con bassi e accordi che entrano in levare dopo una pausa.",
+      "andate": {
+        "1": {
+          "rep2": "Ribattuti da metà corsa del tasto, con DIN dentro la mano: voce superiore mp, resto pp.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sugli ingressi dopo la pausa."
+        },
+        "2": {
+          "rep2": "DIN tra le mani: sinistra pp.",
+          "rep3": "CLIC sul levare."
+        }
+      },
+      "rep4_verifica": "Ribattuti uguali e sotto la melodia; nessun accordo arpeggiato; il pp di 123 senza note che non parlano."
+    },
+    {
+      "id": "op 111 secondo movimento-124-127",
+      "brano": "op111",
+      "battute": "124-127",
+      "titolo": "Arietta · Episodio in mi♭: doppie note legate pp",
+      "priorita": 7,
+      "famiglia": "op 111 secondo movimento-fam-ribattuti-canto",
+      "nodo_motorio": "Come 120-123, con doppie note della destra legate con sostituzioni (3/2, 4/1, 5/3/1, 2/1) in pp.",
+      "andate": {
+        "1": {
+          "rep2": "Voce superiore legata, inferiore staccata.",
+          "rep3": "Il contrario."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano.",
+          "rep3": "CIECO sulle sostituzioni."
+        }
+      },
+      "rep4_verifica": "Legato vero in tutte e due le voci senza pedale; sempre pp."
+    },
+    {
+      "id": "op 111 secondo movimento-128-130",
+      "brano": "op111",
+      "battute": "128-130",
+      "titolo": "Arietta · Ribattuti e tremolo della sinistra, arpeggio verso la Var. V",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Accordi della destra con sostituzioni (5/3/1, 3/1, 3/2); a 129 la sinistra fa ribattuti rapidi a terzine, a 130 un tremolo d'ottava e un arpeggio di semibiscrome (5-1-2-4) che porta alla Var. V; cresc.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ROT sul tremolo di 130, poi l'arpeggio con CHUNK.",
+          "rep3": "Ribattuti di 129 da metà corsa del tasto."
+        },
+        "2": {
+          "rep2": "ACC sui ribattuti (raggruppa in 2).",
+          "rep3": "CHUNK a ritroso: arpeggio di 130 più il primo tempo di 131."
+        }
+      },
+      "rep4_verifica": "Cresc. dal peso; l'arrivo a 131 è a tempo, senza rallentare."
+    },
+    {
+      "id": "op 111 secondo movimento-131-134",
+      "brano": "op111",
+      "battute": "131-134",
+      "titolo": "Arietta · Var. V: tema sopra terzine continue della sinistra",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Destra: tema nella voce superiore tenuta (5, poi sostituzione col 2) sopra semicrome interne portato (1-2-1). Sinistra: terzine di biscrome in figure spezzate larghe, pp-p, uniformi. Sotto la sinistra di 131-133 hai scritto a matita la tua diteggiatura.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ACC sulla 2ª nota di ogni terzina, poi sulla 3ª, pp.",
+          "rep3": "Destra sola: DIN dentro la mano, tema mp, semicrome interne pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola: BLOC per posizioni, CIECO.",
+          "rep3": "MUTA: destra suona, sinistra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "La sinistra è un fondo uniforme sotto il tema; il portato delle semicrome interne è leggero; il tema lega con la sostituzione 5-2.",
+      "note": "Matita sotto la sinistra di 131-133: leggo 4, 3/4, 5, 5 e 2, 3-4-5(?). Valgono le tue."
+    },
+    {
+      "id": "op 111 secondo movimento-135-138",
+      "brano": "op111",
+      "battute": "135-138",
+      "titolo": "Arietta · Var. V: f, sf e figure della sinistra più larghe",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Come 131-134, in f (135), sf (136) e p (137); figure della sinistra più larghe, con basso grave e salto (135).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: RIT su terzine, fermata sulla 1ª.",
+          "rep3": "DIN tra le mani: destra mp, sinistra pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola: CIECO sui bassi.",
+          "rep3": "PESO sugli sf della destra."
+        }
+      },
+      "rep4_verifica": "Il f e lo sf vengono dal braccio, la sinistra non si indurisce; il p di 137 arriva subito."
+    },
+    {
+      "id": "op 111 secondo movimento-139-142",
+      "brano": "op111",
+      "battute": "139-142",
+      "titolo": "Arietta · Var. V: cresc. e punto cerchiato della sinistra",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Cresc. su figure della sinistra che cambiano posizione; il gruppo finale di b. 139 è cerchiato a matita; sf>p a 141-142.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola sul gruppo cerchiato di 139: RIT con fermata sulla 1ª e sulla 3ª.",
+          "rep3": "Sinistra sola: CHUNK, un tempo più una nota."
+        },
+        "2": {
+          "rep2": "ACC nella sinistra.",
+          "rep3": "MUTA: destra suona, sinistra fantasma."
+        }
+      },
+      "rep4_verifica": "Il gruppo cerchiato di 139 è uguale agli altri; il cresc. non accelera; sf>p netto.",
+      "note": "Interpreto il cerchio di b. 139 come punto in cui ti sporchi. Se indica altro, dimmelo."
+    },
+    {
+      "id": "op 111 secondo movimento-143-146",
+      "brano": "op111",
+      "battute": "143-146",
+      "titolo": "Arietta · Var. V: sinistra nel grave profondo, sf>p",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Sinistra in figure dal registro più grave (143-145), con arpeggio dal basso (145); destra con accordi e cresc.; sf>p a 146. Le cifre romane a matita (VII, V, I) sono analisi armonica, non diteggiature.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play sui bassi profondi.",
+          "rep3": "Destra sola: DIN dentro la mano."
+        },
+        "2": {
+          "rep2": "ACC nella sinistra.",
+          "rep3": "PESO sugli sf>p."
+        }
+      },
+      "rep4_verifica": "Bassi profondi a tempo e senza colpo; il p dopo lo sf arriva subito."
+    },
+    {
+      "id": "op 111 secondo movimento-147-150",
+      "brano": "op111",
+      "battute": "147-150",
+      "titolo": "Arietta · Var. V: sf>p ripetuti e cresc.",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Alternanza sf>p (147-148) su figure della sinistra in cambio continuo di posizione; cresc. a 148-149; a 150 la sinistra sale.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: RIT su terzine.",
+          "rep3": "PESO sugli sf della destra, sinistra pp."
+        },
+        "2": {
+          "rep2": "CLIC: un solo clic per battuta.",
+          "rep3": "MUTA nelle due direzioni."
+        }
+      },
+      "rep4_verifica": "Ogni sf>p ha subito il suo p; la sinistra resta uguale durante gli sf.",
+      "note": "A b. 150 leggo a matita «6?» con una freccia sotto la sinistra: non so cosa indichi."
+    },
+    {
+      "id": "op 111 secondo movimento-151-154",
+      "brano": "op111",
+      "battute": "151-154",
+      "titolo": "Arietta · Var. V: la figura continua passa alla destra",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "sf a 151: la figura continua passa alla destra nell'acuto, mentre la sinistra suona accordi e ottave (54); sf>p a 152-153; a 154 p cresc. e la figura torna alla sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: ACC sulla 2ª nota di ogni terzina, pp.",
+          "rep3": "Sinistra sola: PESO sugli accordi."
+        },
+        "2": {
+          "rep2": "RIT nella destra.",
+          "rep3": "CHUNK a ritroso: ultimo tempo di 153 più l'ingresso della figura nella sinistra a 154."
+        }
+      },
+      "rep4_verifica": "Il passaggio della figura da una mano all'altra non si sente; sf>p netti."
+    },
+    {
+      "id": "op 111 secondo movimento-155-159",
+      "brano": "op111",
+      "battute": "155-159",
+      "titolo": "Arietta · Var. V: ribattuti acuti, f e sf sui tempi deboli",
+      "priorita": 5,
+      "famiglia": "op 111 secondo movimento-fam-sx-continua",
+      "nodo_motorio": "Destra con terze e accordi ribattuti nell'acuto con melodia (155-157), f a 158, accordi sf sui tempi deboli a 159; sinistra continua. 159 porta all'arpeggio e al trillo di b. 160.",
+      "andate": {
+        "1": {
+          "rep2": "Ribattuti da metà corsa del tasto, DIN dentro la mano.",
+          "rep3": "Sinistra sola: ACC sulla 2ª nota."
+        },
+        "2": {
+          "rep2": "PESO sugli sf di 159.",
+          "rep3": "CHUNK a ritroso: ultimo tempo di 159 più l'arpeggio di 160."
+        }
+      },
+      "rep4_verifica": "Ribattuti uguali e sotto la melodia; gli sf di 159 non anticipano; la sinistra non si ferma."
+    },
+    {
+      "id": "op 111 secondo movimento-160-164",
+      "brano": "op111",
+      "battute": "160-164",
+      "titolo": "Arietta · Coda: ingresso del trillo nell'acuto e canto sotto il trillo",
+      "priorita": 4,
+      "famiglia": "op 111 secondo movimento-fam-trilli-melodia",
+      "nodo_motorio": "Arpeggio della sinistra (5) verso l'acuto; trillo della destra (13), abbellimento (2-1-2) e trillo con 3-5 sf>pp; da 161 trillo con 4-5 nella voce superiore mentre la stessa mano suona il canto sotto; sinistra in biscrome pp (2-4).",
+      "andate": {
+        "1": {
+          "rep2": "TRILL misurato: 2 note per semicroma, poi 3; voce del canto tenuta, pp.",
+          "rep3": "Canto della destra con il trillo ridotto alla nota reale; sinistra MUTA."
+        },
+        "2": {
+          "rep2": "Una mano con la sua parte, l'altra MUTA; poi si scambia.",
+          "rep3": "CHUNK sull'ingresso: arpeggio di 160 più l'attacco del trillo."
+        }
+      },
+      "rep4_verifica": "Il trillo non si interrompe quando il canto cambia nota; sf>pp con il pp vero; il canto si sente sotto il trillo.",
+      "note": "Tienili a pp in Rep 2-3: i trilli con 3-5 e 4-5 e voce tenuta sono i più faticosi del movimento.",
+      "trillo_3_5": true
+    },
+    {
+      "id": "op 111 secondo movimento-165-168",
+      "brano": "op111",
+      "battute": "165-168",
+      "titolo": "Arietta · Coda: il trillo passa sotto, melodia sopra",
+      "priorita": 4,
+      "famiglia": "op 111 secondo movimento-fam-trilli-melodia",
+      "nodo_motorio": "Alla fine di 165 il trillo passa alla voce inferiore (13, 24) e la melodia sale sopra (4, 54, 5); sinistra in biscrome con diteggiature 5-2-5-1-2, 1-2, 4-2.",
+      "andate": {
+        "1": {
+          "rep2": "TRILL con 1-3 e 2-4, voce superiore tenuta muta.",
+          "rep3": "Melodia sola con il trillo ridotto alla nota reale."
+        },
+        "2": {
+          "rep2": "Sinistra sola: ACC sulla 2ª nota.",
+          "rep3": "Insieme, DIN: melodia mp, trillo e sinistra pp."
+        }
+      },
+      "rep4_verifica": "Cambio di voce del trillo a 165 senza buco; la melodia sopra canta e il trillo resta sotto."
+    },
+    {
+      "id": "op 111 secondo movimento-169-171",
+      "brano": "op111",
+      "battute": "169-171",
+      "titolo": "Arietta · Coda: trillo e figure della sinistra con bassi",
+      "priorita": 4,
+      "famiglia": "op 111 secondo movimento-fam-trilli-melodia",
+      "nodo_motorio": "Trillo della destra (35, 45; poi 23, 12, 13, 25) con la melodia; sinistra in figure larghe in chiave di basso (169) e poi ribattuti con un basso grave a ogni tempo (171).",
+      "andate": {
+        "1": {
+          "rep2": "TRILL misurato con voce tenuta.",
+          "rep3": "Sinistra sola su 171: CIECO shift–touch–play sui bassi."
+        },
+        "2": {
+          "rep2": "Una mano con la sua parte, l'altra MUTA.",
+          "rep3": "CHUNK a ritroso: ultimo tempo di 171 più il primo di 172."
+        }
+      },
+      "rep4_verifica": "Il trillo non si ferma quando la sinistra salta; arrivo al pp di 172 senza assestamento.",
+      "trillo_3_5": true
+    },
+    {
+      "id": "op 111 secondo movimento-172-174",
+      "brano": "op111",
+      "battute": "172-174",
+      "titolo": "Arietta · Coda: figure parallele a due mani, pp",
+      "priorita": 2,
+      "famiglia": null,
+      "nodo_motorio": "Figura veloce della destra in pp; la sinistra entra al 2° tempo con una figura parallela, non all'unisono; 173 nell'acuto (8va); a 174 discesa a due mani cresc. (sinistra 1-2-3). Le diteggiature delle due mani non sono speculari. Hai riscritto a matita la diteggiatura della destra (172-173) e cerchiato la fine di 173 nelle due mani.",
+      "andate": {
+        "1": {
+          "rep2": "NODO: fermati sui punti in cui una mano passa il pollice e l'altra no.",
+          "rep3": "MUTA: sinistra suona, destra fantasma; poi il contrario."
+        },
+        "2": {
+          "rep2": "RIT con fermata sulla 1ª di ogni gruppo di 3.",
+          "rep3": "ALT: un tempo a testa, a tempo, senza perdere la pulsazione (qui su figure parallele, non all'unisono)."
+        }
+      },
+      "rep4_verifica": "Le due mani suonano come una sola, in pp; la fine di 173 (cerchiata) ha la stessa regolarità del resto; il cresc. di 174 non accelera.",
+      "note": "Matita sopra la destra di 172-173: leggo 1-3-2-1… e 1-3-1-2-1-2-3. Controlla sul tuo spartito: valgono le tue."
+    },
+    {
+      "id": "op 111 secondo movimento-175-177",
+      "brano": "op111",
+      "battute": "175-177",
+      "titolo": "Arietta · Coda: f, sf e accordi finali pp",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "f e sf con salti: figura della destra (4-1, 5-2), ottava grave della sinistra sf; poi accordi a due mani p, dim., pp finale.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play sui salti di 175.",
+          "rep3": "PESO sugli accordi di 176-177."
+        },
+        "2": {
+          "rep2": "MENT, poi la ripetizione reale.",
+          "rep3": "DIN dentro la mano sugli accordi finali."
+        }
+      },
+      "rep4_verifica": "Accordi finali con tutte le note insieme in pp; sf dal tasto."
+    }
+  ]
+}

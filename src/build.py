@@ -1,5 +1,5 @@
 """Compila l'app in un unico index.html (catalogo incorporato) più i file della PWA.
-Uso: python3 src/build.py data/dati_op111.json <cartella di uscita>"""
+Uso: python3 src/unisci_catalogo.py && python3 src/build.py data/catalogo.json <cartella di uscita>"""
 import json, sys, os, shutil, hashlib, glob, base64
 src = os.path.dirname(os.path.abspath(__file__)); cat = sys.argv[1]; out = sys.argv[2]
 os.makedirs(out, exist_ok=True)

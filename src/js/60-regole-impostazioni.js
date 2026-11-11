@@ -15,10 +15,18 @@ SCREENS.rules = anchor => {
       <div class="sigcard"><div class="label">Composizione</div><ol class="fable">${(RC.fable_composizione || []).map(x => `<li>${fmtText(x)}</li>`).join('')}</ol></div>
       <div class="sigcard"><p class="muted small" style="margin:0">${esc(RC.nota)}</p></div></div></details>
     <details class="acc"><summary><span class="grow">Priorità e famiglie</span></summary><div class="accbody">
-      <div class="sigcard"><div class="label">Priorità</div><p style="margin:4px 0">${esc(CATALOGO.definizioni.priorita)}</p>
-        ${C.priorita.map(p => `<p style="margin:8px 0"><span class="pn">${p.n}</span> <b>${esc(p.nome)}</b><br><span class="muted">${esc(p.perche)}</span></p>`).join('')}</div>
-      <div class="sigcard"><div class="label">Famiglia</div><p style="margin:4px 0">${esc(CATALOGO.definizioni.famiglia)}</p>
-        ${C.famiglie.map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${(x.frammenti || []).map(id => 'bb. ' + esc(frLabel(id))).join(' · ')}</span></p>`).join('')}</div></div></details>
+      <p class="small muted" style="margin:0 0 10px">Ogni brano ha le sue priorità e le sue famiglie.</p>
+      ${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => {
+        const ids = new Set(C.frammenti.filter(f => f.brano === x.id).map(f => f.id));
+        const fams = C.famiglie.filter(g => (g.frammenti || []).some(id => ids.has(id)));
+        const def = x.definizioni || CATALOGO.definizioni || {};
+        return `<details class="sub2"><summary>${esc(x.nome)}</summary><div>
+        <div class="sigcard"><div class="label">Priorità</div><p style="margin:4px 0">${esc(def.priorita || '')}</p>
+          ${prioDi(x.id).map(p => `<p style="margin:8px 0"><span class="pn">${p.n}</span> <b>${esc(p.nome)}</b><br><span class="muted">${esc(p.perche)}</span></p>`).join('')}</div>
+        ${fams.length ? `<div class="sigcard"><div class="label">Famiglie</div><p style="margin:4px 0">${esc(def.famiglia || '')}</p>
+          ${fams.map(g => `<p style="margin:8px 0"><b>${esc(g.nome)}</b><br><span class="muted">${(g.frammenti || []).map(id => 'bb. ' + esc(frLabel(id))).join(' · ')}</span></p>`).join('')}</div>` : ''}
+        ${x.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(x.fonte)}</p>` : ''}</div></details>`;
+      }).join('')}</div></details>
   </main>` + tabs('rules');
   if (anchor === 'fable') setTimeout(() => $('#fable') && $('#fable').scrollIntoView({ block: 'start' }), 30);
 };
@@ -54,14 +62,14 @@ SCREENS.settings = () => {
       <button class="btn" style="margin-top:10px" data-act="newbrano" data-then="settings">+ Aggiungi un brano</button>
     </section>
     <section class="card"><div class="label">Catalogo dei passaggi</div>
-      <p class="small muted">Importa un catalogo con lo stesso schema di dati_op111.json (per Mephisto e Scriabin). I frammenti con lo stesso id vengono aggiornati, i nuovi aggiunti; lo storico resta intatto.</p>
+      <p class="small muted">Importa l'analisi di un altro brano, con lo stesso schema di quelle già presenti. I frammenti con lo stesso id vengono aggiornati, i nuovi aggiunti; lo storico resta intatto.</p>
       <button class="btn" data-act="pickfile" data-target="impcat">Importa un catalogo</button>
       <input type="file" id="impcat" accept="application/json,.json" hidden>
       <p class="small muted" style="margin:0">Frammenti nel catalogo: ${C.frammenti.length} (${D.catalogo_importato.frammenti.length} importati, ${D.frammenti_utente.length} aggiunti a mano).</p>
     </section>
     <section class="card"><div class="label">Informazioni</div>
       <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 2</button>
-      <p class="small muted" style="margin:0">Circuiti di studio ${APP_VERSION} · catalogo: ${esc(CATALOGO.fonte || '')}</p>
+      <p class="small muted" style="margin:0">Circuiti di studio ${APP_VERSION} · catalogo: ${CATALOGO.brani.filter(b => b.completo).length} brani, ${CATALOGO.frammenti.length} frammenti. Le fonti sono in Sigle e regole, alla voce Priorità e famiglie.</p>
     </section>
     <section class="card"><div class="label">Zona pericolosa</div>
       ${stored(KEY_PRE2) ? '<button class="btn" data-act="restorepre2" style="margin-top:8px">Torna ai dati di prima dell\'aggiornamento alla 2.0</button>' : ''}
@@ -157,7 +165,10 @@ function importCatalog(obj) {
   const known = new Set(C.frammenti.map(f => f.id));
   const up = (arr, items, key) => (items || []).forEach(x => { if (!x || x[key] == null) return; const i = arr.findIndex(y => y[key] === x[key]); if (i >= 0) arr[i] = x; else arr.push(x); });
   obj.frammenti.forEach(f => { if (f && f.id != null) known.has(f.id) ? agg++ : nuovi++; });
-  up(imp.brani, obj.brani, 'id'); up(imp.frammenti, obj.frammenti, 'id'); up(imp.famiglie, obj.famiglie, 'id'); up(imp.sigle, obj.sigle, 'sigla');
+  // Nei file di un solo brano priorità, definizioni e fonte sono scritte una volta per tutto il file: le lego al brano.
+  const soloBrano = Array.isArray(obj.brani) && obj.brani.length === 1;
+  const braniImp = (obj.brani || []).map(b => !b || !soloBrano ? b : Object.assign({}, b, { priorita: b.priorita || obj.priorita, definizioni: b.definizioni || obj.definizioni, fonte: b.fonte || obj.fonte }));
+  up(imp.brani, braniImp, 'id'); up(imp.frammenti, obj.frammenti, 'id'); up(imp.famiglie, obj.famiglie, 'id'); up(imp.sigle, obj.sigle, 'sigla');
   save(); buildCat(); toast(`Catalogo importato: ${nuovi} nuovi, ${agg} aggiornati`); render();
 }
 function resetSheet() {
@@ -181,6 +192,7 @@ function newsSheet() {
       <li><b>Tempo target</b> per ogni passaggio: l'app traduce le percentuali delle regole in bpm per ogni Rep. Si imposta dalla finestra del tempo di Rep 4 o dalla pagina del frammento.</li>
       <li><b>Registra a mano</b> lo studio fatto senza l'app e <b>aggiungi brani</b> col solo nome, per la sessione libera.</li>
       <li><b>Stili e dimensione del testo</b>: in Impostazioni scegli tra più stili, con caratteri diversi, e quattro misure del testo.</li>
+      <li><b>Quattro brani nel catalogo</b>: op. 111 I e II movimento, Mephisto Valzer n. 1, Fantasia op. 28 di Scriabin, ognuno con le sue priorità.</li>
       <li><b>Meno errori</b>: puoi scartare una sessione partita per sbaglio, e se il cronometro resta acceso con l'app chiusa, al ritorno ti chiede se contare quel tempo.</li>
     </ul>
     <button class="btn primary xl" data-act="closesheet">Ho capito</button>`);

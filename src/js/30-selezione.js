@@ -9,9 +9,9 @@ function fragRow(f, sel) {
   return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
   <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${fragMeta(f)}</button></div>`;
 }
-function prioritaHtml(list, sel) {
+function prioritaHtml(list, sel, bid) {
   let h = '';
-  const prios = [...C.priorita];
+  const prios = prioDi(bid);
   const extra = [...new Set(list.map(f => f.priorita))].filter(n => !prios.some(p => p.n === n));
   extra.forEach(n => prios.push({ n, nome: 'Priorità ' + n, perche: '' }));
   prios.forEach(p => {
@@ -38,7 +38,7 @@ SCREENS.select = () => {
     const list = C.frammenti.filter(f => f.brano === b.id);
     const nSel = list.filter(f => sel.has(f.id)).length;
     return `<details class="acc" data-brano="${esc(b.id)}" ${openBrani.has(b.id) ? 'open' : ''}><summary><span class="grow">${esc(b.nome)}</span><span class="pill" data-count="${esc(b.id)}">${nSel}/${list.length}</span></summary>
-    <div class="accbody">${prioritaHtml(list, sel)}
+    <div class="accbody">${prioritaHtml(list, sel, b.id)}
       ${!b.completo ? `<div class="todo"><h4>Frammenti da inserire</h4><p class="muted small">Il catalogo di questo brano non è ancora completo. Puoi importarlo da Impostazioni o inserire i frammenti a mano.</p><button class="btn" data-act="go" data-h="#form/${esc(b.id)}">Aggiungi frammento</button></div>`
       : `<div class="todo"><button class="btn" data-act="go" data-h="#form/${esc(b.id)}">Aggiungi frammento</button></div>`}
     </div></details>`;
@@ -67,7 +67,7 @@ function toggleSel(id, on) {
 function previewHtml(f) {
   const keys = Object.keys(f.andate || {}).sort();
   const famN = f.famiglia ? ((C.FAM.get(f.famiglia) || {}).nome || f.famiglia) : 'Nessuna';
-  const p = C.priorita.find(x => x.n === f.priorita);
+  const p = prioDi(f.brano).find(x => x.n === f.priorita);
   return `<div class="label">${esc(branoNome(f.brano))}</div>
   <h2><span class="bat">${esc(f.battute)}</span> ${esc(f.titolo)}</h2>
   <p class="small muted" style="margin:-6px 0 12px">Priorità ${esc(f.priorita)}${p ? ' · ' + esc(p.nome) : ''} · Famiglia: ${esc(famN)}${f.parti ? ' · Parti: ' + f.parti.map(esc).join(' + ') : ''}${f.trillo_3_5 ? ' · trillo 3-5' : ''}</p>
@@ -99,7 +99,7 @@ SCREENS.form = (brano, fid) => {
     <p class="muted small">Per i frammenti uniti scrivi una riga per parte con il prefisso, es. «bb. 16-18: …» e a capo «bb. 18-19: …».</p>
     <div class="field"><label>Battute *</label><input type="text" data-f="battute" value="${esc(v.battute)}" placeholder="es. 24-28"></div>
     <div class="field"><label>Titolo *</label><input type="text" data-f="titolo" value="${esc(v.titolo)}"></div>
-    <div class="field"><label>Priorità</label><select class="sel" data-f="priorita" style="width:100%">${C.priorita.map(p => `<option value="${p.n}" ${v.priorita === p.n ? 'selected' : ''}>${p.n} · ${esc(p.nome)}</option>`).join('')}</select></div>
+    <div class="field"><label>Priorità</label><select class="sel" data-f="priorita" style="width:100%">${prioDi(brano).map(p => `<option value="${p.n}" ${v.priorita === p.n ? 'selected' : ''}>${p.n} · ${esc(p.nome)}</option>`).join('')}</select></div>
     <div class="field"><label>Famiglia</label><select class="sel" data-f="famiglia" style="width:100%"><option value="">Nessuna</option>${famOpts}<option value="__nuova">Nuova famiglia…</option></select>
       <input type="text" data-f="famnuova" placeholder="Nome della nuova famiglia" style="margin-top:8px;display:none"></div>
     <div class="field"><label>Nodo motorio</label><textarea data-f="nodo">${esc(v.nodo_motorio)}</textarea></div>
