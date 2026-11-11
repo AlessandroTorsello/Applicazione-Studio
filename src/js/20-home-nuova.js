@@ -5,12 +5,16 @@ window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); instal
 function sesDescr(s) {
   if (s.tipo === 'manuale') return [...new Set((s.log || []).map(l => branoCorto(l.brano)))].join(', ') || 'Registrata a mano';
   if (s.tipo === 'libera') return 'Sessione libera · ' + ((s.brani || []).map(branoCorto).join(', ') || '—');
+  if (s.tipo === 'cucitura' || s.tipo === 'prova') { const ids = s.frammenti || [], g = ids.length - 1;
+    return `${s.tipo === 'prova' ? 'Prova' : 'Cucitura'} · ${branoNome(s.brano)} · ${tratto(ids)}` + (s.tipo === 'cucitura' ? ` · ${g} ${g === 1 ? 'giuntura' : 'giunture'}` : ''); }
   const c = s.circuiti || [], n = c.length;
   const slot = n ? c.map(x => x.slot.length).join(' + ') : '0';
   return `${n > 1 ? n + ' circuiti' : 'Circuito'} a ${slot} slot · ${c[0] ? c[0].andate_previste : '—'} andate · ${s.modo === 'libero' ? 'libero (solo tempi)' : 'passaggi scritti'}`;
 }
 function posDescr(S) {
   if (S.tipo === 'libera') return 'Stai studiando: ' + branoNome(S.corrente);
+  if (S.tipo === 'prova') return 'Prova in corso · ' + tratto(S.frammenti);
+  if (S.tipo === 'cucitura') return `Giuntura ${S.pos.g + 1} di ${S.frammenti.length - 1} · passo ${S.pos.r} di 2`;
   const circ = S.circuiti[S.pos.c], sl = circ.slot[S.pos.s];
   return `Circuito ${circ.n} · Andata ${S.pos.a}/${circ.andate_previste} · Slot ${sl.etichetta}` + (S.modo === 'libero' ? '' : ` · Rep ${S.pos.r}`);
 }
@@ -27,7 +31,7 @@ SCREENS.home = () => {
   const today = todayStr(), t = totals(dayLogs(today)), S = D.sessione_aperta;
   const lastExp = D.impostazioni.ultimo_export;
   const needBackup = D.sessioni.length && (!lastExp || (Date.now() - new Date(lastExp).getTime()) > 7 * 864e5);
-  const ch = daysChart(7), last = lastRepeatable();
+  const ch = daysChart(7), last = lastRepeatable(), due = daRipassare();
   app.innerHTML = topbar('Circuiti di studio', fmtDateLong(today)) + `<main class="wrap tabbed">
     ${!storageOk ? `<div class="hint">Questo browser non permette di salvare i dati. Usa l'app installata o un altro browser.</div>` : ''}
     ${needBackup ? `<div class="hint">${lastExp ? 'Ultimo backup più di una settimana fa.' : 'Non hai ancora fatto un backup.'} <button class="link" data-act="export">Salva un backup adesso</button></div>` : ''}
@@ -37,6 +41,10 @@ SCREENS.home = () => {
     ${S ? `<section class="card now"><div class="label">${S.timer.since ? 'Sessione in corso' : 'Sessione in pausa'} · <span data-live="sess">${fmtClock(S.timer.sess + tRun(S.timer))}</span></div>
       <p class="nowpos">${esc(posDescr(S))}</p><p class="small muted" style="margin:0 0 10px">${esc(sesDescr(S))}</p>
       <button class="btn primary xl" data-act="go" data-h="#run" style="margin:0">Riprendi la sessione</button></section>` : ''}
+    ${due.length ? `<section class="card"><div class="cardh"><span class="label">Da ripassare oggi</span><b>${due.length} ${due.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
+      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))}. L'intervallo del loro livello è scaduto.</p>
+      <button class="btn" style="margin:0" data-act="ripasso">Scegli i passaggi da ripassare</button></section>` : ''}
+    ${riascoltoDovuto() ? `<div class="hint">Riascolto settimanale: è il momento di riascoltare le Rep 4 registrate e dare i voti. <button class="link" data-act="go" data-h="#riascolto">Dai i voti</button></div>` : ''}
     <button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">+ Aggiungi sessione</button>
     ${last && !S ? `<button class="btn two" data-act="repeat" data-id="${esc(last.id)}"><b>Ripeti l'ultima sessione</b><span>${esc(sesDescr(last))}</span></button>` : ''}
     <section class="card" style="margin-top:4px"><div class="cardh"><span class="label">Ultimi 7 giorni</span><b>${fmtMinRound(ch.tot)}</b></div>${ch.html}
@@ -56,22 +64,28 @@ async function closeOpenFirst() {
 }
 function cfgRecap(cfg) {
   if (cfg.tipo === 'libera') return 'Sessione libera: un cronometro per brano, cambi brano con un tasto.';
+  if (cfg.tipo === 'cucitura') return 'Cucitura: per ogni giuntura le ultime 2 battute di un frammento e le prime 2 del successivo, poi i due frammenti di fila una volta all\'85-90%.';
+  if (cfg.tipo === 'prova') return 'Prova: una sola volta, senza fermarti, registrandoti. Al riascolto segni i punti sporchi: quei frammenti tornano al livello 0.';
   return `Circuito a ${cfg.slot} slot · ${cfg.andate} andate · ${cfg.modo === 'scritti' ? 'passaggi scritti (Rep 1-4 guidate)' : 'libero (solo tempi)'}`;
 }
 const stepsFor = cfg => cfg.modo === 'scritti' ? ['Tipo', 'Passaggi', 'Circuiti'] : ['Tipo', 'Circuiti'];
 SCREENS.new = () => {
-  const cfg = D.bozza.cfg, lib = cfg.tipo === 'libera';
+  const cfg = D.bozza.cfg, lib = cfg.tipo === 'libera', sez = cfg.tipo === 'cucitura' || cfg.tipo === 'prova';
+  if (!lib && !sez && cfg.tipo !== 'circuito') cfg.tipo = 'circuito';
+  const tipoBtn = (v, nome, descr) => `<button data-act="cfg" data-k="tipo" data-v="${v}" class="${cfg.tipo === v ? 'on' : ''}" aria-pressed="${cfg.tipo === v}"><b>${nome}</b><span>${descr}</span></button>`;
   const seg = (k, vals) => `<div class="seg">${vals.map(v => `<button data-act="cfg" data-k="${k}" data-v="${v}" class="${cfg[k] === v ? 'on' : ''}" aria-pressed="${cfg[k] === v}">${v}</button>`).join('')}</div>`;
   D.bozza.brani_liberi = D.bozza.brani_liberi.filter(id => C.B.has(id) && !C.hidden.has(id));
   const selB = new Set(D.bozza.brani_liberi);
   app.innerHTML = header('Nuova sessione', '', '#home') + `<main class="wrap">
-    ${lib ? '' : steps(stepsFor(cfg), 0)}
+    ${lib || sez ? '' : steps(stepsFor(cfg), 0)}
     <div class="label" style="margin-bottom:8px">Tipo di sessione</div>
     <div class="choice">
-      <button data-act="cfg" data-k="tipo" data-v="libera" class="${lib ? 'on' : ''}" aria-pressed="${lib}"><b>Libera</b><span>Solo cronometro: scegli i brani e cambi brano con un tasto.</span></button>
-      <button data-act="cfg" data-k="tipo" data-v="circuito" class="${lib ? '' : 'on'}" aria-pressed="${!lib}"><b>Circuito</b><span>Slot a rotazione, ripetuti per più andate.</span></button>
+      ${tipoBtn('libera', 'Libera', 'Solo cronometro: scegli i brani e cambi brano con un tasto.')}
+      ${tipoBtn('circuito', 'Circuito', 'Slot a rotazione, ripetuti per più andate.')}
+      ${tipoBtn('cucitura', 'Cucitura', 'Le giunture tra frammenti consecutivi, poi i due di fila.')}
+      ${tipoBtn('prova', 'Prova', 'Una sezione o tutto il brano, una volta, senza fermarti.')}
     </div>
-    ${lib ? `<section class="card"><div class="label" style="margin-bottom:4px">Brani da studiare</div><div class="blist">
+    ${sez ? sezioneHtml(cfg) : lib ? `<section class="card"><div class="label" style="margin-bottom:4px">Brani da studiare</div><div class="blist">
         ${C.braniVis.map(b => `<label><input type="checkbox" data-bl="${esc(b.id)}" ${selB.has(b.id) ? 'checked' : ''}> ${esc(b.nome)}</label>`).join('')}</div>
         <button class="link" data-act="newbrano" data-then="libera">+ Nuovo brano</button>
         <p class="small muted" style="margin:2px 0 0">Durante la sessione puoi aggiungerne altri.</p></section>`
@@ -85,11 +99,12 @@ SCREENS.new = () => {
           </div></div>
       </section>`}
     <p class="recap">${esc(cfgRecap(cfg))}</p>
-  </main><div class="bar"><div class="inner"><button class="btn primary xl" data-act="newgo" ${lib && !selB.size ? 'disabled' : ''}>${lib ? 'Inizia la sessione libera' : cfg.modo === 'scritti' ? 'Avanti: scegli i passaggi' : 'Avanti: componi il circuito'}</button></div></div>`;
+  </main><div class="bar"><div class="inner"><button class="btn primary xl" data-act="newgo" ${lib && !selB.size ? 'disabled' : ''}>${sez ? (cfg.tipo === 'prova' ? 'Inizia la prova' : 'Inizia la cucitura') : lib ? 'Inizia la sessione libera' : cfg.modo === 'scritti' ? 'Avanti: scegli i passaggi' : 'Avanti: componi il circuito'}</button></div></div>`;
   $$('input[data-bl]').forEach(i => i.addEventListener('change', () => {
     const s = D.bozza.brani_liberi.filter(x => x !== i.dataset.bl); if (i.checked) s.push(i.dataset.bl);
     D.bozza.brani_liberi = s; save(); const b = $('[data-act="newgo"]'); if (b) b.disabled = !s.length;
   }));
+  if (sez) sezioneBind();
 };
 async function newGo() {
   const B = D.bozza, cfg = B.cfg;
@@ -97,6 +112,12 @@ async function newGo() {
     const brani = B.brani_liberi.filter(id => C.B.has(id));
     if (!brani.length) { toast('Scegli almeno un brano'); return; }
     if (await closeOpenFirst()) startFree(brani);
+    return;
+  }
+  if (cfg.tipo === 'cucitura' || cfg.tipo === 'prova') {
+    const z = sezioneCfg(cfg); if (!z) { toast('Nessun brano adatto'); return; }
+    const ids = z.list.slice(z.i0, z.i1 + 1).map(f => f.id);
+    if (await closeOpenFirst()) startSezione(cfg.tipo, ids, cfg.sb);
     return;
   }
   if (cfg.modo === 'scritti') { B.circuiti = []; save(); go('#select'); return; }

@@ -1,0 +1,47 @@
+{
+  "versione": 3,
+  "fonte": "Metodo dei circuiti, versione 3 (proposta dell'11/11/2026, dal confronto «Rivedere il metodo di studio»). Intervalli, soglie e tabella degli errori sono scelte di lavoro, non dati di letteratura: vanno corrette con l'uso.",
+  "intervalli": [1, 2, 4, 8, 16],
+  "brani": {
+    "op111": { "metrica": "tempo" },
+    "op111-2": { "metrica": "suono" },
+    "mephisto": { "metrica": "tempo", "resistenza": [2] },
+    "scriabin28": { "metrica": "suono" }
+  },
+  "errori": [
+    { "id": "mani", "errore": "Le mani non vanno insieme, una è in ritardo", "sigle": ["NODO", "MUTA", "ALT"] },
+    { "id": "dita", "errore": "Nota che manca o cade, dita diseguali", "sigle": ["ACC", "DOPPIE", "RIT"] },
+    { "id": "salto", "errore": "Salto corto o lungo", "sigle": ["CIECO", "BLOC", "MENT"] },
+    { "id": "posizione", "errore": "Cambio di posizione impreciso", "sigle": ["BLOC", "CHUNK"] },
+    { "id": "rigido", "errore": "Suono duro, avambraccio rigido", "sigle": ["PESO", "ROT"] },
+    { "id": "voci", "errore": "Una voce copre l'altra", "sigle": ["DIN"] },
+    { "id": "trillo", "errore": "Trillo irregolare", "sigle": ["TRILL"] },
+    { "id": "pulsazione", "errore": "La pulsazione cede o corre", "sigle": ["CLIC", "CHUNK"] },
+    { "id": "memoria", "errore": "Esitazione, vuoto di memoria", "sigle": ["MENT"] }
+  ],
+  "voti": { "1": "non ci siamo", "2": "accettabile", "3": "come lo voglio" },
+  "avvisi": {
+    "test": "Prima Rep 1 di oggi: è il test. Pulita, sale di un livello; sporca, scende di uno.",
+    "reali": "Dal livello 2: questa Rep 3 con dinamica e pedale reali, mantenendo il vincolo.",
+    "resistenza": "Frammento di resistenza: Rep 2-3 nella dinamica scritta. Durante lo stop il polso deve potersi muovere (test di PESO). Se l'avambraccio si indurisce, fermati.",
+    "prova": "Una sola volta, senza fermarti, registrandoti. L'app non registra l'audio: usa un registratore o un'altra app.",
+    "cucitura_giuntura": "Solo la giuntura: le ultime 2 battute del primo frammento e le prime 2 del secondo.",
+    "cucitura_fila": "I due frammenti di fila, una volta, all'85-90%.",
+    "metrica_suono": "Per questo brano la metrica è il suono: il tempo è facoltativo, il voto si dà al riascolto."
+  },
+  "regole_slot": {
+    "rep2_3": "Pulsazione al 70-80%, senza pedale e a mp anche dove è scritto ff. Attenzione sul vincolo. Se Rep 1 ha individuato un quarto preciso, lavora solo da mezza battuta prima a mezza battuta dopo. Dal livello 2 la Rep 3 è con dinamica e pedale reali. Nei frammenti di resistenza Rep 2-3 sono nella dinamica scritta fin dal livello 0.",
+    "andate": "In una sessione ogni frammento usa una sola coppia di vincoli (Rep 2 e Rep 3) per tutte le andate, così ogni vincolo si ripete 3-4 volte. La coppia cambia tra i giorni: un giorno quella dell'andata 1 del catalogo, la volta dopo quella dell'andata 2 (poi 3 e 4, se esistono). Andata 4 solo se non in drop-out.",
+    "drop_out": "Se alla terza andata Rep 1 è pulita e fluida, il frammento non fa la quarta. Il drop-out serve solo a risparmiare tempo dentro la sessione: non cambia il livello.",
+    "da_annotare": "Tempo di Rep 4, se Rep 1 era pulita e il vincolo usato. Una volta a settimana registra Rep 4, riascoltala a metà velocità e dai un voto da 1 a 3 riascoltando, non mentre suoni.",
+    "verifica_2_settimane": "Brani con metrica «tempo»: se dopo due settimane il tempo di Rep 4 non sale, torna a Rep 2-3 al 70-80% uniforme. Brani con metrica «suono»: la verifica scatta se in due settimane il voto di riascolto non sale."
+  },
+  "regole": [
+    { "titolo": "La diagnosi sceglie il vincolo", "testo": "In una sessione ogni frammento usa una sola coppia di vincoli (Rep 2 e Rep 3) per tutte le andate. La coppia predefinita alterna tra i giorni: quella dell'andata 1 del catalogo, la volta dopo quella dell'andata 2 (poi 3 e 4, se esistono).\nDopo la Rep 1 della prima andata, se la diagnosi indica un problema diverso da quello che il vincolo predefinito colpisce, puoi cambiare vincolo con la tabella degli errori qui sotto.\nIl vincolo usato viene registrato, per vedere poi quali funzionano." },
+    { "titolo": "Livelli da 0 a 4", "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento: non conta se il frammento è già stato suonato quel giorno.\nOgni frammento ha un livello con l'intervallo prima del prossimo ritorno: 0 = ogni giorno, 1 = dopo 2 giorni, 2 = dopo 4, 3 = dopo 8, 4 = mantenimento (dopo 16).\nPrima Rep 1 del giorno pulita: sale di un livello. Sporca: scende di un livello (non torna a 0).\nNella selezione compare in cima «Da ripassare oggi»: i frammenti il cui intervallo è scaduto, ordinati per priorità.\nIl drop-out dentro la sessione non cambia il livello." },
+    { "titolo": "Condizioni reali più spesso", "testo": "Livelli 0-1: Rep 2-3 a mp e senza pedale.\nDal livello 2: Rep 3 con dinamica e pedale reali, mantenendo il vincolo. Due Rep su quattro sono in condizioni reali.\nFrammenti di resistenza (priorità 2 del Mephisto): Rep 2-3 nella dinamica scritta fin dal livello 0, con il test di PESO (polso mobile durante lo stop). Se l'avambraccio si indurisce, ci si ferma." },
+    { "titolo": "Cucitura", "testo": "Si scelgono frammenti consecutivi di un brano. Per ogni giuntura: ultime 2 battute del frammento N + prime 2 del frammento N+1, poi N e N+1 di fila una volta all'85-90%. Si registra se la giuntura è pulita." },
+    { "titolo": "Prova", "testo": "Una sezione o il brano intero, una sola volta, senza fermarsi, registrata. Dopo, al riascolto, si segnano i punti sporchi: i frammenti che li contengono tornano al livello 0." },
+    { "titolo": "Metrica adatta al brano", "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto) o suono (op. 111 Arietta, Fantasia op. 28).\nRiascolto settimanale: per ogni frammento registrato, un voto da 1 a 3 dato riascoltando, non mentre si suona.\nVerifica a due settimane: per i brani «tempo» resta sui bpm di Rep 4; per i brani «suono» scatta se il voto di riascolto non sale." }
+  ]
+}

@@ -44,7 +44,7 @@ const ACT = {
   rmslot: el => { const B = D.bozza; B.circuiti[+el.dataset.ci].slot.splice(+el.dataset.i, 1); B.circuiti = B.circuiti.filter((c, k) => c.slot.length || k === 0); save(); render(); },
   place: el => { D.bozza.circuiti[+el.dataset.ci].slot.push(el.dataset.id); save(); render(); },
   addcirc: () => { D.bozza.circuiti.push({ andate: D.bozza.cfg.andate || 3, slot: [] }); save(); render(); },
-  cfg: el => { const k = el.dataset.k, v = el.dataset.v; D.bozza.cfg[k] = /^\d+$/.test(v) ? Number(v) : v; save(); render(); },
+  cfg: el => { const k = el.dataset.k, v = el.dataset.v, cfg = D.bozza.cfg; if (k === 'tipo' && cfg.tipo !== v) cfg.sda = cfg.sa = null; cfg[k] = /^\d+$/.test(v) ? Number(v) : v; save(); render(); },
   newgo: () => newGo(),
   libandate: el => { D.bozza.circuiti_lib[+el.dataset.ci].andate = +el.dataset.n; save(); render(); },
   librm: el => { const c = D.bozza.circuiti_lib[+el.dataset.ci]; if (c.slot.length <= 1) { toast('Serve almeno uno slot'); return; } c.slot.splice(+el.dataset.i, 1); save(); render(); },
@@ -63,6 +63,13 @@ const ACT = {
   },
   fatto: () => onFatto(),
   repback: () => repBack(),
+  cucback: () => cucBack(),
+  cucskip: () => cucSkip(),
+  vincolo: () => { const S = D.sessione_aperta; if (!S || !S.circuiti[S.pos.c]) return; vincoloSheet(S, S.circuiti[S.pos.c].slot[S.pos.s].frammento); },
+  livello: el => livelloSheet(el.dataset.id),
+  voto: el => { const y = window.scrollY; setVoto(el.dataset.id, Number(el.dataset.v)); render(); window.scrollTo(0, y); },
+  ripasso: () => { const B = D.bozza; B.cfg.tipo = 'circuito'; B.cfg.modo = 'scritti'; B.circuiti = []; save(); go('#select'); },
+  seldue: () => { const B = D.bozza, s = new Set(B.selezionati); daRipassare().forEach(f => s.add(f.id)); B.selezionati = [...s]; B.circuiti = []; save(); render(); },
   skipslot: async () => {
     const S = D.sessione_aperta; if (!S) return;
     if (!(await ask({ title: 'Saltare questo slot?', text: 'Passi subito allo slot successivo. Il tempo fatto finora su questo slot resta registrato.', ok: 'Salta lo slot' }))) return;
@@ -78,6 +85,7 @@ const ACT = {
   discard: async () => {
     const S = D.sessione_aperta; if (!S) return;
     if (await ask({ title: 'Scartare la sessione?', text: `Minuti, tempi e note di questa sessione (${fmtMinRound(S.timer.sess + tRun(S.timer))} finora) non vengono salvati. Non si può annullare.`, ok: 'Scarta senza salvare', danger: true }) && D.sessione_aperta === S) {
+      [...S.log].reverse().concat(S.cur && S.cur.test ? [{ frammento: (S.circuiti[S.pos.c] || { slot: [] }).slot[S.pos.s] && S.circuiti[S.pos.c].slot[S.pos.s].frammento, test: S.cur.test }] : []).forEach(l => annullaTest(l, S.data));
       D.sessione_aperta = null; save(); navDepth = 0; toast('Sessione scartata'); replaceTo('#home');
     }
   },
@@ -85,6 +93,7 @@ const ACT = {
   delsess: async el => {
     const s = D.sessioni.find(x => x.id === el.dataset.id); if (!s) return;
     if (!(await ask({ title: 'Eliminare questa sessione?', text: `${sesTipo(s)} del ${fmtDateShort(s.data)}, ${fmtMin(totals(s.log).tot)}. I suoi minuti escono dallo storico. Non si può annullare.`, ok: 'Elimina la sessione', danger: true }))) return;
+    [...(s.log || [])].reverse().forEach(l => annullaTest(l, s.data));
     D.sessioni = D.sessioni.filter(x => x.id !== s.id); save(); navDepth = 0; toast('Sessione eliminata'); replaceTo('#day/' + s.data);
   },
   editlog: el => editLog(el.dataset.s, +el.dataset.i),
@@ -118,6 +127,8 @@ if (D.sessione_aperta) delete D.sessione_aperta.timer.hid;
 if (!location.hash && D.sessione_aperta) location.replace('#run');
 render();
 if (D.impostazioni.visto_versione !== APP_VERSION) {
+  const prima = D.impostazioni.visto_versione;   // null alla prima installazione
   D.impostazioni.visto_versione = APP_VERSION; save();
-  if (arrivaDaV1) setTimeout(newsSheet, 350); // solo per chi arriva dalla versione 1
+  // le novità si mostrano a chi arriva dalla versione 1 o da una 2.x: con la 3 cambia il metodo
+  if (arrivaDaV1 || (prima && parseInt(prima, 10) < 3)) setTimeout(newsSheet, 350);
 } else setTimeout(() => checkStale(bootFrom), 400);

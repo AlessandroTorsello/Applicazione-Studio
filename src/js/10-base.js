@@ -1,6 +1,6 @@
 'use strict';
-/* Circuiti di studio — versione 2. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '2.2.0';
+/* Circuiti di studio — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
+const APP_VERSION = '3.0.0';
 /* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
 const SANS = "system-ui,sans-serif";
 const STILI = [
@@ -34,6 +34,7 @@ function defaultData() {
     catalogo_importato: { brani: [], frammenti: [], famiglie: [], sigle: [] },
     impostazioni: { tema: 'scuro', testo: 'normale', stile: STILE_PREDEFINITO, ultimo_export: null, visto_versione: null },
     target: {},
+    livelli: {}, riascolti: [], metrica: {},   // metodo v3: livello di ogni frammento, voti di riascolto, metrica scelta per brano
     sessione_aperta: null, sessioni: [],
     bozza: { selezionati: [], circuiti: [], circuiti_lib: [], brani_liberi: [], cfg: { tipo: 'circuito', slot: 3, andate: 3, modo: 'scritti' } }
   };
@@ -48,7 +49,9 @@ function normalize(d) {
   out.bozza.cfg = Object.assign(defaultData().bozza.cfg, out.bozza.cfg || {});
   ['frammenti_utente', 'brani_utente', 'famiglie_utente', 'sessioni', 'brani_nascosti'].forEach(k => { if (!Array.isArray(out[k])) out[k] = []; });
   ['selezionati', 'circuiti', 'circuiti_lib', 'brani_liberi'].forEach(k => { if (!Array.isArray(out.bozza[k])) out.bozza[k] = []; });
-  if (!out.target || typeof out.target !== 'object' || Array.isArray(out.target)) out.target = {};
+  ['target', 'livelli', 'metrica'].forEach(k => { if (!out[k] || typeof out[k] !== 'object' || Array.isArray(out[k])) out[k] = {}; });
+  if (!Array.isArray(out.riascolti)) out.riascolti = [];
+  out.riascolti = out.riascolti.filter(v => v && v.frammento && v.data);
   out.sessioni = out.sessioni.filter(s => s && typeof s === 'object');
   out.sessioni.forEach(s => { if (!Array.isArray(s.log)) s.log = []; if (!Array.isArray(s.circuiti)) s.circuiti = []; });
   const S = out.sessione_aperta;
@@ -294,6 +297,7 @@ window.addEventListener('hashchange', render);
 function liveEntry(S) {
   const T = S.timer, sec = Math.round(T.slot + tRun(T)); if (sec < 1) return null;
   if (S.tipo === 'libera') return { live: true, circuito: null, andata: null, etichetta: null, frammento: null, brano: S.corrente, secondi: sec };
+  if (S.tipo === 'cucitura' || S.tipo === 'prova') return { live: true, circuito: null, andata: null, etichetta: null, frammento: null, brano: S.brano, secondi: sec, [S.tipo]: true };
   const circ = S.circuiti[S.pos.c], sl = circ && circ.slot[S.pos.s]; if (!sl) return null;
   const f = fr(sl.frammento);
   return { live: true, circuito: circ.n, andata: S.pos.a, etichetta: sl.etichetta, frammento: sl.frammento || null, brano: f ? f.brano : (sl.brano || null), battute: sl.battute || '', secondi: sec, rep1_pulita: null, tempo_rep4: null };

@@ -2,8 +2,10 @@
 const openBrani = new Set(['op111']);
 let LAST = new Map(); // ultimo studio per frammento, ricalcolato quando si apre la selezione
 function fragMeta(f) {
-  const x = LAST.get(f.id); if (!x || !x.data) return '';
-  return `<span class="fmeta">Ultimo studio: ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}</span>`;
+  const x = LAST.get(f.id), liv = livTesto(f.id), p = [];
+  if (x && x.data) p.push(`Ultimo studio: ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}`);
+  if (liv) p.push(esc(liv));
+  return p.length ? `<span class="fmeta">${p.join(' · ')}</span>` : '';
 }
 function fragRow(f, sel) {
   return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
@@ -34,6 +36,10 @@ SCREENS.select = () => {
   D.bozza.selezionati = D.bozza.selezionati.filter(id => fr(id));
   const sel = new Set(D.bozza.selezionati);
   LAST = lastStudied();
+  /* Metodo v3: in cima i frammenti il cui intervallo è scaduto, divisi per brano e in ordine di priorità. */
+  const due = daRipassare(), dueB = [...new Set(due.map(f => f.brano))];
+  const dueHtml = due.length ? `<section class="card due"><div class="cardh"><span class="label">Da ripassare oggi · ${due.length}</span>${due.every(f => sel.has(f.id)) ? '' : '<button class="link" data-act="seldue">Seleziona tutti</button>'}</div>
+    ${dueB.map(b => `<div class="fam"><div class="famh">${esc(branoNome(b))}</div>${due.filter(f => f.brano === b).map(f => fragRow(f, sel)).join('')}</div>`).join('')}</section>` : '';
   const body = C.braniVis.map(b => {
     const list = C.frammenti.filter(f => f.brano === b.id);
     const nSel = list.filter(f => sel.has(f.id)).length;
@@ -45,7 +51,7 @@ SCREENS.select = () => {
   }).join('');
   app.innerHTML = header('Scegli i passaggi', `Circuito a ${D.bozza.cfg.slot} slot`, '#new') +
     `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">${steps(['Tipo', 'Passaggi', 'Circuiti'], 1)}
-    <p class="lead">Spunta la casella per scegliere un passaggio. Tocca il titolo per leggere la scheda completa.</p>${body}</main>
+    <p class="lead">Spunta la casella per scegliere un passaggio. Tocca il titolo per leggere la scheda completa.</p>${dueHtml}${body}</main>
     <div class="bar"><div class="inner"><p class="barnote" id="selnote">${esc(selNote(sel.size))}</p><div class="row"><button class="btn" data-act="deselall" style="flex:0 0 auto;width:auto">Azzera</button><button class="btn primary" data-act="go" data-h="#compose" id="gocompose" ${sel.size ? '' : 'disabled'}>Avanti: componi i circuiti</button></div></div></div>`;
   $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); }));
   $$('input[data-sel]').forEach(inp => inp.addEventListener('change', () => toggleSel(inp.dataset.sel, inp.checked)));
@@ -72,7 +78,8 @@ function previewHtml(f) {
   <h2><span class="bat">${esc(f.battute)}</span> ${esc(f.titolo)}</h2>
   <p class="small muted" style="margin:-6px 0 12px">Priorità ${esc(f.priorita)}${p ? ' · ' + esc(p.nome) : ''} · Famiglia: ${esc(famN)}${f.parti ? ' · Parti: ' + f.parti.map(esc).join(' + ') : ''}${f.trillo_3_5 ? ' · trillo 3-5' : ''}</p>
   <div class="label">Nodo motorio</div><p>${fmtText(f.nodo_motorio)}</p>
-  ${keys.map(k => `<div class="card" style="margin-bottom:10px"><div class="label">Andata ${esc(k)}</div><p style="margin:6px 0"><b>Rep 2.</b> ${fmtText(f.andate[k].rep2)}</p><p style="margin:6px 0"><b>Rep 3.</b> ${fmtText(f.andate[k].rep3)}</p></div>`).join('')}
+  ${isResistenza(f) ? `<div class="hint">${fmtText(AVV.resistenza)}</div>` : ''}
+  ${keys.map(k => `<div class="card" style="margin-bottom:10px"><div class="label">Vincoli · coppia ${esc(k)}</div><p style="margin:6px 0"><b>Rep 2.</b> ${fmtText(f.andate[k].rep2)}</p><p style="margin:6px 0"><b>Rep 3.</b> ${fmtText(f.andate[k].rep3)}</p></div>`).join('')}
   <div class="label">Verifica Rep 4</div><p>${fmtText(f.rep4_verifica)}</p>
   ${f.note ? `<div class="label">Note</div><p>${fmtText(f.note)}</p>` : ''}
   ${f.id && D.target[f.id] ? `<p class="small muted">Tempo target che hai impostato: ${esc(D.target[f.id])} bpm</p>` : ''}`;

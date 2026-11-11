@@ -8,6 +8,12 @@ SCREENS.rules = anchor => {
     <details class="acc" ${anchor ? '' : 'open'}><summary><span class="grow">Sigle (${C.sigle.length})</span></summary><div class="accbody">
       ${C.sigle.map(s => `<div class="sigcard"><div class="sg">${esc(s.sigla)} <span style="color:var(--text);font-weight:600">· ${esc(s.nome)}</span></div><dl>
         <dt>Come si fa</dt><dd>${fmtText(s.come_si_fa)}</dd><dt>Cosa allena</dt><dd>${fmtText(s.cosa_allena)}</dd><dt>Origine</dt><dd>${esc(s.origine)}</dd></dl></div>`).join('')}</div></details>
+    <details class="acc" id="metodo" ${anchor === 'metodo' ? 'open' : ''}><summary><span class="grow">Metodo, versione 3</span></summary><div class="accbody">
+      ${(M3.regole || []).map(x => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(x.titolo)}</div><p style="margin:4px 0 0">${fmtText(x.testo)}</p></div>`).join('')}
+      <div class="sigcard"><div class="label">Dall'errore al vincolo</div>${(M3.errori || []).map(e => `<p style="margin:8px 0">${esc(e.errore)}<br>${linkSigle(esc(e.sigle.join(' · ')))}</p>`).join('')}</div>
+      <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">metrica: ${metricaDi(x.id)}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · frammenti di resistenza: priorità ' + x.resistenza.join(', ') : ''}</span></p>`).join('')}
+        <p class="small muted" style="margin:8px 0 0">La metrica di un brano si cambia in Impostazioni, toccando il brano.</p></div>
+      ${M3.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(M3.fonte)}</p>` : ''}</div></details>
     <details class="acc"><summary><span class="grow">Regole dello slot</span></summary><div class="accbody">
       ${Object.keys(RS).map(k => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(SLOT_LABELS[k] || k)}</div><p style="margin:4px 0 0">${fmtText(RS[k])}</p></div>`).join('')}</div></details>
     <details class="acc" id="fable" ${anchor === 'fable' ? 'open' : ''}><summary><span class="grow">Regole del circuito (Fable)</span></summary><div class="accbody">
@@ -28,7 +34,7 @@ SCREENS.rules = anchor => {
         ${x.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(x.fonte)}</p>` : ''}</div></details>`;
       }).join('')}</div></details>
   </main>` + tabs('rules');
-  if (anchor === 'fable') setTimeout(() => $('#fable') && $('#fable').scrollIntoView({ block: 'start' }), 30);
+  if (anchor === 'fable' || anchor === 'metodo') setTimeout(() => $('#' + anchor) && $('#' + anchor).scrollIntoView({ block: 'start' }), 30);
 };
 
 /* ================= IMPOSTAZIONI ================= */
@@ -68,7 +74,7 @@ SCREENS.settings = () => {
       <p class="small muted" style="margin:0">Frammenti nel catalogo: ${C.frammenti.length} (${D.catalogo_importato.frammenti.length} importati, ${D.frammenti_utente.length} aggiunti a mano).</p>
     </section>
     <section class="card"><div class="label">Informazioni</div>
-      <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 2</button>
+      <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 3</button>
       <p class="small muted" style="margin:0">Circuiti di studio ${APP_VERSION} · catalogo: ${CATALOGO.brani.filter(b => b.completo).length} brani, ${CATALOGO.frammenti.length} frammenti. Le fonti sono in Sigle e regole, alla voce Priorità e famiglie.</p>
     </section>
     <section class="card"><div class="label">Zona pericolosa</div>
@@ -80,10 +86,11 @@ SCREENS.settings = () => {
 };
 function branoSheet(id) {
   const b = C.B.get(id); if (!b) return;
-  const mine = C.braniUtente.has(id), hid = C.hidden.has(id), u = branoUso(id);
+  const mine = C.braniUtente.has(id), hid = C.hidden.has(id), u = branoUso(id), met = metricaDi(id);
   openSheet(`<h2>${esc(b.nome)}</h2>
     <p class="small muted" style="margin-top:-6px">${u.fr} ${u.fr === 1 ? 'frammento' : 'frammenti'} in catalogo · ${fmtMinRound(u.sec)} registrati${mine ? '' : ' · brano del catalogo'}</p>
     ${mine ? `<div class="field"><label for="brn">Nome</label><input type="text" id="brn" value="${esc(b.nome)}"></div><button class="btn primary" id="brsave">Salva il nome</button>` : ''}
+    ${u.fr ? `<div class="optrow" style="border-top:0"><span><b>Metrica</b><br><span class="small muted">${met === 'suono' ? 'conta il voto di riascolto' : 'conta il tempo di Rep 4'}</span></span><div class="seg">${['tempo', 'suono'].map(m => `<button data-met="${m}" class="${met === m ? 'on' : ''}" aria-pressed="${met === m}">${m}</button>`).join('')}</div></div>` : ''}
     <button class="btn" id="brhide">${hid ? 'Mostra di nuovo negli elenchi' : 'Nascondi dagli elenchi'}</button>
     <p class="small muted">${hid ? 'Ora non compare quando scegli brani e passaggi.' : 'Un brano nascosto non compare quando scegli brani e passaggi; minuti e storico restano.'}</p>
     ${mine && !u.n && !u.fr ? '<button class="btn danger" id="brdel">Elimina il brano</button>' : ''}
@@ -92,6 +99,7 @@ function branoSheet(id) {
       const nome = $('#brn', sh).value.trim(); if (!nome) { toast('Il nome non può essere vuoto'); return; }
       const x = D.brani_utente.find(y => y.id === id); if (x) x.nome = nome; save(); buildCat(); render(); toast('Nome salvato');
     });
+    $$('[data-met]', sh).forEach(x => x.addEventListener('click', () => { D.metrica[id] = x.dataset.met; save(); branoSheet(id); }));
     $('#brhide', sh).addEventListener('click', () => {
       D.brani_nascosti = hid ? D.brani_nascosti.filter(x => x !== id) : [...D.brani_nascosti, id];
       save(); buildCat(); render(); toast(hid ? 'Brano di nuovo visibile' : 'Brano nascosto');
@@ -173,7 +181,7 @@ function importCatalog(obj) {
 }
 function resetSheet() {
   openSheet(`<h2>Azzerare tutti i dati?</h2>
-    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti, tempi target e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
+    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti, tempi target, livelli, voti di riascolto e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
     <div class="field"><label for="rz">Per confermare scrivi AZZERA</label><input type="text" id="rz" autocomplete="off" autocapitalize="characters"></div>
     <button class="btn dangerfill xl" id="rzok">Azzera tutto</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     $('#rzok', sh).addEventListener('click', () => {
@@ -183,9 +191,17 @@ function resetSheet() {
   });
 }
 function newsSheet() {
-  openSheet(`<h2>Novità della versione 2</h2>
-    <p class="small muted" style="margin-top:-6px">Tutti i dati della versione precedente sono stati mantenuti. Nessuna opzione è stata tolta.</p>
+  openSheet(`<h2>Novità della versione 3</h2>
+    <p class="small muted" style="margin-top:-6px">Il metodo cambia in cinque punti; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>Una coppia di vincoli per sessione</b>: ogni frammento usa gli stessi vincoli di Rep 2 e Rep 3 in tutte le andate, e la coppia cambia da un giorno all'altro. Dopo la Rep 1 puoi sceglierne altri partendo dall'errore trovato. Il vincolo usato resta nello storico.</li>
+      <li><b>Livelli da 0 a 4</b>: la prima Rep 1 del giorno è il test. Pulita, il frammento sale di livello e torna dopo 2, 4, 8, 16 giorni; sporca, scende di uno. In cima alla scelta dei passaggi trovi «Da ripassare oggi».</li>
+      <li><b>Condizioni reali più spesso</b>: dal livello 2 la Rep 3 è con dinamica e pedale reali. I frammenti di resistenza del Mephisto lavorano nella dinamica scritta fin dall'inizio.</li>
+      <li><b>Cucitura e Prova</b>: due nuovi tipi di sessione. La prima lavora le giunture tra frammenti consecutivi, la seconda è un'esecuzione unica; al riascolto segni i punti sporchi e quei frammenti tornano al livello 0.</li>
+      <li><b>Tempo o suono</b>: ogni brano ha la sua metrica. Una volta a settimana dai un voto da 1 a 3 riascoltando le registrazioni di Rep 4 (Storico, «Riascolto settimanale»). L'app non registra l'audio.</li>
+    </ul>
+    <button class="link" data-act="go" data-h="#rules/metodo" style="display:block;margin:0 0 10px">Leggi le regole complete</button>
+    <details class="sub2" style="margin-bottom:12px"><summary>Novità della versione 2</summary><div><ul class="news">
       <li><b>Barra in basso</b> con Oggi, Storico, Sigle e regole, Impostazioni. «Per frammento» ora è una scheda dello Storico.</li>
       <li><b>Ripeti l'ultima sessione</b> dalla home, oppure «Ripeti questa sessione» da qualsiasi riepilogo.</li>
       <li><b>Durante lo studio</b> il pulsante Fatto dice che cosa viene dopo, una barra mostra a che punto sei e la pausa si vede bene. Toccando Fatto il cronometro in pausa riparte.</li>
@@ -194,6 +210,6 @@ function newsSheet() {
       <li><b>Stili e dimensione del testo</b>: in Impostazioni scegli tra più stili, con caratteri diversi, e quattro misure del testo.</li>
       <li><b>Quattro brani nel catalogo</b>: op. 111 I e II movimento, Mephisto Valzer n. 1, Fantasia op. 28 di Scriabin, ognuno con le sue priorità.</li>
       <li><b>Meno errori</b>: puoi scartare una sessione partita per sbaglio, e se il cronometro resta acceso con l'app chiusa, al ritorno ti chiede se contare quel tempo.</li>
-    </ul>
+    </ul></div></details>
     <button class="btn primary xl" data-act="closesheet">Ho capito</button>`);
 }

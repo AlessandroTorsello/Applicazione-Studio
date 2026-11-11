@@ -1,16 +1,17 @@
 
 /* ================= RIEPILOGO SESSIONE ================= */
-const logKey = l => l.frammento || ('L|' + (l.brano || '') + '|' + (l.battute || '') + '|' + (l.manuale ? 'mano' : l.circuito == null ? 'libera' : 'circ'));
+const logKey = l => l.frammento || ('L|' + (l.brano || '') + '|' + (l.battute || '') + '|' + (l.manuale ? 'mano' : l.cucitura ? 'cuc' : l.prova ? 'prova' : l.circuito == null ? 'libera' : 'circ'));
 function fragStats(logs) {
   const m = new Map();
   logs.forEach(l => {
     const k = logKey(l);
-    if (!m.has(k)) m.set(k, { fid: l.frammento || null, brano: l.brano, battute: l.battute || '', libera: l.circuito == null, manuale: !!l.manuale, sec: 0, andate: new Set(), pul: 0, pulN: 0, tempo: null, drop: false, n: 0 });
+    if (!m.has(k)) m.set(k, { fid: l.frammento || null, brano: l.brano, battute: l.battute || '', libera: l.circuito == null, manuale: !!l.manuale, cuc: !!l.cucitura, prova: !!l.prova, giu: 0, giuN: 0, giuOk: 0, sec: 0, andate: new Set(), pul: 0, pulN: 0, tempo: null, drop: false, n: 0 });
     const x = m.get(k);
     x.sec += l.secondi || 0; if (l.circuito != null) x.andate.add(l.circuito + '|' + l.andata); x.n++;
     if (l.rep1_pulita != null) { x.pulN++; if (l.rep1_pulita) x.pul++; }
     if (l.tempo_rep4 != null) x.tempo = l.tempo_rep4;
     if (l.drop_out) x.drop = true;
+    if (l.cucitura) { x.giu++; if (l.giuntura_pulita != null) { x.giuN++; if (l.giuntura_pulita) x.giuOk++; } }
   });
   return [...m.values()];
 }
@@ -21,6 +22,8 @@ function byBrano(stats) {
 function statName(x) {
   if (x.fid) { const f = fr(x.fid); return { bat: f ? f.battute : x.fid, tit: f ? f.titolo : '' }; }
   if (x.manuale) return { bat: '', tit: 'Registrato a mano' };
+  if (x.cuc) return { bat: '', tit: 'Cucitura' };
+  if (x.prova) return { bat: '', tit: 'Prova' };
   if (x.libera) return { bat: '', tit: 'Studio libero' };
   return { bat: x.battute, tit: x.battute ? 'Circuito libero' : 'Circuito libero, brano intero' };
 }
@@ -29,6 +32,7 @@ function statDetails(x) {
   if (x.andate.size) d.push(`${x.andate.size} andat${x.andate.size === 1 ? 'a' : 'e'}`);
   if (x.fid) { d.push(`Rep 1 pulite ${x.pulN ? x.pul + '/' + x.pulN : '—'}`); d.push(`Rep 4 ${x.tempo != null ? x.tempo + ' bpm' : '—'}`); }
   if (x.drop) d.push('drop-out');
+  if (x.cuc) d.push(`${x.giu} ${x.giu === 1 ? 'giuntura' : 'giunture'}`, `pulite ${x.giuN ? x.giuOk + '/' + x.giuN : '—'}`);
   return d.join(' · ');
 }
 function statsTable(logs) {
@@ -37,7 +41,7 @@ function statsTable(logs) {
     const sub = list.reduce((a, x) => a + x.sec, 0); tot += sub;
     html += `<div class="sth"><span>${esc(branoNome(b))}</span><span>${fmtMin(sub)}</span></div>`;
     list.forEach(x => {
-      if (list.length === 1 && x.libera && !x.manuale) return;
+      if (list.length === 1 && x.libera && !x.manuale && !x.cuc && !x.prova) return;
       const n = statName(x), det = statDetails(x);
       const title = n.bat ? `<b class="bat">${esc(n.bat)}</b>${esc(n.tit)}` : `<span>${esc(n.tit)}</span>`;
       html += `<div class="st"><div class="m">${x.fid ? `<button class="link plain" data-act="go" data-h="#frag/${encodeURIComponent(x.fid)}">${title} ›</button>` : title}${det ? `<div class="d">${esc(det)}</div>` : ''}</div><div class="v">${fmtMin(x.sec)}</div></div>`;
@@ -46,7 +50,7 @@ function statsTable(logs) {
   if (groups.length > 1 || groups.some(([, l]) => l.length > 1)) html += `<div class="stt"><span>Totale</span><span>${fmtMin(tot)}</span></div>`;
   return { tot, html };
 }
-const sesTipo = s => s.tipo === 'manuale' ? 'Registrata a mano' : s.tipo === 'libera' ? 'Sessione libera' : s.modo === 'libero' ? 'Circuito libero' : 'Circuito · passaggi scritti';
+const sesTipo = s => s.tipo === 'manuale' ? 'Registrata a mano' : s.tipo === 'cucitura' ? 'Cucitura' : s.tipo === 'prova' ? 'Prova' : s.tipo === 'libera' ? 'Sessione libera' : s.modo === 'libero' ? 'Circuito libero' : 'Circuito · passaggi scritti';
 const sesOre = s => s.tipo === 'manuale' ? 'Registrata a mano' : `${fmtTime(s.inizio)}–${fmtTime(s.fine)}`;
 function sessionText(ses) {
   const groups = byBrano(fragStats(ses.log)); const tot = ses.log.reduce((a, l) => a + (l.secondi || 0), 0);
@@ -59,9 +63,11 @@ function sessionText(ses) {
   if (extra.length) { t += `\nAnnotazioni\n`; extra.forEach(l => { t += `- ${logPos(l)} ${logWhat(l)}:${l.diagnosi ? ' diagnosi «' + l.diagnosi + '»' : ''}${l.arresto ? ' · arresto' : ''}${l.note ? ' · note «' + l.note + '»' : ''}\n`; }); }
   return t;
 }
-const logPos = l => l.manuale ? 'A mano' : l.circuito == null ? 'Libera' : `C${l.circuito} · A${l.andata} · ${l.etichetta}`;
+const logPos = l => l.manuale ? 'A mano' : l.cucitura ? 'Giuntura ' + String(l.etichetta || '').replace(/^G/, '') : l.prova ? 'Prova' : l.circuito == null ? 'Libera' : `C${l.circuito} · A${l.andata} · ${l.etichetta}`;
 function logWhat(l) {
   if (l.frammento) { const f = fr(l.frammento); return 'bb. ' + (f ? f.battute : l.frammento); }
+  if (l.cucitura) return `bb. ${frLabel(l.da)} + bb. ${frLabel(l.a)}`;
+  if (l.prova) return branoCorto(l.brano) + ' ' + tratto(l.frammenti || []);
   return branoCorto(l.brano) + (l.battute ? ' bb. ' + l.battute : '');
 }
 function logItem(l, si, li) {
@@ -69,7 +75,10 @@ function logItem(l, si, li) {
   const parts = [fmtMin(l.secondi)];
   if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`, `Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'}`); if (l.tempo_rep4 != null) parts.push(l.tempo_rep4 + ' bpm'); }
   if (l.arresto) parts.push('arresto'); if (l.drop_out) parts.push('drop-out');
-  return `<div class="logi"><b>${esc(logPos(l))}</b> — ${esc(logWhat(l))} ${f ? '<span class="muted">' + esc(f.titolo) + '</span>' : ''}<br>${esc(parts.join(' · '))}
+  if (l.cucitura) parts.push(`passi ${l.passi || 0}/2`, `giuntura ${l.giuntura_pulita === true ? 'pulita' : l.giuntura_pulita === false ? 'non pulita' : '—'}`);
+  if (l.prova && Array.isArray(l.sporchi)) parts.push(l.sporchi.length ? 'punti sporchi: ' + l.sporchi.map(id => 'bb. ' + frLabel(id)).join(', ') : 'nessun punto sporco');
+  const v3 = [vincLogTesto(l), testTesto(l)].filter(Boolean).join(' · ');
+  return `<div class="logi"><b>${esc(logPos(l))}</b> — ${esc(logWhat(l))} ${f ? '<span class="muted">' + esc(f.titolo) + '</span>' : ''}<br>${esc(parts.join(' · '))}${v3 ? `<br><span class="muted">Vincoli:</span> ${esc(v3)}` : ''}
     ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}
     ${si != null ? `<br><button class="link small" data-act="editlog" data-s="${esc(si)}" data-i="${li}">Correggi</button>` : ''}</div>`;
 }
@@ -79,6 +88,7 @@ SCREENS.summary = sid => {
   app.innerHTML = header(sesTipo(ses), `${fmtDateLong(ses.data)}${man ? '' : ' · ' + sesOre(ses)}`, '#day/' + ses.data) + `<main class="wrap">
     <section class="card"><div class="label">Totale della sessione</div><div class="big">${fmtMin(st.tot)}</div>
       <p class="small muted" style="margin:0">${man ? 'Minuti inseriti a mano.' : 'Somma dei secondi cronometrati negli slot.' + (ses.secondi_cronometro ? ' Cronometro di sessione: ' + fmtMin(ses.secondi_cronometro) + '.' : '')}</p></section>
+    ${provaCard(ses)}
     <section class="card">${ses.log.length ? st.html : '<p class="muted" style="margin:0">Nessuno slot registrato.</p>'}</section>
     <button class="btn primary" data-act="copysess" data-id="${esc(ses.id)}">Copia il riepilogo come testo</button>
     ${canRepeat(ses) ? `<button class="btn" data-act="repeat" data-id="${esc(ses.id)}">Ripeti questa sessione</button>` : ''}
@@ -101,13 +111,14 @@ function editLog(sid, i) {
       l.secondi = Math.max(0, (Number($('#em', sh).value) || 0) * 60 + (Number($('#es', sh).value) || 0));
       if (l.frammento) {
         const b = $('#eb', sh).value; l.tempo_rep4 = b === '' ? null : Math.round(Number(b));
-        const p = $('#ep', sh).value; l.rep1_pulita = p === '' ? null : p === '1';
+        const p = $('#ep', sh).value, prima = l.rep1_pulita; l.rep1_pulita = p === '' ? null : p === '1';
+        if (l.rep1_pulita !== prima) ricalcolaTest(l);
         l.diagnosi = $('#ed', sh).value;
       }
       l.note = $('#en', sh).value; save(); render(); toast('Corretto');
     });
     $('#edel', sh).addEventListener('click', async () => {
-      if (await ask({ title: 'Eliminare questa voce?', text: `${logPos(l)} · ${logWhat(l)} · ${fmtMin(l.secondi)}. I suoi minuti escono dai totali.`, ok: 'Elimina', danger: true })) { ses.log.splice(ses.log.indexOf(l), 1); save(); render(); toast('Voce eliminata'); }
+      if (await ask({ title: 'Eliminare questa voce?', text: `${logPos(l)} · ${logWhat(l)} · ${fmtMin(l.secondi)}. I suoi minuti escono dai totali.`, ok: 'Elimina', danger: true })) { annullaTest(l, ses.data); ses.log.splice(ses.log.indexOf(l), 1); save(); render(); toast('Voce eliminata'); }
     });
   });
 }
@@ -139,9 +150,10 @@ SCREENS.history = () => {
   const maxW = Math.max(1, ...wk.map(x => x[1]));
   const from = histPeriod === 'all' ? '' : dayAdd(today, -(Number(histPeriod) - 1));
   const inP = keys.filter(d => d >= from), pLogs = inP.flatMap(d => days.get(d)), pt = totals(pLogs), nDays = inP.filter(d => totals(days.get(d)).tot > 0).length;
-  const shown = histAll ? keys : keys.slice(0, 30);
+  const shown = histAll ? keys : keys.slice(0, 30), rias = studiatiInSettimana();
   app.innerHTML = topbar('Storico', 'Minuti di studio, dal giorno più recente') + `<main class="wrap tabbed">
     ${histSeg('history')}
+    ${rias.length ? `<button class="btn two" data-act="go" data-h="#riascolto"><b>Riascolto settimanale${riascoltoDovuto() ? ' · da fare' : ''}</b><span>Voto da 1 a 3 per i ${rias.length} frammenti studiati negli ultimi 7 giorni</span></button>` : ''}
     ${keys.length ? `<section class="card"><div class="cardh"><span class="label">Totali</span>
         <div class="seg small">${[['7', '7 giorni'], ['30', '30 giorni'], ['all', 'Sempre']].map(([v, l]) => `<button data-act="period" data-v="${v}" class="${histPeriod === v ? 'on' : ''}" aria-pressed="${histPeriod === v}">${l}</button>`).join('')}</div></div>
       <div class="big">${fmtMinRound(pt.tot)}</div>
@@ -169,11 +181,11 @@ SCREENS.frammenti = () => {
   const list = [...m.entries()].sort((a, b) => b[1].last.localeCompare(a[1].last));
   app.innerHTML = topbar('Storico', 'Andamento di ogni frammento, dal più recente') + `<main class="wrap tabbed">
     ${histSeg('frammenti')}
-    ${list.map(([id, x]) => { const f = fr(id); return `<button class="dayrow" data-act="go" data-h="#frag/${encodeURIComponent(id)}"><div class="d"><span><span class="bat">${esc(f ? f.battute : id)}</span>${esc(f ? f.titolo : '')}</span><span>${fmtMinRound(x.sec)}</span></div><div class="small muted">Ultimo studio: ${esc(fmtAgo(x.last))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}${D.target[id] ? ' · target ' + esc(D.target[id]) : ''}</div></button>`; }).join('')
+    ${list.map(([id, x]) => { const f = fr(id); return `<button class="dayrow" data-act="go" data-h="#frag/${encodeURIComponent(id)}"><div class="d"><span><span class="bat">${esc(f ? f.battute : id)}</span>${esc(f ? f.titolo : '')}</span><span>${fmtMinRound(x.sec)}</span></div><div class="small muted">Ultimo studio: ${esc(fmtAgo(x.last))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}${D.target[id] ? ' · target ' + esc(D.target[id]) : ''}${livTesto(id) ? ' · ' + esc(livTesto(id)) : ''}</div></button>`; }).join('')
       || '<div class="empty"><b>Ancora nessun dato</b><span>Qui compaiono i frammenti studiati nei circuiti con passaggi scritti, con i minuti e il tempo di Rep 4.</span></div>'}
   </main>` + tabs('history');
 };
-function chartSvg(points, target) {
+function chartSvg(points, target, label) {
   if (!points.length) return '';
   const W = 340, H = 150, L = 34, R = 10, T = 12, Bm = 24;
   const xs = points.map(p => dparse(p.d).getTime()), ys = points.map(p => p.v);
@@ -182,7 +194,7 @@ function chartSvg(points, target) {
   const X = t => L + (t - x0) / (x1 - x0) * (W - L - R), Y = v => T + (1 - (v - y0) / (y1 - y0)) * (H - T - Bm);
   const pts = points.map((p, i) => `${X(xs[i]).toFixed(1)},${Y(p.v).toFixed(1)}`).join(' ');
   const hi = Math.max(...ys), lo = Math.min(...ys);
-  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Andamento del tempo di Rep 4">
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label || 'Andamento del tempo di Rep 4')}">
     <line class="ax" x1="${L}" y1="${H - Bm}" x2="${W - R}" y2="${H - Bm}"/><line class="ax" x1="${L}" y1="${T}" x2="${L}" y2="${H - Bm}"/>
     ${target ? `<line class="tg" x1="${L}" y1="${Y(target).toFixed(1)}" x2="${W - R}" y2="${Y(target).toFixed(1)}"/><text class="tglab" x="${W - R}" y="${(Y(target) - 4).toFixed(1)}" text-anchor="end">target ${target}</text>` : ''}
     <text x="${L - 4}" y="${Y(hi) + 4}" text-anchor="end">${hi}</text>${lo !== hi ? `<text x="${L - 4}" y="${Y(lo) + 4}" text-anchor="end">${lo}</text>` : ''}
@@ -204,16 +216,27 @@ SCREENS.frag = fid => {
   const points = [...perDay.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([d, v]) => ({ d, v }));
   const pulN = h.filter(l => l.rep1_pulita != null).length, pul = h.filter(l => l.rep1_pulita === true).length;
   const tot = h.reduce((a, l) => a + (l.secondi || 0), 0), tg = D.target[fid];
+  const suono = !!f && metricaDi(f.brano) === 'suono', voti = votiDi(fid), vpoints = voti.map(v => ({ d: v.data, v: v.voto })), uv = voti[voti.length - 1];
+  const fermo = suono ? (twoWeekCheck(vpoints) && uv.voto < 3) : twoWeekCheck(points);
+  const L = D.livelli[fid], inRot = !!(L && L.prossimo), vst = vincoliStats(h);
+  const tempoCard = `<section class="card"><div class="label">Tempo di Rep 4 (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, tg) : '<p class="muted" style="margin:8px 0 0">Nessun tempo registrato: compare dopo la prima Rep 4 con i bpm.</p>'}
+      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:8px"><span><b>Tempo target</b><br><span class="small muted">${tg ? tg + ' bpm' : 'non impostato'}</span></span><button class="btn inline" style="margin:0" data-act="target" data-id="${esc(fid)}">${tg ? 'Cambia' : 'Imposta'}</button></div>` : ''}</section>`;
+  const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto di riascolto</span><span class="pill">${suono ? 'metrica del brano: suono' : 'metrica del brano: tempo'}</span></div>
+      ${vpoints.length > 1 ? chartSvg(vpoints, null, 'Andamento del voto di riascolto') : ''}
+      <div class="optrow"><span><b>Voto di oggi</b><br><span class="small muted">${uv ? `ultimo: ${uv.voto} (${esc((M3.voti || {})[uv.voto] || '')}) · ${esc(fmtDateShort(uv.data))}` : 'dato riascoltando, non mentre suoni'}</span></span>${votoSeg(fid)}</div></section>` : '';
   app.innerHTML = header(f ? 'bb. ' + f.battute : fid, f ? f.titolo : '', '#frammenti') + `<main class="wrap">
     <section class="card"><div class="row stat3"><div><div class="label">Minuti totali</div><div class="statv">${fmtMinRound(tot)}</div></div>
       <div><div class="label">Rep 1 pulite</div><div class="statv">${pulN ? pul + '/' + pulN : '—'}</div></div>
-      <div><div class="label">Ultimo Rep 4</div><div class="statv">${points.length ? points[points.length - 1].v + ' bpm' : '—'}</div></div></div></section>
-    ${twoWeekCheck(points) ? `<div class="hint">${fmtText(CATALOGO.regole_slot.verifica_2_settimane)}</div>` : ''}
-    <section class="card"><div class="label">Tempo di Rep 4 (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, tg) : '<p class="muted" style="margin:8px 0 0">Nessun tempo registrato: compare dopo la prima Rep 4 con i bpm.</p>'}
-      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:8px"><span><b>Tempo target</b><br><span class="small muted">${tg ? tg + ' bpm' : 'non impostato'}</span></span><button class="btn inline" style="margin:0" data-act="target" data-id="${esc(fid)}">${tg ? 'Cambia' : 'Imposta'}</button></div>` : ''}</section>
+      ${suono ? `<div><div class="label">Ultimo voto</div><div class="statv">${uv ? uv.voto + ' su 3' : '—'}</div></div>` : `<div><div class="label">Ultimo Rep 4</div><div class="statv">${points.length ? points[points.length - 1].v + ' bpm' : '—'}</div></div>`}</div>
+      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:10px;padding-bottom:0"><span><b>${inRot ? 'Livello ' + L.l : 'Non ancora in rotazione'}</b><br><span class="small muted">${inRot ? 'ripasso ' + esc(quando(L.prossimo)) + (isResistenza(f) ? ' · frammento di resistenza' : '') : 'entra con la prima Rep 1 del giorno'}</span></span><button class="btn inline" style="margin:0" data-act="livello" data-id="${esc(fid)}">${inRot ? 'Cambia' : 'Imposta'}</button></div>` : ''}</section>
+    ${fermo ? `<div class="hint">${fmtText(CATALOGO.regole_slot.verifica_2_settimane)}</div>` : ''}
+    ${suono ? votoCard + tempoCard : tempoCard + votoCard}
+    ${vst.length ? `<section class="card"><div class="label">Vincoli usati</div><p class="small muted" style="margin:4px 0 6px">Per ogni vincolo: in quanti giorni l'hai usato e com'era il test del giorno di studio successivo.</p>
+      ${vst.map(([lab, x]) => `<div class="logi">${esc(lab)}<br><span class="muted">${x.n} ${x.n === 1 ? 'giorno' : 'giorni'} · test successivo pulito ${x.tot ? x.pul + '/' + x.tot : '—'}</span></div>`).join('')}</section>` : ''}
     <section class="card"><div class="label">Cronologia</div>
       ${[...h].reverse().map(l => `<div class="logi"><b style="text-transform:capitalize">${esc(fmtDateShort(l.data))}</b> · circuito ${l.circuito}, andata ${l.andata}, slot ${esc(l.etichetta)} · ${fmtMin(l.secondi)}<br>
         Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'} · Rep 4 ${l.tempo_rep4 != null ? l.tempo_rep4 + ' bpm' : '—'}${l.arresto ? ' · arresto' : ''}${l.drop_out ? ' · drop-out' : ''}
+        ${vincLogTesto(l) || l.test ? `<br><span class="muted">Vincoli:</span> ${esc([vincLogTesto(l), testTesto(l)].filter(Boolean).join(' · '))}` : ''}
         ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}</div>`).join('') || '<p class="muted" style="margin:8px 0 0">Ancora nessun dato.</p>'}
     </section>
     ${f ? `<details class="sub2"><summary>Scheda del frammento</summary><div>${previewHtml(f)}</div></details>` : ''}

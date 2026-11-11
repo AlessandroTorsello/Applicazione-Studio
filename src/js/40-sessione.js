@@ -9,7 +9,7 @@ function startSession(modo) {
   if (!circ.length) { toast('Aggiungi almeno uno slot'); return; }
   const now = Date.now(); navDepth = 0;
   D.sessione_aperta = { tipo: 'circuito', modo, id: 's' + now.toString(36), data: todayStr(), inizio: new Date(now).toISOString(), circuiti: circ,
-    pos: { c: 0, a: 1, s: 0, r: 1 }, cur: newCur(), dropout: {}, log: [],
+    pos: { c: 0, a: 1, s: 0, r: 1 }, cur: newCur(), dropout: {}, vincoli: {}, log: [],
     timer: { sess: 0, slot: 0, since: now, seen: now } };
   save(); replaceTo('#run');
 }
@@ -63,7 +63,8 @@ function finalizeSlot(S, rc) {
     secondi: Math.round(S.timer.slot), rep_completate: rc, rep1_pulita: S.cur.rep1_pulita, diagnosi: S.cur.diagnosi,
     tempo_rep4: S.cur.tempo_rep4, arresto: S.cur.arresto, drop_out: S.cur.drop_out, note: S.cur.note };
   if (S.modo === 'libero') { e.battute = sl.battute || ''; e.rep_completate = null; }
-  if ((rc != null && rc > 0) || e.secondi >= (S.modo === 'libero' ? 1 : 5)) S.log.push(e);
+  else if (f) { if (rc >= 2) vincLog(e, f, S.vincoli && S.vincoli[sl.frammento]); if (S.cur.test) e.test = S.cur.test; }
+  if ((rc != null && rc > 0) || e.test || e.secondi >= (S.modo === 'libero' ? 1 : 5)) S.log.push(e);
   S.timer.slot = 0; S.cur = newCur();
 }
 function moveNext(S) {
@@ -77,8 +78,10 @@ function closeSession(silent) {
   const S = D.sessione_aperta; if (!S) return;
   fold(S.timer);
   if (S.tipo === 'libera') freeSeg(S);
+  else if (S.tipo === 'cucitura') { if (S.pos.r > 1 || S.timer.slot >= 5) cucFinalize(S, S.pos.r - 1); }
+  else if (S.tipo === 'prova') { if (S.timer.slot >= 1) provaFinalize(S); }
   else if (S.pos.r > 1 || S.timer.slot >= 5) finalizeSlot(S, S.modo === 'libero' ? null : S.pos.r - 1);
-  const ses = { id: S.id, tipo: S.tipo || 'circuito', modo: S.modo || null, data: S.data, inizio: S.inizio, fine: new Date().toISOString(), secondi_cronometro: Math.round(S.timer.sess), circuiti: S.circuiti || [], brani: S.brani || undefined, log: S.log };
+  const ses = { id: S.id, tipo: S.tipo || 'circuito', modo: S.modo || null, data: S.data, inizio: S.inizio, fine: new Date().toISOString(), secondi_cronometro: Math.round(S.timer.sess), circuiti: S.circuiti || [], brani: S.brani || undefined, brano: S.brano || undefined, frammenti: S.frammenti || undefined, log: S.log };
   D.sessioni.push(ses); D.sessione_aperta = null; save();
   if (!silent) { navDepth = 0; replaceTo('#summary/' + ses.id); }
 }
@@ -169,24 +172,34 @@ function runTicker(S, extra) {
 SCREENS.run = () => {
   const S = D.sessione_aperta; if (!S) { replaceTo('#home'); return; }
   if (S.tipo === 'libera') return renderFree(S);
+  if (S.tipo === 'cucitura') return renderCuc(S);
+  if (S.tipo === 'prova') return renderProva(S);
   if (S.modo === 'libero') return renderLib(S);
   const { c, a, s, r } = S.pos, circ = S.circuiti[c], sl = circ.slot[s], f = fr(sl.frammento) || { battute: sl.frammento, titolo: '(frammento non trovato)', andate: {} };
-  const k = andataKey(f, a), A = k ? f.andate[k] : null;
-  let body;
+  /* Metodo v3: una sola coppia di vincoli per frammento in tutta la sessione (non più una per andata). */
+  const fid = sl.frammento, v = vinc(S, fid), vb = vincBreve(f, v), liv = livDi(fid), res = isResistenza(f);
+  const L = D.livelli[fid], eTest = r === 1 && fr(fid) && (S.cur.test || !(L && L.visto === todayStr()));
+  let body, avvisi = '';
   if (r === 1) body = fmtText(CATALOGO.regole_slot.rep1);
-  else if (r === 2) body = A ? fmtText(A.rep2) : '<span class="muted">Nessun testo per questa andata.</span>';
-  else if (r === 3) body = A ? fmtText(A.rep3) : '<span class="muted">Nessun testo per questa andata.</span>';
+  else if (r === 2 || r === 3) {
+    body = vincBody(f, v, r);
+    if (res) avvisi += `<div class="hint avv">${fmtText(AVV.resistenza)}</div>`;
+    else if (r === 3 && liv >= 2) avvisi += `<div class="hint avv">${fmtText(AVV.reali)}</div>`;
+  }
   else body = fmtText(CATALOGO.regole_slot.rep4) + `<span class="vlabel">Verifica</span>` + fmtText(f.rep4_verifica);
   const dots = `<span class="dots" aria-label="Rep ${r} di 4">${[1, 2, 3, 4].map(i => `<span class="dot ${i < r ? 'done' : i === r ? 'cur' : ''}"></span>`).join('')}</span>`;
   const canBack = r > 1 || !!retreat(S, S.pos);
   const poi = r === 1 ? 'poi: esito di Rep 1, quindi Rep 2' : r === 2 ? 'poi: Rep 3' : r === 3 ? 'poi: Rep 4' : 'poi: tempo di Rep 4 · ' + nextInfo(S).replace(/^poi: /, '');
   app.innerHTML = runHead(S, { dots, lines: `<div class="l2">${esc(branoNome(f.brano))}</div>
-    <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${k && k !== String(a) ? ` <span class="tag">testi dell'andata ${k}</span>` : ''}</div>` }) + `
+    <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</div>` }) + `
   <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
     ${pausedBanner(S)}
     <div class="repnum">Rep ${r}<small>di 4</small></div>
     ${r > 1 && (S.cur.rep1_pulita != null || S.cur.diagnosi) ? `<p class="diag">Rep 1: ${S.cur.rep1_pulita === true ? 'pulita' : S.cur.rep1_pulita === false ? 'non pulita' : '—'}${S.cur.diagnosi ? ' · ' + esc(S.cur.diagnosi) : ''}</p>` : ''}
+    ${eTest ? `<p class="diag">${esc(AVV.test || '')} Livello attuale: ${S.cur.test ? S.cur.test.da : liv}.</p>` : ''}
     ${tempoLine(sl.frammento, r)}
+    ${r === 2 || r === 3 ? `<div class="vrow"><span>${vb.mio ? 'Vincolo scelto dopo la diagnosi' : v.k ? 'Vincoli di oggi: coppia ' + esc(v.k) : 'Vincolo'} · <b>${esc(r === 2 ? vb.r2 : vb.r3)}</b></span><button class="link" data-act="vincolo">Cambia vincolo</button></div>` : ''}
+    ${avvisi}
     <div class="instr">${body}</div>
     <div class="toggles">
       <label class="tg"><input type="checkbox" id="arresto" ${S.cur.arresto ? 'checked' : ''}> <span>Regola di arresto applicata</span></label>
@@ -195,7 +208,7 @@ SCREENS.run = () => {
     <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note${S.cur.note ? ' ✎' : ''}</summary><div><textarea id="note" placeholder="Annotazioni su questo slot">${esc(S.cur.note)}</textarea></div></details>
     <details class="sub2"><summary>Nodo motorio</summary><div>${fmtText(f.nodo_motorio)}</div></details>
     ${f.note ? `<details class="sub2"><summary>Note del frammento</summary><div>${fmtText(f.note)}</div></details>` : ''}
-    <details class="sub2"><summary>Regole fisse</summary><div><div class="label">Rep 2-3</div><p>${fmtText(CATALOGO.regole_slot.rep2_3)}</p><div class="label">Regola di arresto</div><p>${fmtText(CATALOGO.regole_slot.arresto)}</p></div></details>
+    <details class="sub2"><summary>Regole fisse</summary><div><div class="label">Rep 2-3</div><p>${fmtText(CATALOGO.regole_slot.rep2_3)}</p><div class="label">Vincoli</div><p>${fmtText(CATALOGO.regole_slot.andate)}</p><div class="label">Regola di arresto</div><p>${fmtText(CATALOGO.regole_slot.arresto)}</p></div></details>
   </main>
   <div class="bar"><div class="inner">
     <div class="sec"><button class="btn" data-act="repback" ${canBack ? '' : 'disabled'}>${r > 1 ? '‹ Torna a Rep ' + (r - 1) : '‹ Slot precedente'}</button><button class="btn" data-act="skipslot">Salta slot ›</button></div>
@@ -237,6 +250,8 @@ function onFatto() {
   const S = D.sessione_aperta; if (!S) return;
   if (Date.now() - lastRender < 350) return; // evita che un doppio tocco salti una Rep
   resumeIfPaused(S);
+  if (S.tipo === 'cucitura') return cucFatto(S);
+  if (S.tipo === 'prova') { provaFinalize(S); S.pos.r = 1; S.timer.slot = 0; closeSession(); return; }
   if (S.modo === 'libero') { finalizeSlot(S, null); moveNext(S); return; }
   const r = S.pos.r;
   if (r === 1) return rep1Sheet(S);
@@ -244,12 +259,17 @@ function onFatto() {
   S.pos.r = r + 1; save(); render();
 }
 function rep1Sheet(S) {
+  const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento, f = fr(fid), v = f ? vinc(S, fid) : null, vb = f ? vincBreve(f, v) : null;
+  const L = D.livelli[fid], eTest = !!f && (S.cur.test || !(L && L.visto === todayStr()));
+  const prima = !S.log.some(l => l.frammento === fid && l.rep_completate >= 2);   // il vincolo si sceglie alla prima andata del frammento
   openSheet(`<h2>Com'è andata Rep 1?</h2>
     <div class="label">Rep 1 pulita?</div>
     <div class="yn"><button class="si ${S.cur.rep1_pulita === true ? 'on' : ''}" data-yn="1" aria-pressed="${S.cur.rep1_pulita === true}">Sì</button><button class="no ${S.cur.rep1_pulita === false ? 'on' : ''}" data-yn="0" aria-pressed="${S.cur.rep1_pulita === false}">No</button></div>
     <div class="field"><label for="diag">Diagnosi (una riga)</label><input type="text" id="diag" value="${esc(S.cur.diagnosi)}" placeholder="es. b. 26 q3, sx anticipa" enterkeyhint="done"></div>
+    ${vb ? `<div class="vbox"><div><span class="label">${prima ? 'Vincoli di oggi' : 'Vincoli di questa sessione'}</span><b>Rep 2: ${esc(vb.r2)} · Rep 3: ${esc(vb.r3)}</b><small>${vb.mio ? 'scelti dopo la diagnosi' : 'coppia dell\'andata ' + esc(v.k || '—') + ' del catalogo'}</small></div>${prima ? '<button class="btn inline" id="r1v">Cambia</button>' : ''}</div>` : ''}
     <button class="btn primary xl" id="r1ok">Avanti a Rep 2</button>
-    <p class="small muted" style="margin:0;text-align:center">Le risposte sono facoltative.</p>`, sh => {
+    <p class="small muted" style="margin:0;text-align:center">${eTest ? 'Questa è la prima Rep 1 di oggi: la risposta «pulita» decide il livello.' : 'Le risposte sono facoltative.'}</p>`, sh => {
+    if ($('#r1v', sh)) $('#r1v', sh).addEventListener('click', () => vincoloSheet(S, fid, () => rep1Sheet(S)));
     $$('[data-yn]', sh).forEach(b => b.addEventListener('click', () => {
       const v = b.dataset.yn === '1'; S.cur.rep1_pulita = S.cur.rep1_pulita === v ? null : v; save();
       $$('[data-yn]', sh).forEach(x => { const on = S.cur.rep1_pulita === (x.dataset.yn === '1'); x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
@@ -258,6 +278,8 @@ function rep1Sheet(S) {
     $('#diag', sh).addEventListener('keydown', e => { if (e.key === 'Enter') $('#r1ok', sh).click(); });
     $('#r1ok', sh).addEventListener('click', () => {
       const circ = S.circuiti[S.pos.c];
+      const T = eTest ? applicaTest(S, fid) : null;
+      if (T && T.a != null) setTimeout(() => toast(`Test di oggi: livello ${T.a} · ripasso ${quando(D.livelli[fid].prossimo)}`), 60);
       if (S.pos.a === 3 && circ.andate_previste > 3 && S.cur.rep1_pulita === true && !S.cur.drop_out) {
         openSheet(`<h2>Drop-out: saltare ${circ.andate_previste > 4 ? 'le andate successive' : 'l\'andata 4'}?</h2><p class="asktext">${fmtText(CATALOGO.regole_slot.drop_out)}</p>
           <div class="yn"><button class="si on" id="dy">Sì, drop-out</button><button class="no" id="dn">No, continua</button></div>`, sh2 => {
@@ -271,7 +293,9 @@ function rep1Sheet(S) {
 function rep4Sheet(S) {
   const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento;
   const prev = lastTempo(fid), pre = S.cur.tempo_rep4 != null ? S.cur.tempo_rep4 : prev, tg = D.target[fid];
+  const suono = fr(fid) && metricaDi(fr(fid).brano) === 'suono';
   openSheet(`<h2>Tempo di Rep 4</h2>
+    ${suono ? `<p class="small muted" style="margin-top:-6px">${esc(AVV.metrica_suono || '')}</p>` : ''}
     <div class="field"><label for="bpm">A quanti bpm l'hai suonata?</label>
       <div class="row" style="align-items:center"><button class="ib stepb" data-step="-2" aria-label="Meno 2">−</button>
       <input type="number" id="bpm" inputmode="numeric" min="1" max="400" value="${pre != null ? esc(pre) : ''}" class="bignum">
@@ -299,6 +323,7 @@ function repBack() {
   if (last && last.circuito === circ.n && last.andata === p.a && last.etichetta === sl.etichetta) {
     S.log.pop();
     S.cur = { rep1_pulita: last.rep1_pulita, diagnosi: last.diagnosi || '', tempo_rep4: last.tempo_rep4, arresto: !!last.arresto, drop_out: !!last.drop_out, note: last.note || '' };
+    if (last.test) S.cur.test = last.test;
     S.timer.slot = (last.secondi || 0) + cur;
     S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' ? 1 : last.rep_completate >= 4 ? 4 : Math.max(1, (last.rep_completate || 0) + 1) };
   } else {

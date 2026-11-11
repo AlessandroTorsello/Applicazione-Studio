@@ -1,4 +1,4 @@
-# Programma "Circuiti di studio" — specifica (v2)
+# Programma "Circuiti di studio" — specifica (v3)
 
 Prima di scrivere codice leggi tutto questo file. Insieme ricevi `dati_op111.json`, il catalogo dei frammenti. I testi del catalogo (vincoli, verifiche, note) vanno mostrati così come sono: non riscriverli, non riassumerli, non completarli.
 
@@ -158,5 +158,52 @@ Ogni slot effettivamente suonato produce una voce in `log`. I minuti si calcolan
 
 ## 8. Fuori ambito per ora
 
-- I frammenti di Mephisto e Scriabin, da aggiungere dopo con l'importazione o il modulo manuale.
+- La registrazione dell'audio: l'app non registra, per la Prova e per il riascolto settimanale si usa un registratore o un'altra app.
 - La sincronizzazione tra dispositivi (solo export/import).
+
+## 9. Metodo, versione 3 (app 3.0.0)
+
+Dal confronto «Rivedere il metodo di studio» dell'11/11/2026. Le regole di composizione dei circuiti (§ 6.3 e «Regole del circuito») **non cambiano**. Le regole sono scritte come dati in `data/metodo_v3.json`, che `src/unisci_catalogo.py` unisce al catalogo (`CATALOGO.metodo`, più `metrica` e `resistenza` dentro ogni brano e le voci riscritte di `regole_slot`). Intervalli, soglie e tabella degli errori sono scelte di lavoro, non dati di letteratura: si correggono in quel file.
+
+Il catalogo ora ha quattro brani (`op111`, `op111-2`, `mephisto`, `scriabin28`), ognuno con le sue priorità.
+
+### 9.1 Una coppia di vincoli per sessione
+
+- In una sessione ogni frammento usa **una sola coppia** di vincoli (Rep 2 e Rep 3) in tutte le andate. Prima erano i testi dell'andata in corso.
+- La coppia predefinita alterna tra i giorni: la prima volta quella dell'andata 1 del catalogo, il giorno di studio successivo quella dell'andata 2, poi 3 e 4 se esistono, poi di nuovo la 1. Se il frammento è già stato studiato oggi resta la coppia di oggi.
+- Molti testi dell'andata 2 dicono «come in andata 1»: quando la coppia in uso è la 2, sotto il testo compare quello richiamato.
+- Nel foglio di Rep 1, alla prima andata del frammento, si vedono i vincoli di oggi e il pulsante «Cambia». Si sceglie l'errore trovato da una tabella (9 voci: mani non insieme, dita diseguali, salto, cambio di posizione, suono duro, voci, trillo, pulsazione, memoria) e l'app propone le sigle adatte per Rep 2 e Rep 3; in alternativa si sceglie un'altra coppia del catalogo. «Cambia vincolo» resta disponibile anche nelle schermate di Rep 2 e Rep 3.
+- Nel registro ogni voce porta `coppia`, e se scelti a mano `vincolo_rep2`, `vincolo_rep3`, `errore`. La pagina del frammento ha la sezione «Vincoli usati»: per ogni vincolo, in quanti giorni è stato usato e com'era il test del giorno di studio successivo.
+
+### 9.2 Livelli da 0 a 4
+
+- `livelli[id frammento] = { l, data, prossimo, visto }`. Intervalli: livello 0 = 1 giorno, 1 = 2, 2 = 4, 3 = 8, 4 = 16 (mantenimento).
+- Il **test** è la prima Rep 1 del giorno per quel frammento (una sola al giorno, qualunque sessione). Pulita: sale di un livello. Sporca: scende di un livello, non torna a 0. Senza risposta: il livello non cambia.
+- Il test si applica quando si conferma il foglio di Rep 1; tornando indietro la risposta si può cambiare e il livello si ricalcola. Scartare o eliminare la sessione, o eliminare la voce, annulla l'effetto del test; correggere «Rep 1 pulita» nello storico lo ricalcola.
+- Il drop-out dentro la sessione non cambia il livello.
+- Home: scheda «Da ripassare oggi» con il numero di frammenti il cui intervallo è scaduto. Selezione: in cima gli stessi frammenti, divisi per brano e in ordine di priorità (le priorità sono proprie di ogni brano, quindi non si mescolano tra brani), con «Seleziona tutti».
+- Il livello si vede nella riga del frammento e nella sua pagina, dove si può correggere a mano o togliere il frammento dalla rotazione.
+
+### 9.3 Condizioni reali più spesso
+
+- Livelli 0-1: Rep 2-3 a mp e senza pedale, come prima.
+- Dal livello 2 (contato dopo il test del giorno): avviso in Rep 3 «con dinamica e pedale reali, mantenendo il vincolo».
+- Frammenti di resistenza (`brani[].resistenza`, oggi la priorità 2 del Mephisto): avviso in Rep 2 e Rep 3 fin dal livello 0, dinamica scritta e test di PESO; se l'avambraccio si indurisce ci si ferma.
+
+### 9.4 Cucitura e Prova
+
+Due tipi di sessione in più, scelti in «Nuova sessione» insieme a Libera e Circuito. Per entrambi si sceglie un brano e un tratto, dal frammento… al frammento…, nell'ordine delle battute.
+
+- **Cucitura**: frammenti consecutivi (restano fuori quelli fatti di battute sparse, come «1, 3, 5»). Per ogni giuntura due passi: le ultime 2 battute del frammento N più le prime 2 del frammento N+1, poi N e N+1 di fila una volta all'85-90%. Alla fine si registra se la giuntura è pulita. Voce del registro: `cucitura`, `da`, `a`, `passi`, `giuntura_pulita`, `secondi`, `note`.
+- **Prova**: una sezione o il brano intero, una sola volta, senza fermarsi; l'app cronometra e ricorda di registrare con un altro strumento. Nel riepilogo, «Segna i punti sporchi»: i frammenti spuntati tornano al livello 0 con ripasso oggi. Voce del registro: `prova`, `frammenti[]`, `sporchi[]`, `secondi`, `note`.
+
+### 9.5 Metrica adatta al brano
+
+- Ogni brano ha una metrica: `tempo` (op. 111 I movimento, Mephisto) o `suono` (Arietta, Fantasia op. 28). Si cambia in Impostazioni, toccando il brano (`metrica[id brano]`).
+- **Riascolto settimanale** (Storico): per i frammenti studiati negli ultimi 7 giorni un voto da 1 a 3 (1 = non ci siamo, 2 = accettabile, 3 = come lo voglio), dato riascoltando le Rep 4 registrate. `riascolti[] = { frammento, data, voto }`. La home lo ricorda dopo 7 giorni dall'ultimo voto.
+- Verifica a due settimane: per i brani «tempo» resta sui bpm di Rep 4; per i brani «suono» scatta se in 14 giorni il voto non sale (e non è già 3).
+- Nei brani «suono» il foglio del tempo di Rep 4 ricorda che il tempo è facoltativo.
+
+### 9.6 Dati e aggiornamento
+
+Tre campi nuovi nei dati utente: `livelli`, `riascolti`, `metrica`. I dati della 2.x restano così come sono; lo storico precedente non ha `coppia`, quindi ogni frammento riparte dalla coppia 1 e fuori dalla rotazione finché non fa il primo test. Al primo avvio dopo l'aggiornamento compare «Novità della versione 3».

@@ -310,3 +310,32 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .resume{font-size:min(var(--t-md),17px)}
 @media (max-height:700px){.repnum{font-size:var(--t-3xl);margin-top:10px}}
 .pausebtn{font-size:min(var(--t-md),16px)}
+
+/* ---- metodo v3 ---- */
+.choice button{padding:14px 12px}
+.avv{margin:0 0 10px}
+.vrow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:var(--t-sm);color:var(--muted);margin:2px 0 6px}
+.vrow b{color:var(--text)}
+.vrow .link{padding:2px 0;font-size:var(--t-sm)}
+.vbox{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 14px;background:var(--bg2)}
+.vbox>div{flex:1;min-width:0}
+.vbox b{display:block;font-size:var(--t-md);margin-top:2px}
+.vbox small{display:block;font-size:var(--t-sm);color:var(--muted)}
+.vbox .btn.inline{margin:0;flex:0 0 auto}
+.errs{display:grid;gap:6px;margin:6px 0 4px}
+.errs button{display:block;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;font-size:var(--t-md)}
+.errs button small{display:block;font-size:var(--t-xs);color:var(--muted);margin-top:2px;letter-spacing:.03em}
+.errs button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--card))}
+.livs{display:grid;gap:6px;margin:0 0 12px}
+.livs button{display:flex;align-items:baseline;gap:12px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px}
+.livs button b{font-size:var(--t-lg);min-width:1.2em}
+.livs button small{font-size:var(--t-sm);color:var(--muted)}
+.livs button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--card))}
+.rrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.rrow .m{flex:1;min-width:0;font-size:var(--t-md)}
+.seg.voti{flex:0 0 auto}
+.seg.voti button{padding:8px 13px;min-width:2.6em}
+.instr details.sub2{font-size:var(--t-md);font-weight:400;margin-top:12px}
+.card.due{border-color:var(--accent)}
+.card.due .link{padding:0;font-size:var(--t-sm)}
+.sheet .optrow .seg button{text-transform:capitalize}
