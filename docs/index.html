@@ -1,0 +1,1950 @@
+<!doctype html>
+<html lang="it" data-theme="scuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1216">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Circuiti">
+<meta name="description" content="Circuiti di studio: guida e registro dello studio al pianoforte a micro-circuiti.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Circuiti di studio</title>
+<style>
+:root{
+  --bg:#0f1216; --bg2:#171b21; --card:#1c2128; --line:#2c333d; --text:#eef1f5; --muted:#9aa4b2;
+  --accent:#f2b84b; --accent-ink:#1a1405; --ok:#52c48a; --bad:#ef6b6b; --sig:#7cc4ff; --bb:#f2b84b;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+:root[data-theme="chiaro"]{
+  --bg:#f6f4ef; --bg2:#ffffff; --card:#ffffff; --line:#d9d4c9; --text:#14161a; --muted:#5d6470;
+  --accent:#9a5b00; --accent-ink:#ffffff; --ok:#1d7a4a; --bad:#b42323; --sig:#0b5cad; --bb:#8a4b00;
+  --shadow:0 10px 30px rgba(0,0,0,.15);
+  color-scheme:light;
+}
+html{font-size:17px}
+html[data-testo="grande"]{font-size:19px}
+html[data-testo="molto"]{font-size:21px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45;-webkit-text-size-adjust:100%;overscroll-behavior-y:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4{margin:0;line-height:1.25}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px calc(120px + env(safe-area-inset-bottom))}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(10px + env(safe-area-inset-top)) 16px 10px;display:flex;align-items:center;gap:10px}
+.top h1{font-size:1.2rem;flex:1}
+.top .back{background:none;border:0;font-size:1.5rem;padding:4px 10px 4px 0;line-height:1}
+.sub{color:var(--muted);font-size:.9rem}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 14px}
+.label{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.big{font-size:2.2rem;font-weight:700;margin:2px 0 6px}
+.kv{list-style:none;margin:0;padding:0}
+.kv li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-top:1px solid var(--line)}
+.kv li:first-child{border-top:0}
+.btn{display:block;width:100%;border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:14px 16px;font-size:1rem;font-weight:600;text-align:center;margin:0 0 10px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.xl{padding:18px 16px;font-size:1.15rem}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.inline{display:inline-block;width:auto;padding:10px 14px;margin:0 8px 8px 0}
+.btn:disabled{opacity:.45}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2 .btn{margin:0}
+.link{background:none;border:0;color:var(--sig);padding:6px 0;text-decoration:underline;text-underline-offset:3px}
+.pill{font-size:.8rem;border:1px solid var(--line);border-radius:99px;padding:2px 9px;color:var(--muted);white-space:nowrap}
+.tag{display:inline-block;font-size:.72rem;border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-left:6px;color:var(--muted);vertical-align:middle}
+.hint{border-left:3px solid var(--accent);padding:8px 12px;background:var(--bg2);border-radius:6px;margin:0 0 14px;font-size:.92rem}
+/* testo catalogo */
+.txt .line{display:block;margin:0 0 .45em}
+.txt .line:last-child{margin-bottom:0}
+.bb{color:var(--bb);font-weight:700;white-space:nowrap}
+.sig{background:none;border:0;padding:0 1px;margin:0;color:var(--sig);font-weight:700;text-decoration:underline dotted;text-underline-offset:3px;font-size:inherit;line-height:inherit}
+/* accordion */
+details.acc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 14px;overflow:hidden}
+details.acc>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;font-weight:700;font-size:1.05rem}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
+details.acc[open]>summary::after{transform:rotate(180deg)}
+details.acc>summary .grow{flex:1}
+.accbody{padding:0 12px 12px}
+.prio{border-top:1px solid var(--line);padding:12px 4px 4px}
+.prio h3{font-size:1rem;display:flex;gap:10px;align-items:baseline}
+.pn{display:inline-grid;place-items:center;min-width:1.7em;height:1.7em;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:.85rem;font-weight:800}
+.why{margin:4px 0 8px;color:var(--muted);font-size:.9rem}
+.fam{border:1px dashed var(--line);border-radius:10px;padding:6px 8px;margin:8px 0}
+.famh{font-size:.82rem;color:var(--muted);font-weight:600;padding:2px 2px 4px}
+.frow{display:flex;align-items:stretch;gap:6px;border-radius:10px}
+.frow+.frow{border-top:1px solid var(--line)}
+.chk{display:grid;place-items:center;padding:0 6px}
+.chk input{width:26px;height:26px;accent-color:var(--accent)}
+.fbody{flex:1;text-align:left;background:none;border:0;padding:10px 4px}
+.bat{color:var(--bb);margin-right:6px}
+.todo{border-top:1px solid var(--line);padding:12px 4px}
+details.sub2{border:1px solid var(--line);border-radius:10px;margin:0 0 10px;background:var(--bg2)}
+details.sub2>summary{padding:10px 12px;font-weight:600;cursor:pointer}
+details.sub2>div{padding:0 12px 12px}
+/* sticky bottom bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.bar .inner{max-width:760px;margin:0 auto}
+.bar .btn{margin:0}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+/* compose */
+.circ{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 14px}
+.circh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.circh h3{flex:1}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;padding:8px 14px;font-weight:600}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+.slot{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding:8px 0}
+.slot .lab{font-weight:800;min-width:2.4em;color:var(--accent)}
+.slot .nm{flex:1;min-width:0}
+.slot .nm .t{display:block;font-size:.85rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{background:var(--bg2);border:1px solid var(--line);border-radius:8px;min-width:38px;height:38px;font-size:1rem}
+select.sel{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:8px;max-width:100%}
+/* run */
+.runh{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(8px + env(safe-area-inset-top)) 16px 8px}
+.runh .l1{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1rem}
+.runh .l1 .grow{flex:1}
+.runh .l2{font-size:.85rem;color:var(--muted);margin-top:2px}
+.runh .l3{font-size:1rem;margin-top:1px}
+.pos{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chip{font-size:.75rem;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted)}
+.chip.done{background:var(--bg2);color:var(--text)}
+.chip.cur{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip.drop{text-decoration:line-through;opacity:.5}
+.dots{display:inline-flex;gap:5px;margin-left:auto}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--muted)}
+.dot.done{background:var(--muted)}
+.dot.cur{background:var(--accent);border-color:var(--accent)}
+.timers{display:flex;align-items:center;gap:14px;margin-top:6px;font-variant-numeric:tabular-nums;font-size:.95rem}
+.timers b{font-size:1.05rem}
+.timers .paused{color:var(--bad)}
+.repnum{font-size:3.4rem;font-weight:800;line-height:1;margin:14px 0 4px;color:var(--accent)}
+.repnum small{font-size:1rem;color:var(--muted);font-weight:600;margin-left:8px}
+.instr{font-size:1.5rem;line-height:1.45;font-weight:500;margin:6px 0 16px}
+.instr .vlabel{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 4px;font-weight:600}
+.diag{font-size:.95rem;color:var(--muted);margin:0 0 6px}
+.toggles{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.tg{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg2);font-weight:600}
+.tg input{width:22px;height:22px;accent-color:var(--accent)}
+textarea,input[type=text],input[type=number],input[type=date]{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:1rem}
+textarea{min-height:80px;resize:vertical}
+.fatto{font-size:1.6rem;padding:20px;border-radius:16px}
+.sec{display:flex;gap:10px;margin-bottom:10px}
+.sec .btn{margin:0;padding:10px;font-size:.95rem}
+/* sheet & panel */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20;opacity:0;pointer-events:none;transition:opacity .2s}
+.ov.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;background:var(--bg2);border-radius:18px 18px 0 0;box-shadow:var(--shadow);max-height:88vh;overflow:auto;transform:translateY(105%);transition:transform .22s;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+.sheet{visibility:hidden;transition:transform .22s,visibility 0s .22s}
+.sheet.on{transform:none;visibility:visible;transition:transform .22s}
+.sheet .inner{max-width:760px;margin:0 auto}
+.sheet h2{font-size:1.25rem;margin-bottom:12px}
+.yn{display:flex;gap:10px;margin:8px 0 14px}
+.yn button{flex:1;padding:18px;font-size:1.2rem;font-weight:700;border-radius:12px;border:2px solid var(--line);background:var(--card)}
+.yn button.on.si{border-color:var(--ok);background:var(--ok);color:#fff}
+.yn button.on.no{border-color:var(--bad);background:var(--bad);color:#fff}
+.panel{position:fixed;top:0;right:0;bottom:0;z-index:22;width:min(92vw,440px);background:var(--bg2);box-shadow:var(--shadow);transform:translateX(105%);transition:transform .22s;overflow:auto;padding:calc(16px + env(safe-area-inset-top)) 18px 24px}
+.panel{visibility:hidden;transition:transform .22s,visibility 0s .22s}
+.panel.on{transform:none;visibility:visible;transition:transform .22s}
+.panel .sg{font-size:2rem;font-weight:800;color:var(--sig)}
+.panel h3{font-size:1.2rem;margin:2px 0 14px}
+.panel .lbl{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:14px}
+.panel p{margin:4px 0;font-size:1.05rem}
+.toast{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:30;font-weight:600;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+/* tables */
+table.t{width:100%;border-collapse:collapse;font-size:.9rem}
+table.t th,table.t td{text-align:left;padding:8px 6px;border-top:1px solid var(--line);vertical-align:top}
+table.t th{color:var(--muted);font-weight:600;font-size:.78rem}
+table.t td.n,table.t th.n{text-align:right;white-space:nowrap}
+table.t tr.sub td{font-weight:700;background:var(--bg2)}
+.tablewrap{overflow-x:auto}
+.logi{border-top:1px solid var(--line);padding:8px 0;font-size:.9rem}
+.logi b{color:var(--accent)}
+.dayrow{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.dayrow .d{display:flex;justify-content:space-between;font-weight:700}
+.chart{width:100%;height:auto;display:block;margin:6px 0}
+.chart .ln{stroke:var(--accent);fill:none;stroke-width:2.5}
+.chart .pt{fill:var(--accent)}
+.chart .ax{stroke:var(--line)}
+.chart text{fill:var(--muted);font-size:11px}
+.field{margin:0 0 12px}
+.field label{display:block;font-weight:600;margin-bottom:4px;font-size:.92rem}
+.sigcard{border-top:1px solid var(--line);padding:12px 0}
+.sigcard .sg{font-weight:800;color:var(--sig);font-size:1.1rem}
+.sigcard dl{margin:6px 0 0}
+.sigcard dt{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:6px}
+.sigcard dd{margin:0}
+ol.fable{padding-left:1.2em}
+ol.fable li{margin:0 0 8px}
+/* lista statistiche (al posto della tabella) */
+.st{border-top:1px solid var(--line);padding:10px 0;display:flex;gap:10px;align-items:flex-start}
+.st .m{flex:1;min-width:0}
+.st .v{font-weight:700;white-space:nowrap;text-align:right}
+.st .d{font-size:.85rem;color:var(--muted);margin-top:2px}
+.sth{display:flex;justify-content:space-between;font-weight:700;padding:10px 0 4px;margin-top:6px;border-top:2px solid var(--line)}
+.sth:first-child{border-top:0;margin-top:0}
+.stt{display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem;padding:12px 0 0;border-top:2px solid var(--line)}
+/* scelta tipo sessione */
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.choice button{border:2px solid var(--line);background:var(--card);border-radius:14px;padding:16px 12px;text-align:left}
+.choice button b{display:block;font-size:1.1rem}
+.choice button span{font-size:.85rem;color:var(--muted)}
+.choice button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--card))}
+.optrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.optrow:first-of-type{border-top:0}
+.blist label{display:flex;gap:12px;align-items:center;padding:12px 4px;border-top:1px solid var(--line);font-weight:600}
+.blist label:first-child{border-top:0}
+.blist input{width:24px;height:24px;accent-color:var(--accent)}
+/* sessione libera */
+.cur-b{font-size:1.7rem;font-weight:800;line-height:1.2;margin:18px 0 4px}
+.bigclock{font-size:3.6rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1.1}
+.bgrid{display:grid;grid-template-columns:1fr;gap:10px;margin:18px 0}
+.bgrid button{border:2px solid var(--line);background:var(--card);border-radius:14px;padding:16px;text-align:left;font-size:1.05rem;font-weight:700;display:flex;justify-content:space-between;gap:10px}
+.bgrid button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,var(--card))}
+.bgrid button small{font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.lslot{border-top:1px solid var(--line);padding:10px 0}
+.lslot .row{align-items:center}
+.kv li b,.sth span:last-child,.st .v{white-space:nowrap;flex:0 0 auto}
+.kv li span{min-width:0}
+
+/* ===================== versione 2 ===================== */
+:root{--accent-soft:color-mix(in srgb,var(--accent) 14%,var(--card))}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--sig);outline-offset:2px}
+.btn.dangerfill{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn.two{text-align:left;padding:12px 16px}
+.btn.two b{display:block}
+.btn.two span{display:block;font-size:.85rem;font-weight:500;color:var(--muted);margin-top:2px}
+.link.plain{padding:0;text-align:left;text-decoration:none;color:inherit}
+.lead{margin:0 0 14px;color:var(--muted);font-size:.95rem}
+.lead .link{padding:0}
+.recap{margin:0 0 6px;padding:10px 12px;border-radius:10px;background:var(--bg2);border:1px dashed var(--line);font-size:.95rem}
+.asktext{font-size:1.05rem;margin:0 0 16px}
+.cardh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:22px 16px;text-align:center;margin:0 0 14px}
+.empty b{display:block;font-size:1.05rem;margin-bottom:4px}
+.empty span{color:var(--muted);font-size:.92rem}
+.fmeta{display:block;font-size:.8rem;color:var(--muted);margin-top:2px}
+.bignum{font-size:1.8rem !important;text-align:center;font-weight:700}
+.stepb{flex:0 0 56px !important;height:56px;font-size:1.4rem}
+/* barra delle schede */
+.wrap.tabbed{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+.tabwrap{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);max-width:760px;margin:0 auto}
+.tabs button{background:none;border:0;padding:8px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);font-size:min(.72rem,13px);font-weight:600;line-height:1.15;min-height:56px}
+.tabs button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tabs button.on{color:var(--accent)}
+.tabs button.on span{font-weight:800}
+.resume{display:flex;align-items:center;gap:10px;width:100%;max-width:760px;margin:0 auto;background:var(--accent-soft);border:0;border-bottom:1px solid var(--line);padding:10px 16px;text-align:left;font-weight:700;font-variant-numeric:tabular-nums}
+.resume .grow{flex:1;min-width:0}
+.resume .rgo{color:var(--accent);white-space:nowrap}
+.rdot{width:10px;height:10px;border-radius:50%;background:var(--ok);flex:0 0 auto}
+.rdot.off{background:var(--bad)}
+/* passi della nuova sessione */
+.steps{list-style:none;display:flex;gap:6px;margin:0 0 16px;padding:0;font-size:.85rem;font-weight:600;color:var(--muted)}
+.steps li{display:flex;align-items:center;gap:6px;flex:1;min-width:0;padding-bottom:8px;border-bottom:3px solid var(--line)}
+.steps li span{display:inline-grid;place-items:center;min-width:1.6em;height:1.6em;border-radius:50%;border:2px solid currentColor;font-size:.8rem}
+.steps li.cur{color:var(--text);border-color:var(--accent)}
+.steps li.cur span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.steps li.done{color:var(--ok);border-color:var(--ok)}
+.barnote{margin:0 0 8px;font-size:.88rem;color:var(--muted);text-align:center}
+.seg.wide{display:flex;margin:0 0 14px}
+.seg.wide button{flex:1;padding:11px 8px}
+.seg.small button{padding:6px 9px;font-size:.82rem}
+/* home */
+.card.now{border-color:var(--accent);background:var(--accent-soft)}
+.nowpos{margin:4px 0 2px;font-weight:700;font-size:1.05rem}
+.bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end}
+.barcol{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.barv{font-size:.72rem;color:var(--muted);height:1.1em;font-variant-numeric:tabular-nums}
+.bartrack{width:100%;height:64px;background:var(--bg2);border-radius:6px;display:flex;align-items:flex-end;overflow:hidden}
+.barfill{display:block;width:100%;background:var(--muted);border-radius:6px 6px 0 0}
+.bard{font-size:.75rem;color:var(--muted);text-transform:capitalize}
+.barcol.today .barfill{background:var(--accent)}
+.barcol.today .bard{color:var(--text);font-weight:800}
+.wbar{height:6px;background:var(--bg2);border-radius:3px;margin-top:3px}
+.wbar div{height:6px;background:var(--accent);border-radius:3px}
+/* esecuzione */
+.runh.paused{border-bottom-color:var(--bad)}
+.pausebtn{margin-left:auto;padding:0 12px}
+.runh.paused .pausebtn{background:var(--bad);border-color:var(--bad);color:#fff;font-weight:700}
+.runh.paused .timers b{color:var(--bad)}
+.pausebar{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;margin:12px 0 0;padding:12px 14px;border-radius:12px;border:2px solid var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--bg));text-align:left}
+.pausebar b{color:var(--bad);font-size:1.05rem}
+.pausebar span{font-size:.9rem}
+.prog{height:4px;background:var(--bg2);border-radius:2px;margin-top:8px;overflow:hidden}
+.prog span{display:block;height:4px;background:var(--accent);border-radius:2px}
+.timers{flex-wrap:wrap;row-gap:4px}
+.fatto small{display:block;font-size:.82rem;font-weight:600;opacity:.8;margin-top:2px;line-height:1.25}
+.fatto{padding:14px 16px}
+.tg small{display:block;font-size:.78rem;font-weight:500;color:var(--muted)}
+.tgt{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:2px 0 8px;font-size:.92rem;color:var(--muted)}
+.tgt b{color:var(--text);font-size:1.05rem;font-variant-numeric:tabular-nums}
+.chart .tg{stroke:var(--sig);stroke-dasharray:4 4;stroke-width:1.5}
+.chart text.tglab{fill:var(--sig)}
+/* impostazioni */
+.brow{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:12px 2px;text-align:left;font-weight:600}
+.brow .grow{flex:1;min-width:0}
+.brow .tag{margin-left:0}
+.news{padding-left:1.1em;margin:0 0 16px}
+.news li{margin:0 0 10px}
+.stat3>div{min-width:0}
+.statv{font-size:1.25rem;font-weight:700}
+.hint .link{padding:2px 0}
+@media (prefers-reduced-motion:reduce){.sheet,.panel,.ov,.toast{transition:none !important}}
+
+.toast{bottom:auto;top:calc(64px + env(safe-area-inset-top));box-shadow:var(--shadow)}
+.progrow{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.78rem;color:var(--muted);white-space:nowrap}
+.progrow .prog{flex:1;margin-top:0}
+.dayrow .d{gap:10px}
+.dayrow .d>span:last-child{white-space:nowrap;flex:0 0 auto}
+.dayrow .d>span:first-child{min-width:0}
+/* l'impostazione «Dimensione del testo» ingrandisce i contenuti; le parti fisse (intestazioni, barre) crescono poco,
+   così su schermi piccoli resta spazio per l'istruzione della Rep */
+.bartrack{background:color-mix(in srgb,var(--muted) 16%,transparent)}
+.optrow{flex-wrap:wrap}
+.optrow>span{flex:1 1 7em;min-width:0}
+.optrow .seg{flex:0 0 auto}
+.steps{font-size:min(.85rem,14.5px)}
+.runh .l1{font-size:min(1rem,18px)}
+.runh .l2{font-size:min(.85rem,15px)}
+.runh .l3{font-size:min(1rem,18px)}
+.timers{font-size:min(.95rem,17px)}
+.timers b{font-size:min(1.05rem,19px)}
+.sec .btn{font-size:min(.95rem,17px)}
+.fatto{font-size:min(1.6rem,28px)}
+.fatto small{font-size:min(.82rem,15px)}
+.seg.small button{font-size:min(.82rem,14px);white-space:nowrap}
+.cardh{flex-wrap:wrap}
+.resume{font-size:min(1rem,17px)}
+@media (max-height:700px){.repnum{font-size:2.6rem;margin-top:10px}}
+.pausebtn{font-size:min(1rem,16px)}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="ov" class="ov"></div>
+<div id="sheet" class="sheet" role="dialog" aria-modal="true"></div>
+<aside id="panel" class="panel" role="dialog" aria-label="Sigla"></aside>
+<div id="toast" class="toast" role="status"></div>
+<script>
+const CATALOGO = {"versione": 2, "fonte": "Analisi di Fable, «Op. 111, I movimento — lavoro motorio per passaggio» (10/11/2026), Henle", "brani": [{"id": "op111", "nome": "Beethoven, Sonata op. 111, I movimento", "completo": true}, {"id": "mephisto", "nome": "Liszt, Mephisto Valzer n. 1", "completo": false}, {"id": "scriabin28", "nome": "Scriabin, Fantasia op. 28", "completo": false}], "sigle": [{"sigla": "RIT", "nome": "Ritmi", "come_si_fa": "Ritmi puntati. Su coppie: lungo-corto, poi corto-lungo. Su gruppi di 4: fermata sulla 1ª nota e le altre tre di scatto; poi fermata sulla 2ª, 3ª, 4ª. Nota corta scattante e vicina al tasto.", "cosa_allena": "Ogni transizione tra dita a velocità superiore al tempo finale, una alla volta.", "origine": "Tuo"}, {"sigla": "CHUNK", "nome": "Blocchi a tempo", "come_si_fa": "Un quarto più la prima nota del successivo, a tempo pieno, poi stop. Durante lo stop la mano è già a contatto dei tasti del chunk seguente, polso e spalla rilasciati. Poi chunk sfalsati (da 3ª semicroma a 3ª), poi due quarti più una nota. Unico vincolo a metronomo pieno; ogni chunk seguito da una pausa lunga quanto il chunk.", "cosa_allena": "Il gesto alla velocità reale e la preparazione anticipata della posizione.", "origine": "Tuo (arresto con preparazione aggiunto)"}, {"sigla": "ACC", "nome": "Accenti spostati", "come_si_fa": "Accento sulla 2ª semicroma di ogni gruppo, poi sulla 3ª, poi sulla 4ª. Tutto il resto pp. Variante: raggruppa in 3 una figura scritta in 4.", "cosa_allena": "Uniformità: ogni dito sa essere forte e debole. Smaschera il dito che cade o che manca.", "origine": "Aggiunto"}, {"sigla": "BLOC", "nome": "Posizioni a blocco", "come_si_fa": "Tutte le note di una posizione di mano suonate insieme, a tempo di quarti, cambiando posizione senza guardare.", "cosa_allena": "Topografia, ampiezza esatta dello spostamento, precisione tattile.", "origine": "Aggiunto"}, {"sigla": "MUTA", "nome": "Mano fantasma", "come_si_fa": "Una mano suona, l'altra fa gli stessi movimenti sulla superficie dei tasti senza abbassarli. Poi si scambia.", "cosa_allena": "Coordinazione: mostra quale mano trascina l'altra e toglie forza inutile alla mano muta.", "origine": "Aggiunto"}, {"sigla": "DIN", "nome": "Dinamiche divise", "come_si_fa": "Una mano f e l'altra pp, di norma sinistra f. Variante: una legato e l'altra staccato.", "cosa_allena": "Indipendenza e ascolto della mano debole.", "origine": "Tuo"}, {"sigla": "ALT", "nome": "Alternanza", "come_si_fa": "Negli unisoni le mani si alternano un quarto a testa, poi mezzo quarto, senza perdere la pulsazione. La mano che tace segue a contatto dei tasti.", "cosa_allena": "Ogni mano sa entrare a tempo a metà passaggio.", "origine": "Aggiunto"}, {"sigla": "NODO", "nome": "Arresto sui nodi", "come_si_fa": "Fermati, tenendo i tasti, sulle note in cui una mano passa il pollice o cambia posizione e l'altra no. Verifica che i due tasti scendano insieme, poi suona da nodo a nodo.", "cosa_allena": "Sincronia dove le diteggiature delle due mani non sono speculari.", "origine": "Aggiunto"}, {"sigla": "STAC", "nome": "Staccato di dito pp", "come_si_fa": "Ogni nota corta partendo dal tasto, il dito tira verso il palmo, il braccio scorre di lato. Nessun sollevamento alto.", "cosa_allena": "Chiarezza dell'attacco e rilascio attivo di ogni dito.", "origine": "Tuo, precisato"}, {"sigla": "DOPPIE", "nome": "Note doppie", "come_si_fa": "Ogni nota suonata due volte, a pulsazione dimezzata.", "cosa_allena": "Ritorno del tasto e precisione del punto di contatto.", "origine": "Tuo"}, {"sigla": "CIECO", "nome": "Senza guardare", "come_si_fa": "Occhi chiusi o sguardo fuori dalla tastiera. Nei salti, shift–touch–play: sposta rapido, atterra sui tasti senza suonare, controlla al tatto, poi suona.", "cosa_allena": "Mappa propriocettiva delle distanze.", "origine": "Tuo (shift–touch–play aggiunto)"}, {"sigla": "ROT", "nome": "Rotazione isolata", "come_si_fa": "Prima solo forearm rotation (rotazione dell'avambraccio) con dita ferme; poi solo dita con avambraccio fermo; poi la miscela minima che funziona.", "cosa_allena": "Scegliere il motore giusto in tremoli e figure spezzate.", "origine": "Aggiunto"}, {"sigla": "CLIC", "nome": "Clic spostato", "come_si_fa": "Metronomo sul levare (ottavo debole o 2ª semicroma), oppure un solo clic per battuta.", "cosa_allena": "Regolarità senza appoggio esterno sui tempi forti.", "origine": "Aggiunto"}, {"sigla": "MENT", "nome": "Ripetizione mentale", "come_si_fa": "A tempo, con sensazione tattile dei tasti e suono immaginati, mani ferme. Subito dopo, la ripetizione reale.", "cosa_allena": "Programmazione del gesto, memoria dei salti.", "origine": "Tuo (in valutazione)"}, {"sigla": "PESO", "nome": "Caduta e rilascio", "come_si_fa": "Drop–release: accordo o ottava dal tasto con impulso del braccio, poi rilascio immediato della pressione a fondo tasto. Test: mentre tieni l'accordo, il polso deve potersi muovere su e giù. Nei gruppi di ottave: un impulso per gruppo, le altre di rimbalzo.", "cosa_allena": "Suono pieno senza tensione mantenuta.", "origine": "Aggiunto"}, {"sigla": "TRILL", "nome": "Trillo misurato", "come_si_fa": "Numero fisso di note per quarto (4, poi 6, poi 8), inizio dalla nota reale, dita vicine al tasto. Se la stessa mano tiene un'altra voce, prima tieni quella voce e trilla pp.", "cosa_allena": "Trillo che non disturba l'altra voce né l'altra mano.", "origine": "Aggiunto"}], "regole_slot": {"rep1": "Test a freddo all'85-95% + una riga di diagnosi (dove si è sporcato e come).", "rep2_3": "Pulsazione al 70-80%, sempre senza pedale e a mp anche dove è scritto ff. Attenzione sul vincolo. Se Rep 1 ha individuato un quarto preciso, lavora solo da mezza battuta prima a mezza battuta dopo.", "rep4": "85-100%, pedale e dinamiche reali, verso il tempo target. Attenzione al suono, non alle dita.", "andate": "Andata 3 = andata 1, andata 4 = andata 2, salvo frammenti con andate 3-4 proprie. Andata 4 solo se non in drop-out.", "drop_out": "Se alla terza andata Rep 1 è pulita e fluida, il frammento non fa la quarta.", "arresto": "Due errori nello stesso punto con lo stesso vincolo: scendi di 8-10 clic o accorcia il frammento.", "da_annotare": "Tempo di Rep 4 e se Rep 1 era pulita. Una volta a settimana registra Rep 4 e riascoltala a metà velocità.", "verifica_2_settimane": "Se dopo due settimane il tempo di Rep 4 non sale, torna a Rep 2-3 al 70-80% uniforme."}, "regole_circuito": {"struttura": "3-5 slot per circuito, 3-4 andate.", "nota": "Solo consultazione: il programma non dà avvisi in composizione.", "fable_composizione": ["Un solo passaggio per priorità in ogni circuito: due passaggi dello stesso gruppo di seguito si disturbano a vicenda e caricano gli stessi muscoli.", "Frammenti della stessa famiglia (es. 24-28 e 108-113, 58-68 e 135-145) in circuiti diversi finché uno non è in drop-out; 58-68 e 135-145, dopo il drop-out, apposta uno dopo l'altro.", "Un solo frammento di priorità 6 per circuito, con Rep 2-3 a mp e il ff solo in Rep 4.", "Al massimo due slot con trilli 3-5 per blocco."]}, "frammenti": [{"id": "op111-1-3-5-attacchi", "brano": "op111", "battute": "1, 3, 5", "titolo": "Attacchi (biscroma e accordo sf)", "priorita": 6, "famiglia": null, "nodo_motorio": "Nota corta e accordo lungo in un solo gesto del braccio; salto in ottave della sinistra.", "andate": {"1": {"rep2": "CIECO shift–touch–play: suona la biscroma, sposta di scatto, atterra muto sull'accordo, controlla al tatto, suona.", "rep3": "PESO sugli accordi d'arrivo; durante la legatura muovi il polso su e giù."}, "2": {"rep2": "CIECO shift–touch–play, come in andata 1.", "rep3": "MENT."}}, "rep4_verifica": "Tutte le note dell'accordo scendono insieme; nessuna tensione tenuta sulla nota lunga."}, {"id": "op111-1-3-5-trilli", "brano": "op111", "battute": "1, 3, 5", "titolo": "Trilli con chiusa", "priorita": 6, "famiglia": null, "nodo_motorio": "Trillo breve con altre dita impegnate a tenere; chiusa a tempo.", "andate": {"1": {"rep2": "TRILL a 4 e poi a 6 note, partendo dalla nota reale.", "rep3": "RIT: fermata sull'ultima nota del trillo, poi chiusa e arrivo di scatto."}, "2": {"rep2": "TRILL, come in andata 1.", "rep3": "RIT con ritmo opposto."}}, "rep4_verifica": "Stesso numero di note ogni volta; sf solo sull'attacco.", "note": "Partenza del trillo dalla nota reale: Bülow, Cotta nota c p. 118."}, {"id": "op111-2-4", "brano": "op111", "battute": "2, 4", "titolo": "Arpeggi passati da sinistra a destra", "priorita": 6, "famiglia": null, "nodo_motorio": "Consegna tra le mani senza buco né accento.", "andate": {"1": {"rep2": "BLOC: la porzione della sinistra come accordo, quella della destra come accordo, poi l'accordo d'arrivo, a tempo.", "rep3": "CHUNK con stop sulla prima nota della destra; poi quella nota volutamente pp."}, "2": {"rep2": "BLOC, come in andata 1.", "rep3": "CHUNK sfalsati di una nota."}}, "rep4_verifica": "Il punto di consegna non si sente; l'accordo f arriva senza ritardo."}, {"id": "op111-6-10", "brano": "op111", "battute": "6-10", "titolo": "Accordi doppio puntati", "priorita": 7, "famiglia": null, "nodo_motorio": "Accordi di 3-4 note insieme a pp; biscroma ribattuta con movimento minimo.", "andate": {"1": {"rep2": "Ribatti la biscroma da metà corsa del tasto (doppio scappamento del coda), senza staccare le dita.", "rep3": "DIN dentro la mano: voce superiore suonata, resto dell'accordo muto; poi il contrario."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Nessun accordo arpeggiato, nessuna nota che non parla."}, {"id": "op111-11-15", "brano": "op111", "battute": "11-15", "titolo": "Crome ribattute con sfp, accordi legati", "priorita": 7, "famiglia": null, "nodo_motorio": "Sinistra: ribattute uguali con un'altra voce nella stessa mano. Destra: legato di doppie note con sostituzione di dita.", "andate": {"1": {"rep2": "Sinistra sola: voce ribattuta pp con l'altra voce tenuta; sfp come attacco e scarico immediato del peso.", "rep3": "Destra sola, CIECO: sostituzioni contate, il cambio di dito cade sul levare."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Ribattute senza rimbalzo del braccio; legato vero senza pedale."}, {"id": "op111-16-19", "brano": "op111", "battute": "16-19", "titolo": "Tremolo della sinistra e ingresso della destra con terzina d'anacrusi", "priorita": 4, "famiglia": null, "parti": ["16-18", "18-19"], "nodo_motorio": "bb. 16-18: Trillo misurato lungo nel grave, crescendo senza irrigidire.\nbb. 18-19: Tre note rapide a mani unite partendo da fermo, arrivo sul do.", "andate": {"1": {"rep2": "bb. 16-18: ROT: due quarti di sola rotazione, due di sole dita, alternati.\nbb. 18-19: Tocca i tre tasti in silenzio con entrambe le mani, poi suonali come un unico impulso che finisce sul do con caduta del braccio.", "rep3": "bb. 16-18: ACC ogni 4 note, poi ogni 3.\nbb. 18-19: MUTA a mani scambiate; poi RIT con fermata sulla 1ª e sulla 2ª nota."}, "2": {"rep2": "bb. 16-18: ROT, come in andata 1.\nbb. 18-19: Come in andata 1.", "rep3": "bb. 16-18: CLIC sul levare.\nbb. 18-19: MUTA con l'altra mano in evidenza; RIT con ritmo opposto."}}, "rep4_verifica": "bb. 16-18: Numero di note esatto (b. 16: otto per quarto). Il crescendo viene dall'ampiezza della rotazione, non dalla pressione.\nbb. 18-19: Tre note distinte, mani esattamente insieme."}, {"id": "op111-20-23", "brano": "op111", "battute": "20-23", "titolo": "Do–mi♭–si♮ con corona; crome non legato e gruppetto", "priorita": 5, "famiglia": null, "parti": ["20-21", "22-23"], "nodo_motorio": "bb. 20-21: Note staccate di braccio a mani unite; cambio di dito sulla corona.\nbb. 22-23: Staccato di dito a mani unite; nel gruppetto la destra usa 3-5-3 contro dita forti della sinistra.", "andate": {"1": {"rep2": "bb. 20-21: DIN: sinistra f, destra pp.\nbb. 22-23: STAC pp su tutto.", "rep3": "bb. 20-21: PESO: ogni nota dal tasto, rilascio immediato.\nbb. 22-23: RIT sul solo gruppetto: fermata sulla 1ª, poi sulla 3ª nota."}, "2": {"rep2": "bb. 20-21: DIN invertito: destra f, sinistra pp.\nbb. 22-23: STAC, come in andata 1.", "rep3": "bb. 20-21: PESO, come in andata 1.\nbb. 22-23: RIT con ritmo opposto."}}, "rep4_verifica": "bb. 20-21: Mani insieme su ogni nota, senza acciaccatura tra le due.\nbb. 22-23: Le quattro semicrome uguali; la destra non arriva in ritardo sul 5."}, {"id": "op111-24-28", "brano": "op111", "battute": "24-28", "titolo": "Tema all'unisono, semicrome parallele (zona rossa)", "priorita": 1, "famiglia": "fam-semicrome-parallele", "nodo_motorio": "Tre compiti: cellule a gruppetto con diteggiature non speculari, posizioni per quarto con salto, discesa di tre ottave.", "andate": {"1": {"rep2": "BLOC su 26-27: ogni quarto come accordo a mani unite, la seconda volta CIECO. Poi NODO su 24-25 e su 28.", "rep3": "MUTA: la sinistra suona, la destra fa da fantasma, tutto il passaggio."}, "2": {"rep2": "RIT con fermata sulla 1ª nota di ogni quarto: le tre seguenti e l'arrivo di scatto.", "rep3": "RIT con fermata sulla 3ª nota: lo scatto attraversa il cambio di posizione."}, "3": {"rep2": "ACC sulla 2ª e sulla 4ª semicroma, con DIN (sinistra f, destra p).", "rep3": "CHUNK a tempo pieno: un quarto più una nota, poi mezza battuta più una nota. La b. 28 a ritroso: ultimo quarto, ultimi due, ultimi tre."}, "4": {"rep2": "ALT: un quarto a testa, a tempo.", "rep3": "CLIC sul levare, tutto il passaggio di fila."}}, "rep4_verifica": "La sinistra si sente distinta sotto la destra su ogni semicroma. In 26-27 la quarta semicroma di ogni quarto ha la sua durata piena. Lo sf è un impulso del braccio sulla prima nota e non la allunga.", "note": "Analisi: da 24 a metà 26 cellule a gruppetto in discesa, destra 3-4-5 e sinistra 1-2-3, passaggi del pollice su semicrome diverse (effetto tipico: destra opaca, pollice sinistro che batte, mani sfasate). Da metà 26 a 27 una posizione per quarto con sf (effetto tipico: quarta semicroma accorciata, sf in ritardo o picchiato). 28: discesa di tre ottave, pollici non coincidenti. Come muoversi: l'avambraccio trasporta la mano con moto continuo; chiarezza = rilascio puntuale di ogni tasto; pollice leggero; busto inclinato dalle anche, non i polsi. A matita sopra b. 24: «segui sinistra»."}, {"id": "op111-108-110", "brano": "op111", "battute": "108-110", "titolo": "Semicrome parallele nell'acuto (seconda zona rossa)", "priorita": 1, "famiglia": "fam-semicrome-parallele", "nodo_motorio": "Come 24-25: diteggiature non speculari, mani a seste o decime.", "andate": {"1": {"rep2": "MUTA: sinistra suona, destra fantasma (senza BLOC).", "rep3": "MUTA nell'altra direzione."}, "2": {"rep2": "RIT con fermata sulla 1ª nota di ogni quarto: le tre seguenti e l'arrivo di scatto.", "rep3": "RIT con fermata sulla 3ª nota: lo scatto attraversa il cambio di posizione."}, "3": {"rep2": "ACC sulla 2ª e sulla 4ª semicroma, con DIN (sinistra f, destra p).", "rep3": "CHUNK a tempo pieno: un quarto più una nota, poi mezza battuta più una nota."}, "4": {"rep2": "ALT: un quarto a testa, a tempo.", "rep3": "CLIC sul levare, tutto il passaggio di fila."}}, "rep4_verifica": "Come 24-28 (prima verifica): la sinistra si sente distinta sotto la destra su ogni semicroma. [Il documento non dà verifiche proprie.]", "note": "Stesso compito di 24-25, con mani a seste o decime (sincronia meno controllabile all'orecchio) e sinistra oltre la linea mediana. Posizione: busto inclinato a destra, gomito sinistro avanti e lontano dal fianco, polso sinistro in linea con l'avambraccio. Bülow (Cotta nota a p. 125): a 113-114 la destra può prendere il do della sinistra, solo se la sinistra arriva in ritardo sul tremolo."}, {"id": "op111-111-113", "brano": "op111", "battute": "111-113", "titolo": "Semicrome parallele nell'acuto (seconda zona rossa)", "priorita": 1, "famiglia": "fam-semicrome-parallele", "nodo_motorio": "Come 24-25: diteggiature non speculari, mani a seste o decime.", "andate": {"1": {"rep2": "MUTA: sinistra suona, destra fantasma (senza BLOC).", "rep3": "MUTA nell'altra direzione."}, "2": {"rep2": "RIT con fermata sulla 1ª nota di ogni quarto: le tre seguenti e l'arrivo di scatto.", "rep3": "RIT con fermata sulla 3ª nota: lo scatto attraversa il cambio di posizione."}, "3": {"rep2": "ACC sulla 2ª e sulla 4ª semicroma, con DIN (sinistra f, destra p).", "rep3": "CHUNK a tempo pieno: un quarto più una nota, poi mezza battuta più una nota."}, "4": {"rep2": "ALT: un quarto a testa, a tempo.", "rep3": "CLIC sul levare, tutto il passaggio di fila."}}, "rep4_verifica": "Come 24-28 (prima verifica): la sinistra si sente distinta sotto la destra su ogni semicroma. [Il documento non dà verifiche proprie.]", "note": "Stesso compito di 24-25, con mani a seste o decime (sincronia meno controllabile all'orecchio) e sinistra oltre la linea mediana. Posizione: busto inclinato a destra, gomito sinistro avanti e lontano dal fianco, polso sinistro in linea con l'avambraccio. Bülow (Cotta nota a p. 125): a 113-114 la destra può prendere il do della sinistra, solo se la sinistra arriva in ritardo sul tremolo."}, {"id": "op111-29-31", "brano": "op111", "battute": "29-31", "titolo": "Tema con bicordi ribattuti interni", "priorita": 7, "famiglia": null, "nodo_motorio": "Destra a due strati: voce superiore con 5-4, bicordi ribattuti con le dita basse.", "andate": {"1": {"rep2": "DIN dentro la mano: voce superiore suonata e bicordi muti; poi il contrario.", "rep3": "Bicordi pp da metà corsa del tasto, voce superiore f. Sul gruppetto: RIT."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1, RIT del gruppetto con ritmo opposto."}}, "rep4_verifica": "Ribattuti uguali e sotto la voce; gruppetto regolare."}, {"id": "op111-32-33", "brano": "op111", "battute": "32-33", "titolo": "Semicrome spezzate con voce superiore, ottave della sinistra", "priorita": 7, "famiglia": null, "nodo_motorio": "Rotazione tra dito della melodia e pollice; ottave per grado in crome.", "andate": {"1": {"rep2": "ROT sulla destra, pollice pp.", "rep3": "BLOC: le due note di ogni croma insieme, voce superiore legata. Sinistra: PESO, un impulso ogni quattro ottave."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Ogni ottava della sinistra coincide con la nota superiore della destra; pollice destro quasi inudibile."}, {"id": "op111-34-35", "brano": "op111", "battute": "34-35", "titolo": "Poco ritenente e trillo con 3-5", "priorita": 7, "famiglia": null, "nodo_motorio": "Trillo con voce inferiore nella stessa mano; attacco delle semicrome della sinistra.", "andate": {"1": {"rep2": "TRILL a 4 e poi a 6 note, voce inferiore tenuta.", "rep3": "Sinistra sola da b. 35: STAC pp."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Il trillo non blocca il polso; la sinistra parte a tempo.", "trillo_3_5": true}, {"id": "op111-35-39", "brano": "op111", "battute": "35-39", "titolo": "Semicrome della destra contro ottave della sinistra", "priorita": 2, "famiglia": "fam-destra-contro-ottave", "nodo_motorio": "Rapporto 2:1; dita deboli della destra nei gruppetti 3-5-3. L'impulso dell'ottava non deve passare alla mano che corre.", "andate": {"1": {"rep2": "Destra suona, sinistra MUTA: le ottave toccate in silenzio, nel posto giusto.", "rep3": "RIT nella sola destra, sinistra regolare."}, "2": {"rep2": "MUTA scambiata: sinistra suona, destra fantasma.", "rep3": "CHUNK, un quarto più una nota."}}, "rep4_verifica": "Ogni ottava cade con la 1ª e la 3ª semicroma; nessun accento della destra sotto le ottave."}, {"id": "op111-106-107", "brano": "op111", "battute": "106-107", "titolo": "Semicrome della destra contro ottave della sinistra", "priorita": 2, "famiglia": "fam-destra-contro-ottave", "nodo_motorio": "Rapporto 2:1; dita deboli della destra nei gruppetti 3-5-3. L'impulso dell'ottava non deve passare alla mano che corre.", "andate": {"1": {"rep2": "Destra suona, sinistra MUTA: le ottave toccate in silenzio, nel posto giusto.", "rep3": "RIT nella sola destra, sinistra regolare."}, "2": {"rep2": "MUTA scambiata: sinistra suona, destra fantasma.", "rep3": "CHUNK, un quarto più una nota."}}, "rep4_verifica": "Ogni ottava cade con la 1ª e la 3ª semicroma; nessun accento della destra sotto le ottave."}, {"id": "op111-40-43", "brano": "op111", "battute": "40-43", "titolo": "Semicrome della sinistra sotto ottave legate della destra", "priorita": 2, "famiglia": "fam-sinistra-sotto-ottave", "nodo_motorio": "Uniformità della sinistra, con il pollice su molti tempi forti; ottave legate della destra. A b. 43 semicrome in entrambe le mani.", "andate": {"1": {"rep2": "Sinistra STAC pp, destra normale.", "rep3": "ACC nella sinistra su 2ª e 4ª semicroma, pollice pp."}, "2": {"rep2": "Come in andata 1.", "rep3": "DOPPIE, sinistra sola."}}, "rep4_verifica": "Ogni semicroma della sinistra si sente sotto le ottave; il legato delle ottave viene dalle dita, spalla bassa.", "note": "A b. 40, 3-4 a matita sulle ottave della destra: scelta giusta con la tua apertura; vale anche per 101-103."}, {"id": "op111-100-103", "brano": "op111", "battute": "100-103", "titolo": "Semicrome della destra, poi ottave della destra su semicrome della sinistra", "priorita": 2, "famiglia": "fam-sinistra-sotto-ottave", "nodo_motorio": "Come 40-43: uniformità della sinistra sotto le ottave.", "andate": {"1": {"rep2": "b. 100: RIT nella destra. 101-103: sinistra STAC pp, destra normale.", "rep3": "ACC nella sinistra su 2ª e 4ª semicroma."}, "2": {"rep2": "b. 100: RIT con ritmo opposto. 101-103: come in andata 1.", "rep3": "DOPPIE, sinistra sola."}}, "rep4_verifica": "Ogni semicroma della sinistra si sente sotto le ottave."}, {"id": "op111-44-47", "brano": "op111", "battute": "44-47", "titolo": "Come 36-38, in la♭, registro acuto", "priorita": 2, "famiglia": null, "nodo_motorio": "Stesso compito di 35-39 con il busto inclinato a destra e il gomito destro che guida.", "andate": {"1": {"rep2": "CHUNK a tempo, un quarto più una nota, mani unite.", "rep3": "CLIC sul levare."}, "2": {"rep2": "CHUNK sfalsati di una nota.", "rep3": "CLIC sul levare."}}, "rep4_verifica": "Come 35-39; sf solo sulla prima nota del gruppo."}, {"id": "op111-48-49", "brano": "op111", "battute": "48-49", "titolo": "Salti incrociati sopra il tremolo", "priorita": 6, "famiglia": "fam-salti-sul-tremolo", "nodo_motorio": "Salto di più ottave in una minima, atterraggio sf con un dito solo; il tremolo non si interrompe.", "andate": {"1": {"rep2": "Destra sola, CIECO shift–touch–play. Lo sguardo va sul tasto d'arrivo prima che la mano parta.", "rep3": "ROT sul tremolo, polso sinistro basso per lasciar passare la destra. Poi insieme: la destra arriva in anticipo e aspetta sul tasto."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Lo sf parte dal tasto, non dall'aria; otto semicrome di tremolo per minima, senza buchi.", "note": "Per gli sf puoi provare il 3 sostenuto dal pollice appoggiato dietro (opzione di Fable; la Henle indica 2 e 3)."}, {"id": "op111-114-115", "brano": "op111", "battute": "114-115", "titolo": "Salti incrociati sopra il tremolo", "priorita": 6, "famiglia": "fam-salti-sul-tremolo", "nodo_motorio": "Salto di più ottave in una minima, atterraggio sf con un dito solo; il tremolo non si interrompe.", "andate": {"1": {"rep2": "Destra sola, CIECO shift–touch–play. Lo sguardo va sul tasto d'arrivo prima che la mano parta.", "rep3": "ROT sul tremolo, polso sinistro basso per lasciar passare la destra. Poi insieme: la destra arriva in anticipo e aspetta sul tasto."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Lo sf parte dal tasto, non dall'aria; otto semicrome di tremolo per minima, senza buchi.", "note": "Per gli sf puoi provare il 3 sostenuto dal pollice appoggiato dietro (opzione di Fable; la Henle indica 2 e 3)."}, {"id": "op111-50-54", "brano": "op111", "battute": "50-54", "titolo": "Secondo tema, fioritura di 12 + 6 note, quintine", "priorita": 7, "famiglia": "fam-secondo-tema", "nodo_motorio": "Gruppi irregolari uguali e leggeri; passaggi del pollice nella fioritura.", "andate": {"1": {"rep2": "ACC: le 12 note raggruppate 4×3, poi 3×4; le quintine 2+3, poi 3+2.", "rep3": "STAC pp, poi legato; la seconda volta CIECO."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Le 12 note non durano più delle 6 che seguono; nessun accento sul pollice.", "note": "Bülow (Cotta nota b p. 121): a b. 52 le dodici note del terzo quarto non devono prendere più tempo delle sei del quarto."}, {"id": "op111-116-121", "brano": "op111", "battute": "116-121", "titolo": "Secondo tema in ripresa, fioritura di 12 + 9 note, quintine con accordi", "priorita": 7, "famiglia": "fam-secondo-tema", "nodo_motorio": "Come 50-54, con il gruppo di nove in più.", "andate": {"1": {"rep2": "ACC: le 12 note 4×3, poi 3×4; le 9 note 5+4, poi 3×3.", "rep3": "STAC pp, poi legato; la seconda volta CIECO."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Gruppi uguali; a b. 119 la voce inferiore resta tenuta sotto le quintine.", "note": "Bülow (Cotta nota d p. 125): le nove note di b. 118 si dividono in 5 (2+3) più 4."}, {"id": "op111-56-57", "brano": "op111", "battute": "56-57", "titolo": "Coppie legate in discesa, ff, a due mani", "priorita": 4, "famiglia": "fam-coppie-legate", "nodo_motorio": "Ogni coppia è una posizione; tra una coppia e l'altra c'è un salto; la seconda nota tende a sparire.", "andate": {"1": {"rep2": "BLOC: ogni coppia come bicordo, mani unite, in crome; la seconda volta CIECO.", "rep3": "RIT con fermata sulla 1ª nota della coppia: 2ª nota e salto di scatto."}, "2": {"rep2": "BLOC, come in andata 1.", "rep3": "RIT con fermata sulla 2ª nota della coppia."}}, "rep4_verifica": "Seconda nota di ogni coppia udibile; mani insieme sulla prima; un gesto caduta–risalita del polso per coppia."}, {"id": "op111-132-133", "brano": "op111", "battute": "132-133", "titolo": "Coppie legate in discesa, ff, a due mani", "priorita": 4, "famiglia": "fam-coppie-legate", "nodo_motorio": "Ogni coppia è una posizione; tra una coppia e l'altra c'è un salto; la seconda nota tende a sparire.", "andate": {"1": {"rep2": "BLOC: ogni coppia come bicordo, mani unite, in crome; la seconda volta CIECO.", "rep3": "RIT con fermata sulla 1ª nota della coppia: 2ª nota e salto di scatto."}, "2": {"rep2": "BLOC, come in andata 1.", "rep3": "RIT con fermata sulla 2ª nota della coppia."}}, "rep4_verifica": "Seconda nota di ogni coppia udibile; mani insieme sulla prima."}, {"id": "op111-57", "brano": "op111", "battute": "57", "titolo": "Scala/semicrome all'unisono verso il battere", "priorita": 1, "famiglia": "fam-scale-unisono", "nodo_motorio": "Scala non legato all'unisono: i passaggi del pollice delle due mani non coincidono.", "andate": {"1": {"rep2": "NODO.", "rep3": "CHUNK a ritroso fino al battere di b. 58."}, "2": {"rep2": "NODO, come in andata 1.", "rep3": "CHUNK a ritroso sfalsati di una nota, fino al battere di b. 58."}}, "rep4_verifica": "Crescendo senza accelerare; arrivo ff a tempo."}, {"id": "op111-134", "brano": "op111", "battute": "134", "titolo": "Scala/semicrome all'unisono verso il battere", "priorita": 1, "famiglia": "fam-scale-unisono", "nodo_motorio": "Scala non legato all'unisono: i passaggi del pollice delle due mani non coincidono.", "andate": {"1": {"rep2": "NODO.", "rep3": "CHUNK a ritroso fino al battere di b. 135."}, "2": {"rep2": "NODO, come in andata 1.", "rep3": "CHUNK a ritroso sfalsati di una nota, fino al battere di b. 135."}}, "rep4_verifica": "Arrivo ff a tempo."}, {"id": "op111-91", "brano": "op111", "battute": "91", "titolo": "Scala/semicrome all'unisono verso il battere", "priorita": 1, "famiglia": "fam-scale-unisono", "nodo_motorio": "Semicrome parallele verso la ripresa: aggancio a tempo del ff di b. 92.", "andate": {"1": {"rep2": "NODO.", "rep3": "CHUNK a ritroso fino al battere di b. 92."}, "2": {"rep2": "NODO, come in andata 1.", "rep3": "CHUNK a ritroso sfalsati di una nota, fino al battere di b. 92."}}, "rep4_verifica": "Nessuna sospensione prima del battere."}, {"id": "op111-58-61", "brano": "op111", "battute": "58-61", "titolo": "Gruppi di quattro in discesa, ottave della sinistra", "priorita": 4, "famiglia": "fam-gruppi-di-quattro", "nodo_motorio": "Ogni gruppo è una posizione; dopo il pollice la mano salta in su verso il 5 successivo.", "andate": {"1": {"rep2": "BLOC: ogni quarto come accordo, CIECO, con le ottave della sinistra.", "rep3": "CHUNK: quattro note più il 5 seguente. Poi ACC sul pollice (4ª nota)."}, "2": {"rep2": "BLOC, come in andata 1.", "rep3": "CHUNK sfalsati di una nota; poi ACC sul pollice."}}, "rep4_verifica": "La semicroma del pollice ha durata piena; ottave della sinistra con PESO, senza spinta della spalla."}, {"id": "op111-135-138", "brano": "op111", "battute": "135-138", "titolo": "Gruppi di quattro in discesa, ottave della sinistra", "priorita": 4, "famiglia": "fam-gruppi-di-quattro", "nodo_motorio": "Ogni gruppo è una posizione; dopo il pollice la mano salta in su verso il 5 successivo.", "andate": {"1": {"rep2": "BLOC: ogni quarto come accordo, CIECO, con le ottave della sinistra.", "rep3": "CHUNK: quattro note più il 5 seguente. Poi ACC sul pollice (4ª nota)."}, "2": {"rep2": "BLOC, come in andata 1.", "rep3": "CHUNK sfalsati di una nota; poi ACC sul pollice."}}, "rep4_verifica": "La semicroma del pollice ha durata piena."}, {"id": "op111-61-63", "brano": "op111", "battute": "61-63", "titolo": "Accordi ribattuti con voce superiore; frammenti della sinistra dopo pausa", "priorita": 4, "famiglia": "fam-ribattuti-frammenti-sx", "nodo_motorio": "La sinistra entra sulla 2ª semicroma e cambia registro ogni mezza battuta.", "andate": {"1": {"rep2": "Sinistra sola: CHUNK per frammento con atterraggio muto sul successivo, CIECO.", "rep3": "Insieme, destra MUTA."}, "2": {"rep2": "Come in andata 1.", "rep3": "CLIC sul levare."}}, "rep4_verifica": "La prima nota della sinistra non è né anticipata né mangiata; i ribattuti della destra restano uguali."}, {"id": "op111-138-140", "brano": "op111", "battute": "138-140", "titolo": "Accordi ribattuti con voce superiore; frammenti della sinistra dopo pausa", "priorita": 4, "famiglia": "fam-ribattuti-frammenti-sx", "nodo_motorio": "La sinistra entra sulla 2ª semicroma e cambia registro ogni mezza battuta.", "andate": {"1": {"rep2": "Sinistra sola: CHUNK per frammento con atterraggio muto sul successivo, CIECO.", "rep3": "Insieme, destra MUTA."}, "2": {"rep2": "Come in andata 1.", "rep3": "CLIC sul levare."}}, "rep4_verifica": "La prima nota della sinistra non è né anticipata né mangiata."}, {"id": "op111-64-66", "brano": "op111", "battute": "64-66", "titolo": "Tema in ottave con trilli sopra semicrome gravi continue", "priorita": 3, "famiglia": "fam-ottave-trilli-sx-continua", "nodo_motorio": "Uniformità e resistenza della sinistra in posizione stretta; il trillo non deve farla inciampare.", "andate": {"1": {"rep2": "Sinistra RIT o STAC, destra MUTA.", "rep3": "Insieme, con il trillo ridotto alla sola nota reale; poi TRILL misurato, due note per ogni semicroma della sinistra."}, "2": {"rep2": "Sinistra RIT con ritmo opposto (o STAC), destra MUTA.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Sinistra regolare all'attacco e alla chiusa di ogni trillo.", "note": "Il numero di note del trillo a tempo pieno dipende dal tempo finale: otto biscrome per quarto probabilmente troppe sopra ♩ = 120; fissa il numero più alto che resta regolare."}, {"id": "op111-141-143", "brano": "op111", "battute": "141-143", "titolo": "Tema in ottave con trilli sopra semicrome gravi continue", "priorita": 3, "famiglia": "fam-ottave-trilli-sx-continua", "nodo_motorio": "Uniformità e resistenza della sinistra in posizione stretta; il trillo non deve farla inciampare.", "andate": {"1": {"rep2": "Sinistra RIT o STAC, destra MUTA.", "rep3": "Insieme, con il trillo ridotto alla sola nota reale; poi TRILL misurato, due note per ogni semicroma della sinistra."}, "2": {"rep2": "Sinistra RIT con ritmo opposto (o STAC), destra MUTA.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Sinistra regolare all'attacco e alla chiusa di ogni trillo.", "note": "Il numero di note del trillo a tempo pieno dipende dal tempo finale: otto biscrome per quarto probabilmente troppe sopra ♩ = 120; fissa il numero più alto che resta regolare."}, {"id": "op111-67-68", "brano": "op111", "battute": "67-68", "titolo": "Sequenza cromatica all'unisono con sf", "priorita": 1, "famiglia": "fam-sequenza-cromatica", "nodo_motorio": "Una cellula di quattro note per quarto, un semitono più su ogni volta: il profilo tasti bianchi e neri cambia a ogni cellula.", "andate": {"1": {"rep2": "STAC pp senza sf, CIECO.", "rep3": "CHUNK: quattro note più una, sf sull'arrivo."}, "2": {"rep2": "STAC, come in andata 1.", "rep3": "ALT, un quarto a testa."}}, "rep4_verifica": "Lo sf viene dal braccio, non allunga la 1ª nota e non accorcia la 4ª; arrivo a b. 69 a tempo.", "note": "Bülow propone 2-3-4-1 su ogni cellula (Cotta nota a p. 122); Fable non la raccomanda al posto della tua diteggiatura."}, {"id": "op111-144-145", "brano": "op111", "battute": "144-145", "titolo": "Sequenza cromatica all'unisono con sf", "priorita": 1, "famiglia": "fam-sequenza-cromatica", "nodo_motorio": "Una cellula di quattro note per quarto, un semitono più su ogni volta: il profilo tasti bianchi e neri cambia a ogni cellula.", "andate": {"1": {"rep2": "STAC pp senza sf, CIECO.", "rep3": "CHUNK: quattro note più una, sf sull'arrivo."}, "2": {"rep2": "STAC, come in andata 1.", "rep3": "ALT, un quarto a testa."}}, "rep4_verifica": "Lo sf viene dal braccio, non allunga la 1ª nota e non accorcia la 4ª; arrivo a b. 146 a tempo.", "note": "Bülow propone 2-3-4-1 su ogni cellula (Cotta nota a p. 122); Fable non la raccomanda al posto della tua diteggiatura."}, {"id": "op111-69-71", "brano": "op111", "battute": "69-71", "titolo": "Salti ff, terzina d'anacrusi, ottave p", "priorita": 6, "famiglia": null, "nodo_motorio": "Atterraggi precisi a due mani dopo pause.", "andate": {"1": {"rep2": "CIECO shift–touch–play.", "rep3": "MENT."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Atterraggi dal tasto; terzina come a b. 19."}, {"id": "op111-72-75", "brano": "op111", "battute": "72-75", "titolo": "Doppie ottave p", "priorita": 6, "famiglia": null, "nodo_motorio": "Quattro note insieme a p, pollici che non sporgono, salti di settima diminuita.", "andate": {"1": {"rep2": "PESO a pp dal tasto, con DIN tra le dita: mignoli più forti dei pollici, poi il contrario.", "rep3": "CIECO sui salti."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Nessuna acciaccatura tra le mani né dentro l'ottava."}, {"id": "op111-76-79", "brano": "op111", "battute": "76-79", "titolo": "Tema aumentato, trilli a due voci, semicrome di b. 78", "priorita": 5, "famiglia": null, "nodo_motorio": "Trillo di sole dita con il pollice fermo su un'altra voce (destra a b. 77, sinistra a b. 79). Trillo solo di dita, piccolo.", "andate": {"1": {"rep2": "TRILL: voce tenuta giù, trillo pp a 4 note per quarto, poi a 6. Mano leggermente inclinata verso il mignolo.", "rep3": "Una mano con il suo trillo, l'altra MUTA; poi si scambia. Semicrome di b. 78: RIT."}, "2": {"rep2": "TRILL, come in andata 1.", "rep3": "Come in andata 1; RIT di b. 78 con ritmo opposto."}}, "rep4_verifica": "La voce tenuta resta giù per tutta la durata; chiusa del trillo a tempo.", "note": "A b. 77 hai scritto 3-5 sopra il 2-4 stampato: Rep 2-3 usano sempre quella che userai a tempo. Trilli 3-5 molto affaticanti: pp in Rep 2-3.", "trillo_3_5": true}, {"id": "op111-80-83", "brano": "op111", "battute": "80-83", "titolo": "Destra a due voci, trillo sopra crome (b. 81), trilli della sinistra (82-83)", "priorita": 5, "famiglia": null, "nodo_motorio": "Due compiti nella stessa mano; il pollice suona per adduzione, senza far cadere la mano.", "andate": {"1": {"rep2": "Voci separate con la diteggiatura reale: una suonata, l'altra tenuta muta.", "rep3": "Trillo sostituito da un'alternanza misurata in semicrome, due note per ogni croma dell'altra voce; poi in biscrome."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Le crome sotto il trillo restano uguali; il trillo non si ferma quando il pollice suona.", "trillo_3_5": true}, {"id": "op111-84-85", "brano": "op111", "battute": "84-85", "titolo": "Crescendo, poi accordo e pollice alternati nella destra", "priorita": 5, "famiglia": null, "nodo_motorio": "Rotazione con l'accordo dal lato del mignolo; ottave sincopate della sinistra.", "andate": {"1": {"rep2": "Su b. 85: BLOC (accordo e nota singola insieme), poi ROT in rotazione pura.", "rep3": "CLIC sul levare; sinistra con PESO."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Tutte le note dell'accordo parlano a ogni ripercussione; avambraccio morbido a fine crescendo."}, {"id": "op111-86-90", "brano": "op111", "battute": "86-90", "titolo": "Accordi staccati e sf della destra, arpeggi della sinistra dopo pausa", "priorita": 4, "famiglia": null, "nodo_motorio": "La sinistra parte dal basso sulla 2ª semicroma e sale per più posizioni; ogni accordo della destra ha una forma diversa.", "andate": {"1": {"rep2": "BLOC a scheletro: accordo della destra sul battere e, sulla 2ª semicroma, il frammento della sinistra come accordo. La seconda volta CIECO.", "rep3": "Sinistra come scritta, destra MUTA. Ogni frammento è un solo impulso che finisce sulla sua ultima nota."}, "2": {"rep2": "BLOC a scheletro, come in andata 1.", "rep3": "RIT nella sinistra."}}, "rep4_verifica": "Prima nota di ogni frammento udibile; accordi della destra completi; nessuna tensione tenuta sulla minima con sf."}, {"id": "op111-92-95", "brano": "op111", "battute": "92-95", "titolo": "Tema ff in doppie ottave e ritardando", "priorita": 6, "famiglia": null, "parti": ["92-93", "94-95"], "nodo_motorio": "bb. 92-93: Doppie ottave con salti; un impulso del braccio per gruppo.\nbb. 94-95: Voce superiore e ribattuti interni nella stessa mano.", "andate": {"1": {"rep2": "bb. 92-93: PESO a mp, un impulso per ogni gruppo di crome; CIECO sui salti do–mi♭–si♮.\nbb. 94-95: BLOC sulle posizioni.", "rep3": "bb. 92-93: MENT, poi DIN con sinistra f.\nbb. 94-95: DIN dentro la mano, come a 29-31: voce superiore suonata e bicordi muti, poi il contrario."}, "2": {"rep2": "bb. 92-93: Come in andata 1.\nbb. 94-95: Come in andata 1.", "rep3": "bb. 92-93: MENT, poi DIN con destra f.\nbb. 94-95: Come in andata 1."}}, "rep4_verifica": "bb. 92-93: Il ff viene dalla caduta del braccio; la mano si richiude tra un'ottava e l'altra dove c'è tempo.\nbb. 94-95: Ribattuti interni uguali."}, {"id": "op111-96-99", "brano": "op111", "battute": "96-99", "titolo": "Martellato a mani alternate", "priorita": 4, "famiglia": null, "nodo_motorio": "Un flusso di semicrome fatto da due mani sfasate; la destra salta a ogni colpo.", "andate": {"1": {"rep2": "Togli lo sfasamento: le due mani insieme, in crome. Poi le due linee dello zigzag della destra separate: solo le note alte, solo le basse.", "rep3": "Come scritto, con CLIC sulla 2ª semicroma: senti la sinistra come battere."}, "2": {"rep2": "Come in andata 1.", "rep3": "ACC solo nella sinistra."}}, "rep4_verifica": "Semicrome composte uguali, senza galoppo; staccato dal tasto con polsi bassi; crescendo di peso, non di velocità.", "note": "Bülow (Cotta nota b p. 124): cominciare piano e tenere la sinistra più leggera della destra."}, {"id": "op111-104-105", "brano": "op111", "battute": "104-105", "titolo": "Destra a due voci sopra le semicrome della sinistra", "priorita": 5, "famiglia": null, "nodo_motorio": "Semicrome in entrambe le mani mentre il 5 della destra porta un'altra voce.", "andate": {"1": {"rep2": "Solo le due linee di semicrome, senza la voce superiore: NODO.", "rep3": "Completo: semicrome interne della destra STAC pp, sinistra MUTA; poi si scambia."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "La voce superiore non rompe la regolarità delle semicrome sotto."}, {"id": "op111-122-123", "brano": "op111", "battute": "122-123", "titolo": "Doppie note legate, p cresc.", "priorita": 7, "famiglia": null, "nodo_motorio": "Legato di doppie note con sostituzioni e incroci di dita.", "andate": {"1": {"rep2": "Voce superiore legata, inferiore staccata.", "rep3": "Il contrario."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Legato vero senza pedale in entrambe le voci."}, {"id": "op111-124-127", "brano": "op111", "battute": "124-127", "titolo": "Canto in ottave della sinistra, frammenti della destra, sestine, quintine a due voci", "priorita": 7, "famiglia": null, "nodo_motorio": "La destra entra sulla 2ª semicroma con un gruppo lanciato; ottave legate della sinistra con 4-5.", "andate": {"1": {"rep2": "BLOC nella destra: ogni frammento come accordo sulla 2ª semicroma, con la sinistra. La seconda volta CIECO.", "rep3": "CLIC sul levare. Sestine di b. 126: ACC 3+3, poi 2+2+2."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Prima nota di ogni frammento udibile e a tempo; ottave legate dalle dita."}, {"id": "op111-128-131", "brano": "op111", "battute": "128-131", "titolo": "Quintine con croma staccata in alto, sempre più allegro", "priorita": 7, "famiglia": null, "nodo_motorio": "Cinque note uguali, poi salto verso la croma; accelerando controllato su quattro battute.", "andate": {"1": {"rep2": "ACC sulle quintine: 2+3, poi 3+2, poi senza accenti. Poi CHUNK: quintina più nota d'arrivo.", "rep3": "Accelerando a gradini: 8-10 clic in più a ogni battuta."}, "2": {"rep2": "ACC come in andata 1; CHUNK sfalsati di una nota.", "rep3": "Accelerando continuo, senza metronomo."}}, "rep4_verifica": "Quintine senza zoppia; croma alta presa pulita; accordi della sinistra insieme alla destra.", "note": "Bülow (Cotta nota b p. 126): il ritorno al tempo principale va distribuito su tutte e quattro le battute."}, {"id": "op111-146-149", "brano": "op111", "battute": "146-149", "titolo": "Accordi sf sui tempi deboli, ottave di do", "priorita": 6, "famiglia": null, "nodo_motorio": "Ogni accordo ha una forma diversa e arriva dopo una pausa.", "andate": {"1": {"rep2": "Destra: CIECO shift–touch–play sugli accordi.", "rep3": "MENT, poi PESO."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Tutte le note dell'accordo insieme; rilascio completo nelle pause; diminuendo ottenuto riducendo la caduta."}, {"id": "op111-150-155", "brano": "op111", "battute": "150-155", "titolo": "Coda, semicrome legate della sinistra", "priorita": 3, "famiglia": null, "nodo_motorio": "Linea lunga legata e p, con il basso lontano all'inizio di ogni gruppo; pollice che non sporge.", "andate": {"1": {"rep2": "Sinistra sola: STAC pp, poi legato; destra MUTA.", "rep3": "ACC pp su 2ª e 4ª semicroma."}, "2": {"rep2": "Come in andata 1.", "rep3": "Un solo clic per battuta, CIECO."}}, "rep4_verifica": "Senza pedale: nessun buco nel legato, nessun accento su pollice o nota bassa."}, {"id": "op111-156-158", "brano": "op111", "battute": "156-158", "titolo": "Figura spezzata sul do grave, diminuendo", "priorita": 3, "famiglia": null, "nodo_motorio": "Rotazione regolare che si rimpicciolisce fino al pp.", "andate": {"1": {"rep2": "ROT.", "rep3": "BLOC, poi CIECO."}, "2": {"rep2": "Come in andata 1.", "rep3": "Come in andata 1."}}, "rep4_verifica": "Nessuna nota persa negli ultimi due quarti."}], "priorita": [{"n": 1, "nome": "Semicrome parallele a due mani", "perche": "È esattamente il difetto indicato."}, {"n": 2, "nome": "Semicrome contro ottave (2:1)", "perche": "Coordinazione tra le mani."}, {"n": 3, "nome": "Sinistra continua", "perche": "È la mano che rende opaco l'insieme."}, {"n": 4, "nome": "Posizioni collegate da un salto", "perche": "Precisione tattile."}, {"n": 5, "nome": "Due voci e trilli nella stessa mano", "perche": "Indipendenza dentro la mano."}, {"n": 6, "nome": "Salti, ottave, accordi", "perche": "Con la tua apertura è la famiglia meno critica. Carico più alto per mano e avambraccio."}, {"n": 7, "nome": "Gruppi irregolari e passi lenti", "perche": "Non dipendono dalla velocità."}], "famiglie": [{"id": "fam-semicrome-parallele", "nome": "Semicrome parallele a due mani (zone rosse)", "frammenti": ["op111-24-28", "op111-108-110", "op111-111-113"]}, {"id": "fam-destra-contro-ottave", "nome": "Semicrome della destra contro ottave della sinistra", "frammenti": ["op111-35-39", "op111-106-107"]}, {"id": "fam-sinistra-sotto-ottave", "nome": "Semicrome della sinistra sotto le ottave della destra", "frammenti": ["op111-40-43", "op111-100-103"]}, {"id": "fam-salti-sul-tremolo", "nome": "Salti incrociati sopra il tremolo", "frammenti": ["op111-48-49", "op111-114-115"]}, {"id": "fam-secondo-tema", "nome": "Secondo tema, fioriture e quintine", "frammenti": ["op111-50-54", "op111-116-121"]}, {"id": "fam-coppie-legate", "nome": "Coppie legate in discesa, ff", "frammenti": ["op111-56-57", "op111-132-133"]}, {"id": "fam-scale-unisono", "nome": "Scale/semicrome all'unisono verso il battere", "frammenti": ["op111-57", "op111-134", "op111-91"]}, {"id": "fam-gruppi-di-quattro", "nome": "Gruppi di quattro in discesa, ottave della sinistra", "frammenti": ["op111-58-61", "op111-135-138"]}, {"id": "fam-ribattuti-frammenti-sx", "nome": "Accordi ribattuti e frammenti della sinistra dopo pausa", "frammenti": ["op111-61-63", "op111-138-140"]}, {"id": "fam-ottave-trilli-sx-continua", "nome": "Tema in ottave con trilli sopra semicrome gravi", "frammenti": ["op111-64-66", "op111-141-143"]}, {"id": "fam-sequenza-cromatica", "nome": "Sequenza cromatica all'unisono con sf", "frammenti": ["op111-67-68", "op111-144-145"]}], "definizioni": {"priorita": "Organizzazione dei passaggi: i 7 gruppi di Fable, in ordine di urgenza (1 = più urgente).", "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo (es. 56-57 e 132-133). Un frammento con famiglia null non ha frammenti simili."}};
+</script>
+<script>
+'use strict';
+/* Circuiti di studio — versione 2. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
+const APP_VERSION = '2.0.0';
+const KEY = 'circuiti_studio_v2';          // stessa chiave della versione 1: i dati restano leggibili
+const KEY_PRE2 = KEY + '_prima_della_2';   // copia di sicurezza fatta al primo avvio della 2.0
+const KEY_PREIMP = KEY + '_prima_import';  // copia fatta prima di ogni importazione
+const app = document.getElementById('app');
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const pad = n => String(n).padStart(2, '0');
+
+/* ---------------- dati utente ---------------- */
+function defaultData() {
+  return {
+    versione: 3,
+    frammenti_utente: [], brani_utente: [], famiglie_utente: [], brani_nascosti: [],
+    catalogo_importato: { brani: [], frammenti: [], famiglie: [], sigle: [] },
+    impostazioni: { tema: 'scuro', testo: 'normale', ultimo_export: null, visto_versione: null },
+    target: {},
+    sessione_aperta: null, sessioni: [],
+    bozza: { selezionati: [], circuiti: [], circuiti_lib: [], brani_liberi: [], cfg: { tipo: 'circuito', slot: 3, andate: 3, modo: 'scritti' } }
+  };
+}
+/* Porta qualsiasi salvataggio (anche della versione 1) alla forma attuale, senza togliere nulla. */
+function normalize(d) {
+  const def = defaultData();
+  const out = Object.assign(def, d || {});
+  out.impostazioni = Object.assign(defaultData().impostazioni, (d && d.impostazioni) || {});
+  out.catalogo_importato = Object.assign(defaultData().catalogo_importato, (d && d.catalogo_importato) || {});
+  out.bozza = Object.assign(defaultData().bozza, (d && d.bozza) || {});
+  out.bozza.cfg = Object.assign(defaultData().bozza.cfg, out.bozza.cfg || {});
+  ['frammenti_utente', 'brani_utente', 'famiglie_utente', 'sessioni', 'brani_nascosti'].forEach(k => { if (!Array.isArray(out[k])) out[k] = []; });
+  ['selezionati', 'circuiti', 'circuiti_lib', 'brani_liberi'].forEach(k => { if (!Array.isArray(out.bozza[k])) out.bozza[k] = []; });
+  if (!out.target || typeof out.target !== 'object' || Array.isArray(out.target)) out.target = {};
+  out.sessioni = out.sessioni.filter(s => s && typeof s === 'object');
+  out.sessioni.forEach(s => { if (!Array.isArray(s.log)) s.log = []; if (!Array.isArray(s.circuiti)) s.circuiti = []; });
+  const S = out.sessione_aperta;
+  if (S && (typeof S !== 'object' || !S.timer || !Array.isArray(S.log))) out.sessione_aperta = null;
+  out.versione = 3;
+  return out;
+}
+let storageOk = true, arrivaDaV1 = false;
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return defaultData();
+    const d = JSON.parse(raw);
+    if (!d.impostazioni || !d.impostazioni.visto_versione) {
+      arrivaDaV1 = true;
+      try { if (!localStorage.getItem(KEY_PRE2)) localStorage.setItem(KEY_PRE2, raw); } catch (e) { }
+    }
+    return normalize(d);
+  } catch (e) { storageOk = false; return defaultData(); }
+}
+let D = load();
+function save() {
+  if (D.sessione_aperta) D.sessione_aperta.timer.seen = Date.now();
+  try { localStorage.setItem(KEY, JSON.stringify(D)); storageOk = true; return true; }
+  catch (e) { storageOk = false; toast('Salvataggio non riuscito: esporta subito i dati da Impostazioni'); return false; }
+}
+
+/* ---------------- catalogo effettivo ---------------- */
+let C;
+function mergeBy(key, ...lists) { const m = new Map(); lists.forEach(l => (l || []).forEach(x => x && x[key] != null && m.set(x[key], x))); return [...m.values()]; }
+function buildCat() {
+  const imp = D.catalogo_importato || {};
+  const brani = mergeBy('id', CATALOGO.brani, imp.brani, D.brani_utente);
+  const frammenti = mergeBy('id', CATALOGO.frammenti, imp.frammenti, D.frammenti_utente);
+  const famiglie = mergeBy('id', CATALOGO.famiglie, imp.famiglie, D.famiglie_utente);
+  const sigle = mergeBy('sigla', CATALOGO.sigle, imp.sigle);
+  const userIds = new Set(D.frammenti_utente.map(f => f.id));
+  const hidden = new Set(D.brani_nascosti);
+  C = {
+    brani, frammenti, famiglie, sigle, userIds, hidden,
+    braniVis: brani.filter(b => !hidden.has(b.id)),
+    braniUtente: new Set(D.brani_utente.map(b => b.id)),
+    priorita: [...CATALOGO.priorita].sort((a, b) => a.n - b.n),
+    F: new Map(frammenti.map(f => [f.id, f])),
+    B: new Map(brani.map(b => [b.id, b])),
+    FAM: new Map(famiglie.map(f => [f.id, f])),
+    S: new Map(sigle.map(s => [s.sigla, s]))
+  };
+  const names = sigle.map(s => s.sigla).sort((a, b) => b.length - a.length).map(reEsc);
+  C.sigRe = new RegExp('(?<![\\p{L}\\p{N}_])(' + names.join('|') + ')(?![\\p{L}\\p{N}_])', 'gu');
+}
+buildCat();
+const branoNome = id => (C.B.get(id) || {}).nome || id || '—';
+const branoCorto = id => branoNome(id).split(',')[0];
+const fr = id => C.F.get(id);
+const frLabel = id => { const f = fr(id); return f ? f.battute : id; };
+
+/* Testo del catalogo: verbatim, righe separate, prefisso "bb. X-Y:" in evidenza, sigle cliccabili */
+function linkSigle(h) { return h.replace(C.sigRe, s => `<button type="button" class="sig" data-sigla="${s}">${s}</button>`); }
+function fmtText(t) {
+  if (t == null || t === '') return '<span class="muted">—</span>';
+  return '<span class="txt">' + String(t).split('\n').map(line => {
+    const m = line.match(/^(bb?\.\s*\d[^:]{0,30}:)\s?([\s\S]*)$/);
+    if (m) return `<span class="line"><span class="bb">${esc(m[1])}</span> ${linkSigle(esc(m[2]))}</span>`;
+    return `<span class="line">${linkSigle(esc(line))}</span>`;
+  }).join('') + '</span>';
+}
+function andataKey(f, n) {
+  const A = (f && f.andate) || {};
+  if (A[String(n)]) return String(n);
+  // andata 3 = andata 1, andata 4 = andata 2 (e andata 5 = andata 1), salvo testi propri
+  const alt = n % 2 === 1 ? '1' : '2';
+  return A[alt] ? alt : null;
+}
+
+/* ---------------- tempo e date ---------------- */
+function dstr(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
+const todayStr = () => dstr(new Date());
+const dparse = s => new Date(s + 'T12:00:00');
+const dayAdd = (s, n) => { const d = dparse(s); d.setDate(d.getDate() + n); return dstr(d); };
+const fmtDateLong = s => dparse(s).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const fmtDateShort = s => dparse(s).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+const fmtDayMonth = s => dparse(s).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' });
+const fmtTime = iso => iso ? new Date(iso).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) : '';
+function fmtMin(sec) {
+  sec = Math.max(0, Math.round(sec || 0));
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  if (h) return `${h} h ${pad(m)} min`;
+  if (m) return `${m} min${s ? ' ' + pad(s) + ' s' : ''}`;
+  return s ? `${s} s` : '0 min';
+}
+/* Come fmtMin ma senza secondi sopra il minuto: per totali e grafici. */
+function fmtMinRound(sec) {
+  sec = Math.max(0, Math.round(sec || 0));
+  if (sec < 60) return sec ? `${sec} s` : '0 min';
+  const m = Math.round(sec / 60), h = Math.floor(m / 60);
+  return h ? `${h} h ${pad(m % 60)} min` : `${m} min`;
+}
+function fmtClock(sec) {
+  sec = Math.max(0, Math.floor(sec || 0));
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+function weekStart(s) { const d = dparse(s); const wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd); return dstr(d); }
+function fmtAgo(date) {
+  const n = Math.round((dparse(todayStr()) - dparse(date)) / 864e5);
+  if (n <= 0) return 'oggi'; if (n === 1) return 'ieri'; if (n < 60) return `${n} giorni fa`;
+  return fmtDayMonth(date);
+}
+
+/* ---------------- fogli, pannello, conferme ---------------- */
+/* Un foglio aperto aggiunge un passo alla cronologia: il tasto Indietro del telefono lo chiude
+   invece di cambiare schermata. */
+let toastT;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2200); }
+let ovOpen = false, ovBackT = null, askResolve = null, pendingNav = null;
+function ovConsume() { const had = ovOpen || ovBackT != null; ovOpen = false; if (ovBackT) { clearTimeout(ovBackT); ovBackT = null; } return had; }
+function ovPush() {
+  if (ovBackT) { clearTimeout(ovBackT); ovBackT = null; ovOpen = true; return; }
+  if (!ovOpen) { try { history.pushState({ ov: 1 }, ''); ovOpen = true; } catch (e) { ovOpen = false; } }
+}
+function ovHide() {
+  $('#sheet').classList.remove('on'); $('#panel').classList.remove('on'); $('#ov').classList.remove('on');
+  if (askResolve) { const r = askResolve; askResolve = null; r(null); }
+}
+function closeOverlays() {
+  ovHide();
+  if (ovOpen) { ovOpen = false; ovBackT = setTimeout(() => { ovBackT = null; history.back(); }, 0); }
+}
+window.addEventListener('popstate', () => {
+  if (pendingNav) { flushNav(); return; }
+  if (ovOpen) { ovOpen = false; ovHide(); }
+});
+function openSheet(html, bind) {
+  if (askResolve) { const r = askResolve; askResolve = null; r(null); }
+  const sh = $('#sheet'); sh.innerHTML = `<div class="inner">${html}</div>`; sh.scrollTop = 0;
+  $('#panel').classList.remove('on');
+  sh.classList.add('on'); $('#ov').classList.add('on'); ovPush();
+  if (bind) bind(sh);
+}
+const closeSheet = closeOverlays;
+function openPanel(sigla) {
+  const s = C.S.get(sigla); if (!s) return;
+  const p = $('#panel');
+  p.innerHTML = `<div class="row" style="align-items:center"><div class="sg">${esc(s.sigla)}</div><button class="btn inline" data-act="closepanel" style="flex:0;margin:0">Chiudi</button></div>
+  <h3>${esc(s.nome)}</h3>
+  <div class="lbl">Come si fa</div><p>${fmtText(s.come_si_fa)}</p>
+  <div class="lbl">Cosa allena</div><p>${fmtText(s.cosa_allena)}</p>
+  <div class="lbl">Origine</div><p>${esc(s.origine)}</p>`;
+  p.scrollTop = 0; p.classList.add('on'); $('#ov').classList.add('on'); ovPush();
+}
+function closePanel() { $('#panel').classList.remove('on'); if (!$('#sheet').classList.contains('on')) closeOverlays(); }
+/* Conferma dentro l'app (al posto delle finestre di sistema). Restituisce true, 'alt' oppure null. */
+function ask(o) {
+  return new Promise(res => {
+    openSheet(`<h2>${esc(o.title)}</h2>${o.text ? `<p class="asktext">${esc(o.text)}</p>` : ''}${o.html || ''}
+      <button class="btn ${o.danger ? 'dangerfill' : 'primary'} xl" id="ask-ok">${esc(o.ok || 'Conferma')}</button>
+      ${o.alt ? `<button class="btn ${o.altDanger ? 'danger' : ''}" id="ask-alt">${esc(o.alt)}</button>` : ''}
+      <button class="btn" id="ask-no">${esc(o.cancel || 'Annulla')}</button>`, sh => {
+      askResolve = res;
+      const done = v => { askResolve = null; closeOverlays(); res(v); };
+      $('#ask-ok', sh).addEventListener('click', () => done(true));
+      $('#ask-no', sh).addEventListener('click', () => done(null));
+      if (o.alt) $('#ask-alt', sh).addEventListener('click', () => done('alt'));
+    });
+  });
+}
+function header(title, sub, backTo) {
+  return `<header class="top"><button class="back" data-act="back" data-h="${backTo || '#home'}" aria-label="Indietro">‹</button><div style="flex:1;min-width:0"><h1>${esc(title)}</h1>${sub ? `<div class="sub">${esc(sub)}</div>` : ''}</div></header>`;
+}
+function topbar(title, sub) {
+  return `<header class="top"><div style="flex:1;min-width:0"><h1>${esc(title)}</h1>${sub ? `<div class="sub">${esc(sub)}</div>` : ''}</div></header>`;
+}
+/* Passi della creazione di una sessione: mostra dove sei e cosa manca. */
+function steps(list, cur) {
+  return `<ol class="steps">${list.map((t, i) => `<li class="${i < cur ? 'done' : i === cur ? 'cur' : ''}"><span>${i < cur ? '✓' : i + 1}</span>${esc(t)}</li>`).join('')}</ol>`;
+}
+const ICO = {
+  home: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  history: '<path d="M5 20V11M12 20V5M19 20v-6"/>',
+  rules: '<path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v14H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19"/><path d="M9 8.5h6"/>',
+  settings: '<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>'
+};
+const TABS = [['home', 'Oggi'], ['history', 'Storico'], ['rules', 'Sigle e regole'], ['settings', 'Impostazioni']];
+/* Barra in basso delle schermate principali; con una sessione aperta mostra sempre come riprenderla. */
+function tabs(cur, noResume) {
+  const S = noResume ? null : D.sessione_aperta;
+  return `<div class="tabwrap">${S ? `<button class="resume" data-act="go" data-h="#run"><span class="rdot ${S.timer.since ? '' : 'off'}"></span><span class="grow">${S.timer.since ? 'Sessione in corso' : 'Sessione in pausa'}</span><b data-live="sess">${fmtClock(S.timer.sess + tRun(S.timer))}</b><span class="rgo">Riprendi ›</span></button>` : ''}
+    <nav class="tabs">${TABS.map(([id, lab]) => `<button data-act="tab" data-h="#${id}" class="${id === cur ? 'on' : ''}" ${id === cur ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[id]}</svg><span>${lab}</span></button>`).join('')}</nav></div>`;
+}
+async function copyText(t) {
+  if (window.AndroidApp) { try { window.AndroidApp.copy(t); toast('Copiato'); return; } catch (e) { } }
+  try { await navigator.clipboard.writeText(t); toast('Copiato'); }
+  catch (e) {
+    const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); toast('Copiato'); } catch (e2) { toast('Copia non riuscita'); }
+    ta.remove();
+  }
+}
+
+/* ---------------- navigazione ---------------- */
+let navDepth = 0;
+function navNow(h, push) {
+  if (location.hash === h) { render(); return; }
+  if (push) { navDepth++; location.hash = h; } else location.replace(h);
+}
+function flushNav() { if (pendingNav) { const p = pendingNav; pendingNav = null; navNow(p.h, p.push); } }
+function nav(h, push) {
+  const had = ovConsume(); ovHide();
+  if (had) { pendingNav = { h, push }; history.back(); setTimeout(flushNav, 400); return; } // prima toglie il passo del foglio
+  navNow(h, push);
+}
+const go = h => nav(h, true);
+const replaceTo = h => nav(h, false);
+/* Torna alla schermata precedente; se non c'è (app appena aperta su quella pagina) va a quella indicata. */
+function goBack(def) { if (navDepth > 0) { navDepth--; ovConsume(); ovHide(); history.back(); } else replaceTo(def || '#home'); }
+const SCREENS = {};
+let ticker = null, lastRender = 0;
+function render() {
+  if (ticker) { clearInterval(ticker); ticker = null; }
+  closeOverlays();
+  const parts = location.hash.slice(1).split('/').map(decodeURIComponent);
+  const fn = SCREENS[parts[0]] || SCREENS.home;
+  fn(...parts.slice(1));
+  if (parts[0] !== 'run') releaseWake();
+  if (!ticker && D.sessione_aperta && $('[data-live]')) ticker = setInterval(liveTick, 1000);
+  lastRender = Date.now();
+  window.scrollTo(0, 0);
+}
+function liveTick() {
+  const S = D.sessione_aperta; if (!S) return;
+  $$('[data-live]').forEach(el => {
+    if (el.dataset.live === 'sess') el.textContent = fmtClock(S.timer.sess + tRun(S.timer));
+    else if (el.dataset.live === 'today') el.textContent = fmtMin(totals(dayLogs(todayStr())).tot);
+  });
+}
+window.addEventListener('hashchange', render);
+
+/* ---------------- aggregati ---------------- */
+/* Lo slot in corso della sessione aperta, come voce provvisoria: così i minuti di oggi sono aggiornati. */
+function liveEntry(S) {
+  const T = S.timer, sec = Math.round(T.slot + tRun(T)); if (sec < 1) return null;
+  if (S.tipo === 'libera') return { live: true, circuito: null, andata: null, etichetta: null, frammento: null, brano: S.corrente, secondi: sec };
+  const circ = S.circuiti[S.pos.c], sl = circ && circ.slot[S.pos.s]; if (!sl) return null;
+  const f = fr(sl.frammento);
+  return { live: true, circuito: circ.n, andata: S.pos.a, etichetta: sl.etichetta, frammento: sl.frammento || null, brano: f ? f.brano : (sl.brano || null), battute: sl.battute || '', secondi: sec, rep1_pulita: null, tempo_rep4: null };
+}
+function allSessions(includeOpen = true) {
+  const list = [...D.sessioni];
+  if (includeOpen && D.sessione_aperta) { const S = D.sessione_aperta, lv = liveEntry(S); list.push(Object.assign({}, S, { aperta: true, log: lv ? [...S.log, lv] : S.log })); }
+  return list;
+}
+function totals(logs) {
+  const per = new Map(); let tot = 0;
+  logs.forEach(l => { const s = l.secondi || 0; tot += s; per.set(l.brano, (per.get(l.brano) || 0) + s); });
+  return { tot, perBrano: [...per.entries()].sort((a, b) => b[1] - a[1]) };
+}
+function dayLogs(date) { return allSessions().filter(s => s.data === date).flatMap(s => s.log || []); }
+function logsByDay() {
+  const days = new Map();
+  allSessions().forEach(s => { if (!days.has(s.data)) days.set(s.data, []); (s.log || []).forEach(l => days.get(s.data).push(l)); });
+  return days;
+}
+function lastTempo(fid) {
+  const S = D.sessione_aperta;
+  if (S) for (let i = S.log.length - 1; i >= 0; i--) if (S.log[i].frammento === fid && S.log[i].tempo_rep4 != null) return S.log[i].tempo_rep4;
+  for (let j = D.sessioni.length - 1; j >= 0; j--) { const L = D.sessioni[j].log || []; for (let i = L.length - 1; i >= 0; i--) if (L[i].frammento === fid && L[i].tempo_rep4 != null) return L[i].tempo_rep4; }
+  return null;
+}
+/* Per ogni frammento: ultimo giorno di studio e ultimo tempo di Rep 4. */
+function lastStudied() {
+  const m = new Map();
+  D.sessioni.forEach(s => (s.log || []).forEach(l => {
+    if (!l.frammento) return;
+    const x = m.get(l.frammento) || { data: '', bpm: null, bpmData: '' };
+    if (s.data >= x.data) x.data = s.data;
+    if (l.tempo_rep4 != null && s.data >= x.bpmData) { x.bpm = l.tempo_rep4; x.bpmData = s.data; }
+    m.set(l.frammento, x);
+  }));
+  return m;
+}
+function kvBrani(perBrano, round) {
+  return `<ul class="kv">${perBrano.map(([b, s]) => `<li><span>${esc(branoNome(b))}</span><b>${round ? fmtMinRound(s) : fmtMin(s)}</b></li>`).join('')}</ul>`;
+}
+/* Barre degli ultimi n giorni (oggi a destra); ogni barra porta alla giornata. */
+function daysChart(n) {
+  const days = logsByDay(), today = todayStr(), list = [];
+  for (let i = n - 1; i >= 0; i--) { const d = dayAdd(today, -i); list.push({ d, sec: totals(days.get(d) || []).tot }); }
+  const max = Math.max(1, ...list.map(x => x.sec)), tot = list.reduce((a, x) => a + x.sec, 0);
+  const html = `<div class="bars">${list.map(x => `<button class="barcol ${x.d === today ? 'today' : ''}" data-act="go" data-h="#day/${x.d}" aria-label="${esc(fmtDateShort(x.d))}: ${esc(fmtMinRound(x.sec))}">
+      <span class="barv">${x.sec >= 60 ? Math.round(x.sec / 60) : x.sec ? '<1' : ''}</span>
+      <span class="bartrack"><span class="barfill" style="height:${x.sec ? Math.max(4, x.sec / max * 100).toFixed(1) : 0}%"></span></span>
+      <span class="bard">${esc(dparse(x.d).toLocaleDateString('it-IT', { weekday: 'short' }).slice(0, 3))}</span></button>`).join('')}</div>`;
+  return { html, tot };
+}
+/* ================= HOME ================= */
+let installEvt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; if (!location.hash || location.hash === '#home') render(); });
+/* Descrizione breve di una sessione (aperta o salvata). */
+function sesDescr(s) {
+  if (s.tipo === 'manuale') return [...new Set((s.log || []).map(l => branoCorto(l.brano)))].join(', ') || 'Registrata a mano';
+  if (s.tipo === 'libera') return 'Sessione libera · ' + ((s.brani || []).map(branoCorto).join(', ') || '—');
+  const c = s.circuiti || [], n = c.length;
+  const slot = n ? c.map(x => x.slot.length).join(' + ') : '0';
+  return `${n > 1 ? n + ' circuiti' : 'Circuito'} a ${slot} slot · ${c[0] ? c[0].andate_previste : '—'} andate · ${s.modo === 'libero' ? 'libero (solo tempi)' : 'passaggi scritti'}`;
+}
+function posDescr(S) {
+  if (S.tipo === 'libera') return 'Stai studiando: ' + branoNome(S.corrente);
+  const circ = S.circuiti[S.pos.c], sl = circ.slot[S.pos.s];
+  return `Circuito ${circ.n} · Andata ${S.pos.a}/${circ.andate_previste} · Slot ${sl.etichetta}` + (S.modo === 'libero' ? '' : ` · Rep ${S.pos.r}`);
+}
+function lastRepeatable() {
+  for (let i = D.sessioni.length - 1; i >= 0; i--) { const s = D.sessioni[i]; if (canRepeat(s)) return s; }
+  return null;
+}
+function canRepeat(s) {
+  if (!s || s.tipo === 'manuale') return false;
+  if (s.tipo === 'libera') return (s.brani || []).some(id => C.B.has(id));
+  return (s.circuiti || []).some(c => (c.slot || []).some(x => s.modo === 'libero' ? C.B.has(x.brano) : !!fr(x.frammento)));
+}
+SCREENS.home = () => {
+  const today = todayStr(), t = totals(dayLogs(today)), S = D.sessione_aperta;
+  const lastExp = D.impostazioni.ultimo_export;
+  const needBackup = D.sessioni.length && (!lastExp || (Date.now() - new Date(lastExp).getTime()) > 7 * 864e5);
+  const ch = daysChart(7), last = lastRepeatable();
+  app.innerHTML = topbar('Circuiti di studio', fmtDateLong(today)) + `<main class="wrap tabbed">
+    ${!storageOk ? `<div class="hint">Questo browser non permette di salvare i dati. Usa l'app installata o un altro browser.</div>` : ''}
+    ${needBackup ? `<div class="hint">${lastExp ? 'Ultimo backup più di una settimana fa.' : 'Non hai ancora fatto un backup.'} <button class="link" data-act="export">Salva un backup adesso</button></div>` : ''}
+    <section class="card"><div class="label">Oggi</div><div class="big" data-live="today">${fmtMin(t.tot)}</div>
+      ${t.perBrano.length ? kvBrani(t.perBrano) + `<button class="link" data-act="go" data-h="#day/${today}">Dettaglio della giornata</button>` : '<p class="muted" style="margin:0">Nessun minuto registrato oggi.</p>'}
+    </section>
+    ${S ? `<section class="card now"><div class="label">${S.timer.since ? 'Sessione in corso' : 'Sessione in pausa'} · <span data-live="sess">${fmtClock(S.timer.sess + tRun(S.timer))}</span></div>
+      <p class="nowpos">${esc(posDescr(S))}</p><p class="small muted" style="margin:0 0 10px">${esc(sesDescr(S))}</p>
+      <button class="btn primary xl" data-act="go" data-h="#run" style="margin:0">Riprendi la sessione</button></section>` : ''}
+    <button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">+ Aggiungi sessione</button>
+    ${last && !S ? `<button class="btn two" data-act="repeat" data-id="${esc(last.id)}"><b>Ripeti l'ultima sessione</b><span>${esc(sesDescr(last))}</span></button>` : ''}
+    <section class="card" style="margin-top:4px"><div class="cardh"><span class="label">Ultimi 7 giorni</span><b>${fmtMinRound(ch.tot)}</b></div>${ch.html}
+      <p class="small muted" style="margin:6px 0 0">Minuti per giorno. Tocca una barra per aprire la giornata.</p></section>
+    <button class="btn" data-act="manual">Registra a mano uno studio già fatto</button>
+    ${installEvt ? `<button class="btn" data-act="install">Installa l'app sul telefono</button>` : ''}
+  </main>` + tabs('home', true);
+};
+
+/* ================= AGGIUNGI SESSIONE ================= */
+/* Se c'è una sessione aperta chiede di chiuderla (salvandola). Restituisce true se si può procedere. */
+async function closeOpenFirst() {
+  if (!D.sessione_aperta) return true;
+  const r = await ask({ title: 'C\'è già una sessione aperta', text: 'Per iniziarne una nuova, quella aperta viene chiusa e salvata nello storico.', ok: 'Chiudi, salva e inizia la nuova', cancel: 'Annulla' });
+  if (!r) return false;
+  closeSession(true); return true;
+}
+function cfgRecap(cfg) {
+  if (cfg.tipo === 'libera') return 'Sessione libera: un cronometro per brano, cambi brano con un tasto.';
+  return `Circuito a ${cfg.slot} slot · ${cfg.andate} andate · ${cfg.modo === 'scritti' ? 'passaggi scritti (Rep 1-4 guidate)' : 'libero (solo tempi)'}`;
+}
+const stepsFor = cfg => cfg.modo === 'scritti' ? ['Tipo', 'Passaggi', 'Circuiti'] : ['Tipo', 'Circuiti'];
+SCREENS.new = () => {
+  const cfg = D.bozza.cfg, lib = cfg.tipo === 'libera';
+  const seg = (k, vals) => `<div class="seg">${vals.map(v => `<button data-act="cfg" data-k="${k}" data-v="${v}" class="${cfg[k] === v ? 'on' : ''}" aria-pressed="${cfg[k] === v}">${v}</button>`).join('')}</div>`;
+  D.bozza.brani_liberi = D.bozza.brani_liberi.filter(id => C.B.has(id) && !C.hidden.has(id));
+  const selB = new Set(D.bozza.brani_liberi);
+  app.innerHTML = header('Nuova sessione', '', '#home') + `<main class="wrap">
+    ${lib ? '' : steps(stepsFor(cfg), 0)}
+    <div class="label" style="margin-bottom:8px">Tipo di sessione</div>
+    <div class="choice">
+      <button data-act="cfg" data-k="tipo" data-v="libera" class="${lib ? 'on' : ''}" aria-pressed="${lib}"><b>Libera</b><span>Solo cronometro: scegli i brani e cambi brano con un tasto.</span></button>
+      <button data-act="cfg" data-k="tipo" data-v="circuito" class="${lib ? '' : 'on'}" aria-pressed="${!lib}"><b>Circuito</b><span>Slot a rotazione, ripetuti per più andate.</span></button>
+    </div>
+    ${lib ? `<section class="card"><div class="label" style="margin-bottom:4px">Brani da studiare</div><div class="blist">
+        ${C.braniVis.map(b => `<label><input type="checkbox" data-bl="${esc(b.id)}" ${selB.has(b.id) ? 'checked' : ''}> ${esc(b.nome)}</label>`).join('')}</div>
+        <button class="link" data-act="newbrano" data-then="libera">+ Nuovo brano</button>
+        <p class="small muted" style="margin:2px 0 0">Durante la sessione puoi aggiungerne altri.</p></section>`
+    : `<section class="card">
+        <div class="optrow"><span><b>Slot per circuito</b><br><span class="small muted">quanti passaggi ruotano</span></span>${seg('slot', [2, 3, 4, 5])}</div>
+        <div class="optrow"><span><b>Andate</b><br><span class="small muted">quanti giri del circuito</span></span>${seg('andate', [3, 4, 5])}</div>
+        <div class="optrow" style="display:block"><b>Contenuto degli slot</b>
+          <div class="choice" style="margin:8px 0 0">
+            <button data-act="cfg" data-k="modo" data-v="scritti" class="${cfg.modo === 'scritti' ? 'on' : ''}" aria-pressed="${cfg.modo === 'scritti'}"><b>Passaggi scritti</b><span>Frammenti del catalogo, Rep 1-4 guidate.</span></button>
+            <button data-act="cfg" data-k="modo" data-v="libero" class="${cfg.modo === 'libero' ? 'on' : ''}" aria-pressed="${cfg.modo === 'libero'}"><b>Libero</b><span>Solo brano (e battute): conta i tempi, non le ripetizioni.</span></button>
+          </div></div>
+      </section>`}
+    <p class="recap">${esc(cfgRecap(cfg))}</p>
+  </main><div class="bar"><div class="inner"><button class="btn primary xl" data-act="newgo" ${lib && !selB.size ? 'disabled' : ''}>${lib ? 'Inizia la sessione libera' : cfg.modo === 'scritti' ? 'Avanti: scegli i passaggi' : 'Avanti: componi il circuito'}</button></div></div>`;
+  $$('input[data-bl]').forEach(i => i.addEventListener('change', () => {
+    const s = D.bozza.brani_liberi.filter(x => x !== i.dataset.bl); if (i.checked) s.push(i.dataset.bl);
+    D.bozza.brani_liberi = s; save(); const b = $('[data-act="newgo"]'); if (b) b.disabled = !s.length;
+  }));
+};
+async function newGo() {
+  const B = D.bozza, cfg = B.cfg;
+  if (cfg.tipo === 'libera') {
+    const brani = B.brani_liberi.filter(id => C.B.has(id));
+    if (!brani.length) { toast('Scegli almeno un brano'); return; }
+    if (await closeOpenFirst()) startFree(brani);
+    return;
+  }
+  if (cfg.modo === 'scritti') { B.circuiti = []; save(); go('#select'); return; }
+  const prev = (B.circuiti_lib[0] && B.circuiti_lib[0].slot) || [], first = (C.braniVis[0] || C.brani[0] || {}).id;
+  B.circuiti_lib = [{ andate: cfg.andate, slot: Array.from({ length: cfg.slot }, (_, i) => prev[i] && C.B.has(prev[i].brano) ? { brano: prev[i].brano, battute: prev[i].battute || '' } : { brano: first, battute: '' }) }];
+  save(); go('#composelib');
+}
+const chunk = (arr, n) => { const out = []; for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n)); return out; };
+
+/* Riprende la composizione di una sessione passata. La libera parte subito; i circuiti passano
+   dalla schermata di composizione, così si possono ritoccare prima di iniziare. */
+async function repeatSession(ses) {
+  if (!canRepeat(ses)) { toast('Questa sessione non si può ripetere'); return; }
+  const B = D.bozza;
+  if (ses.tipo === 'libera') {
+    const brani = (ses.brani || []).filter(id => C.B.has(id));
+    if (await closeOpenFirst()) startFree(brani);
+    return;
+  }
+  B.cfg.tipo = 'circuito'; B.cfg.modo = ses.modo === 'libero' ? 'libero' : 'scritti';
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  if (ses.modo === 'libero') {
+    B.circuiti_lib = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, 3, 5), slot: c.slot.filter(x => C.B.has(x.brano)).map(x => ({ brano: x.brano, battute: x.battute || '' })) })).filter(c => c.slot.length);
+    B.cfg.slot = clamp(B.circuiti_lib[0].slot.length, 2, 5); B.cfg.andate = B.circuiti_lib[0].andate;
+    save(); go('#composelib'); return;
+  }
+  B.circuiti = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, 3, 5), slot: c.slot.map(x => x.frammento).filter(id => fr(id)) })).filter(c => c.slot.length);
+  B.selezionati = [...new Set(B.circuiti.flatMap(c => c.slot))];
+  B.cfg.slot = clamp(B.circuiti[0].slot.length, 2, 5); B.cfg.andate = B.circuiti[0].andate;
+  save(); go('#compose');
+}
+
+/* ---- brano nuovo (solo il nome): serve per la sessione libera, il circuito libero e la registrazione a mano ---- */
+function newBranoSheet(then) {
+  openSheet(`<h2>Nuovo brano</h2>
+    <div class="field"><label for="nbn">Nome del brano</label><input type="text" id="nbn" placeholder="es. Chopin, Ballata n. 4" enterkeyhint="done"></div>
+    <button class="btn primary xl" id="nbok">Aggiungi</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
+    const inp = $('#nbn', sh);
+    const ok = () => {
+      const nome = inp.value.trim(); if (!nome) { toast('Scrivi il nome del brano'); return; }
+      if (C.brani.some(b => b.nome.toLowerCase() === nome.toLowerCase())) { toast('Questo brano c\'è già'); return; }
+      const id = 'u-' + (slug(nome) || 'brano') + '-' + Date.now().toString(36);
+      D.brani_utente.push({ id, nome, completo: false }); save(); buildCat(); then(id);
+    };
+    $('#nbok', sh).addEventListener('click', ok);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') ok(); });
+    setTimeout(() => inp.focus(), 250);
+  });
+}
+
+/* ---- registrazione a mano ---- */
+function manualSheet(o) {
+  o = o || {};
+  const first = o.brano || (C.braniVis[0] || {}).id;
+  openSheet(`<h2>Registra a mano</h2>
+    <p class="muted small" style="margin-top:-6px">Per lo studio fatto senza l'app. Entra nello storico e nei totali come le altre sessioni.</p>
+    <div class="field"><label for="md">Giorno</label><input type="date" id="md" value="${esc(o.date || todayStr())}" max="${todayStr()}"></div>
+    <div class="field"><label for="mb">Brano</label><select class="sel" id="mb" style="width:100%">${C.braniVis.map(b => `<option value="${esc(b.id)}" ${b.id === first ? 'selected' : ''}>${esc(b.nome)}</option>`).join('')}</select>
+      <button class="link" id="mnew">+ Nuovo brano</button></div>
+    <div class="field"><label for="mm">Minuti</label><input type="number" id="mm" inputmode="numeric" min="1" max="1440" placeholder="es. 45" value="${esc(o.min || '')}"></div>
+    <div class="field"><label for="mn">Note (facoltative)</label><textarea id="mn">${esc(o.note || '')}</textarea></div>
+    <button class="btn primary xl" id="msave">Salva nello storico</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
+    $('#mnew', sh).addEventListener('click', () => {
+      const keep = { date: $('#md', sh).value, min: $('#mm', sh).value, note: $('#mn', sh).value };
+      newBranoSheet(id => manualSheet(Object.assign(keep, { brano: id })));
+    });
+    $('#msave', sh).addEventListener('click', () => {
+      const data = $('#md', sh).value, brano = $('#mb', sh).value, min = Number($('#mm', sh).value), note = $('#mn', sh).value.trim();
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(data) || data > todayStr()) { toast('Scegli un giorno valido (non nel futuro)'); return; }
+      if (!brano) { toast('Scegli un brano'); return; }
+      if (!(min > 0) || min > 1440) { toast('Scrivi i minuti (da 1 a 1440)'); return; }
+      const now = Date.now(), iso = data === todayStr() ? new Date(now).toISOString() : new Date(data + 'T12:00:00').toISOString();
+      D.sessioni.push({ id: 'm' + now.toString(36), tipo: 'manuale', modo: null, data, inizio: iso, fine: iso, secondi_cronometro: 0, circuiti: [],
+        log: [{ circuito: null, andata: null, etichetta: null, frammento: null, brano, secondi: Math.round(min * 60), rep_completate: null, rep1_pulita: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false, note, manuale: true }] });
+      D.sessioni.sort((a, b) => (a.data + (a.inizio || '')).localeCompare(b.data + (b.inizio || '')));
+      save(); closeSheet(); toast(`Registrati ${Math.round(min)} min · ${fmtDateShort(data)}`); render();
+    });
+  });
+}
+
+/* ---- composizione del circuito libero ---- */
+SCREENS.composelib = () => {
+  const B = D.bozza; if (!B.circuiti_lib.length) { replaceTo('#new'); return; }
+  const bOpts = sel => C.brani.filter(b => !C.hidden.has(b.id) || b.id === sel).map(b => `<option value="${esc(b.id)}" ${b.id === sel ? 'selected' : ''}>${esc(b.nome)}</option>`).join('');
+  const nSlot = B.circuiti_lib.reduce((a, c) => a + c.slot.length, 0);
+  app.innerHTML = header('Circuito libero', 'Ogni slot: un brano e, se vuoi, le battute', '#new') + `<main class="wrap">
+    ${steps(['Tipo', 'Circuiti'], 1)}
+    ${B.circuiti_lib.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3><span class="small muted">Andate</span>
+      <div class="seg">${[3, 4, 5].map(n => `<button data-act="libandate" data-ci="${ci}" data-n="${n}" class="${c.andate === n ? 'on' : ''}">${n}</button>`).join('')}</div></div>
+      ${c.slot.map((s, i) => `<div class="lslot"><div class="row"><span class="lab" style="flex:0 0 2.6em;font-weight:800;color:var(--accent)">${slotLab(i, ci)}</span>
+          <select class="sel" data-lb="${ci}|${i}" style="flex:1;min-width:0" aria-label="Brano dello slot ${slotLab(i, ci)}">${bOpts(s.brano)}</select>
+          <button class="ib" style="flex:0 0 38px" data-act="librm" data-ci="${ci}" data-i="${i}" aria-label="Togli lo slot ${slotLab(i, ci)}">✕</button></div>
+        <input type="text" data-lt="${ci}|${i}" value="${esc(s.battute || '')}" placeholder="Battute (facoltativo), es. 24-28" style="margin-top:8px" aria-label="Battute dello slot ${slotLab(i, ci)}"></div>`).join('')}
+      <button class="btn" style="margin-top:10px" data-act="libadd" data-ci="${ci}">+ Aggiungi slot</button>
+      ${ci > 0 ? `<button class="btn danger" data-act="libdelc" data-ci="${ci}">Elimina circuito ${ci + 1}</button>` : ''}
+    </section>`).join('')}
+    <button class="btn" data-act="libaddc">+ Nuovo circuito</button>
+    <button class="link" data-act="newbrano" data-then="composelib">+ Nuovo brano (se non è nell'elenco)</button>
+  </main><div class="bar"><div class="inner"><p class="barnote">${B.circuiti_lib.length > 1 ? B.circuiti_lib.length + ' circuiti · ' : ''}${nSlot} slot · si contano solo i tempi</p><button class="btn primary xl" data-act="startlib">Inizia</button></div></div>`;
+  $$('select[data-lb]').forEach(s => s.addEventListener('change', () => { const [ci, i] = s.dataset.lb.split('|').map(Number); B.circuiti_lib[ci].slot[i].brano = s.value; save(); }));
+  $$('input[data-lt]').forEach(s => s.addEventListener('input', () => { const [ci, i] = s.dataset.lt.split('|').map(Number); B.circuiti_lib[ci].slot[i].battute = s.value; save(); }));
+};
+
+/* ---- sessione libera ---- */
+function startFree(brani) {
+  if (!brani.length) { toast('Scegli almeno un brano'); return; }
+  const now = Date.now();
+  D.sessione_aperta = { tipo: 'libera', id: 's' + now.toString(36), data: todayStr(), inizio: new Date(now).toISOString(), brani: [...brani], corrente: brani[0],
+    circuiti: [], cur: newCur(), log: [], timer: { sess: 0, slot: 0, since: now, seen: now } };
+  save(); navDepth = 0; replaceTo('#run');
+}
+function freeSeg(S) { // chiude il tratto corrente sul brano attivo
+  fold(S.timer);
+  const sec = Math.round(S.timer.slot);
+  if (sec >= 1 || S.cur.note) S.log.push({ circuito: null, andata: null, etichetta: null, frammento: null, brano: S.corrente, secondi: sec, rep_completate: null, rep1_pulita: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false, note: S.cur.note });
+  S.timer.slot = 0; S.cur = newCur();
+}
+function freeSwitch(id) {
+  const S = D.sessione_aperta; if (!S || S.tipo !== 'libera') return;
+  if (S.corrente === id) { closeSheet(); return; }
+  freeSeg(S); S.corrente = id; if (!S.brani.includes(id)) S.brani.push(id);
+  if (!S.timer.since) S.timer.since = Date.now();
+  save(); render(); toast('Ora: ' + branoNome(id));
+}
+function pausedBanner(S) {
+  return S.timer.since ? '' : `<button class="pausebar" data-act="pause"><b>Cronometro in pausa</b><span>Tocca qui per riprendere</span></button>`;
+}
+function renderFree(S) {
+  const perB = {}; S.log.forEach(l => { perB[l.brano] = (perB[l.brano] || 0) + (l.secondi || 0); });
+  const T = S.timer, running = !!T.since;
+  const bt = id => (perB[id] || 0) + (id === S.corrente ? T.slot + tRun(T) : 0);
+  app.innerHTML = `<div class="runh ${running ? '' : 'paused'}"><div class="l1"><span class="grow">Sessione libera</span><button class="ib" data-act="runmenu" aria-label="Menu della sessione">⋯</button></div>
+    <div class="timers"><span>Sessione <b id="t-sess">${fmtClock(T.sess + tRun(T))}</b></span>
+      <button class="ib pausebtn" data-act="pause">${running ? 'Pausa' : 'Riprendi'}</button></div></div>
+  <main class="wrap" style="padding-bottom:calc(110px + env(safe-area-inset-bottom))">
+    ${pausedBanner(S)}
+    <div class="label" style="margin-top:14px">Stai studiando</div>
+    <div class="cur-b">${esc(branoNome(S.corrente))}</div>
+    <div class="bigclock" id="t-cur">${fmtClock(bt(S.corrente))}</div>
+    <div class="small muted">tempo su questo brano in questa sessione</div>
+    <div class="label" style="margin-top:22px">Cambia brano</div>
+    <div class="bgrid" style="margin-top:8px">${S.brani.map(id => `<button data-act="fswitch" data-id="${esc(id)}" class="${id === S.corrente ? 'on' : ''}" ${id === S.corrente ? 'aria-current="true"' : ''}><span>${esc(branoNome(id))}</span><small data-bt="${esc(id)}">${fmtClock(bt(id))}</small></button>`).join('')}
+      <button data-act="faddb" style="justify-content:center;border-style:dashed">+ Altro brano</button></div>
+    <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note su ${esc(branoCorto(S.corrente))}</summary><div><textarea id="note" placeholder="Annotazioni su questo tratto di studio">${esc(S.cur.note)}</textarea></div></details>
+  </main>
+  <div class="bar"><div class="inner"><button class="btn primary fatto" data-act="endsession">Termina la sessione</button></div></div>`;
+  $('#note').addEventListener('input', e => { S.cur.note = e.target.value; save(); });
+  let beat = 0;
+  ticker = setInterval(() => {
+    const a = $('#t-sess'); if (!a) return;
+    a.textContent = fmtClock(T.sess + tRun(T)); $('#t-cur').textContent = fmtClock(bt(S.corrente));
+    const c = $(`[data-bt="${CSS.escape(S.corrente)}"]`); if (c) c.textContent = fmtClock(bt(S.corrente));
+    if (++beat % 20 === 0) save();
+  }, 1000);
+  if (running) requestWake(); else releaseWake();
+}
+function freeAddSheet() {
+  const S = D.sessione_aperta; if (!S) return;
+  const altri = C.braniVis.filter(b => !S.brani.includes(b.id));
+  openSheet(`<h2>Aggiungi un brano</h2>${altri.map(b => `<button class="btn" data-act="fswitch" data-id="${esc(b.id)}">${esc(b.nome)}</button>`).join('') || '<p class="muted">Tutti i brani sono già nella sessione.</p>'}
+    <button class="btn" data-act="newbrano" data-then="free">+ Nuovo brano</button><button class="btn" data-act="closesheet">Chiudi</button>`);
+}
+/* ================= SELEZIONE ================= */
+const openBrani = new Set(['op111']);
+let LAST = new Map(); // ultimo studio per frammento, ricalcolato quando si apre la selezione
+function fragMeta(f) {
+  const x = LAST.get(f.id); if (!x || !x.data) return '';
+  return `<span class="fmeta">Ultimo studio: ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}</span>`;
+}
+function fragRow(f, sel) {
+  return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
+  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${fragMeta(f)}</button></div>`;
+}
+function prioritaHtml(list, sel) {
+  let h = '';
+  const prios = [...C.priorita];
+  const extra = [...new Set(list.map(f => f.priorita))].filter(n => !prios.some(p => p.n === n));
+  extra.forEach(n => prios.push({ n, nome: 'Priorità ' + n, perche: '' }));
+  prios.forEach(p => {
+    const frs = list.filter(f => f.priorita === p.n); if (!frs.length) return;
+    const groups = []; const seen = new Map();
+    frs.forEach(f => {
+      if (f.famiglia) { if (!seen.has(f.famiglia)) { const g = { fam: f.famiglia, items: [] }; seen.set(f.famiglia, g); groups.push(g); } seen.get(f.famiglia).items.push(f); }
+      else groups.push({ fam: null, items: [f] });
+    });
+    h += `<div class="prio"><h3><span class="pn">${p.n}</span><span>${esc(p.nome)}</span></h3>${p.perche ? `<p class="why">${esc(p.perche)}</p>` : ''}`;
+    groups.forEach(g => {
+      if (g.fam) h += `<div class="fam"><div class="famh">${esc((C.FAM.get(g.fam) || {}).nome || g.fam)}</div>${g.items.map(f => fragRow(f, sel)).join('')}</div>`;
+      else h += fragRow(g.items[0], sel);
+    });
+    h += '</div>';
+  });
+  return h;
+}
+SCREENS.select = () => {
+  D.bozza.selezionati = D.bozza.selezionati.filter(id => fr(id));
+  const sel = new Set(D.bozza.selezionati);
+  LAST = lastStudied();
+  const body = C.braniVis.map(b => {
+    const list = C.frammenti.filter(f => f.brano === b.id);
+    const nSel = list.filter(f => sel.has(f.id)).length;
+    return `<details class="acc" data-brano="${esc(b.id)}" ${openBrani.has(b.id) ? 'open' : ''}><summary><span class="grow">${esc(b.nome)}</span><span class="pill" data-count="${esc(b.id)}">${nSel}/${list.length}</span></summary>
+    <div class="accbody">${prioritaHtml(list, sel)}
+      ${!b.completo ? `<div class="todo"><h4>Frammenti da inserire</h4><p class="muted small">Il catalogo di questo brano non è ancora completo. Puoi importarlo da Impostazioni o inserire i frammenti a mano.</p><button class="btn" data-act="go" data-h="#form/${esc(b.id)}">Aggiungi frammento</button></div>`
+      : `<div class="todo"><button class="btn" data-act="go" data-h="#form/${esc(b.id)}">Aggiungi frammento</button></div>`}
+    </div></details>`;
+  }).join('');
+  app.innerHTML = header('Scegli i passaggi', `Circuito a ${D.bozza.cfg.slot} slot`, '#new') +
+    `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">${steps(['Tipo', 'Passaggi', 'Circuiti'], 1)}
+    <p class="lead">Spunta la casella per scegliere un passaggio. Tocca il titolo per leggere la scheda completa.</p>${body}</main>
+    <div class="bar"><div class="inner"><p class="barnote" id="selnote">${esc(selNote(sel.size))}</p><div class="row"><button class="btn" data-act="deselall" style="flex:0 0 auto;width:auto">Azzera</button><button class="btn primary" data-act="go" data-h="#compose" id="gocompose" ${sel.size ? '' : 'disabled'}>Avanti: componi i circuiti</button></div></div></div>`;
+  $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); }));
+  $$('input[data-sel]').forEach(inp => inp.addEventListener('change', () => toggleSel(inp.dataset.sel, inp.checked)));
+};
+function selNote(n) {
+  const k = D.bozza.cfg.slot || 3;
+  if (!n) return 'Nessun passaggio scelto';
+  const c = Math.ceil(n / k);
+  return `${n} ${n === 1 ? 'passaggio scelto' : 'passaggi scelti'} · ${c} ${c === 1 ? 'circuito' : 'circuiti'} da ${k} slot${n % k ? ' (l\'ultimo da ' + (n % k) + ')' : ''}`;
+}
+function toggleSel(id, on) {
+  const s = D.bozza.selezionati.filter(x => x !== id); if (on) s.push(id);
+  D.bozza.selezionati = s; save();
+  $$(`input[data-sel="${CSS.escape(id)}"]`).forEach(i => i.checked = on);
+  const f = fr(id); if (f) { const list = C.frammenti.filter(x => x.brano === f.brano); const c = $(`[data-count="${CSS.escape(f.brano)}"]`); if (c) c.textContent = `${list.filter(x => s.includes(x.id)).length}/${list.length}`; }
+  const g = $('#gocompose'); if (g) g.disabled = !s.length;
+  const sn = $('#selnote'); if (sn) sn.textContent = selNote(s.length);
+}
+function previewHtml(f) {
+  const keys = Object.keys(f.andate || {}).sort();
+  const famN = f.famiglia ? ((C.FAM.get(f.famiglia) || {}).nome || f.famiglia) : 'Nessuna';
+  const p = C.priorita.find(x => x.n === f.priorita);
+  return `<div class="label">${esc(branoNome(f.brano))}</div>
+  <h2><span class="bat">${esc(f.battute)}</span> ${esc(f.titolo)}</h2>
+  <p class="small muted" style="margin:-6px 0 12px">Priorità ${esc(f.priorita)}${p ? ' · ' + esc(p.nome) : ''} · Famiglia: ${esc(famN)}${f.parti ? ' · Parti: ' + f.parti.map(esc).join(' + ') : ''}${f.trillo_3_5 ? ' · trillo 3-5' : ''}</p>
+  <div class="label">Nodo motorio</div><p>${fmtText(f.nodo_motorio)}</p>
+  ${keys.map(k => `<div class="card" style="margin-bottom:10px"><div class="label">Andata ${esc(k)}</div><p style="margin:6px 0"><b>Rep 2.</b> ${fmtText(f.andate[k].rep2)}</p><p style="margin:6px 0"><b>Rep 3.</b> ${fmtText(f.andate[k].rep3)}</p></div>`).join('')}
+  <div class="label">Verifica Rep 4</div><p>${fmtText(f.rep4_verifica)}</p>
+  ${f.note ? `<div class="label">Note</div><p>${fmtText(f.note)}</p>` : ''}
+  ${f.id && D.target[f.id] ? `<p class="small muted">Tempo target che hai impostato: ${esc(D.target[f.id])} bpm</p>` : ''}`;
+}
+function openPreview(id) {
+  const f = fr(id); if (!f) return;
+  const on = D.bozza.selezionati.includes(id);
+  openSheet(previewHtml(f) + `
+    <button class="btn ${on ? '' : 'primary'}" data-act="presel" data-id="${esc(id)}">${on ? 'Togli dalla selezione' : 'Seleziona'}</button>
+    <button class="btn" data-act="go" data-h="#frag/${encodeURIComponent(id)}">Cronologia del frammento</button>
+    ${C.userIds.has(id) ? `<div class="row"><button class="btn" data-act="go" data-h="#form/${esc(f.brano)}/${encodeURIComponent(id)}">Modifica</button><button class="btn danger" data-act="delfrag" data-id="${esc(id)}">Elimina</button></div>` : ''}
+    <button class="btn" data-act="closesheet">Chiudi</button>`);
+}
+
+/* ================= FORM FRAMMENTO ================= */
+SCREENS.form = (brano, fid) => {
+  const f = fid ? D.frammenti_utente.find(x => x.id === fid) : null;
+  if (fid && !f) { replaceTo('#select'); return; }
+  const v = f || { battute: '', titolo: '', priorita: 1, famiglia: null, nodo_motorio: '', andate: {}, rep4_verifica: '', note: '' };
+  const A = n => (v.andate && v.andate[n]) || { rep2: '', rep3: '' };
+  const famOpts = C.famiglie.map(x => `<option value="${esc(x.id)}" ${v.famiglia === x.id ? 'selected' : ''}>${esc(x.nome)}</option>`).join('');
+  const andataFields = n => `<div class="field"><label>Andata ${n} · Rep 2</label><textarea data-f="a${n}r2">${esc(A(n).rep2)}</textarea></div><div class="field"><label>Andata ${n} · Rep 3</label><textarea data-f="a${n}r3">${esc(A(n).rep3)}</textarea></div>`;
+  app.innerHTML = header(f ? 'Modifica frammento' : 'Aggiungi frammento', branoNome(brano), '#select') + `<main class="wrap">
+    <p class="muted small">Per i frammenti uniti scrivi una riga per parte con il prefisso, es. «bb. 16-18: …» e a capo «bb. 18-19: …».</p>
+    <div class="field"><label>Battute *</label><input type="text" data-f="battute" value="${esc(v.battute)}" placeholder="es. 24-28"></div>
+    <div class="field"><label>Titolo *</label><input type="text" data-f="titolo" value="${esc(v.titolo)}"></div>
+    <div class="field"><label>Priorità</label><select class="sel" data-f="priorita" style="width:100%">${C.priorita.map(p => `<option value="${p.n}" ${v.priorita === p.n ? 'selected' : ''}>${p.n} · ${esc(p.nome)}</option>`).join('')}</select></div>
+    <div class="field"><label>Famiglia</label><select class="sel" data-f="famiglia" style="width:100%"><option value="">Nessuna</option>${famOpts}<option value="__nuova">Nuova famiglia…</option></select>
+      <input type="text" data-f="famnuova" placeholder="Nome della nuova famiglia" style="margin-top:8px;display:none"></div>
+    <div class="field"><label>Nodo motorio</label><textarea data-f="nodo">${esc(v.nodo_motorio)}</textarea></div>
+    ${andataFields(1)}${andataFields(2)}
+    <details class="sub2" ${(v.andate && (v.andate['3'] || v.andate['4'])) ? 'open' : ''}><summary>Andate 3 e 4 (facoltative)</summary><div>${andataFields(3)}${andataFields(4)}</div></details>
+    <div class="field"><label>Verifica Rep 4</label><textarea data-f="rep4">${esc(v.rep4_verifica)}</textarea></div>
+    <div class="field"><label>Note</label><textarea data-f="note">${esc(v.note || '')}</textarea></div>
+    <label class="tg" style="margin-bottom:12px"><input type="checkbox" data-f="trillo" ${v.trillo_3_5 ? 'checked' : ''}> Trillo 3-5</label>
+  </main><div class="bar"><div class="inner"><button class="btn primary" data-act="savefrag" data-brano="${esc(brano)}" data-id="${esc(fid || '')}">Salva frammento</button></div></div>`;
+  const famSel = $('[data-f="famiglia"]'), famNew = $('[data-f="famnuova"]');
+  famSel.addEventListener('change', () => { famNew.style.display = famSel.value === '__nuova' ? 'block' : 'none'; });
+};
+function slug(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 30); }
+function saveFrag(brano, fid) {
+  const g = k => { const el = $(`[data-f="${k}"]`); return el ? (el.type === 'checkbox' ? el.checked : el.value.trim()) : ''; };
+  if (!g('battute') || !g('titolo')) { toast('Battute e titolo sono obbligatori'); return; }
+  let fam = g('famiglia') || null;
+  if (fam === '__nuova') {
+    const nome = g('famnuova'); if (!nome) { toast('Scrivi il nome della nuova famiglia'); return; }
+    fam = 'famu-' + slug(nome) + '-' + Date.now().toString(36);
+    D.famiglie_utente.push({ id: fam, nome, frammenti: [] });
+  }
+  const andate = {};
+  [1, 2, 3, 4].forEach(n => { const r2 = g(`a${n}r2`), r3 = g(`a${n}r3`); if (n <= 2 || r2 || r3) andate[String(n)] = { rep2: r2, rep3: r3 }; });
+  const obj = {
+    id: fid || `${brano}-${slug(g('battute'))}-u${Date.now().toString(36)}`,
+    brano, battute: g('battute'), titolo: g('titolo'), priorita: Number(g('priorita')) || 1, famiglia: fam,
+    nodo_motorio: g('nodo'), andate, rep4_verifica: g('rep4')
+  };
+  if (g('note')) obj.note = g('note');
+  if (g('trillo')) obj.trillo_3_5 = true;
+  const i = D.frammenti_utente.findIndex(x => x.id === obj.id);
+  if (i >= 0) D.frammenti_utente[i] = obj; else D.frammenti_utente.push(obj);
+  D.famiglie_utente.forEach(x => { x.frammenti = (x.frammenti || []).filter(id => id !== obj.id); if (x.id === fam) x.frammenti.push(obj.id); });
+  save(); buildCat(); openBrani.add(brano); toast('Frammento salvato'); goBack('#select');
+}
+
+/* ================= COMPOSIZIONE ================= */
+const slotLab = (i, ci) => (i < 26 ? String.fromCharCode(65 + i) : 'Z' + (i - 25)) + (ci + 1);
+SCREENS.compose = () => {
+  const B = D.bozza, sel = B.selezionati.filter(id => fr(id));
+  if (!sel.length) { replaceTo('#select'); return; }
+  B.circuiti = (B.circuiti || []).map(c => ({ andate: [3, 4, 5].includes(c.andate) ? c.andate : 3, slot: (c.slot || []).filter(id => sel.includes(id)) }));
+  if (!B.circuiti.some(c => c.slot.length)) B.circuiti = chunk(sel, B.cfg.slot || 3).map(s => ({ andate: B.cfg.andate || 3, slot: s }));
+  save();
+  const placed = new Set(B.circuiti.flatMap(c => c.slot));
+  const tray = sel.filter(id => !placed.has(id));
+  const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])} · ${esc(f.titolo)}</span>` : esc(id); };
+  const circs = B.circuiti.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3>
+      <span class="small muted">Andate</span><div class="seg">${[3, 4, 5].map(n => `<button data-act="andate" data-ci="${ci}" data-n="${n}" class="${c.andate === n ? 'on' : ''}">${n}</button>`).join('')}</div></div>
+      ${c.slot.map((id, i) => `<div class="slot"><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>
+        <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="-1" aria-label="Sposta su"${i === 0 ? 'disabled' : ''}>↑</button>
+        <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="1" aria-label="Sposta giù"${i === c.slot.length - 1 ? 'disabled' : ''}>↓</button>
+        <button class="ib" data-act="slotmenu" data-ci="${ci}" data-i="${i}" aria-label="Altre azioni sullo slot ${slotLab(i, ci)}">⋯</button></div>`).join('') || '<p class="muted small">Nessuno slot: aggiungine uno qui sotto, altrimenti questo circuito viene ignorato.</p>'}
+      <select class="sel" data-addslot="${ci}" style="margin-top:8px;width:100%" aria-label="Aggiungi uno slot al circuito ${ci + 1}"><option value="">+ Aggiungi slot…</option>${sel.map(id => `<option value="${esc(id)}">${esc(frLabel(id))} · ${esc((fr(id) || {}).titolo || '')}</option>`).join('')}</select>
+    </section>`).join('');
+  const nCirc = B.circuiti.filter(c => c.slot.length).length, nSlot = B.circuiti.reduce((a, c) => a + c.slot.length, 0);
+  app.innerHTML = header('Componi i circuiti', 'Ordine degli slot e numero di andate', '#select') + `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">
+    ${steps(['Tipo', 'Passaggi', 'Circuiti'], 2)}
+    <p class="lead">Le frecce cambiano l'ordine. Il tasto ⋯ sposta lo slot in un altro circuito o lo toglie. Nessun vincolo: le <button class="link" data-act="go" data-h="#rules/fable">Regole di Fable</button> sono solo da consultare.</p>
+    ${tray.length ? `<section class="card"><div class="label">Da collocare</div>${tray.map(id => `<div class="slot"><span class="nm">${fname(id)}</span>${B.circuiti.map((c, ci) => `<button class="ib" data-act="place" data-id="${esc(id)}" data-ci="${ci}">C${ci + 1}</button>`).join('')}</div>`).join('')}</section>` : ''}
+    ${circs}
+    <button class="btn" data-act="addcirc">+ Nuovo circuito</button>
+  </main><div class="bar"><div class="inner"><p class="barnote">${nCirc} ${nCirc === 1 ? 'circuito' : 'circuiti'} · ${nSlot} slot in tutto</p><button class="btn primary xl" data-act="start">Inizia</button></div></div>`;
+  $$('select[data-addslot]').forEach(s => s.addEventListener('change', () => { if (!s.value) return; B.circuiti[+s.dataset.addslot].slot.push(s.value); save(); render(); }));
+};
+function slotMenu(ci, i) {
+  const B = D.bozza, id = B.circuiti[ci].slot[i];
+  openSheet(`<h2>Slot ${slotLab(i, ci)} · ${esc(frLabel(id))}</h2>
+    <div class="label" style="margin-bottom:6px">Sposta nel circuito</div>
+    <div class="row" style="flex-wrap:wrap;margin-bottom:12px">${B.circuiti.map((c, k) => k === ci ? '' : `<button class="btn" style="flex:0 0 auto;width:auto" data-act="moveto" data-ci="${ci}" data-i="${i}" data-to="${k}">Circuito ${k + 1}</button>`).join('')}
+    <button class="btn" style="flex:0 0 auto;width:auto" data-act="moveto" data-ci="${ci}" data-i="${i}" data-to="new">Nuovo circuito</button></div>
+    <button class="btn" data-act="preview" data-id="${esc(id)}">Anteprima</button>
+    <button class="btn danger" data-act="rmslot" data-ci="${ci}" data-i="${i}">Togli dal circuito</button>
+    <button class="btn" data-act="closesheet">Chiudi</button>`);
+}
+/* ================= SESSIONE ================= */
+const newCur = () => ({ rep1_pulita: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false, note: '' });
+function startSession(modo) {
+  modo = modo === 'libero' ? 'libero' : 'scritti';
+  const circ = modo === 'libero'
+    ? D.bozza.circuiti_lib.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.map((s, j) => ({ etichetta: slotLab(j, i), frammento: null, brano: s.brano, battute: (s.battute || '').trim() })) }))
+    : D.bozza.circuiti.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.map((fid, j) => ({ etichetta: slotLab(j, i), frammento: fid })) }));
+  if (!circ.length) { toast('Aggiungi almeno uno slot'); return; }
+  const now = Date.now(); navDepth = 0;
+  D.sessione_aperta = { tipo: 'circuito', modo, id: 's' + now.toString(36), data: todayStr(), inizio: new Date(now).toISOString(), circuiti: circ,
+    pos: { c: 0, a: 1, s: 0, r: 1 }, cur: newCur(), dropout: {}, log: [],
+    timer: { sess: 0, slot: 0, since: now, seen: now } };
+  save(); replaceTo('#run');
+}
+function fold(T) { if (T.since) { const n = Date.now(), d = (n - T.since) / 1000; T.slot += d; T.sess += d; T.since = n; } }
+const tRun = T => T.since ? (Date.now() - T.since) / 1000 : 0;
+const slotKey = sl => sl.frammento || ('L|' + sl.brano + '|' + (sl.battute || ''));
+function isDropped(S, c, a, sl) { const m = S.dropout[c + '|' + slotKey(sl)]; return m != null && a > m; }
+function advance(S, p) {
+  const CC = S.circuiti; let c = p.c, a = p.a, s = p.s + 1;
+  for (let g = 0; g < 100000; g++) {
+    if (c >= CC.length) return null;
+    const ci = CC[c];
+    if (s >= ci.slot.length) { s = 0; a++; }
+    if (a > ci.andate_previste) { c++; a = 1; s = 0; continue; }
+    if (!isDropped(S, c, a, ci.slot[s])) return { c, a, s, r: 1 };
+    s++;
+  }
+  return null;
+}
+function retreat(S, p) {
+  const CC = S.circuiti; let c = p.c, a = p.a, s = p.s - 1;
+  for (let g = 0; g < 100000; g++) {
+    if (s < 0) {
+      a--;
+      if (a < 1) { c--; if (c < 0) return null; a = CC[c].andate_previste; }
+      s = CC[c].slot.length - 1;
+    }
+    if (!isDropped(S, c, a, CC[c].slot[s])) return { c, a, s };
+    s--;
+  }
+  return null;
+}
+/* A che punto è la sessione: slot già passati e slot totali (esclusi quelli in drop-out). */
+function progress(S) {
+  let p = { c: 0, a: 1, s: -1 }, i = 0, cur = 0, n;
+  while ((n = advance(S, p)) && i < 5000) { if (n.c === S.pos.c && n.a === S.pos.a && n.s === S.pos.s) cur = i; i++; p = n; }
+  return { done: cur, tot: Math.max(1, i) };
+}
+/* Che cosa viene dopo lo slot corrente: lo dice il pulsante «Fatto». */
+function nextInfo(S) {
+  const n = advance(S, S.pos); if (!n) return 'poi: fine della sessione';
+  const circ = S.circuiti[n.c], sl = circ.slot[n.s];
+  const what = sl.frammento ? 'bb. ' + frLabel(sl.frammento) : branoCorto(sl.brano) + (sl.battute ? ' bb. ' + sl.battute : '');
+  const pre = n.c !== S.pos.c ? `Circuito ${circ.n} · ` : n.a !== S.pos.a ? `Andata ${n.a} · ` : '';
+  return `poi: ${pre}${sl.etichetta} · ${what}`;
+}
+function finalizeSlot(S, rc) {
+  fold(S.timer);
+  const circ = S.circuiti[S.pos.c], sl = circ.slot[S.pos.s], f = fr(sl.frammento);
+  const e = { circuito: circ.n, andata: S.pos.a, etichetta: sl.etichetta, frammento: sl.frammento || null, brano: f ? f.brano : (sl.brano || null),
+    secondi: Math.round(S.timer.slot), rep_completate: rc, rep1_pulita: S.cur.rep1_pulita, diagnosi: S.cur.diagnosi,
+    tempo_rep4: S.cur.tempo_rep4, arresto: S.cur.arresto, drop_out: S.cur.drop_out, note: S.cur.note };
+  if (S.modo === 'libero') { e.battute = sl.battute || ''; e.rep_completate = null; }
+  if ((rc != null && rc > 0) || e.secondi >= (S.modo === 'libero' ? 1 : 5)) S.log.push(e);
+  S.timer.slot = 0; S.cur = newCur();
+}
+function moveNext(S) {
+  const prev = S.pos, n = advance(S, prev);
+  if (!n) { S.pos.r = 1; S.timer.slot = 0; closeSession(); return; }
+  if (n.c !== prev.c) toast(`Circuito ${S.circuiti[n.c].n} · Andata 1`);
+  else if (n.a !== prev.a) toast(`Andata ${n.a} di ${S.circuiti[n.c].andate_previste}`);
+  S.pos = n; save(); render();
+}
+function closeSession(silent) {
+  const S = D.sessione_aperta; if (!S) return;
+  fold(S.timer);
+  if (S.tipo === 'libera') freeSeg(S);
+  else if (S.pos.r > 1 || S.timer.slot >= 5) finalizeSlot(S, S.modo === 'libero' ? null : S.pos.r - 1);
+  const ses = { id: S.id, tipo: S.tipo || 'circuito', modo: S.modo || null, data: S.data, inizio: S.inizio, fine: new Date().toISOString(), secondi_cronometro: Math.round(S.timer.sess), circuiti: S.circuiti || [], brani: S.brani || undefined, log: S.log };
+  D.sessioni.push(ses); D.sessione_aperta = null; save();
+  if (!silent) { navDepth = 0; replaceTo('#summary/' + ses.id); }
+}
+function resumeIfPaused(S) { if (!S.timer.since) { S.timer.since = Date.now(); toast('Cronometro ripreso'); } }
+
+/* ---- schermo acceso ---- */
+let wake = null;
+const AND = window.AndroidApp || null;
+async function requestWake() { if (AND) { try { AND.keepScreenOn(true); } catch (e) { } return; } try { if ('wakeLock' in navigator && !wake && document.visibilityState === 'visible') { wake = await navigator.wakeLock.request('screen'); wake.addEventListener('release', () => { wake = null; }); } } catch (e) { wake = null; } }
+function releaseWake() { if (AND) { try { AND.keepScreenOn(false); } catch (e) { } return; } try { if (wake) wake.release(); } catch (e) { } wake = null; }
+
+/* ---- cronometro dimenticato acceso ---- */
+/* Se l'app resta chiusa o in secondo piano a lungo con il cronometro in funzione, al ritorno chiede
+   se quel tempo va contato. Non decide mai da sola. */
+const STALE_MS = 15 * 60 * 1000;
+function checkStale(from) {
+  const S = D.sessione_aperta; if (!S || !S.timer.since || !from) return;
+  const gap = Date.now() - Math.max(from, S.timer.since); if (gap < STALE_MS) return;
+  const sec = Math.round(gap / 1000), T = S.timer;
+  ask({ title: 'Il cronometro è rimasto acceso', text: `L'app è stata chiusa o in secondo piano per ${fmtMinRound(sec)} con il cronometro in funzione. Stavi studiando?`,
+    ok: 'Sì, conta tutto il tempo', alt: `No, togli ${fmtMinRound(sec)}`, cancel: 'Decido dopo (per ora resta contato)' }).then(r => {
+    if (r !== 'alt' || D.sessione_aperta !== S) return;
+    fold(T); T.slot = Math.max(0, T.slot - sec); T.sess = Math.max(0, T.sess - sec); save(); render(); toast(`Tolti ${fmtMinRound(sec)}`);
+  });
+}
+document.addEventListener('visibilitychange', () => {
+  const S = D.sessione_aperta;
+  if (document.visibilityState === 'hidden') { if (S) S.timer.hid = Date.now(); save(); return; }
+  if (!S) return;
+  if (location.hash === '#run' && S.timer.since) requestWake();
+  const from = S.timer.hid; delete S.timer.hid;
+  checkStale(from);
+});
+
+/* ---- tempo target: traduce le percentuali delle regole in battiti al minuto ---- */
+function pctRange(key) { const m = String((CATALOGO.regole_slot || {})[key] || '').match(/(\d{2,3})\s*[-–]\s*(\d{2,3})\s*%/); return m ? [Number(m[1]), Number(m[2])] : null; }
+const REP_PCT = { 1: pctRange('rep1'), 2: pctRange('rep2_3'), 3: pctRange('rep2_3'), 4: pctRange('rep4') };
+function tempoLine(fid, r) {
+  const tg = fid && D.target[fid], pc = REP_PCT[r]; if (!tg) return '';
+  return `<button class="tgt" data-act="target" data-id="${esc(fid)}" aria-label="Cambia il tempo target"><span>Target ${esc(tg)} bpm</span>${pc ? `<b>${pc[0]}-${pc[1]}% = ${Math.round(tg * pc[0] / 100)}–${Math.round(tg * pc[1] / 100)} bpm</b>` : ''}</button>`;
+}
+function targetSheet(fid, after) {
+  const f = fr(fid), cur = D.target[fid];
+  const done = () => { if (after) after(); else render(); };
+  openSheet(`<h2>Tempo target</h2><p class="muted small" style="margin-top:-6px">${f ? 'bb. ' + esc(f.battute) + ' · ' + esc(f.titolo) : ''}</p>
+    <p class="small">È il tempo finale a cui vuoi portare il passaggio. Con il target impostato, in ogni Rep l'app mostra a quanti bpm corrisponde la percentuale indicata dalle regole.</p>
+    <div class="field"><label for="tgv">Tempo target (bpm)</label>
+      <div class="row" style="align-items:center"><button class="ib stepb" data-step="-2" aria-label="Meno 2">−</button>
+      <input type="number" id="tgv" inputmode="numeric" min="20" max="400" value="${cur ? esc(cur) : ''}" class="bignum">
+      <button class="ib stepb" data-step="2" aria-label="Più 2">+</button></div></div>
+    <button class="btn primary xl" id="tgok">Salva il target</button>
+    ${cur ? '<button class="btn danger" id="tgdel">Togli il target</button>' : ''}
+    <button class="btn" id="tgno">Annulla</button>`, sh => {
+    const inp = $('#tgv', sh);
+    $$('[data-step]', sh).forEach(b => b.addEventListener('click', () => { inp.value = Math.max(20, (Number(inp.value) || 100) + Number(b.dataset.step)); }));
+    $('#tgok', sh).addEventListener('click', () => {
+      const v = Math.round(Number(inp.value)); if (!(v >= 20 && v <= 400)) { toast('Scrivi un tempo tra 20 e 400 bpm'); return; }
+      D.target[fid] = v; save(); done();
+    });
+    if (cur) $('#tgdel', sh).addEventListener('click', () => { delete D.target[fid]; save(); done(); });
+    $('#tgno', sh).addEventListener('click', () => done());
+  });
+}
+
+/* ================= ESECUZIONE ================= */
+function runHead(S, extra) {
+  const { c, a, s } = S.pos, circ = S.circuiti[c], sl = circ.slot[s], T = S.timer, running = !!T.since, pr = progress(S);
+  const chips = circ.slot.map((x, i) => `<span class="chip ${i === s ? 'cur' : i < s ? 'done' : ''} ${isDropped(S, c, a, x) ? 'drop' : ''}">${esc(x.etichetta)}</span>`).join('');
+  return `<div class="runh ${running ? '' : 'paused'}">
+    <div class="l1"><span class="grow">Circuito ${circ.n} · Andata ${a}/${circ.andate_previste} · Slot ${esc(sl.etichetta)}</span><button class="ib" data-act="runmenu" aria-label="Menu della sessione">⋯</button></div>
+    ${extra.lines || ''}
+    <div class="pos">${chips}${extra.dots || ''}</div>
+    <div class="progrow"><div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${pr.tot}" aria-valuenow="${pr.done}" aria-label="Avanzamento della sessione"><span style="width:${(pr.done / pr.tot * 100).toFixed(1)}%"></span></div><span>slot ${pr.done + 1} di ${pr.tot}</span></div>
+    <div class="timers"><span>Slot <b id="t-slot">${fmtClock(T.slot + tRun(T))}</b></span><span>Sessione <b id="t-sess">${fmtClock(T.sess + tRun(T))}</b></span>
+      <button class="ib pausebtn" data-act="pause">${running ? 'Pausa' : 'Riprendi'}</button></div>
+  </div>`;
+}
+function runTicker(S, extra) {
+  let beat = 0;
+  ticker = setInterval(() => {
+    const T = S.timer, ts = $('#t-slot'), tt = $('#t-sess'); if (!tt) return;
+    if (ts) ts.textContent = fmtClock(T.slot + tRun(T)); tt.textContent = fmtClock(T.sess + tRun(T));
+    if (extra) extra(T);
+    if (++beat % 20 === 0) save();
+  }, 1000);
+  if (S.timer.since) requestWake(); else releaseWake();
+}
+SCREENS.run = () => {
+  const S = D.sessione_aperta; if (!S) { replaceTo('#home'); return; }
+  if (S.tipo === 'libera') return renderFree(S);
+  if (S.modo === 'libero') return renderLib(S);
+  const { c, a, s, r } = S.pos, circ = S.circuiti[c], sl = circ.slot[s], f = fr(sl.frammento) || { battute: sl.frammento, titolo: '(frammento non trovato)', andate: {} };
+  const k = andataKey(f, a), A = k ? f.andate[k] : null;
+  let body;
+  if (r === 1) body = fmtText(CATALOGO.regole_slot.rep1);
+  else if (r === 2) body = A ? fmtText(A.rep2) : '<span class="muted">Nessun testo per questa andata.</span>';
+  else if (r === 3) body = A ? fmtText(A.rep3) : '<span class="muted">Nessun testo per questa andata.</span>';
+  else body = fmtText(CATALOGO.regole_slot.rep4) + `<span class="vlabel">Verifica</span>` + fmtText(f.rep4_verifica);
+  const dots = `<span class="dots" aria-label="Rep ${r} di 4">${[1, 2, 3, 4].map(i => `<span class="dot ${i < r ? 'done' : i === r ? 'cur' : ''}"></span>`).join('')}</span>`;
+  const canBack = r > 1 || !!retreat(S, S.pos);
+  const poi = r === 1 ? 'poi: esito di Rep 1, quindi Rep 2' : r === 2 ? 'poi: Rep 3' : r === 3 ? 'poi: Rep 4' : 'poi: tempo di Rep 4 · ' + nextInfo(S).replace(/^poi: /, '');
+  app.innerHTML = runHead(S, { dots, lines: `<div class="l2">${esc(branoNome(f.brano))}</div>
+    <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${k && k !== String(a) ? ` <span class="tag">testi dell'andata ${k}</span>` : ''}</div>` }) + `
+  <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
+    ${pausedBanner(S)}
+    <div class="repnum">Rep ${r}<small>di 4</small></div>
+    ${r > 1 && (S.cur.rep1_pulita != null || S.cur.diagnosi) ? `<p class="diag">Rep 1: ${S.cur.rep1_pulita === true ? 'pulita' : S.cur.rep1_pulita === false ? 'non pulita' : '—'}${S.cur.diagnosi ? ' · ' + esc(S.cur.diagnosi) : ''}</p>` : ''}
+    ${tempoLine(sl.frammento, r)}
+    <div class="instr">${body}</div>
+    <div class="toggles">
+      <label class="tg"><input type="checkbox" id="arresto" ${S.cur.arresto ? 'checked' : ''}> <span>Regola di arresto applicata</span></label>
+      <label class="tg"><input type="checkbox" id="dropout" ${S.cur.drop_out ? 'checked' : ''}> <span>Drop-out<small>questo frammento salta le andate successive</small></span></label>
+    </div>
+    <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note${S.cur.note ? ' ✎' : ''}</summary><div><textarea id="note" placeholder="Annotazioni su questo slot">${esc(S.cur.note)}</textarea></div></details>
+    <details class="sub2"><summary>Nodo motorio</summary><div>${fmtText(f.nodo_motorio)}</div></details>
+    ${f.note ? `<details class="sub2"><summary>Note del frammento</summary><div>${fmtText(f.note)}</div></details>` : ''}
+    <details class="sub2"><summary>Regole fisse</summary><div><div class="label">Rep 2-3</div><p>${fmtText(CATALOGO.regole_slot.rep2_3)}</p><div class="label">Regola di arresto</div><p>${fmtText(CATALOGO.regole_slot.arresto)}</p></div></details>
+  </main>
+  <div class="bar"><div class="inner">
+    <div class="sec"><button class="btn" data-act="repback" ${canBack ? '' : 'disabled'}>${r > 1 ? '‹ Torna a Rep ' + (r - 1) : '‹ Slot precedente'}</button><button class="btn" data-act="skipslot">Salta slot ›</button></div>
+    <button class="btn primary fatto" data-act="fatto">Fatto<small>${esc(poi)}</small></button>
+  </div></div>`;
+  $('#arresto').addEventListener('change', e => { S.cur.arresto = e.target.checked; save(); });
+  $('#dropout').addEventListener('change', e => { setDropout(S, e.target.checked); save(); render(); });
+  $('#note').addEventListener('input', e => { S.cur.note = e.target.value; save(); });
+  runTicker(S);
+};
+function renderLib(S) {
+  const { c, s } = S.pos, circ = S.circuiti[c], sl = circ.slot[s], T = S.timer;
+  const canBack = !!retreat(S, S.pos);
+  app.innerHTML = runHead(S, {}) + `
+  <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
+    ${pausedBanner(S)}
+    <div class="label" style="margin-top:14px">Circuito libero · solo tempi</div>
+    <div class="cur-b">${esc(branoNome(sl.brano))}</div>
+    ${sl.battute ? `<div style="font-size:1.4rem;font-weight:700" class="bat">bb. ${esc(sl.battute)}</div>` : ''}
+    <div class="bigclock" id="t-big" style="margin-top:10px">${fmtClock(T.slot + tRun(T))}</div>
+    <div class="small muted" style="margin-bottom:16px">tempo di questo slot</div>
+    <div class="toggles"><label class="tg"><input type="checkbox" id="dropout" ${S.cur.drop_out ? 'checked' : ''}> <span>Drop-out<small>questo slot salta le andate successive</small></span></label></div>
+    <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note${S.cur.note ? ' ✎' : ''}</summary><div><textarea id="note" placeholder="Annotazioni su questo slot">${esc(S.cur.note)}</textarea></div></details>
+  </main>
+  <div class="bar"><div class="inner">
+    <div class="sec"><button class="btn" data-act="repback" ${canBack ? '' : 'disabled'}>‹ Slot precedente</button><button class="btn" data-act="runmenu">Menu</button></div>
+    <button class="btn primary fatto" data-act="fatto">Fatto<small>${esc(nextInfo(S))}</small></button>
+  </div></div>`;
+  $('#dropout').addEventListener('change', e => { setDropout(S, e.target.checked); save(); render(); });
+  $('#note').addEventListener('input', e => { S.cur.note = e.target.value; save(); });
+  runTicker(S, T2 => { const b = $('#t-big'); if (b) b.textContent = fmtClock(T2.slot + tRun(T2)); });
+}
+function setDropout(S, on) {
+  S.cur.drop_out = on;
+  const key = S.pos.c + '|' + slotKey(S.circuiti[S.pos.c].slot[S.pos.s]);
+  if (on) S.dropout[key] = S.pos.a; else delete S.dropout[key];
+}
+function onFatto() {
+  const S = D.sessione_aperta; if (!S) return;
+  if (Date.now() - lastRender < 350) return; // evita che un doppio tocco salti una Rep
+  resumeIfPaused(S);
+  if (S.modo === 'libero') { finalizeSlot(S, null); moveNext(S); return; }
+  const r = S.pos.r;
+  if (r === 1) return rep1Sheet(S);
+  if (r === 4) return rep4Sheet(S);
+  S.pos.r = r + 1; save(); render();
+}
+function rep1Sheet(S) {
+  openSheet(`<h2>Com'è andata Rep 1?</h2>
+    <div class="label">Rep 1 pulita?</div>
+    <div class="yn"><button class="si ${S.cur.rep1_pulita === true ? 'on' : ''}" data-yn="1" aria-pressed="${S.cur.rep1_pulita === true}">Sì</button><button class="no ${S.cur.rep1_pulita === false ? 'on' : ''}" data-yn="0" aria-pressed="${S.cur.rep1_pulita === false}">No</button></div>
+    <div class="field"><label for="diag">Diagnosi (una riga)</label><input type="text" id="diag" value="${esc(S.cur.diagnosi)}" placeholder="es. b. 26 q3, sx anticipa" enterkeyhint="done"></div>
+    <button class="btn primary xl" id="r1ok">Avanti a Rep 2</button>
+    <p class="small muted" style="margin:0;text-align:center">Le risposte sono facoltative.</p>`, sh => {
+    $$('[data-yn]', sh).forEach(b => b.addEventListener('click', () => {
+      const v = b.dataset.yn === '1'; S.cur.rep1_pulita = S.cur.rep1_pulita === v ? null : v; save();
+      $$('[data-yn]', sh).forEach(x => { const on = S.cur.rep1_pulita === (x.dataset.yn === '1'); x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
+    }));
+    $('#diag', sh).addEventListener('input', e => { S.cur.diagnosi = e.target.value; save(); });
+    $('#diag', sh).addEventListener('keydown', e => { if (e.key === 'Enter') $('#r1ok', sh).click(); });
+    $('#r1ok', sh).addEventListener('click', () => {
+      const circ = S.circuiti[S.pos.c];
+      if (S.pos.a === 3 && circ.andate_previste > 3 && S.cur.rep1_pulita === true && !S.cur.drop_out) {
+        openSheet(`<h2>Drop-out: saltare ${circ.andate_previste > 4 ? 'le andate successive' : 'l\'andata 4'}?</h2><p class="asktext">${fmtText(CATALOGO.regole_slot.drop_out)}</p>
+          <div class="yn"><button class="si on" id="dy">Sì, drop-out</button><button class="no" id="dn">No, continua</button></div>`, sh2 => {
+          $('#dy', sh2).addEventListener('click', () => { setDropout(S, true); S.pos.r = 2; save(); render(); });
+          $('#dn', sh2).addEventListener('click', () => { S.pos.r = 2; save(); render(); });
+        });
+      } else { S.pos.r = 2; save(); render(); }
+    });
+  });
+}
+function rep4Sheet(S) {
+  const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento;
+  const prev = lastTempo(fid), pre = S.cur.tempo_rep4 != null ? S.cur.tempo_rep4 : prev, tg = D.target[fid];
+  openSheet(`<h2>Tempo di Rep 4</h2>
+    <div class="field"><label for="bpm">A quanti bpm l'hai suonata?</label>
+      <div class="row" style="align-items:center"><button class="ib stepb" data-step="-2" aria-label="Meno 2">−</button>
+      <input type="number" id="bpm" inputmode="numeric" min="1" max="400" value="${pre != null ? esc(pre) : ''}" class="bignum">
+      <button class="ib stepb" data-step="2" aria-label="Più 2">+</button></div>
+      <p class="small muted" style="margin:6px 0 0">${prev != null ? `Ultimo valore registrato: ${esc(prev)} bpm (già inserito qui sopra).` : 'Nessun valore precedente per questo frammento.'}</p></div>
+    <button class="btn primary xl" id="r4ok">Salva e vai avanti</button>
+    <button class="btn" id="r4no">Avanti senza tempo</button>
+    <button class="link" id="r4tg" style="display:block;margin:0 auto">${tg ? `Tempo target: ${esc(tg)} bpm · cambia` : 'Imposta il tempo target di questo passaggio'}</button>`, sh => {
+    const inp = $('#bpm', sh);
+    $$('[data-step]', sh).forEach(b => b.addEventListener('click', () => { inp.value = Math.max(1, (Number(inp.value) || 60) + Number(b.dataset.step)); }));
+    const read = () => { const v = Number(inp.value); return inp.value !== '' && v > 0 ? Math.round(v) : null; };
+    const finish = val => { S.cur.tempo_rep4 = val; finalizeSlot(S, 4); moveNext(S); };
+    $('#r4ok', sh).addEventListener('click', () => finish(read()));
+    $('#r4no', sh).addEventListener('click', () => finish(null));
+    $('#r4tg', sh).addEventListener('click', () => { S.cur.tempo_rep4 = read(); save(); targetSheet(fid, () => rep4Sheet(S)); });
+  });
+}
+function repBack() {
+  const S = D.sessione_aperta; if (!S) return;
+  if (S.pos.r > 1) { S.pos.r--; save(); render(); return; }
+  const p = retreat(S, S.pos); if (!p) return;
+  fold(S.timer);
+  const circ = S.circuiti[p.c], sl = circ.slot[p.s], last = S.log[S.log.length - 1];
+  const cur = S.timer.slot;
+  if (last && last.circuito === circ.n && last.andata === p.a && last.etichetta === sl.etichetta) {
+    S.log.pop();
+    S.cur = { rep1_pulita: last.rep1_pulita, diagnosi: last.diagnosi || '', tempo_rep4: last.tempo_rep4, arresto: !!last.arresto, drop_out: !!last.drop_out, note: last.note || '' };
+    S.timer.slot = (last.secondi || 0) + cur;
+    S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' ? 1 : last.rep_completate >= 4 ? 4 : Math.max(1, (last.rep_completate || 0) + 1) };
+  } else {
+    S.cur = newCur(); S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' ? 1 : 4 };
+  }
+  save(); render();
+}
+function runMenu() {
+  const S = D.sessione_aperta; if (!S) return;
+  openSheet(`<h2>Sessione</h2>
+    <p class="small muted" style="margin-top:-6px">${esc(sesDescr(S))}</p>
+    <button class="btn" data-act="pause">${S.timer.since ? 'Metti in pausa il cronometro' : 'Riprendi il cronometro'}</button>
+    ${S.tipo !== 'libera' && S.modo !== 'libero' ? '<button class="btn" data-act="go" data-h="#rules">Sigle e regole</button>' : ''}
+    <button class="btn" data-act="go" data-h="#home">Vai alla home (la sessione resta aperta)</button>
+    <button class="btn primary" data-act="endsession">Termina e salva la sessione</button>
+    <button class="btn danger" data-act="discard">Scarta la sessione (non salvarla)</button>
+    <button class="btn" data-act="closesheet">Chiudi</button>`);
+}
+/* ================= RIEPILOGO SESSIONE ================= */
+const logKey = l => l.frammento || ('L|' + (l.brano || '') + '|' + (l.battute || '') + '|' + (l.manuale ? 'mano' : l.circuito == null ? 'libera' : 'circ'));
+function fragStats(logs) {
+  const m = new Map();
+  logs.forEach(l => {
+    const k = logKey(l);
+    if (!m.has(k)) m.set(k, { fid: l.frammento || null, brano: l.brano, battute: l.battute || '', libera: l.circuito == null, manuale: !!l.manuale, sec: 0, andate: new Set(), pul: 0, pulN: 0, tempo: null, drop: false, n: 0 });
+    const x = m.get(k);
+    x.sec += l.secondi || 0; if (l.circuito != null) x.andate.add(l.circuito + '|' + l.andata); x.n++;
+    if (l.rep1_pulita != null) { x.pulN++; if (l.rep1_pulita) x.pul++; }
+    if (l.tempo_rep4 != null) x.tempo = l.tempo_rep4;
+    if (l.drop_out) x.drop = true;
+  });
+  return [...m.values()];
+}
+function byBrano(stats) {
+  const g = new Map(); stats.forEach(s => { if (!g.has(s.brano)) g.set(s.brano, []); g.get(s.brano).push(s); });
+  return [...g.entries()];
+}
+function statName(x) {
+  if (x.fid) { const f = fr(x.fid); return { bat: f ? f.battute : x.fid, tit: f ? f.titolo : '' }; }
+  if (x.manuale) return { bat: '', tit: 'Registrato a mano' };
+  if (x.libera) return { bat: '', tit: 'Studio libero' };
+  return { bat: x.battute, tit: x.battute ? 'Circuito libero' : 'Circuito libero, brano intero' };
+}
+function statDetails(x) {
+  const d = [];
+  if (x.andate.size) d.push(`${x.andate.size} andat${x.andate.size === 1 ? 'a' : 'e'}`);
+  if (x.fid) { d.push(`Rep 1 pulite ${x.pulN ? x.pul + '/' + x.pulN : '—'}`); d.push(`Rep 4 ${x.tempo != null ? x.tempo + ' bpm' : '—'}`); }
+  if (x.drop) d.push('drop-out');
+  return d.join(' · ');
+}
+function statsTable(logs) {
+  const groups = byBrano(fragStats(logs)); let tot = 0, html = '';
+  groups.forEach(([b, list]) => {
+    const sub = list.reduce((a, x) => a + x.sec, 0); tot += sub;
+    html += `<div class="sth"><span>${esc(branoNome(b))}</span><span>${fmtMin(sub)}</span></div>`;
+    list.forEach(x => {
+      if (list.length === 1 && x.libera && !x.manuale) return;
+      const n = statName(x), det = statDetails(x);
+      const title = n.bat ? `<b class="bat">${esc(n.bat)}</b>${esc(n.tit)}` : `<span>${esc(n.tit)}</span>`;
+      html += `<div class="st"><div class="m">${x.fid ? `<button class="link plain" data-act="go" data-h="#frag/${encodeURIComponent(x.fid)}">${title} ›</button>` : title}${det ? `<div class="d">${esc(det)}</div>` : ''}</div><div class="v">${fmtMin(x.sec)}</div></div>`;
+    });
+  });
+  if (groups.length > 1 || groups.some(([, l]) => l.length > 1)) html += `<div class="stt"><span>Totale</span><span>${fmtMin(tot)}</span></div>`;
+  return { tot, html };
+}
+const sesTipo = s => s.tipo === 'manuale' ? 'Registrata a mano' : s.tipo === 'libera' ? 'Sessione libera' : s.modo === 'libero' ? 'Circuito libero' : 'Circuito · passaggi scritti';
+const sesOre = s => s.tipo === 'manuale' ? 'Registrata a mano' : `${fmtTime(s.inizio)}–${fmtTime(s.fine)}`;
+function sessionText(ses) {
+  const groups = byBrano(fragStats(ses.log)); const tot = ses.log.reduce((a, l) => a + (l.secondi || 0), 0);
+  let t = `${sesTipo(ses)} del ${fmtDateShort(ses.data)}${ses.tipo === 'manuale' ? '' : ', ' + sesOre(ses)} · totale ${fmtMin(tot)}\n`;
+  groups.forEach(([b, list]) => {
+    t += `\n${branoNome(b)} · ${fmtMin(list.reduce((a, x) => a + x.sec, 0))}\n`;
+    list.forEach(x => { const n = statName(x), det = statDetails(x); t += `- ${n.bat ? 'bb. ' + n.bat + (n.tit ? ' (' + n.tit + ')' : '') : n.tit}: ${fmtMin(x.sec)}${det ? ' · ' + det : ''}\n`; });
+  });
+  const extra = ses.log.filter(l => l.diagnosi || l.note || l.arresto);
+  if (extra.length) { t += `\nAnnotazioni\n`; extra.forEach(l => { t += `- ${logPos(l)} ${logWhat(l)}:${l.diagnosi ? ' diagnosi «' + l.diagnosi + '»' : ''}${l.arresto ? ' · arresto' : ''}${l.note ? ' · note «' + l.note + '»' : ''}\n`; }); }
+  return t;
+}
+const logPos = l => l.manuale ? 'A mano' : l.circuito == null ? 'Libera' : `C${l.circuito} · A${l.andata} · ${l.etichetta}`;
+function logWhat(l) {
+  if (l.frammento) { const f = fr(l.frammento); return 'bb. ' + (f ? f.battute : l.frammento); }
+  return branoCorto(l.brano) + (l.battute ? ' bb. ' + l.battute : '');
+}
+function logItem(l, si, li) {
+  const f = l.frammento ? fr(l.frammento) : null;
+  const parts = [fmtMin(l.secondi)];
+  if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`, `Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'}`); if (l.tempo_rep4 != null) parts.push(l.tempo_rep4 + ' bpm'); }
+  if (l.arresto) parts.push('arresto'); if (l.drop_out) parts.push('drop-out');
+  return `<div class="logi"><b>${esc(logPos(l))}</b> — ${esc(logWhat(l))} ${f ? '<span class="muted">' + esc(f.titolo) + '</span>' : ''}<br>${esc(parts.join(' · '))}
+    ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}
+    ${si != null ? `<br><button class="link small" data-act="editlog" data-s="${esc(si)}" data-i="${li}">Correggi</button>` : ''}</div>`;
+}
+SCREENS.summary = sid => {
+  const ses = D.sessioni.find(s => s.id === sid); if (!ses) { replaceTo('#history'); return; }
+  const st = statsTable(ses.log), man = ses.tipo === 'manuale';
+  app.innerHTML = header(sesTipo(ses), `${fmtDateLong(ses.data)}${man ? '' : ' · ' + sesOre(ses)}`, '#day/' + ses.data) + `<main class="wrap">
+    <section class="card"><div class="label">Totale della sessione</div><div class="big">${fmtMin(st.tot)}</div>
+      <p class="small muted" style="margin:0">${man ? 'Minuti inseriti a mano.' : 'Somma dei secondi cronometrati negli slot.' + (ses.secondi_cronometro ? ' Cronometro di sessione: ' + fmtMin(ses.secondi_cronometro) + '.' : '')}</p></section>
+    <section class="card">${ses.log.length ? st.html : '<p class="muted" style="margin:0">Nessuno slot registrato.</p>'}</section>
+    <button class="btn primary" data-act="copysess" data-id="${esc(ses.id)}">Copia il riepilogo come testo</button>
+    ${canRepeat(ses) ? `<button class="btn" data-act="repeat" data-id="${esc(ses.id)}">Ripeti questa sessione</button>` : ''}
+    <div class="grid2" style="margin-bottom:14px"><button class="btn" data-act="go" data-h="#day/${ses.data}">Giornata</button><button class="btn" data-act="go" data-h="#home">Home</button></div>
+    <details class="sub2"><summary>Dettaglio voce per voce e correzioni (${ses.log.length})</summary><div>${ses.log.map((l, i) => logItem(l, ses.id, i)).join('') || '<p class="muted">—</p>'}</div></details>
+    <button class="btn danger" data-act="delsess" data-id="${esc(ses.id)}" style="margin-top:20px">Elimina questa sessione</button>
+  </main>`;
+};
+function editLog(sid, i) {
+  const ses = D.sessioni.find(s => s.id === sid); const l = ses && ses.log[i]; if (!l) return;
+  openSheet(`<h2>Correggi ${esc(logPos(l))}</h2><p class="muted" style="margin-top:-6px">${esc(logWhat(l))}</p>
+    <div class="row"><div class="field"><label for="em">Minuti</label><input type="number" id="em" inputmode="numeric" min="0" value="${Math.floor((l.secondi || 0) / 60)}"></div>
+    <div class="field"><label for="es">Secondi</label><input type="number" id="es" inputmode="numeric" min="0" max="59" value="${(l.secondi || 0) % 60}"></div></div>
+    <div ${l.frammento ? '' : 'hidden'}><div class="field"><label for="eb">Rep 4 (bpm)</label><input type="number" id="eb" inputmode="numeric" value="${l.tempo_rep4 != null ? l.tempo_rep4 : ''}"></div>
+    <div class="field"><label for="ep">Rep 1 pulita</label><select class="sel" id="ep" style="width:100%"><option value="">—</option><option value="1" ${l.rep1_pulita === true ? 'selected' : ''}>Sì</option><option value="0" ${l.rep1_pulita === false ? 'selected' : ''}>No</option></select></div>
+    <div class="field"><label for="ed">Diagnosi</label><input type="text" id="ed" value="${esc(l.diagnosi || '')}"></div></div>
+    <div class="field"><label for="en">Note</label><textarea id="en">${esc(l.note || '')}</textarea></div>
+    <button class="btn primary" id="esave">Salva</button><button class="btn danger" id="edel">Elimina questa voce</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
+    $('#esave', sh).addEventListener('click', () => {
+      l.secondi = Math.max(0, (Number($('#em', sh).value) || 0) * 60 + (Number($('#es', sh).value) || 0));
+      if (l.frammento) {
+        const b = $('#eb', sh).value; l.tempo_rep4 = b === '' ? null : Math.round(Number(b));
+        const p = $('#ep', sh).value; l.rep1_pulita = p === '' ? null : p === '1';
+        l.diagnosi = $('#ed', sh).value;
+      }
+      l.note = $('#en', sh).value; save(); render(); toast('Corretto');
+    });
+    $('#edel', sh).addEventListener('click', async () => {
+      if (await ask({ title: 'Eliminare questa voce?', text: `${logPos(l)} · ${logWhat(l)} · ${fmtMin(l.secondi)}. I suoi minuti escono dai totali.`, ok: 'Elimina', danger: true })) { ses.log.splice(ses.log.indexOf(l), 1); save(); render(); toast('Voce eliminata'); }
+    });
+  });
+}
+
+/* ================= GIORNATA / STORICO ================= */
+SCREENS.day = date => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date || '')) { replaceTo('#history'); return; }
+  const sess = allSessions().filter(s => s.data === date).sort((a, b) => (a.inizio || '').localeCompare(b.inizio || ''));
+  const logs = sess.flatMap(s => s.log || []); const t = totals(logs);
+  app.innerHTML = header(date === todayStr() ? 'Oggi' : 'Giornata', fmtDateLong(date), '#history') + `<main class="wrap">
+    <section class="card"><div class="label">Totale del giorno</div><div class="big">${fmtMin(t.tot)}</div>${t.perBrano.length ? kvBrani(t.perBrano) : '<p class="muted" style="margin:0">Nessuno studio registrato in questo giorno.</p>'}</section>
+    <div class="label" style="margin:4px 0 8px">Sessioni (${sess.length})</div>
+    ${sess.map(s => { const tt = totals(s.log || []).tot; return s.aperta
+      ? `<button class="dayrow" data-act="go" data-h="#run"><div class="d"><span>${fmtTime(s.inizio)} · in corso</span><span>${fmtMin(tt)}</span></div><div class="small muted">Tocca per riprendere</div></button>`
+      : `<button class="dayrow" data-act="go" data-h="#summary/${esc(s.id)}"><div class="d"><span>${esc(sesOre(s))}</span><span>${fmtMin(tt)}</span></div><div class="small muted">${esc(sesDescr(s))}</div></button>`; }).join('') || '<p class="muted">Nessuna sessione.</p>'}
+    ${date <= todayStr() ? `<button class="btn" data-act="manual" data-date="${esc(date)}">Registra a mano uno studio di questo giorno</button>` : ''}
+    ${logs.length ? `<section class="card" style="margin-top:6px"><div class="label" style="margin-bottom:6px">Che cosa hai studiato</div>${statsTable(logs).html}</section>` : ''}
+  </main>`;
+};
+let histPeriod = '7', histAll = false;
+function histSeg(cur) {
+  return `<div class="seg wide" role="tablist"><button data-act="tab" data-h="#history" class="${cur === 'history' ? 'on' : ''}" role="tab" aria-selected="${cur === 'history'}">Per giorno</button><button data-act="tab" data-h="#frammenti" class="${cur === 'frammenti' ? 'on' : ''}" role="tab" aria-selected="${cur === 'frammenti'}">Per frammento</button></div>`;
+}
+SCREENS.history = () => {
+  const days = logsByDay(), today = todayStr();
+  const keys = [...days.keys()].sort().reverse();
+  const weeks = new Map(); keys.forEach(d => { const w = weekStart(d); weeks.set(w, (weeks.get(w) || 0) + totals(days.get(d)).tot); });
+  const wk = [...weeks.entries()].sort((a, b) => b[0].localeCompare(a[0])).slice(0, 8);
+  const maxW = Math.max(1, ...wk.map(x => x[1]));
+  const from = histPeriod === 'all' ? '' : dayAdd(today, -(Number(histPeriod) - 1));
+  const inP = keys.filter(d => d >= from), pLogs = inP.flatMap(d => days.get(d)), pt = totals(pLogs), nDays = inP.filter(d => totals(days.get(d)).tot > 0).length;
+  const shown = histAll ? keys : keys.slice(0, 30);
+  app.innerHTML = topbar('Storico', 'Minuti di studio, dal giorno più recente') + `<main class="wrap tabbed">
+    ${histSeg('history')}
+    ${keys.length ? `<section class="card"><div class="cardh"><span class="label">Totali</span>
+        <div class="seg small">${[['7', '7 giorni'], ['30', '30 giorni'], ['all', 'Sempre']].map(([v, l]) => `<button data-act="period" data-v="${v}" class="${histPeriod === v ? 'on' : ''}" aria-pressed="${histPeriod === v}">${l}</button>`).join('')}</div></div>
+      <div class="big">${fmtMinRound(pt.tot)}</div>
+      <p class="small muted" style="margin:0 0 6px">${nDays} ${nDays === 1 ? 'giorno' : 'giorni'} di studio${histPeriod === 'all' ? '' : ' su ' + histPeriod}${nDays ? ' · media ' + fmtMinRound(pt.tot / nDays) + ' nei giorni di studio' : ''}</p>
+      ${pt.perBrano.length ? kvBrani(pt.perBrano, true) : ''}</section>
+    <section class="card"><div class="label" style="margin-bottom:6px">Settimane (da lunedì a domenica)</div>${wk.map(([w, s]) => `<div style="padding:5px 0"><div class="row small" style="justify-content:space-between"><span>${esc(fmtDayMonth(w))} – ${esc(fmtDayMonth(dayAdd(w, 6)))}${w === weekStart(today) ? ' · questa settimana' : ''}</span><b style="text-align:right;flex:0 0 auto">${fmtMinRound(s)}</b></div>
+      <div class="wbar"><div style="width:${(s / maxW * 100).toFixed(1)}%"></div></div></div>`).join('')}</section>
+    <div class="label" style="margin:4px 0 8px">Giorni</div>` : ''}
+    ${shown.map(d => { const t = totals(days.get(d)); return `<button class="dayrow" data-act="go" data-h="#day/${d}"><div class="d"><span style="text-transform:capitalize">${d === today ? 'Oggi · ' : ''}${esc(fmtDateShort(d))}</span><span>${fmtMin(t.tot)}</span></div>
+      ${t.perBrano.map(([b, s]) => `<div class="row small muted" style="justify-content:space-between"><span>${esc(branoNome(b))}</span><span style="text-align:right;flex:0 0 auto">${fmtMin(s)}</span></div>`).join('')}</button>`; }).join('') || '<div class="empty"><b>Ancora nessuna sessione</b><span>Quando finisci una sessione la trovi qui, giorno per giorno.</span></div>'}
+    ${shown.length < keys.length ? `<button class="btn" data-act="histall">Mostra anche i ${keys.length - shown.length} giorni precedenti</button>` : ''}
+    <button class="btn" data-act="manual">Registra a mano uno studio già fatto</button>
+  </main>` + tabs('history');
+};
+
+/* ================= PER FRAMMENTO ================= */
+function fragHistory(fid) {
+  const out = [];
+  allSessions().forEach(s => (s.log || []).forEach(l => { if (l.frammento === fid && !l.live) out.push(Object.assign({ data: s.data, inizio: s.inizio }, l)); }));
+  return out.sort((a, b) => (a.data + a.inizio).localeCompare(b.data + b.inizio));
+}
+SCREENS.frammenti = () => {
+  const m = new Map();
+  allSessions().forEach(s => (s.log || []).forEach(l => { if (!l.frammento || l.live) return; const x = m.get(l.frammento) || { sec: 0, last: '', bpm: null }; x.sec += l.secondi || 0; if (s.data >= x.last) x.last = s.data; if (l.tempo_rep4 != null) x.bpm = l.tempo_rep4; m.set(l.frammento, x); }));
+  const list = [...m.entries()].sort((a, b) => b[1].last.localeCompare(a[1].last));
+  app.innerHTML = topbar('Storico', 'Andamento di ogni frammento, dal più recente') + `<main class="wrap tabbed">
+    ${histSeg('frammenti')}
+    ${list.map(([id, x]) => { const f = fr(id); return `<button class="dayrow" data-act="go" data-h="#frag/${encodeURIComponent(id)}"><div class="d"><span><span class="bat">${esc(f ? f.battute : id)}</span>${esc(f ? f.titolo : '')}</span><span>${fmtMinRound(x.sec)}</span></div><div class="small muted">Ultimo studio: ${esc(fmtAgo(x.last))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}${D.target[id] ? ' · target ' + esc(D.target[id]) : ''}</div></button>`; }).join('')
+      || '<div class="empty"><b>Ancora nessun dato</b><span>Qui compaiono i frammenti studiati nei circuiti con passaggi scritti, con i minuti e il tempo di Rep 4.</span></div>'}
+  </main>` + tabs('history');
+};
+function chartSvg(points, target) {
+  if (!points.length) return '';
+  const W = 340, H = 150, L = 34, R = 10, T = 12, Bm = 24;
+  const xs = points.map(p => dparse(p.d).getTime()), ys = points.map(p => p.v);
+  let x0 = Math.min(...xs), x1 = Math.max(...xs); if (x0 === x1) { x0 -= 864e5; x1 += 864e5; }
+  let y0 = Math.min(...ys, target || Infinity), y1 = Math.max(...ys, target || -Infinity); if (y0 === y1) { y0 -= 4; y1 += 4; } const py = (y1 - y0) * .1; y0 -= py; y1 += py;
+  const X = t => L + (t - x0) / (x1 - x0) * (W - L - R), Y = v => T + (1 - (v - y0) / (y1 - y0)) * (H - T - Bm);
+  const pts = points.map((p, i) => `${X(xs[i]).toFixed(1)},${Y(p.v).toFixed(1)}`).join(' ');
+  const hi = Math.max(...ys), lo = Math.min(...ys);
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Andamento del tempo di Rep 4">
+    <line class="ax" x1="${L}" y1="${H - Bm}" x2="${W - R}" y2="${H - Bm}"/><line class="ax" x1="${L}" y1="${T}" x2="${L}" y2="${H - Bm}"/>
+    ${target ? `<line class="tg" x1="${L}" y1="${Y(target).toFixed(1)}" x2="${W - R}" y2="${Y(target).toFixed(1)}"/><text class="tglab" x="${W - R}" y="${(Y(target) - 4).toFixed(1)}" text-anchor="end">target ${target}</text>` : ''}
+    <text x="${L - 4}" y="${Y(hi) + 4}" text-anchor="end">${hi}</text>${lo !== hi ? `<text x="${L - 4}" y="${Y(lo) + 4}" text-anchor="end">${lo}</text>` : ''}
+    <text x="${L}" y="${H - 6}">${esc(fmtDayMonth(points[0].d))}</text>
+    ${points.length > 1 ? `<text x="${W - R}" y="${H - 6}" text-anchor="end">${esc(fmtDayMonth(points[points.length - 1].d))}</text>` : ''}
+    ${points.length > 1 ? `<polyline class="ln" points="${pts}"/>` : ''}${points.map((p, i) => `<circle class="pt" cx="${X(xs[i]).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="3.5"/>`).join('')}</svg>`;
+}
+function twoWeekCheck(points) {
+  // points: ultimo valore per giorno, in ordine. Serve un arco di almeno 14 giorni.
+  if (points.length < 2) return false;
+  const last = points[points.length - 1], lastT = dparse(last.d).getTime();
+  if (lastT - dparse(points[0].d).getTime() < 14 * 864e5) return false;
+  let ref = null; points.forEach(p => { if (dparse(p.d).getTime() <= lastT - 14 * 864e5) ref = p; });
+  return ref != null && last.v <= ref.v;
+}
+SCREENS.frag = fid => {
+  const f = fr(fid); const h = fragHistory(fid);
+  const perDay = new Map(); h.forEach(l => { if (l.tempo_rep4 != null) perDay.set(l.data, l.tempo_rep4); });
+  const points = [...perDay.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([d, v]) => ({ d, v }));
+  const pulN = h.filter(l => l.rep1_pulita != null).length, pul = h.filter(l => l.rep1_pulita === true).length;
+  const tot = h.reduce((a, l) => a + (l.secondi || 0), 0), tg = D.target[fid];
+  app.innerHTML = header(f ? 'bb. ' + f.battute : fid, f ? f.titolo : '', '#frammenti') + `<main class="wrap">
+    <section class="card"><div class="row stat3"><div><div class="label">Minuti totali</div><div class="statv">${fmtMinRound(tot)}</div></div>
+      <div><div class="label">Rep 1 pulite</div><div class="statv">${pulN ? pul + '/' + pulN : '—'}</div></div>
+      <div><div class="label">Ultimo Rep 4</div><div class="statv">${points.length ? points[points.length - 1].v + ' bpm' : '—'}</div></div></div></section>
+    ${twoWeekCheck(points) ? `<div class="hint">${fmtText(CATALOGO.regole_slot.verifica_2_settimane)}</div>` : ''}
+    <section class="card"><div class="label">Tempo di Rep 4 (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, tg) : '<p class="muted" style="margin:8px 0 0">Nessun tempo registrato: compare dopo la prima Rep 4 con i bpm.</p>'}
+      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:8px"><span><b>Tempo target</b><br><span class="small muted">${tg ? tg + ' bpm' : 'non impostato'}</span></span><button class="btn inline" style="margin:0" data-act="target" data-id="${esc(fid)}">${tg ? 'Cambia' : 'Imposta'}</button></div>` : ''}</section>
+    <section class="card"><div class="label">Cronologia</div>
+      ${[...h].reverse().map(l => `<div class="logi"><b style="text-transform:capitalize">${esc(fmtDateShort(l.data))}</b> · circuito ${l.circuito}, andata ${l.andata}, slot ${esc(l.etichetta)} · ${fmtMin(l.secondi)}<br>
+        Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'} · Rep 4 ${l.tempo_rep4 != null ? l.tempo_rep4 + ' bpm' : '—'}${l.arresto ? ' · arresto' : ''}${l.drop_out ? ' · drop-out' : ''}
+        ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}</div>`).join('') || '<p class="muted" style="margin:8px 0 0">Ancora nessun dato.</p>'}
+    </section>
+    ${f ? `<details class="sub2"><summary>Scheda del frammento</summary><div>${previewHtml(f)}</div></details>` : ''}
+  </main>`;
+};
+/* ================= SIGLE E REGOLE ================= */
+const SLOT_LABELS = { rep1: 'Rep 1', rep2_3: 'Rep 2-3', rep4: 'Rep 4', andate: 'Andate', drop_out: 'Drop-out', arresto: 'Regola di arresto', da_annotare: 'Cosa annotare', verifica_2_settimane: 'Verifica a due settimane' };
+SCREENS.rules = anchor => {
+  const RS = CATALOGO.regole_slot, RC = CATALOGO.regole_circuito;
+  // Arrivando da un'altra schermata (composizione, sessione) c'è la freccia per tornare indietro.
+  app.innerHTML = (navDepth > 0 ? header('Sigle e regole', 'Solo consultazione', '#home') : topbar('Sigle e regole', 'Solo consultazione')) + `<main class="wrap tabbed">
+    <details class="acc" ${anchor ? '' : 'open'}><summary><span class="grow">Sigle (${C.sigle.length})</span></summary><div class="accbody">
+      ${C.sigle.map(s => `<div class="sigcard"><div class="sg">${esc(s.sigla)} <span style="color:var(--text);font-weight:600">· ${esc(s.nome)}</span></div><dl>
+        <dt>Come si fa</dt><dd>${fmtText(s.come_si_fa)}</dd><dt>Cosa allena</dt><dd>${fmtText(s.cosa_allena)}</dd><dt>Origine</dt><dd>${esc(s.origine)}</dd></dl></div>`).join('')}</div></details>
+    <details class="acc"><summary><span class="grow">Regole dello slot</span></summary><div class="accbody">
+      ${Object.keys(RS).map(k => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(SLOT_LABELS[k] || k)}</div><p style="margin:4px 0 0">${fmtText(RS[k])}</p></div>`).join('')}</div></details>
+    <details class="acc" id="fable" ${anchor === 'fable' ? 'open' : ''}><summary><span class="grow">Regole del circuito (Fable)</span></summary><div class="accbody">
+      <div class="sigcard"><div class="label">Struttura</div><p style="margin:4px 0 0">${fmtText(RC.struttura)}</p></div>
+      <div class="sigcard"><div class="label">Composizione</div><ol class="fable">${(RC.fable_composizione || []).map(x => `<li>${fmtText(x)}</li>`).join('')}</ol></div>
+      <div class="sigcard"><p class="muted small" style="margin:0">${esc(RC.nota)}</p></div></div></details>
+    <details class="acc"><summary><span class="grow">Priorità e famiglie</span></summary><div class="accbody">
+      <div class="sigcard"><div class="label">Priorità</div><p style="margin:4px 0">${esc(CATALOGO.definizioni.priorita)}</p>
+        ${C.priorita.map(p => `<p style="margin:8px 0"><span class="pn">${p.n}</span> <b>${esc(p.nome)}</b><br><span class="muted">${esc(p.perche)}</span></p>`).join('')}</div>
+      <div class="sigcard"><div class="label">Famiglia</div><p style="margin:4px 0">${esc(CATALOGO.definizioni.famiglia)}</p>
+        ${C.famiglie.map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${(x.frammenti || []).map(id => 'bb. ' + esc(frLabel(id))).join(' · ')}</span></p>`).join('')}</div></div></details>
+  </main>` + tabs('rules');
+  if (anchor === 'fable') setTimeout(() => $('#fable') && $('#fable').scrollIntoView({ block: 'start' }), 30);
+};
+
+/* ================= IMPOSTAZIONI ================= */
+function stored(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function branoUso(id) {
+  let sec = 0, n = 0;
+  allSessions().forEach(s => (s.log || []).forEach(l => { if (l.brano === id) { sec += l.secondi || 0; n++; } }));
+  return { sec, n, fr: C.frammenti.filter(f => f.brano === id).length };
+}
+SCREENS.settings = () => {
+  const I = D.impostazioni, nSes = D.sessioni.length;
+  app.innerHTML = topbar('Impostazioni') + `<main class="wrap tabbed">
+    <section class="card"><div class="label" style="margin-bottom:8px">Aspetto</div>
+      <div class="row" style="align-items:center;margin-bottom:10px"><span>Tema</span><div class="seg" style="flex:0 0 auto"><button data-act="tema" data-v="scuro" class="${I.tema === 'scuro' ? 'on' : ''}" aria-pressed="${I.tema === 'scuro'}">Scuro</button><button data-act="tema" data-v="chiaro" class="${I.tema === 'chiaro' ? 'on' : ''}" aria-pressed="${I.tema === 'chiaro'}">Chiaro</button></div></div>
+      <div class="row" style="align-items:center"><span>Dimensione del testo</span><div class="seg" style="flex:0 0 auto"><button data-act="testo" data-v="normale" class="${I.testo === 'normale' ? 'on' : ''}" aria-label="Testo normale">A</button><button data-act="testo" data-v="grande" class="${I.testo === 'grande' ? 'on' : ''}" style="font-size:1.1em" aria-label="Testo grande">A</button><button data-act="testo" data-v="molto" class="${I.testo === 'molto' ? 'on' : ''}" style="font-size:1.25em" aria-label="Testo molto grande">A</button></div></div>
+    </section>
+    <section class="card"><div class="label">Backup dei dati</div>
+      <p class="small muted">I dati stanno solo su questo dispositivo. Salva ogni tanto un backup e conservalo altrove (Drive, email…). ${I.ultimo_export ? 'Ultimo backup: ' + new Date(I.ultimo_export).toLocaleString('it-IT', { dateStyle: 'medium', timeStyle: 'short' }) + '.' : 'Nessun backup finora.'} Sessioni salvate: ${nSes}.</p>
+      <button class="btn primary" data-act="export">Salva un backup (file JSON)</button>
+      <button class="btn" data-act="pickfile" data-target="impdata">Ripristina da un backup</button>
+      <input type="file" id="impdata" accept="application/json,.json" hidden>
+      ${stored(KEY_PREIMP) ? '<button class="btn" data-act="undoimport">Annulla l\'ultimo ripristino</button>' : ''}
+    </section>
+    <section class="card"><div class="label">Brani</div>
+      <p class="small muted">Tocca un brano per rinominarlo o nasconderlo dagli elenchi. Lo storico non cambia.</p>
+      ${C.brani.map(b => `<button class="brow" data-act="brano" data-id="${esc(b.id)}"><span class="grow">${esc(b.nome)}</span>${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`).join('')}
+      <button class="btn" style="margin-top:10px" data-act="newbrano" data-then="settings">+ Aggiungi un brano</button>
+    </section>
+    <section class="card"><div class="label">Catalogo dei passaggi</div>
+      <p class="small muted">Importa un catalogo con lo stesso schema di dati_op111.json (per Mephisto e Scriabin). I frammenti con lo stesso id vengono aggiornati, i nuovi aggiunti; lo storico resta intatto.</p>
+      <button class="btn" data-act="pickfile" data-target="impcat">Importa un catalogo</button>
+      <input type="file" id="impcat" accept="application/json,.json" hidden>
+      <p class="small muted" style="margin:0">Frammenti nel catalogo: ${C.frammenti.length} (${D.catalogo_importato.frammenti.length} importati, ${D.frammenti_utente.length} aggiunti a mano).</p>
+    </section>
+    <section class="card"><div class="label">Informazioni</div>
+      <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 2.0</button>
+      <p class="small muted" style="margin:0">Circuiti di studio ${APP_VERSION} · catalogo: ${esc(CATALOGO.fonte || '')}</p>
+    </section>
+    <section class="card"><div class="label">Zona pericolosa</div>
+      ${stored(KEY_PRE2) ? '<button class="btn" data-act="restorepre2" style="margin-top:8px">Torna ai dati di prima dell\'aggiornamento alla 2.0</button>' : ''}
+      <button class="btn danger" data-act="reset" style="margin-top:8px">Azzera tutti i dati</button></section>
+  </main>` + tabs('settings');
+  $('#impdata').addEventListener('change', e => readJsonFile(e.target, importData));
+  $('#impcat').addEventListener('change', e => readJsonFile(e.target, importCatalog));
+};
+function branoSheet(id) {
+  const b = C.B.get(id); if (!b) return;
+  const mine = C.braniUtente.has(id), hid = C.hidden.has(id), u = branoUso(id);
+  openSheet(`<h2>${esc(b.nome)}</h2>
+    <p class="small muted" style="margin-top:-6px">${u.fr} ${u.fr === 1 ? 'frammento' : 'frammenti'} in catalogo · ${fmtMinRound(u.sec)} registrati${mine ? '' : ' · brano del catalogo'}</p>
+    ${mine ? `<div class="field"><label for="brn">Nome</label><input type="text" id="brn" value="${esc(b.nome)}"></div><button class="btn primary" id="brsave">Salva il nome</button>` : ''}
+    <button class="btn" id="brhide">${hid ? 'Mostra di nuovo negli elenchi' : 'Nascondi dagli elenchi'}</button>
+    <p class="small muted">${hid ? 'Ora non compare quando scegli brani e passaggi.' : 'Un brano nascosto non compare quando scegli brani e passaggi; minuti e storico restano.'}</p>
+    ${mine && !u.n && !u.fr ? '<button class="btn danger" id="brdel">Elimina il brano</button>' : ''}
+    <button class="btn" data-act="closesheet">Chiudi</button>`, sh => {
+    if (mine) $('#brsave', sh).addEventListener('click', () => {
+      const nome = $('#brn', sh).value.trim(); if (!nome) { toast('Il nome non può essere vuoto'); return; }
+      const x = D.brani_utente.find(y => y.id === id); if (x) x.nome = nome; save(); buildCat(); render(); toast('Nome salvato');
+    });
+    $('#brhide', sh).addEventListener('click', () => {
+      D.brani_nascosti = hid ? D.brani_nascosti.filter(x => x !== id) : [...D.brani_nascosti, id];
+      save(); buildCat(); render(); toast(hid ? 'Brano di nuovo visibile' : 'Brano nascosto');
+    });
+    const del = $('#brdel', sh); if (del) del.addEventListener('click', () => {
+      D.brani_utente = D.brani_utente.filter(x => x.id !== id); D.brani_nascosti = D.brani_nascosti.filter(x => x !== id);
+      D.bozza.brani_liberi = D.bozza.brani_liberi.filter(x => x !== id); save(); buildCat(); render(); toast('Brano eliminato');
+    });
+  });
+}
+function applyPrefs() {
+  document.documentElement.dataset.theme = D.impostazioni.tema === 'chiaro' ? 'chiaro' : 'scuro';
+  document.documentElement.dataset.testo = D.impostazioni.testo || 'normale';
+  const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = D.impostazioni.tema === 'chiaro' ? '#f6f4ef' : '#0f1216';
+}
+function readJsonFile(input, cb) {
+  const file = input.files && input.files[0]; if (!file) return;
+  const rd = new FileReader();
+  rd.onload = () => { try { cb(JSON.parse(rd.result)); } catch (e) { toast('File non valido: non è un JSON leggibile'); } input.value = ''; };
+  rd.onerror = () => { toast('Non riesco a leggere il file'); input.value = ''; };
+  rd.readAsText(file);
+}
+async function exportData() {
+  const name = `circuiti-backup-${todayStr()}.json`;
+  if (window.AndroidApp) {
+    window.onAndroidSave = ok => { if (ok) { D.impostazioni.ultimo_export = new Date().toISOString(); save(); render(); } };
+    window.AndroidApp.saveFile(name, JSON.stringify(D, null, 2)); return;
+  }
+  const blob = new Blob([JSON.stringify(D, null, 2)], { type: 'application/json' });
+  let done = false;
+  try {
+    const file = new File([blob], name, { type: 'application/json' });
+    if (navigator.canShare && navigator.canShare({ files: [file] }) && /iPhone|iPad|Android/i.test(navigator.userAgent)) { await navigator.share({ files: [file], title: name }); done = true; }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  if (!done) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); }
+  D.impostazioni.ultimo_export = new Date().toISOString(); save(); toast('Backup salvato'); render();
+}
+function replaceAll(obj, msg) {
+  try { localStorage.setItem(KEY_PREIMP, JSON.stringify(D)); } catch (e) { }
+  D = normalize(obj); D.impostazioni.visto_versione = APP_VERSION;
+  save(); buildCat(); applyPrefs(); navDepth = 0; toast(msg); replaceTo('#home');
+}
+async function importData(obj) {
+  if (!obj || typeof obj !== 'object' || !Array.isArray(obj.sessioni)) { toast('Non è un backup di questa app'); return; }
+  const r = await ask({ title: 'Ripristinare da questo backup?', text: `Nel file ci sono ${obj.sessioni.length} sessioni; ora nell'app ce ne sono ${D.sessioni.length}. I dati attuali vengono sostituiti da quelli del file. Ne tengo una copia: potrai annullare da Impostazioni.`, ok: 'Sostituisci con il backup' });
+  if (r) replaceAll(obj, 'Dati ripristinati dal backup');
+}
+async function undoImport() {
+  let prev = null; try { prev = JSON.parse(stored(KEY_PREIMP)); } catch (e) { }
+  if (!prev || !Array.isArray(prev.sessioni)) { toast('Nessuna copia da ripristinare'); return; }
+  const r = await ask({ title: 'Annullare l\'ultimo ripristino?', text: `Tornano i dati di prima (${prev.sessioni.length} sessioni) al posto di quelli attuali (${D.sessioni.length} sessioni).`, ok: 'Sì, torna ai dati di prima' });
+  if (!r) return;
+  const cur = JSON.stringify(D);
+  D = normalize(prev); D.impostazioni.visto_versione = APP_VERSION; save(); buildCat(); applyPrefs();
+  try { localStorage.setItem(KEY_PREIMP, cur); } catch (e) { }
+  toast('Fatto: dati di prima ripristinati'); render();
+}
+async function restorePre2() {
+  let prev = null; try { prev = JSON.parse(stored(KEY_PRE2)); } catch (e) { }
+  if (!prev || !Array.isArray(prev.sessioni)) { toast('Nessuna copia disponibile'); return; }
+  const r = await ask({ title: 'Tornare ai dati di prima della 2.0?', text: `La copia fatta al primo avvio della 2.0 contiene ${prev.sessioni.length} sessioni; ora ce ne sono ${D.sessioni.length}. Tutto ciò che hai registrato dopo l'aggiornamento viene sostituito (potrai annullare con «Annulla l'ultimo ripristino»).`, ok: 'Sostituisci con la copia', danger: true });
+  if (r) replaceAll(prev, 'Ripristinati i dati di prima dell\'aggiornamento');
+}
+function importCatalog(obj) {
+  if (!obj || !Array.isArray(obj.frammenti)) { toast('Il file non contiene «frammenti»'); return; }
+  const imp = D.catalogo_importato; let nuovi = 0, agg = 0;
+  const known = new Set(C.frammenti.map(f => f.id));
+  const up = (arr, items, key) => (items || []).forEach(x => { if (!x || x[key] == null) return; const i = arr.findIndex(y => y[key] === x[key]); if (i >= 0) arr[i] = x; else arr.push(x); });
+  obj.frammenti.forEach(f => { if (f && f.id != null) known.has(f.id) ? agg++ : nuovi++; });
+  up(imp.brani, obj.brani, 'id'); up(imp.frammenti, obj.frammenti, 'id'); up(imp.famiglie, obj.famiglie, 'id'); up(imp.sigle, obj.sigle, 'sigla');
+  save(); buildCat(); toast(`Catalogo importato: ${nuovi} nuovi, ${agg} aggiornati`); render();
+}
+function resetSheet() {
+  openSheet(`<h2>Azzerare tutti i dati?</h2>
+    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti, tempi target e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
+    <div class="field"><label for="rz">Per confermare scrivi AZZERA</label><input type="text" id="rz" autocomplete="off" autocapitalize="characters"></div>
+    <button class="btn dangerfill xl" id="rzok">Azzera tutto</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
+    $('#rzok', sh).addEventListener('click', () => {
+      if ($('#rz', sh).value.trim().toUpperCase() !== 'AZZERA') { toast('Scrivi AZZERA per confermare'); return; }
+      D = defaultData(); D.impostazioni.visto_versione = APP_VERSION; save(); buildCat(); applyPrefs(); navDepth = 0; toast('Dati azzerati'); replaceTo('#home');
+    });
+  });
+}
+function newsSheet() {
+  openSheet(`<h2>Novità della versione 2.0</h2>
+    <p class="small muted" style="margin-top:-6px">Tutti i dati della versione precedente sono stati mantenuti. Nessuna opzione è stata tolta.</p>
+    <ul class="news">
+      <li><b>Barra in basso</b> con Oggi, Storico, Sigle e regole, Impostazioni. «Per frammento» ora è una scheda dello Storico.</li>
+      <li><b>Ripeti l'ultima sessione</b> dalla home, oppure «Ripeti questa sessione» da qualsiasi riepilogo.</li>
+      <li><b>Durante lo studio</b> il pulsante Fatto dice che cosa viene dopo, una barra mostra a che punto sei e la pausa si vede bene. Toccando Fatto il cronometro in pausa riparte.</li>
+      <li><b>Tempo target</b> per ogni passaggio: l'app traduce le percentuali delle regole in bpm per ogni Rep. Si imposta dalla finestra del tempo di Rep 4 o dalla pagina del frammento.</li>
+      <li><b>Registra a mano</b> lo studio fatto senza l'app e <b>aggiungi brani</b> col solo nome, per la sessione libera.</li>
+      <li><b>Meno errori</b>: puoi scartare una sessione partita per sbaglio, e se il cronometro resta acceso con l'app chiusa, al ritorno ti chiede se contare quel tempo.</li>
+    </ul>
+    <button class="btn primary xl" data-act="closesheet">Ho capito</button>`);
+}
+/* ================= AZIONI ================= */
+const ACT = {
+  go: el => go(el.dataset.h),
+  back: el => goBack(el.dataset.h || '#home'),
+  tab: el => { navDepth = 0; replaceTo(el.dataset.h); },
+  closesheet: () => closeSheet(),
+  closepanel: () => closePanel(),
+  install: async () => { if (installEvt) { installEvt.prompt(); try { await installEvt.userChoice; } catch (e) { } installEvt = null; render(); } },
+  nuova: () => go('#new'),
+  repeat: el => { const s = D.sessioni.find(x => x.id === el.dataset.id); if (s) repeatSession(s); },
+  manual: el => manualSheet({ date: el.dataset.date }),
+  newbrano: el => {
+    const then = el.dataset.then;
+    newBranoSheet(id => {
+      if (then === 'libera') { D.bozza.brani_liberi.push(id); save(); render(); }
+      else if (then === 'free') freeSwitch(id);
+      else render();
+      toast('Brano aggiunto');
+    });
+  },
+  brano: el => branoSheet(el.dataset.id),
+  preview: el => openPreview(el.dataset.id),
+  presel: el => { const id = el.dataset.id; toggleSel(id, !D.bozza.selezionati.includes(id)); openPreview(id); },
+  deselall: async () => {
+    if (!D.bozza.selezionati.length) return;
+    if (await ask({ title: 'Togliere tutte le spunte?', text: `Hai ${D.bozza.selezionati.length} passaggi scelti.`, ok: 'Togli tutte le spunte' })) { D.bozza.selezionati = []; D.bozza.circuiti = []; save(); render(); }
+  },
+  delfrag: async el => {
+    const id = el.dataset.id, f = fr(id);
+    if (!(await ask({ title: 'Eliminare questo frammento?', text: `${f ? 'bb. ' + f.battute + ' · ' + f.titolo + '. ' : ''}Lo storico delle sessioni resta.`, ok: 'Elimina il frammento', danger: true }))) return;
+    D.frammenti_utente = D.frammenti_utente.filter(x => x.id !== id); D.bozza.selezionati = D.bozza.selezionati.filter(x => x !== id);
+    save(); buildCat(); render();
+  },
+  savefrag: el => saveFrag(el.dataset.brano, el.dataset.id || null),
+  andate: el => { D.bozza.circuiti[+el.dataset.ci].andate = +el.dataset.n; save(); render(); },
+  mv: el => { const c = D.bozza.circuiti[+el.dataset.ci].slot, i = +el.dataset.i, j = i + +el.dataset.d; if (j < 0 || j >= c.length) return; [c[i], c[j]] = [c[j], c[i]]; save(); render(); },
+  slotmenu: el => slotMenu(+el.dataset.ci, +el.dataset.i),
+  moveto: el => {
+    const B = D.bozza, ci = +el.dataset.ci, i = +el.dataset.i, id = B.circuiti[ci].slot.splice(i, 1)[0];
+    if (el.dataset.to === 'new') B.circuiti.push({ andate: B.cfg.andate || 3, slot: [id] }); else B.circuiti[+el.dataset.to].slot.push(id);
+    B.circuiti = B.circuiti.filter((c, k) => c.slot.length || k === 0); save(); render();
+  },
+  rmslot: el => { const B = D.bozza; B.circuiti[+el.dataset.ci].slot.splice(+el.dataset.i, 1); B.circuiti = B.circuiti.filter((c, k) => c.slot.length || k === 0); save(); render(); },
+  place: el => { D.bozza.circuiti[+el.dataset.ci].slot.push(el.dataset.id); save(); render(); },
+  addcirc: () => { D.bozza.circuiti.push({ andate: D.bozza.cfg.andate || 3, slot: [] }); save(); render(); },
+  cfg: el => { const k = el.dataset.k, v = el.dataset.v; D.bozza.cfg[k] = /^\d+$/.test(v) ? Number(v) : v; save(); render(); },
+  newgo: () => newGo(),
+  libandate: el => { D.bozza.circuiti_lib[+el.dataset.ci].andate = +el.dataset.n; save(); render(); },
+  librm: el => { const c = D.bozza.circuiti_lib[+el.dataset.ci]; if (c.slot.length <= 1) { toast('Serve almeno uno slot'); return; } c.slot.splice(+el.dataset.i, 1); save(); render(); },
+  libadd: el => { const c = D.bozza.circuiti_lib[+el.dataset.ci]; const last = c.slot[c.slot.length - 1]; c.slot.push({ brano: last ? last.brano : (C.braniVis[0] || C.brani[0] || {}).id, battute: '' }); save(); render(); },
+  libaddc: () => { const B = D.bozza; B.circuiti_lib.push({ andate: B.cfg.andate, slot: Array.from({ length: B.cfg.slot }, () => ({ brano: (C.braniVis[0] || C.brani[0] || {}).id, battute: '' })) }); save(); render(); },
+  libdelc: async el => {
+    const ci = +el.dataset.ci;
+    if (await ask({ title: `Eliminare il circuito ${ci + 1}?`, text: 'Gli slot di questo circuito vengono tolti dalla composizione.', ok: 'Elimina il circuito', danger: true })) { D.bozza.circuiti_lib.splice(ci, 1); save(); render(); }
+  },
+  startlib: async () => { if (await closeOpenFirst()) startSession('libero'); },
+  fswitch: el => freeSwitch(el.dataset.id),
+  faddb: () => freeAddSheet(),
+  start: async () => {
+    if (!D.bozza.circuiti.some(c => c.slot.length)) { toast('Aggiungi almeno uno slot'); return; }
+    if (await closeOpenFirst()) startSession();
+  },
+  fatto: () => onFatto(),
+  repback: () => repBack(),
+  skipslot: async () => {
+    const S = D.sessione_aperta; if (!S) return;
+    if (!(await ask({ title: 'Saltare questo slot?', text: 'Passi subito allo slot successivo. Il tempo fatto finora su questo slot resta registrato.', ok: 'Salta lo slot' }))) return;
+    if (D.sessione_aperta !== S) return;
+    resumeIfPaused(S); finalizeSlot(S, S.pos.r - 1); moveNext(S);
+  },
+  pause: () => { const S = D.sessione_aperta; if (!S) return; const T = S.timer; if (T.since) { fold(T); T.since = null; } else T.since = Date.now(); save(); render(); },
+  runmenu: () => runMenu(),
+  endsession: async () => {
+    const S = D.sessione_aperta; if (!S) return;
+    if (await ask({ title: 'Terminare la sessione?', text: 'Viene salvata nello storico con i minuti fatti finora e si apre il riepilogo.', ok: 'Termina e salva' }) && D.sessione_aperta === S) closeSession();
+  },
+  discard: async () => {
+    const S = D.sessione_aperta; if (!S) return;
+    if (await ask({ title: 'Scartare la sessione?', text: `Minuti, tempi e note di questa sessione (${fmtMinRound(S.timer.sess + tRun(S.timer))} finora) non vengono salvati. Non si può annullare.`, ok: 'Scarta senza salvare', danger: true }) && D.sessione_aperta === S) {
+      D.sessione_aperta = null; save(); navDepth = 0; toast('Sessione scartata'); replaceTo('#home');
+    }
+  },
+  copysess: el => { const s = D.sessioni.find(x => x.id === el.dataset.id); if (s) copyText(sessionText(s)); },
+  delsess: async el => {
+    const s = D.sessioni.find(x => x.id === el.dataset.id); if (!s) return;
+    if (!(await ask({ title: 'Eliminare questa sessione?', text: `${sesTipo(s)} del ${fmtDateShort(s.data)}, ${fmtMin(totals(s.log).tot)}. I suoi minuti escono dallo storico. Non si può annullare.`, ok: 'Elimina la sessione', danger: true }))) return;
+    D.sessioni = D.sessioni.filter(x => x.id !== s.id); save(); navDepth = 0; toast('Sessione eliminata'); replaceTo('#day/' + s.data);
+  },
+  editlog: el => editLog(el.dataset.s, +el.dataset.i),
+  target: el => targetSheet(el.dataset.id),
+  period: el => { histPeriod = el.dataset.v; render(); },
+  histall: () => { histAll = true; render(); },
+  tema: el => { D.impostazioni.tema = el.dataset.v; save(); applyPrefs(); render(); },
+  testo: el => { D.impostazioni.testo = el.dataset.v; save(); applyPrefs(); render(); },
+  export: () => exportData(),
+  pickfile: el => $('#' + el.dataset.target).click(),
+  undoimport: () => undoImport(),
+  restorepre2: () => restorePre2(),
+  news: () => newsSheet(),
+  reset: () => resetSheet()
+};
+document.addEventListener('click', e => {
+  const sig = e.target.closest('.sig'); if (sig) { e.preventDefault(); openPanel(sig.dataset.sigla); return; }
+  const el = e.target.closest('[data-act]'); if (!el || el.disabled) return;
+  const fn = ACT[el.dataset.act]; if (fn) { e.preventDefault(); fn(el); }
+});
+$('#ov').addEventListener('click', () => closeOverlays());
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#ov').classList.contains('on')) closeOverlays(); });
+
+/* ================= AVVIO ================= */
+applyPrefs();
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) { }
+if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => { })); }
+const bootFrom = D.sessione_aperta ? (D.sessione_aperta.timer.hid || D.sessione_aperta.timer.seen || 0) : 0;
+if (D.sessione_aperta) delete D.sessione_aperta.timer.hid;
+if (!location.hash && D.sessione_aperta) location.replace('#run');
+render();
+if (D.impostazioni.visto_versione !== APP_VERSION) {
+  D.impostazioni.visto_versione = APP_VERSION; save();
+  if (arrivaDaV1) setTimeout(newsSheet, 350); // solo per chi arriva dalla versione 1
+} else setTimeout(() => checkStale(bootFrom), 400);
+</script>
+</body>
+</html>

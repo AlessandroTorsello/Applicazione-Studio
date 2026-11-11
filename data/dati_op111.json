@@ -1,0 +1,1345 @@
+{
+  "versione": 2,
+  "fonte": "Analisi di Fable, «Op. 111, I movimento — lavoro motorio per passaggio» (10/11/2026), Henle",
+  "brani": [
+    {
+      "id": "op111",
+      "nome": "Beethoven, Sonata op. 111, I movimento",
+      "completo": true
+    },
+    {
+      "id": "mephisto",
+      "nome": "Liszt, Mephisto Valzer n. 1",
+      "completo": false
+    },
+    {
+      "id": "scriabin28",
+      "nome": "Scriabin, Fantasia op. 28",
+      "completo": false
+    }
+  ],
+  "sigle": [
+    {
+      "sigla": "RIT",
+      "nome": "Ritmi",
+      "come_si_fa": "Ritmi puntati. Su coppie: lungo-corto, poi corto-lungo. Su gruppi di 4: fermata sulla 1ª nota e le altre tre di scatto; poi fermata sulla 2ª, 3ª, 4ª. Nota corta scattante e vicina al tasto.",
+      "cosa_allena": "Ogni transizione tra dita a velocità superiore al tempo finale, una alla volta.",
+      "origine": "Tuo"
+    },
+    {
+      "sigla": "CHUNK",
+      "nome": "Blocchi a tempo",
+      "come_si_fa": "Un quarto più la prima nota del successivo, a tempo pieno, poi stop. Durante lo stop la mano è già a contatto dei tasti del chunk seguente, polso e spalla rilasciati. Poi chunk sfalsati (da 3ª semicroma a 3ª), poi due quarti più una nota. Unico vincolo a metronomo pieno; ogni chunk seguito da una pausa lunga quanto il chunk.",
+      "cosa_allena": "Il gesto alla velocità reale e la preparazione anticipata della posizione.",
+      "origine": "Tuo (arresto con preparazione aggiunto)"
+    },
+    {
+      "sigla": "ACC",
+      "nome": "Accenti spostati",
+      "come_si_fa": "Accento sulla 2ª semicroma di ogni gruppo, poi sulla 3ª, poi sulla 4ª. Tutto il resto pp. Variante: raggruppa in 3 una figura scritta in 4.",
+      "cosa_allena": "Uniformità: ogni dito sa essere forte e debole. Smaschera il dito che cade o che manca.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "BLOC",
+      "nome": "Posizioni a blocco",
+      "come_si_fa": "Tutte le note di una posizione di mano suonate insieme, a tempo di quarti, cambiando posizione senza guardare.",
+      "cosa_allena": "Topografia, ampiezza esatta dello spostamento, precisione tattile.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "MUTA",
+      "nome": "Mano fantasma",
+      "come_si_fa": "Una mano suona, l'altra fa gli stessi movimenti sulla superficie dei tasti senza abbassarli. Poi si scambia.",
+      "cosa_allena": "Coordinazione: mostra quale mano trascina l'altra e toglie forza inutile alla mano muta.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "DIN",
+      "nome": "Dinamiche divise",
+      "come_si_fa": "Una mano f e l'altra pp, di norma sinistra f. Variante: una legato e l'altra staccato.",
+      "cosa_allena": "Indipendenza e ascolto della mano debole.",
+      "origine": "Tuo"
+    },
+    {
+      "sigla": "ALT",
+      "nome": "Alternanza",
+      "come_si_fa": "Negli unisoni le mani si alternano un quarto a testa, poi mezzo quarto, senza perdere la pulsazione. La mano che tace segue a contatto dei tasti.",
+      "cosa_allena": "Ogni mano sa entrare a tempo a metà passaggio.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "NODO",
+      "nome": "Arresto sui nodi",
+      "come_si_fa": "Fermati, tenendo i tasti, sulle note in cui una mano passa il pollice o cambia posizione e l'altra no. Verifica che i due tasti scendano insieme, poi suona da nodo a nodo.",
+      "cosa_allena": "Sincronia dove le diteggiature delle due mani non sono speculari.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "STAC",
+      "nome": "Staccato di dito pp",
+      "come_si_fa": "Ogni nota corta partendo dal tasto, il dito tira verso il palmo, il braccio scorre di lato. Nessun sollevamento alto.",
+      "cosa_allena": "Chiarezza dell'attacco e rilascio attivo di ogni dito.",
+      "origine": "Tuo, precisato"
+    },
+    {
+      "sigla": "DOPPIE",
+      "nome": "Note doppie",
+      "come_si_fa": "Ogni nota suonata due volte, a pulsazione dimezzata.",
+      "cosa_allena": "Ritorno del tasto e precisione del punto di contatto.",
+      "origine": "Tuo"
+    },
+    {
+      "sigla": "CIECO",
+      "nome": "Senza guardare",
+      "come_si_fa": "Occhi chiusi o sguardo fuori dalla tastiera. Nei salti, shift–touch–play: sposta rapido, atterra sui tasti senza suonare, controlla al tatto, poi suona.",
+      "cosa_allena": "Mappa propriocettiva delle distanze.",
+      "origine": "Tuo (shift–touch–play aggiunto)"
+    },
+    {
+      "sigla": "ROT",
+      "nome": "Rotazione isolata",
+      "come_si_fa": "Prima solo forearm rotation (rotazione dell'avambraccio) con dita ferme; poi solo dita con avambraccio fermo; poi la miscela minima che funziona.",
+      "cosa_allena": "Scegliere il motore giusto in tremoli e figure spezzate.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "CLIC",
+      "nome": "Clic spostato",
+      "come_si_fa": "Metronomo sul levare (ottavo debole o 2ª semicroma), oppure un solo clic per battuta.",
+      "cosa_allena": "Regolarità senza appoggio esterno sui tempi forti.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "MENT",
+      "nome": "Ripetizione mentale",
+      "come_si_fa": "A tempo, con sensazione tattile dei tasti e suono immaginati, mani ferme. Subito dopo, la ripetizione reale.",
+      "cosa_allena": "Programmazione del gesto, memoria dei salti.",
+      "origine": "Tuo (in valutazione)"
+    },
+    {
+      "sigla": "PESO",
+      "nome": "Caduta e rilascio",
+      "come_si_fa": "Drop–release: accordo o ottava dal tasto con impulso del braccio, poi rilascio immediato della pressione a fondo tasto. Test: mentre tieni l'accordo, il polso deve potersi muovere su e giù. Nei gruppi di ottave: un impulso per gruppo, le altre di rimbalzo.",
+      "cosa_allena": "Suono pieno senza tensione mantenuta.",
+      "origine": "Aggiunto"
+    },
+    {
+      "sigla": "TRILL",
+      "nome": "Trillo misurato",
+      "come_si_fa": "Numero fisso di note per quarto (4, poi 6, poi 8), inizio dalla nota reale, dita vicine al tasto. Se la stessa mano tiene un'altra voce, prima tieni quella voce e trilla pp.",
+      "cosa_allena": "Trillo che non disturba l'altra voce né l'altra mano.",
+      "origine": "Aggiunto"
+    }
+  ],
+  "regole_slot": {
+    "rep1": "Test a freddo all'85-95% + una riga di diagnosi (dove si è sporcato e come).",
+    "rep2_3": "Pulsazione al 70-80%, sempre senza pedale e a mp anche dove è scritto ff. Attenzione sul vincolo. Se Rep 1 ha individuato un quarto preciso, lavora solo da mezza battuta prima a mezza battuta dopo.",
+    "rep4": "85-100%, pedale e dinamiche reali, verso il tempo target. Attenzione al suono, non alle dita.",
+    "andate": "Andata 3 = andata 1, andata 4 = andata 2, salvo frammenti con andate 3-4 proprie. Andata 4 solo se non in drop-out.",
+    "drop_out": "Se alla terza andata Rep 1 è pulita e fluida, il frammento non fa la quarta.",
+    "arresto": "Due errori nello stesso punto con lo stesso vincolo: scendi di 8-10 clic o accorcia il frammento.",
+    "da_annotare": "Tempo di Rep 4 e se Rep 1 era pulita. Una volta a settimana registra Rep 4 e riascoltala a metà velocità.",
+    "verifica_2_settimane": "Se dopo due settimane il tempo di Rep 4 non sale, torna a Rep 2-3 al 70-80% uniforme."
+  },
+  "regole_circuito": {
+    "struttura": "3-5 slot per circuito, 3-4 andate.",
+    "nota": "Solo consultazione: il programma non dà avvisi in composizione.",
+    "fable_composizione": [
+      "Un solo passaggio per priorità in ogni circuito: due passaggi dello stesso gruppo di seguito si disturbano a vicenda e caricano gli stessi muscoli.",
+      "Frammenti della stessa famiglia (es. 24-28 e 108-113, 58-68 e 135-145) in circuiti diversi finché uno non è in drop-out; 58-68 e 135-145, dopo il drop-out, apposta uno dopo l'altro.",
+      "Un solo frammento di priorità 6 per circuito, con Rep 2-3 a mp e il ff solo in Rep 4.",
+      "Al massimo due slot con trilli 3-5 per blocco."
+    ]
+  },
+  "frammenti": [
+    {
+      "id": "op111-1-3-5-attacchi",
+      "brano": "op111",
+      "battute": "1, 3, 5",
+      "titolo": "Attacchi (biscroma e accordo sf)",
+      "priorita": 6,
+      "famiglia": null,
+      "nodo_motorio": "Nota corta e accordo lungo in un solo gesto del braccio; salto in ottave della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play: suona la biscroma, sposta di scatto, atterra muto sull'accordo, controlla al tatto, suona.",
+          "rep3": "PESO sugli accordi d'arrivo; durante la legatura muovi il polso su e giù."
+        },
+        "2": {
+          "rep2": "CIECO shift–touch–play, come in andata 1.",
+          "rep3": "MENT."
+        }
+      },
+      "rep4_verifica": "Tutte le note dell'accordo scendono insieme; nessuna tensione tenuta sulla nota lunga."
+    },
+    {
+      "id": "op111-1-3-5-trilli",
+      "brano": "op111",
+      "battute": "1, 3, 5",
+      "titolo": "Trilli con chiusa",
+      "priorita": 6,
+      "famiglia": null,
+      "nodo_motorio": "Trillo breve con altre dita impegnate a tenere; chiusa a tempo.",
+      "andate": {
+        "1": {
+          "rep2": "TRILL a 4 e poi a 6 note, partendo dalla nota reale.",
+          "rep3": "RIT: fermata sull'ultima nota del trillo, poi chiusa e arrivo di scatto."
+        },
+        "2": {
+          "rep2": "TRILL, come in andata 1.",
+          "rep3": "RIT con ritmo opposto."
+        }
+      },
+      "rep4_verifica": "Stesso numero di note ogni volta; sf solo sull'attacco.",
+      "note": "Partenza del trillo dalla nota reale: Bülow, Cotta nota c p. 118."
+    },
+    {
+      "id": "op111-2-4",
+      "brano": "op111",
+      "battute": "2, 4",
+      "titolo": "Arpeggi passati da sinistra a destra",
+      "priorita": 6,
+      "famiglia": null,
+      "nodo_motorio": "Consegna tra le mani senza buco né accento.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: la porzione della sinistra come accordo, quella della destra come accordo, poi l'accordo d'arrivo, a tempo.",
+          "rep3": "CHUNK con stop sulla prima nota della destra; poi quella nota volutamente pp."
+        },
+        "2": {
+          "rep2": "BLOC, come in andata 1.",
+          "rep3": "CHUNK sfalsati di una nota."
+        }
+      },
+      "rep4_verifica": "Il punto di consegna non si sente; l'accordo f arriva senza ritardo."
+    },
+    {
+      "id": "op111-6-10",
+      "brano": "op111",
+      "battute": "6-10",
+      "titolo": "Accordi doppio puntati",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Accordi di 3-4 note insieme a pp; biscroma ribattuta con movimento minimo.",
+      "andate": {
+        "1": {
+          "rep2": "Ribatti la biscroma da metà corsa del tasto (doppio scappamento del coda), senza staccare le dita.",
+          "rep3": "DIN dentro la mano: voce superiore suonata, resto dell'accordo muto; poi il contrario."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Nessun accordo arpeggiato, nessuna nota che non parla."
+    },
+    {
+      "id": "op111-11-15",
+      "brano": "op111",
+      "battute": "11-15",
+      "titolo": "Crome ribattute con sfp, accordi legati",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Sinistra: ribattute uguali con un'altra voce nella stessa mano. Destra: legato di doppie note con sostituzione di dita.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: voce ribattuta pp con l'altra voce tenuta; sfp come attacco e scarico immediato del peso.",
+          "rep3": "Destra sola, CIECO: sostituzioni contate, il cambio di dito cade sul levare."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Ribattute senza rimbalzo del braccio; legato vero senza pedale."
+    },
+    {
+      "id": "op111-16-19",
+      "brano": "op111",
+      "battute": "16-19",
+      "titolo": "Tremolo della sinistra e ingresso della destra con terzina d'anacrusi",
+      "priorita": 4,
+      "famiglia": null,
+      "parti": [
+        "16-18",
+        "18-19"
+      ],
+      "nodo_motorio": "bb. 16-18: Trillo misurato lungo nel grave, crescendo senza irrigidire.\nbb. 18-19: Tre note rapide a mani unite partendo da fermo, arrivo sul do.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 16-18: ROT: due quarti di sola rotazione, due di sole dita, alternati.\nbb. 18-19: Tocca i tre tasti in silenzio con entrambe le mani, poi suonali come un unico impulso che finisce sul do con caduta del braccio.",
+          "rep3": "bb. 16-18: ACC ogni 4 note, poi ogni 3.\nbb. 18-19: MUTA a mani scambiate; poi RIT con fermata sulla 1ª e sulla 2ª nota."
+        },
+        "2": {
+          "rep2": "bb. 16-18: ROT, come in andata 1.\nbb. 18-19: Come in andata 1.",
+          "rep3": "bb. 16-18: CLIC sul levare.\nbb. 18-19: MUTA con l'altra mano in evidenza; RIT con ritmo opposto."
+        }
+      },
+      "rep4_verifica": "bb. 16-18: Numero di note esatto (b. 16: otto per quarto). Il crescendo viene dall'ampiezza della rotazione, non dalla pressione.\nbb. 18-19: Tre note distinte, mani esattamente insieme."
+    },
+    {
+      "id": "op111-20-23",
+      "brano": "op111",
+      "battute": "20-23",
+      "titolo": "Do–mi♭–si♮ con corona; crome non legato e gruppetto",
+      "priorita": 5,
+      "famiglia": null,
+      "parti": [
+        "20-21",
+        "22-23"
+      ],
+      "nodo_motorio": "bb. 20-21: Note staccate di braccio a mani unite; cambio di dito sulla corona.\nbb. 22-23: Staccato di dito a mani unite; nel gruppetto la destra usa 3-5-3 contro dita forti della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 20-21: DIN: sinistra f, destra pp.\nbb. 22-23: STAC pp su tutto.",
+          "rep3": "bb. 20-21: PESO: ogni nota dal tasto, rilascio immediato.\nbb. 22-23: RIT sul solo gruppetto: fermata sulla 1ª, poi sulla 3ª nota."
+        },
+        "2": {
+          "rep2": "bb. 20-21: DIN invertito: destra f, sinistra pp.\nbb. 22-23: STAC, come in andata 1.",
+          "rep3": "bb. 20-21: PESO, come in andata 1.\nbb. 22-23: RIT con ritmo opposto."
+        }
+      },
+      "rep4_verifica": "bb. 20-21: Mani insieme su ogni nota, senza acciaccatura tra le due.\nbb. 22-23: Le quattro semicrome uguali; la destra non arriva in ritardo sul 5."
+    },
+    {
+      "id": "op111-24-28",
+      "brano": "op111",
+      "battute": "24-28",
+      "titolo": "Tema all'unisono, semicrome parallele (zona rossa)",
+      "priorita": 1,
+      "famiglia": "fam-semicrome-parallele",
+      "nodo_motorio": "Tre compiti: cellule a gruppetto con diteggiature non speculari, posizioni per quarto con salto, discesa di tre ottave.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC su 26-27: ogni quarto come accordo a mani unite, la seconda volta CIECO. Poi NODO su 24-25 e su 28.",
+          "rep3": "MUTA: la sinistra suona, la destra fa da fantasma, tutto il passaggio."
+        },
+        "2": {
+          "rep2": "RIT con fermata sulla 1ª nota di ogni quarto: le tre seguenti e l'arrivo di scatto.",
+          "rep3": "RIT con fermata sulla 3ª nota: lo scatto attraversa il cambio di posizione."
+        },
+        "3": {
+          "rep2": "ACC sulla 2ª e sulla 4ª semicroma, con DIN (sinistra f, destra p).",
+          "rep3": "CHUNK a tempo pieno: un quarto più una nota, poi mezza battuta più una nota. La b. 28 a ritroso: ultimo quarto, ultimi due, ultimi tre."
+        },
+        "4": {
+          "rep2": "ALT: un quarto a testa, a tempo.",
+          "rep3": "CLIC sul levare, tutto il passaggio di fila."
+        }
+      },
+      "rep4_verifica": "La sinistra si sente distinta sotto la destra su ogni semicroma. In 26-27 la quarta semicroma di ogni quarto ha la sua durata piena. Lo sf è un impulso del braccio sulla prima nota e non la allunga.",
+      "note": "Analisi: da 24 a metà 26 cellule a gruppetto in discesa, destra 3-4-5 e sinistra 1-2-3, passaggi del pollice su semicrome diverse (effetto tipico: destra opaca, pollice sinistro che batte, mani sfasate). Da metà 26 a 27 una posizione per quarto con sf (effetto tipico: quarta semicroma accorciata, sf in ritardo o picchiato). 28: discesa di tre ottave, pollici non coincidenti. Come muoversi: l'avambraccio trasporta la mano con moto continuo; chiarezza = rilascio puntuale di ogni tasto; pollice leggero; busto inclinato dalle anche, non i polsi. A matita sopra b. 24: «segui sinistra»."
+    },
+    {
+      "id": "op111-108-110",
+      "brano": "op111",
+      "battute": "108-110",
+      "titolo": "Semicrome parallele nell'acuto (seconda zona rossa)",
+      "priorita": 1,
+      "famiglia": "fam-semicrome-parallele",
+      "nodo_motorio": "Come 24-25: diteggiature non speculari, mani a seste o decime.",
+      "andate": {
+        "1": {
+          "rep2": "MUTA: sinistra suona, destra fantasma (senza BLOC).",
+          "rep3": "MUTA nell'altra direzione."
+        },
+        "2": {
+          "rep2": "RIT con fermata sulla 1ª nota di ogni quarto: le tre seguenti e l'arrivo di scatto.",
+          "rep3": "RIT con fermata sulla 3ª nota: lo scatto attraversa il cambio di posizione."
+        },
+        "3": {
+          "rep2": "ACC sulla 2ª e sulla 4ª semicroma, con DIN (sinistra f, destra p).",
+          "rep3": "CHUNK a tempo pieno: un quarto più una nota, poi mezza battuta più una nota."
+        },
+        "4": {
+          "rep2": "ALT: un quarto a testa, a tempo.",
+          "rep3": "CLIC sul levare, tutto il passaggio di fila."
+        }
+      },
+      "rep4_verifica": "Come 24-28 (prima verifica): la sinistra si sente distinta sotto la destra su ogni semicroma. [Il documento non dà verifiche proprie.]",
+      "note": "Stesso compito di 24-25, con mani a seste o decime (sincronia meno controllabile all'orecchio) e sinistra oltre la linea mediana. Posizione: busto inclinato a destra, gomito sinistro avanti e lontano dal fianco, polso sinistro in linea con l'avambraccio. Bülow (Cotta nota a p. 125): a 113-114 la destra può prendere il do della sinistra, solo se la sinistra arriva in ritardo sul tremolo."
+    },
+    {
+      "id": "op111-111-113",
+      "brano": "op111",
+      "battute": "111-113",
+      "titolo": "Semicrome parallele nell'acuto (seconda zona rossa)",
+      "priorita": 1,
+      "famiglia": "fam-semicrome-parallele",
+      "nodo_motorio": "Come 24-25: diteggiature non speculari, mani a seste o decime.",
+      "andate": {
+        "1": {
+          "rep2": "MUTA: sinistra suona, destra fantasma (senza BLOC).",
+          "rep3": "MUTA nell'altra direzione."
+        },
+        "2": {
+          "rep2": "RIT con fermata sulla 1ª nota di ogni quarto: le tre seguenti e l'arrivo di scatto.",
+          "rep3": "RIT con fermata sulla 3ª nota: lo scatto attraversa il cambio di posizione."
+        },
+        "3": {
+          "rep2": "ACC sulla 2ª e sulla 4ª semicroma, con DIN (sinistra f, destra p).",
+          "rep3": "CHUNK a tempo pieno: un quarto più una nota, poi mezza battuta più una nota."
+        },
+        "4": {
+          "rep2": "ALT: un quarto a testa, a tempo.",
+          "rep3": "CLIC sul levare, tutto il passaggio di fila."
+        }
+      },
+      "rep4_verifica": "Come 24-28 (prima verifica): la sinistra si sente distinta sotto la destra su ogni semicroma. [Il documento non dà verifiche proprie.]",
+      "note": "Stesso compito di 24-25, con mani a seste o decime (sincronia meno controllabile all'orecchio) e sinistra oltre la linea mediana. Posizione: busto inclinato a destra, gomito sinistro avanti e lontano dal fianco, polso sinistro in linea con l'avambraccio. Bülow (Cotta nota a p. 125): a 113-114 la destra può prendere il do della sinistra, solo se la sinistra arriva in ritardo sul tremolo."
+    },
+    {
+      "id": "op111-29-31",
+      "brano": "op111",
+      "battute": "29-31",
+      "titolo": "Tema con bicordi ribattuti interni",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Destra a due strati: voce superiore con 5-4, bicordi ribattuti con le dita basse.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano: voce superiore suonata e bicordi muti; poi il contrario.",
+          "rep3": "Bicordi pp da metà corsa del tasto, voce superiore f. Sul gruppetto: RIT."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1, RIT del gruppetto con ritmo opposto."
+        }
+      },
+      "rep4_verifica": "Ribattuti uguali e sotto la voce; gruppetto regolare."
+    },
+    {
+      "id": "op111-32-33",
+      "brano": "op111",
+      "battute": "32-33",
+      "titolo": "Semicrome spezzate con voce superiore, ottave della sinistra",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Rotazione tra dito della melodia e pollice; ottave per grado in crome.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla destra, pollice pp.",
+          "rep3": "BLOC: le due note di ogni croma insieme, voce superiore legata. Sinistra: PESO, un impulso ogni quattro ottave."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Ogni ottava della sinistra coincide con la nota superiore della destra; pollice destro quasi inudibile."
+    },
+    {
+      "id": "op111-34-35",
+      "brano": "op111",
+      "battute": "34-35",
+      "titolo": "Poco ritenente e trillo con 3-5",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Trillo con voce inferiore nella stessa mano; attacco delle semicrome della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "TRILL a 4 e poi a 6 note, voce inferiore tenuta.",
+          "rep3": "Sinistra sola da b. 35: STAC pp."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Il trillo non blocca il polso; la sinistra parte a tempo.",
+      "trillo_3_5": true
+    },
+    {
+      "id": "op111-35-39",
+      "brano": "op111",
+      "battute": "35-39",
+      "titolo": "Semicrome della destra contro ottave della sinistra",
+      "priorita": 2,
+      "famiglia": "fam-destra-contro-ottave",
+      "nodo_motorio": "Rapporto 2:1; dita deboli della destra nei gruppetti 3-5-3. L'impulso dell'ottava non deve passare alla mano che corre.",
+      "andate": {
+        "1": {
+          "rep2": "Destra suona, sinistra MUTA: le ottave toccate in silenzio, nel posto giusto.",
+          "rep3": "RIT nella sola destra, sinistra regolare."
+        },
+        "2": {
+          "rep2": "MUTA scambiata: sinistra suona, destra fantasma.",
+          "rep3": "CHUNK, un quarto più una nota."
+        }
+      },
+      "rep4_verifica": "Ogni ottava cade con la 1ª e la 3ª semicroma; nessun accento della destra sotto le ottave."
+    },
+    {
+      "id": "op111-106-107",
+      "brano": "op111",
+      "battute": "106-107",
+      "titolo": "Semicrome della destra contro ottave della sinistra",
+      "priorita": 2,
+      "famiglia": "fam-destra-contro-ottave",
+      "nodo_motorio": "Rapporto 2:1; dita deboli della destra nei gruppetti 3-5-3. L'impulso dell'ottava non deve passare alla mano che corre.",
+      "andate": {
+        "1": {
+          "rep2": "Destra suona, sinistra MUTA: le ottave toccate in silenzio, nel posto giusto.",
+          "rep3": "RIT nella sola destra, sinistra regolare."
+        },
+        "2": {
+          "rep2": "MUTA scambiata: sinistra suona, destra fantasma.",
+          "rep3": "CHUNK, un quarto più una nota."
+        }
+      },
+      "rep4_verifica": "Ogni ottava cade con la 1ª e la 3ª semicroma; nessun accento della destra sotto le ottave."
+    },
+    {
+      "id": "op111-40-43",
+      "brano": "op111",
+      "battute": "40-43",
+      "titolo": "Semicrome della sinistra sotto ottave legate della destra",
+      "priorita": 2,
+      "famiglia": "fam-sinistra-sotto-ottave",
+      "nodo_motorio": "Uniformità della sinistra, con il pollice su molti tempi forti; ottave legate della destra. A b. 43 semicrome in entrambe le mani.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra STAC pp, destra normale.",
+          "rep3": "ACC nella sinistra su 2ª e 4ª semicroma, pollice pp."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "DOPPIE, sinistra sola."
+        }
+      },
+      "rep4_verifica": "Ogni semicroma della sinistra si sente sotto le ottave; il legato delle ottave viene dalle dita, spalla bassa.",
+      "note": "A b. 40, 3-4 a matita sulle ottave della destra: scelta giusta con la tua apertura; vale anche per 101-103."
+    },
+    {
+      "id": "op111-100-103",
+      "brano": "op111",
+      "battute": "100-103",
+      "titolo": "Semicrome della destra, poi ottave della destra su semicrome della sinistra",
+      "priorita": 2,
+      "famiglia": "fam-sinistra-sotto-ottave",
+      "nodo_motorio": "Come 40-43: uniformità della sinistra sotto le ottave.",
+      "andate": {
+        "1": {
+          "rep2": "b. 100: RIT nella destra. 101-103: sinistra STAC pp, destra normale.",
+          "rep3": "ACC nella sinistra su 2ª e 4ª semicroma."
+        },
+        "2": {
+          "rep2": "b. 100: RIT con ritmo opposto. 101-103: come in andata 1.",
+          "rep3": "DOPPIE, sinistra sola."
+        }
+      },
+      "rep4_verifica": "Ogni semicroma della sinistra si sente sotto le ottave."
+    },
+    {
+      "id": "op111-44-47",
+      "brano": "op111",
+      "battute": "44-47",
+      "titolo": "Come 36-38, in la♭, registro acuto",
+      "priorita": 2,
+      "famiglia": null,
+      "nodo_motorio": "Stesso compito di 35-39 con il busto inclinato a destra e il gomito destro che guida.",
+      "andate": {
+        "1": {
+          "rep2": "CHUNK a tempo, un quarto più una nota, mani unite.",
+          "rep3": "CLIC sul levare."
+        },
+        "2": {
+          "rep2": "CHUNK sfalsati di una nota.",
+          "rep3": "CLIC sul levare."
+        }
+      },
+      "rep4_verifica": "Come 35-39; sf solo sulla prima nota del gruppo."
+    },
+    {
+      "id": "op111-48-49",
+      "brano": "op111",
+      "battute": "48-49",
+      "titolo": "Salti incrociati sopra il tremolo",
+      "priorita": 6,
+      "famiglia": "fam-salti-sul-tremolo",
+      "nodo_motorio": "Salto di più ottave in una minima, atterraggio sf con un dito solo; il tremolo non si interrompe.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, CIECO shift–touch–play. Lo sguardo va sul tasto d'arrivo prima che la mano parta.",
+          "rep3": "ROT sul tremolo, polso sinistro basso per lasciar passare la destra. Poi insieme: la destra arriva in anticipo e aspetta sul tasto."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Lo sf parte dal tasto, non dall'aria; otto semicrome di tremolo per minima, senza buchi.",
+      "note": "Per gli sf puoi provare il 3 sostenuto dal pollice appoggiato dietro (opzione di Fable; la Henle indica 2 e 3)."
+    },
+    {
+      "id": "op111-114-115",
+      "brano": "op111",
+      "battute": "114-115",
+      "titolo": "Salti incrociati sopra il tremolo",
+      "priorita": 6,
+      "famiglia": "fam-salti-sul-tremolo",
+      "nodo_motorio": "Salto di più ottave in una minima, atterraggio sf con un dito solo; il tremolo non si interrompe.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, CIECO shift–touch–play. Lo sguardo va sul tasto d'arrivo prima che la mano parta.",
+          "rep3": "ROT sul tremolo, polso sinistro basso per lasciar passare la destra. Poi insieme: la destra arriva in anticipo e aspetta sul tasto."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Lo sf parte dal tasto, non dall'aria; otto semicrome di tremolo per minima, senza buchi.",
+      "note": "Per gli sf puoi provare il 3 sostenuto dal pollice appoggiato dietro (opzione di Fable; la Henle indica 2 e 3)."
+    },
+    {
+      "id": "op111-50-54",
+      "brano": "op111",
+      "battute": "50-54",
+      "titolo": "Secondo tema, fioritura di 12 + 6 note, quintine",
+      "priorita": 7,
+      "famiglia": "fam-secondo-tema",
+      "nodo_motorio": "Gruppi irregolari uguali e leggeri; passaggi del pollice nella fioritura.",
+      "andate": {
+        "1": {
+          "rep2": "ACC: le 12 note raggruppate 4×3, poi 3×4; le quintine 2+3, poi 3+2.",
+          "rep3": "STAC pp, poi legato; la seconda volta CIECO."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Le 12 note non durano più delle 6 che seguono; nessun accento sul pollice.",
+      "note": "Bülow (Cotta nota b p. 121): a b. 52 le dodici note del terzo quarto non devono prendere più tempo delle sei del quarto."
+    },
+    {
+      "id": "op111-116-121",
+      "brano": "op111",
+      "battute": "116-121",
+      "titolo": "Secondo tema in ripresa, fioritura di 12 + 9 note, quintine con accordi",
+      "priorita": 7,
+      "famiglia": "fam-secondo-tema",
+      "nodo_motorio": "Come 50-54, con il gruppo di nove in più.",
+      "andate": {
+        "1": {
+          "rep2": "ACC: le 12 note 4×3, poi 3×4; le 9 note 5+4, poi 3×3.",
+          "rep3": "STAC pp, poi legato; la seconda volta CIECO."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Gruppi uguali; a b. 119 la voce inferiore resta tenuta sotto le quintine.",
+      "note": "Bülow (Cotta nota d p. 125): le nove note di b. 118 si dividono in 5 (2+3) più 4."
+    },
+    {
+      "id": "op111-56-57",
+      "brano": "op111",
+      "battute": "56-57",
+      "titolo": "Coppie legate in discesa, ff, a due mani",
+      "priorita": 4,
+      "famiglia": "fam-coppie-legate",
+      "nodo_motorio": "Ogni coppia è una posizione; tra una coppia e l'altra c'è un salto; la seconda nota tende a sparire.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni coppia come bicordo, mani unite, in crome; la seconda volta CIECO.",
+          "rep3": "RIT con fermata sulla 1ª nota della coppia: 2ª nota e salto di scatto."
+        },
+        "2": {
+          "rep2": "BLOC, come in andata 1.",
+          "rep3": "RIT con fermata sulla 2ª nota della coppia."
+        }
+      },
+      "rep4_verifica": "Seconda nota di ogni coppia udibile; mani insieme sulla prima; un gesto caduta–risalita del polso per coppia."
+    },
+    {
+      "id": "op111-132-133",
+      "brano": "op111",
+      "battute": "132-133",
+      "titolo": "Coppie legate in discesa, ff, a due mani",
+      "priorita": 4,
+      "famiglia": "fam-coppie-legate",
+      "nodo_motorio": "Ogni coppia è una posizione; tra una coppia e l'altra c'è un salto; la seconda nota tende a sparire.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni coppia come bicordo, mani unite, in crome; la seconda volta CIECO.",
+          "rep3": "RIT con fermata sulla 1ª nota della coppia: 2ª nota e salto di scatto."
+        },
+        "2": {
+          "rep2": "BLOC, come in andata 1.",
+          "rep3": "RIT con fermata sulla 2ª nota della coppia."
+        }
+      },
+      "rep4_verifica": "Seconda nota di ogni coppia udibile; mani insieme sulla prima."
+    },
+    {
+      "id": "op111-57",
+      "brano": "op111",
+      "battute": "57",
+      "titolo": "Scala/semicrome all'unisono verso il battere",
+      "priorita": 1,
+      "famiglia": "fam-scale-unisono",
+      "nodo_motorio": "Scala non legato all'unisono: i passaggi del pollice delle due mani non coincidono.",
+      "andate": {
+        "1": {
+          "rep2": "NODO.",
+          "rep3": "CHUNK a ritroso fino al battere di b. 58."
+        },
+        "2": {
+          "rep2": "NODO, come in andata 1.",
+          "rep3": "CHUNK a ritroso sfalsati di una nota, fino al battere di b. 58."
+        }
+      },
+      "rep4_verifica": "Crescendo senza accelerare; arrivo ff a tempo."
+    },
+    {
+      "id": "op111-134",
+      "brano": "op111",
+      "battute": "134",
+      "titolo": "Scala/semicrome all'unisono verso il battere",
+      "priorita": 1,
+      "famiglia": "fam-scale-unisono",
+      "nodo_motorio": "Scala non legato all'unisono: i passaggi del pollice delle due mani non coincidono.",
+      "andate": {
+        "1": {
+          "rep2": "NODO.",
+          "rep3": "CHUNK a ritroso fino al battere di b. 135."
+        },
+        "2": {
+          "rep2": "NODO, come in andata 1.",
+          "rep3": "CHUNK a ritroso sfalsati di una nota, fino al battere di b. 135."
+        }
+      },
+      "rep4_verifica": "Arrivo ff a tempo."
+    },
+    {
+      "id": "op111-91",
+      "brano": "op111",
+      "battute": "91",
+      "titolo": "Scala/semicrome all'unisono verso il battere",
+      "priorita": 1,
+      "famiglia": "fam-scale-unisono",
+      "nodo_motorio": "Semicrome parallele verso la ripresa: aggancio a tempo del ff di b. 92.",
+      "andate": {
+        "1": {
+          "rep2": "NODO.",
+          "rep3": "CHUNK a ritroso fino al battere di b. 92."
+        },
+        "2": {
+          "rep2": "NODO, come in andata 1.",
+          "rep3": "CHUNK a ritroso sfalsati di una nota, fino al battere di b. 92."
+        }
+      },
+      "rep4_verifica": "Nessuna sospensione prima del battere."
+    },
+    {
+      "id": "op111-58-61",
+      "brano": "op111",
+      "battute": "58-61",
+      "titolo": "Gruppi di quattro in discesa, ottave della sinistra",
+      "priorita": 4,
+      "famiglia": "fam-gruppi-di-quattro",
+      "nodo_motorio": "Ogni gruppo è una posizione; dopo il pollice la mano salta in su verso il 5 successivo.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni quarto come accordo, CIECO, con le ottave della sinistra.",
+          "rep3": "CHUNK: quattro note più il 5 seguente. Poi ACC sul pollice (4ª nota)."
+        },
+        "2": {
+          "rep2": "BLOC, come in andata 1.",
+          "rep3": "CHUNK sfalsati di una nota; poi ACC sul pollice."
+        }
+      },
+      "rep4_verifica": "La semicroma del pollice ha durata piena; ottave della sinistra con PESO, senza spinta della spalla."
+    },
+    {
+      "id": "op111-135-138",
+      "brano": "op111",
+      "battute": "135-138",
+      "titolo": "Gruppi di quattro in discesa, ottave della sinistra",
+      "priorita": 4,
+      "famiglia": "fam-gruppi-di-quattro",
+      "nodo_motorio": "Ogni gruppo è una posizione; dopo il pollice la mano salta in su verso il 5 successivo.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni quarto come accordo, CIECO, con le ottave della sinistra.",
+          "rep3": "CHUNK: quattro note più il 5 seguente. Poi ACC sul pollice (4ª nota)."
+        },
+        "2": {
+          "rep2": "BLOC, come in andata 1.",
+          "rep3": "CHUNK sfalsati di una nota; poi ACC sul pollice."
+        }
+      },
+      "rep4_verifica": "La semicroma del pollice ha durata piena."
+    },
+    {
+      "id": "op111-61-63",
+      "brano": "op111",
+      "battute": "61-63",
+      "titolo": "Accordi ribattuti con voce superiore; frammenti della sinistra dopo pausa",
+      "priorita": 4,
+      "famiglia": "fam-ribattuti-frammenti-sx",
+      "nodo_motorio": "La sinistra entra sulla 2ª semicroma e cambia registro ogni mezza battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CHUNK per frammento con atterraggio muto sul successivo, CIECO.",
+          "rep3": "Insieme, destra MUTA."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "CLIC sul levare."
+        }
+      },
+      "rep4_verifica": "La prima nota della sinistra non è né anticipata né mangiata; i ribattuti della destra restano uguali."
+    },
+    {
+      "id": "op111-138-140",
+      "brano": "op111",
+      "battute": "138-140",
+      "titolo": "Accordi ribattuti con voce superiore; frammenti della sinistra dopo pausa",
+      "priorita": 4,
+      "famiglia": "fam-ribattuti-frammenti-sx",
+      "nodo_motorio": "La sinistra entra sulla 2ª semicroma e cambia registro ogni mezza battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CHUNK per frammento con atterraggio muto sul successivo, CIECO.",
+          "rep3": "Insieme, destra MUTA."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "CLIC sul levare."
+        }
+      },
+      "rep4_verifica": "La prima nota della sinistra non è né anticipata né mangiata."
+    },
+    {
+      "id": "op111-64-66",
+      "brano": "op111",
+      "battute": "64-66",
+      "titolo": "Tema in ottave con trilli sopra semicrome gravi continue",
+      "priorita": 3,
+      "famiglia": "fam-ottave-trilli-sx-continua",
+      "nodo_motorio": "Uniformità e resistenza della sinistra in posizione stretta; il trillo non deve farla inciampare.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra RIT o STAC, destra MUTA.",
+          "rep3": "Insieme, con il trillo ridotto alla sola nota reale; poi TRILL misurato, due note per ogni semicroma della sinistra."
+        },
+        "2": {
+          "rep2": "Sinistra RIT con ritmo opposto (o STAC), destra MUTA.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Sinistra regolare all'attacco e alla chiusa di ogni trillo.",
+      "note": "Il numero di note del trillo a tempo pieno dipende dal tempo finale: otto biscrome per quarto probabilmente troppe sopra ♩ = 120; fissa il numero più alto che resta regolare."
+    },
+    {
+      "id": "op111-141-143",
+      "brano": "op111",
+      "battute": "141-143",
+      "titolo": "Tema in ottave con trilli sopra semicrome gravi continue",
+      "priorita": 3,
+      "famiglia": "fam-ottave-trilli-sx-continua",
+      "nodo_motorio": "Uniformità e resistenza della sinistra in posizione stretta; il trillo non deve farla inciampare.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra RIT o STAC, destra MUTA.",
+          "rep3": "Insieme, con il trillo ridotto alla sola nota reale; poi TRILL misurato, due note per ogni semicroma della sinistra."
+        },
+        "2": {
+          "rep2": "Sinistra RIT con ritmo opposto (o STAC), destra MUTA.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Sinistra regolare all'attacco e alla chiusa di ogni trillo.",
+      "note": "Il numero di note del trillo a tempo pieno dipende dal tempo finale: otto biscrome per quarto probabilmente troppe sopra ♩ = 120; fissa il numero più alto che resta regolare."
+    },
+    {
+      "id": "op111-67-68",
+      "brano": "op111",
+      "battute": "67-68",
+      "titolo": "Sequenza cromatica all'unisono con sf",
+      "priorita": 1,
+      "famiglia": "fam-sequenza-cromatica",
+      "nodo_motorio": "Una cellula di quattro note per quarto, un semitono più su ogni volta: il profilo tasti bianchi e neri cambia a ogni cellula.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp senza sf, CIECO.",
+          "rep3": "CHUNK: quattro note più una, sf sull'arrivo."
+        },
+        "2": {
+          "rep2": "STAC, come in andata 1.",
+          "rep3": "ALT, un quarto a testa."
+        }
+      },
+      "rep4_verifica": "Lo sf viene dal braccio, non allunga la 1ª nota e non accorcia la 4ª; arrivo a b. 69 a tempo.",
+      "note": "Bülow propone 2-3-4-1 su ogni cellula (Cotta nota a p. 122); Fable non la raccomanda al posto della tua diteggiatura."
+    },
+    {
+      "id": "op111-144-145",
+      "brano": "op111",
+      "battute": "144-145",
+      "titolo": "Sequenza cromatica all'unisono con sf",
+      "priorita": 1,
+      "famiglia": "fam-sequenza-cromatica",
+      "nodo_motorio": "Una cellula di quattro note per quarto, un semitono più su ogni volta: il profilo tasti bianchi e neri cambia a ogni cellula.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp senza sf, CIECO.",
+          "rep3": "CHUNK: quattro note più una, sf sull'arrivo."
+        },
+        "2": {
+          "rep2": "STAC, come in andata 1.",
+          "rep3": "ALT, un quarto a testa."
+        }
+      },
+      "rep4_verifica": "Lo sf viene dal braccio, non allunga la 1ª nota e non accorcia la 4ª; arrivo a b. 146 a tempo.",
+      "note": "Bülow propone 2-3-4-1 su ogni cellula (Cotta nota a p. 122); Fable non la raccomanda al posto della tua diteggiatura."
+    },
+    {
+      "id": "op111-69-71",
+      "brano": "op111",
+      "battute": "69-71",
+      "titolo": "Salti ff, terzina d'anacrusi, ottave p",
+      "priorita": 6,
+      "famiglia": null,
+      "nodo_motorio": "Atterraggi precisi a due mani dopo pause.",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play.",
+          "rep3": "MENT."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Atterraggi dal tasto; terzina come a b. 19."
+    },
+    {
+      "id": "op111-72-75",
+      "brano": "op111",
+      "battute": "72-75",
+      "titolo": "Doppie ottave p",
+      "priorita": 6,
+      "famiglia": null,
+      "nodo_motorio": "Quattro note insieme a p, pollici che non sporgono, salti di settima diminuita.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a pp dal tasto, con DIN tra le dita: mignoli più forti dei pollici, poi il contrario.",
+          "rep3": "CIECO sui salti."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Nessuna acciaccatura tra le mani né dentro l'ottava."
+    },
+    {
+      "id": "op111-76-79",
+      "brano": "op111",
+      "battute": "76-79",
+      "titolo": "Tema aumentato, trilli a due voci, semicrome di b. 78",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Trillo di sole dita con il pollice fermo su un'altra voce (destra a b. 77, sinistra a b. 79). Trillo solo di dita, piccolo.",
+      "andate": {
+        "1": {
+          "rep2": "TRILL: voce tenuta giù, trillo pp a 4 note per quarto, poi a 6. Mano leggermente inclinata verso il mignolo.",
+          "rep3": "Una mano con il suo trillo, l'altra MUTA; poi si scambia. Semicrome di b. 78: RIT."
+        },
+        "2": {
+          "rep2": "TRILL, come in andata 1.",
+          "rep3": "Come in andata 1; RIT di b. 78 con ritmo opposto."
+        }
+      },
+      "rep4_verifica": "La voce tenuta resta giù per tutta la durata; chiusa del trillo a tempo.",
+      "note": "A b. 77 hai scritto 3-5 sopra il 2-4 stampato: Rep 2-3 usano sempre quella che userai a tempo. Trilli 3-5 molto affaticanti: pp in Rep 2-3.",
+      "trillo_3_5": true
+    },
+    {
+      "id": "op111-80-83",
+      "brano": "op111",
+      "battute": "80-83",
+      "titolo": "Destra a due voci, trillo sopra crome (b. 81), trilli della sinistra (82-83)",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Due compiti nella stessa mano; il pollice suona per adduzione, senza far cadere la mano.",
+      "andate": {
+        "1": {
+          "rep2": "Voci separate con la diteggiatura reale: una suonata, l'altra tenuta muta.",
+          "rep3": "Trillo sostituito da un'alternanza misurata in semicrome, due note per ogni croma dell'altra voce; poi in biscrome."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Le crome sotto il trillo restano uguali; il trillo non si ferma quando il pollice suona.",
+      "trillo_3_5": true
+    },
+    {
+      "id": "op111-84-85",
+      "brano": "op111",
+      "battute": "84-85",
+      "titolo": "Crescendo, poi accordo e pollice alternati nella destra",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Rotazione con l'accordo dal lato del mignolo; ottave sincopate della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Su b. 85: BLOC (accordo e nota singola insieme), poi ROT in rotazione pura.",
+          "rep3": "CLIC sul levare; sinistra con PESO."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Tutte le note dell'accordo parlano a ogni ripercussione; avambraccio morbido a fine crescendo."
+    },
+    {
+      "id": "op111-86-90",
+      "brano": "op111",
+      "battute": "86-90",
+      "titolo": "Accordi staccati e sf della destra, arpeggi della sinistra dopo pausa",
+      "priorita": 4,
+      "famiglia": null,
+      "nodo_motorio": "La sinistra parte dal basso sulla 2ª semicroma e sale per più posizioni; ogni accordo della destra ha una forma diversa.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC a scheletro: accordo della destra sul battere e, sulla 2ª semicroma, il frammento della sinistra come accordo. La seconda volta CIECO.",
+          "rep3": "Sinistra come scritta, destra MUTA. Ogni frammento è un solo impulso che finisce sulla sua ultima nota."
+        },
+        "2": {
+          "rep2": "BLOC a scheletro, come in andata 1.",
+          "rep3": "RIT nella sinistra."
+        }
+      },
+      "rep4_verifica": "Prima nota di ogni frammento udibile; accordi della destra completi; nessuna tensione tenuta sulla minima con sf."
+    },
+    {
+      "id": "op111-92-95",
+      "brano": "op111",
+      "battute": "92-95",
+      "titolo": "Tema ff in doppie ottave e ritardando",
+      "priorita": 6,
+      "famiglia": null,
+      "parti": [
+        "92-93",
+        "94-95"
+      ],
+      "nodo_motorio": "bb. 92-93: Doppie ottave con salti; un impulso del braccio per gruppo.\nbb. 94-95: Voce superiore e ribattuti interni nella stessa mano.",
+      "andate": {
+        "1": {
+          "rep2": "bb. 92-93: PESO a mp, un impulso per ogni gruppo di crome; CIECO sui salti do–mi♭–si♮.\nbb. 94-95: BLOC sulle posizioni.",
+          "rep3": "bb. 92-93: MENT, poi DIN con sinistra f.\nbb. 94-95: DIN dentro la mano, come a 29-31: voce superiore suonata e bicordi muti, poi il contrario."
+        },
+        "2": {
+          "rep2": "bb. 92-93: Come in andata 1.\nbb. 94-95: Come in andata 1.",
+          "rep3": "bb. 92-93: MENT, poi DIN con destra f.\nbb. 94-95: Come in andata 1."
+        }
+      },
+      "rep4_verifica": "bb. 92-93: Il ff viene dalla caduta del braccio; la mano si richiude tra un'ottava e l'altra dove c'è tempo.\nbb. 94-95: Ribattuti interni uguali."
+    },
+    {
+      "id": "op111-96-99",
+      "brano": "op111",
+      "battute": "96-99",
+      "titolo": "Martellato a mani alternate",
+      "priorita": 4,
+      "famiglia": null,
+      "nodo_motorio": "Un flusso di semicrome fatto da due mani sfasate; la destra salta a ogni colpo.",
+      "andate": {
+        "1": {
+          "rep2": "Togli lo sfasamento: le due mani insieme, in crome. Poi le due linee dello zigzag della destra separate: solo le note alte, solo le basse.",
+          "rep3": "Come scritto, con CLIC sulla 2ª semicroma: senti la sinistra come battere."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "ACC solo nella sinistra."
+        }
+      },
+      "rep4_verifica": "Semicrome composte uguali, senza galoppo; staccato dal tasto con polsi bassi; crescendo di peso, non di velocità.",
+      "note": "Bülow (Cotta nota b p. 124): cominciare piano e tenere la sinistra più leggera della destra."
+    },
+    {
+      "id": "op111-104-105",
+      "brano": "op111",
+      "battute": "104-105",
+      "titolo": "Destra a due voci sopra le semicrome della sinistra",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Semicrome in entrambe le mani mentre il 5 della destra porta un'altra voce.",
+      "andate": {
+        "1": {
+          "rep2": "Solo le due linee di semicrome, senza la voce superiore: NODO.",
+          "rep3": "Completo: semicrome interne della destra STAC pp, sinistra MUTA; poi si scambia."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "La voce superiore non rompe la regolarità delle semicrome sotto."
+    },
+    {
+      "id": "op111-122-123",
+      "brano": "op111",
+      "battute": "122-123",
+      "titolo": "Doppie note legate, p cresc.",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Legato di doppie note con sostituzioni e incroci di dita.",
+      "andate": {
+        "1": {
+          "rep2": "Voce superiore legata, inferiore staccata.",
+          "rep3": "Il contrario."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Legato vero senza pedale in entrambe le voci."
+    },
+    {
+      "id": "op111-124-127",
+      "brano": "op111",
+      "battute": "124-127",
+      "titolo": "Canto in ottave della sinistra, frammenti della destra, sestine, quintine a due voci",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "La destra entra sulla 2ª semicroma con un gruppo lanciato; ottave legate della sinistra con 4-5.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC nella destra: ogni frammento come accordo sulla 2ª semicroma, con la sinistra. La seconda volta CIECO.",
+          "rep3": "CLIC sul levare. Sestine di b. 126: ACC 3+3, poi 2+2+2."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Prima nota di ogni frammento udibile e a tempo; ottave legate dalle dita."
+    },
+    {
+      "id": "op111-128-131",
+      "brano": "op111",
+      "battute": "128-131",
+      "titolo": "Quintine con croma staccata in alto, sempre più allegro",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "Cinque note uguali, poi salto verso la croma; accelerando controllato su quattro battute.",
+      "andate": {
+        "1": {
+          "rep2": "ACC sulle quintine: 2+3, poi 3+2, poi senza accenti. Poi CHUNK: quintina più nota d'arrivo.",
+          "rep3": "Accelerando a gradini: 8-10 clic in più a ogni battuta."
+        },
+        "2": {
+          "rep2": "ACC come in andata 1; CHUNK sfalsati di una nota.",
+          "rep3": "Accelerando continuo, senza metronomo."
+        }
+      },
+      "rep4_verifica": "Quintine senza zoppia; croma alta presa pulita; accordi della sinistra insieme alla destra.",
+      "note": "Bülow (Cotta nota b p. 126): il ritorno al tempo principale va distribuito su tutte e quattro le battute."
+    },
+    {
+      "id": "op111-146-149",
+      "brano": "op111",
+      "battute": "146-149",
+      "titolo": "Accordi sf sui tempi deboli, ottave di do",
+      "priorita": 6,
+      "famiglia": null,
+      "nodo_motorio": "Ogni accordo ha una forma diversa e arriva dopo una pausa.",
+      "andate": {
+        "1": {
+          "rep2": "Destra: CIECO shift–touch–play sugli accordi.",
+          "rep3": "MENT, poi PESO."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Tutte le note dell'accordo insieme; rilascio completo nelle pause; diminuendo ottenuto riducendo la caduta."
+    },
+    {
+      "id": "op111-150-155",
+      "brano": "op111",
+      "battute": "150-155",
+      "titolo": "Coda, semicrome legate della sinistra",
+      "priorita": 3,
+      "famiglia": null,
+      "nodo_motorio": "Linea lunga legata e p, con il basso lontano all'inizio di ogni gruppo; pollice che non sporge.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: STAC pp, poi legato; destra MUTA.",
+          "rep3": "ACC pp su 2ª e 4ª semicroma."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Un solo clic per battuta, CIECO."
+        }
+      },
+      "rep4_verifica": "Senza pedale: nessun buco nel legato, nessun accento su pollice o nota bassa."
+    },
+    {
+      "id": "op111-156-158",
+      "brano": "op111",
+      "battute": "156-158",
+      "titolo": "Figura spezzata sul do grave, diminuendo",
+      "priorita": 3,
+      "famiglia": null,
+      "nodo_motorio": "Rotazione regolare che si rimpicciolisce fino al pp.",
+      "andate": {
+        "1": {
+          "rep2": "ROT.",
+          "rep3": "BLOC, poi CIECO."
+        },
+        "2": {
+          "rep2": "Come in andata 1.",
+          "rep3": "Come in andata 1."
+        }
+      },
+      "rep4_verifica": "Nessuna nota persa negli ultimi due quarti."
+    }
+  ],
+  "priorita": [
+    {
+      "n": 1,
+      "nome": "Semicrome parallele a due mani",
+      "perche": "È esattamente il difetto indicato."
+    },
+    {
+      "n": 2,
+      "nome": "Semicrome contro ottave (2:1)",
+      "perche": "Coordinazione tra le mani."
+    },
+    {
+      "n": 3,
+      "nome": "Sinistra continua",
+      "perche": "È la mano che rende opaco l'insieme."
+    },
+    {
+      "n": 4,
+      "nome": "Posizioni collegate da un salto",
+      "perche": "Precisione tattile."
+    },
+    {
+      "n": 5,
+      "nome": "Due voci e trilli nella stessa mano",
+      "perche": "Indipendenza dentro la mano."
+    },
+    {
+      "n": 6,
+      "nome": "Salti, ottave, accordi",
+      "perche": "Con la tua apertura è la famiglia meno critica. Carico più alto per mano e avambraccio."
+    },
+    {
+      "n": 7,
+      "nome": "Gruppi irregolari e passi lenti",
+      "perche": "Non dipendono dalla velocità."
+    }
+  ],
+  "famiglie": [
+    {
+      "id": "fam-semicrome-parallele",
+      "nome": "Semicrome parallele a due mani (zone rosse)",
+      "frammenti": [
+        "op111-24-28",
+        "op111-108-110",
+        "op111-111-113"
+      ]
+    },
+    {
+      "id": "fam-destra-contro-ottave",
+      "nome": "Semicrome della destra contro ottave della sinistra",
+      "frammenti": [
+        "op111-35-39",
+        "op111-106-107"
+      ]
+    },
+    {
+      "id": "fam-sinistra-sotto-ottave",
+      "nome": "Semicrome della sinistra sotto le ottave della destra",
+      "frammenti": [
+        "op111-40-43",
+        "op111-100-103"
+      ]
+    },
+    {
+      "id": "fam-salti-sul-tremolo",
+      "nome": "Salti incrociati sopra il tremolo",
+      "frammenti": [
+        "op111-48-49",
+        "op111-114-115"
+      ]
+    },
+    {
+      "id": "fam-secondo-tema",
+      "nome": "Secondo tema, fioriture e quintine",
+      "frammenti": [
+        "op111-50-54",
+        "op111-116-121"
+      ]
+    },
+    {
+      "id": "fam-coppie-legate",
+      "nome": "Coppie legate in discesa, ff",
+      "frammenti": [
+        "op111-56-57",
+        "op111-132-133"
+      ]
+    },
+    {
+      "id": "fam-scale-unisono",
+      "nome": "Scale/semicrome all'unisono verso il battere",
+      "frammenti": [
+        "op111-57",
+        "op111-134",
+        "op111-91"
+      ]
+    },
+    {
+      "id": "fam-gruppi-di-quattro",
+      "nome": "Gruppi di quattro in discesa, ottave della sinistra",
+      "frammenti": [
+        "op111-58-61",
+        "op111-135-138"
+      ]
+    },
+    {
+      "id": "fam-ribattuti-frammenti-sx",
+      "nome": "Accordi ribattuti e frammenti della sinistra dopo pausa",
+      "frammenti": [
+        "op111-61-63",
+        "op111-138-140"
+      ]
+    },
+    {
+      "id": "fam-ottave-trilli-sx-continua",
+      "nome": "Tema in ottave con trilli sopra semicrome gravi",
+      "frammenti": [
+        "op111-64-66",
+        "op111-141-143"
+      ]
+    },
+    {
+      "id": "fam-sequenza-cromatica",
+      "nome": "Sequenza cromatica all'unisono con sf",
+      "frammenti": [
+        "op111-67-68",
+        "op111-144-145"
+      ]
+    }
+  ],
+  "definizioni": {
+    "priorita": "Organizzazione dei passaggi: i 7 gruppi di Fable, in ordine di urgenza (1 = più urgente).",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo (es. 56-57 e 132-133). Un frammento con famiglia null non ha frammenti simili."
+  }
+}

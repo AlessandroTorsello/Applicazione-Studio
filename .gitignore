@@ -1,0 +1,5 @@
+*.jks
+*.keystore
+*.apk
+*.idsig
+node_modules/
