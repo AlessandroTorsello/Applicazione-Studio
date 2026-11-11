@@ -2,10 +2,12 @@
 /* ===================== versione 2.1: dimensioni e stili ===================== */
 /* Dimensioni: testo di base più piccolo e titoli meno ingombranti; in più la misura «piccolo». */
 html{font-size:16px}
-html[data-testo="piccolo"]{font-size:14.5px}
+html[data-testo="piccolo"]{font-size:14px}
 html[data-testo="grande"]{font-size:18px}
 html[data-testo="molto"]{font-size:20px}
 :root{
+  /* Scala tipografica: tutti i testi dell'app usano uno di questi nove gradini (12, 14, 16, 18, 20, 24, 30, 36, 48 px alla misura normale). */
+  --t-xs:.75rem; --t-sm:.875rem; --t-md:1rem; --t-lg:1.125rem; --t-xl:1.25rem; --t-2xl:1.5rem; --t-3xl:1.875rem; --t-4xl:2.25rem; --t-5xl:3rem;
   --font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --font-head:var(--font); --font-ui:var(--font);
   --r-card:14px; --r-btn:12px; --r-field:10px; --r-sm:8px;
   --w-head:800; --w-btn:600; --w-instr:500; --lh-instr:1.5;
@@ -13,25 +15,25 @@ html[data-testo="molto"]{font-size:20px}
 body{font-family:var(--font)}
 h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:var(--font-head)}
 .btn,.seg button,.tabs button,.ib,select,input,textarea,.label,.pill,.tag,.chip,.steps,.timers,.bigclock,.barv,.bard,.resume,.panel .lbl,.sigcard dt,.instr .vlabel,.link,.barnote,.fmeta,.sub{font-family:var(--font-ui)}
-.top h1{font-size:1.12rem}
-.big{font-size:1.85rem;font-weight:var(--w-head)}
-.repnum{font-size:2.3rem;font-weight:var(--w-head);margin:12px 0 4px}
-.repnum small{font-size:.95rem}
-.instr{font-size:1.28rem;line-height:var(--lh-instr);font-weight:var(--w-instr);margin-top:8px}
-.cur-b{font-size:1.4rem;font-weight:var(--w-head)}
-.bigclock{font-size:3rem;font-weight:700}
-.fatto{font-size:1.3rem}
+.top h1{font-size:var(--t-lg)}
+.big{font-size:var(--t-3xl);font-weight:var(--w-head)}
+.repnum{font-size:var(--t-4xl);font-weight:var(--w-head);margin:12px 0 4px}
+.repnum small{font-size:var(--t-sm)}
+.instr{font-size:var(--t-xl);line-height:var(--lh-instr);font-weight:var(--w-instr);margin-top:8px}
+.cur-b{font-size:var(--t-xl);font-weight:var(--w-head)}
+.bigclock{font-size:var(--t-5xl);font-weight:700}
+.fatto{font-size:var(--t-xl)}
 .btn{font-weight:var(--w-btn)}
-.btn.xl{font-size:1.08rem;padding:16px}
-.panel .sg{font-size:1.6rem}
-.panel p{font-size:1rem}
-.yn button{font-size:1.1rem;padding:16px}
-.bignum{font-size:1.6rem !important}
-.statv{font-size:1.15rem}
-.sheet h2{font-size:1.2rem}
+.btn.xl{font-size:var(--t-md);padding:16px}
+.panel .sg{font-size:var(--t-2xl)}
+.panel p{font-size:var(--t-md)}
+.yn button{font-size:var(--t-lg);padding:16px}
+.bignum{font-size:var(--t-2xl) !important}
+.statv{font-size:var(--t-lg)}
+.sheet h2{font-size:var(--t-lg)}
 .runh .l1{font-weight:700}
 .slot .lab,.pn,.chip,.tabs button.on span{font-weight:700}
-@media (max-height:700px){.repnum{font-size:2rem;margin-top:8px}}
+@media (max-height:700px){.repnum{font-size:var(--t-3xl);margin-top:8px}}
 /* forme */
 .card,details.acc,.circ,.empty,.choice button,.bgrid button,.dayrow,.btn.two{border-radius:var(--r-card)}
 .btn,.yn button{border-radius:var(--r-btn)}
@@ -65,8 +67,8 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
   --accent:#7b1e2b; --accent-ink:#fff8ee; --ok:#2f6b3f; --bad:#a32222; --sig:#1d4e89; --bb:#7b1e2b;
 }
 [data-stile="spartito"] body{font-size:1.04rem}
-[data-stile="spartito"] .instr{font-size:1.36rem}
-[data-stile="spartito"] .label,[data-stile="spartito"] .panel .lbl,[data-stile="spartito"] .sigcard dt{letter-spacing:.09em;font-size:.72rem;font-weight:600}
+[data-stile="spartito"] .instr{font-size:calc(var(--t-xl)*1.06)}
+[data-stile="spartito"] .label,[data-stile="spartito"] .panel .lbl,[data-stile="spartito"] .sigcard dt{letter-spacing:.09em;font-size:var(--t-xs);font-weight:600}
 [data-stile="spartito"] .repnum{font-style:italic}
 [data-stile="spartito"] .btn{letter-spacing:.01em}
 [data-stile="spartito"] .card,[data-stile="spartito"] details.acc,[data-stile="spartito"] .circ{box-shadow:0 1px 0 var(--line)}
@@ -103,9 +105,9 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
   --accent:#c8431e; --accent-ink:#ffffff; --ok:#256b3a; --bad:#b3261e; --sig:#2b50aa; --bb:#c8431e;
 }
 [data-stile="inchiostro"] .btn.primary{background:var(--text);border-color:var(--text);color:var(--bg)}
-[data-stile="inchiostro"] .top h1{font-size:1.3rem}
-[data-stile="inchiostro"] .big{font-size:2.1rem}
-[data-stile="inchiostro"] .repnum{font-size:2.6rem}
+[data-stile="inchiostro"] .top h1{font-size:var(--t-xl)}
+[data-stile="inchiostro"] .big{font-size:calc(var(--t-3xl)*1.1)}
+[data-stile="inchiostro"] .repnum{font-size:calc(var(--t-4xl)*1.1)}
 [data-stile="inchiostro"] .card,[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] .circ{border-width:0;border-top:2px solid var(--text);background:transparent;padding-left:2px;padding-right:2px}
 [data-stile="inchiostro"] details.acc{padding:0}
 [data-stile="inchiostro"] .card.now{border:2px solid var(--accent);padding:14px 14px;background:var(--accent-soft)}
@@ -118,8 +120,8 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 .stile{border:2px solid var(--line);border-radius:12px;padding:0;overflow:hidden;text-align:left;background:none;display:flex;flex-direction:column}
 .stile.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 .stile .sw{display:block;padding:12px 12px 10px}
-.stile .sw b{display:block;font-size:1.35rem;line-height:1.1}
-.stile .sw i{display:block;font-style:normal;font-size:.8rem;margin-top:4px;opacity:.75}
-.stile .sw u{display:inline-block;text-decoration:none;margin-top:8px;padding:3px 10px;font-size:.75rem;font-weight:700}
-.stile .nm{display:block;padding:8px 12px;font-weight:700;font-size:.92rem;border-top:1px solid var(--line);color:var(--text);font-family:var(--font-ui)}
-.stile .nm small{display:block;font-weight:500;color:var(--muted);font-size:.76rem}
+.stile .sw b{display:block;font-size:var(--t-xl);line-height:1.1}
+.stile .sw i{display:block;font-style:normal;font-size:var(--t-xs);margin-top:4px;opacity:.75}
+.stile .sw u{display:inline-block;text-decoration:none;margin-top:8px;padding:3px 10px;font-size:var(--t-xs);font-weight:700}
+.stile .nm{display:block;padding:8px 12px;font-weight:700;font-size:var(--t-sm);border-top:1px solid var(--line);color:var(--text);font-family:var(--font-ui)}
+.stile .nm small{display:block;font-weight:500;color:var(--muted);font-size:var(--t-xs)}

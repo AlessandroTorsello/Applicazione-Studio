@@ -96,7 +96,7 @@ function branoSheet(id) {
 }
 function applyPrefs() {
   const I = D.impostazioni, el = document.documentElement;
-  if (!STILI.some(s => s.id === I.stile)) I.stile = STILE_PREDEFINITO;
+  if (!I.stile_scelto || !STILI.some(s => s.id === I.stile)) I.stile = STILE_PREDEFINITO; // finché non si sceglie a mano vale il predefinito
   el.dataset.theme = I.tema === 'chiaro' ? 'chiaro' : 'scuro';
   el.dataset.testo = I.testo || 'normale';
   el.dataset.stile = I.stile;

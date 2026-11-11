@@ -1,6 +1,6 @@
 'use strict';
 /* Circuiti di studio — versione 2. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '2.1.0';
+const APP_VERSION = '2.1.1';
 /* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
 const SANS = "system-ui,sans-serif";
 const STILI = [
@@ -15,7 +15,7 @@ const STILI = [
   { id: 'ambra', nome: 'Ambra', descr: 'Lo stile della versione 2.0', titoli: SANS, testo: SANS, ui: SANS, raggio: '12px',
     scuro: ['#0f1216', '#eef1f5', '#f2b84b', '#1a1405'], chiaro: ['#f6f4ef', '#14161a', '#9a5b00', '#ffffff'] }
 ];
-const STILE_PREDEFINITO = 'essenziale';
+const STILE_PREDEFINITO = 'salvia';
 const KEY = 'circuiti_studio_v2';          // stessa chiave della versione 1: i dati restano leggibili
 const KEY_PRE2 = KEY + '_prima_della_2';   // copia di sicurezza fatta al primo avvio della 2.0
 const KEY_PREIMP = KEY + '_prima_import';  // copia fatta prima di ogni importazione

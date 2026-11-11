@@ -2,7 +2,7 @@
 
 App per guidare e registrare lo studio al pianoforte a micro-circuiti (primo brano in catalogo: Beethoven, Sonata op. 111, I movimento). È una web app in un solo file, installabile come PWA e distribuita anche come APK Android.
 
-Versione attuale: **2.1.0**.
+Versione attuale: **2.1.1**.
 
 ## Struttura
 
@@ -27,7 +27,7 @@ node tests/e2e.js            # prova automatica; con una cartella come argomento
 
 ```
 KS_PASS=… python3 android/build_apk.py --html docs/index.html --out Circuiti-di-studio.apk \
-    --version-code 3 --version-name 2.1.0 --keystore /percorso/android-keystore.jks
+    --version-code 4 --version-name 2.1.1 --keystore /percorso/android-keystore.jks
 ```
 
 Servono `zipalign` e `apksigner`. A ogni rilascio `--version-code` deve aumentare.

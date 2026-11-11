@@ -214,7 +214,7 @@ function renderLib(S) {
     ${pausedBanner(S)}
     <div class="label" style="margin-top:14px">Circuito libero · solo tempi</div>
     <div class="cur-b">${esc(branoNome(sl.brano))}</div>
-    ${sl.battute ? `<div style="font-size:1.4rem;font-weight:700" class="bat">bb. ${esc(sl.battute)}</div>` : ''}
+    ${sl.battute ? `<div style="font-size:var(--t-lg);font-weight:700" class="bat">bb. ${esc(sl.battute)}</div>` : ''}
     <div class="bigclock" id="t-big" style="margin-top:10px">${fmtClock(T.slot + tRun(T))}</div>
     <div class="small muted" style="margin-bottom:16px">tempo di questo slot</div>
     <div class="toggles"><label class="tg"><input type="checkbox" id="dropout" ${S.cur.drop_out ? 'checked' : ''}> <span>Drop-out<small>questo slot salta le andate successive</small></span></label></div>
