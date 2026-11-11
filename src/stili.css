@@ -1,0 +1,125 @@
+
+/* ===================== versione 2.1: dimensioni e stili ===================== */
+/* Dimensioni: testo di base più piccolo e titoli meno ingombranti; in più la misura «piccolo». */
+html{font-size:16px}
+html[data-testo="piccolo"]{font-size:14.5px}
+html[data-testo="grande"]{font-size:18px}
+html[data-testo="molto"]{font-size:20px}
+:root{
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --font-head:var(--font); --font-ui:var(--font);
+  --r-card:14px; --r-btn:12px; --r-field:10px; --r-sm:8px;
+  --w-head:800; --w-btn:600; --w-instr:500; --lh-instr:1.5;
+}
+body{font-family:var(--font)}
+h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:var(--font-head)}
+.btn,.seg button,.tabs button,.ib,select,input,textarea,.label,.pill,.tag,.chip,.steps,.timers,.bigclock,.barv,.bard,.resume,.panel .lbl,.sigcard dt,.instr .vlabel,.link,.barnote,.fmeta,.sub{font-family:var(--font-ui)}
+.top h1{font-size:1.12rem}
+.big{font-size:1.85rem;font-weight:var(--w-head)}
+.repnum{font-size:2.3rem;font-weight:var(--w-head);margin:12px 0 4px}
+.repnum small{font-size:.95rem}
+.instr{font-size:1.28rem;line-height:var(--lh-instr);font-weight:var(--w-instr);margin-top:8px}
+.cur-b{font-size:1.4rem;font-weight:var(--w-head)}
+.bigclock{font-size:3rem;font-weight:700}
+.fatto{font-size:1.3rem}
+.btn{font-weight:var(--w-btn)}
+.btn.xl{font-size:1.08rem;padding:16px}
+.panel .sg{font-size:1.6rem}
+.panel p{font-size:1rem}
+.yn button{font-size:1.1rem;padding:16px}
+.bignum{font-size:1.6rem !important}
+.statv{font-size:1.15rem}
+.sheet h2{font-size:1.2rem}
+.runh .l1{font-weight:700}
+.slot .lab,.pn,.chip,.tabs button.on span{font-weight:700}
+@media (max-height:700px){.repnum{font-size:2rem;margin-top:8px}}
+/* forme */
+.card,details.acc,.circ,.empty,.choice button,.bgrid button,.dayrow,.btn.two{border-radius:var(--r-card)}
+.btn,.yn button{border-radius:var(--r-btn)}
+.fatto{border-radius:var(--r-btn)}
+.pausebar,.recap,.tg,details.sub2,textarea,input[type=text],input[type=number],input[type=date],.tgt,.fam,.hint,select.sel{border-radius:var(--r-field)}
+.seg,.ib{border-radius:var(--r-sm)}
+
+/* ---------- Essenziale: Inter, bianco e nero, un solo colore per i collegamenti ---------- */
+:root[data-stile="essenziale"]{
+  --font:"Inter",system-ui,sans-serif; --r-card:10px; --r-btn:10px; --r-field:8px; --r-sm:8px; --w-head:700; --w-instr:450;
+  --bg:#0b0c0e; --bg2:#15161a; --card:#131417; --line:#292b31; --text:#f3f4f6; --muted:#9a9ea8;
+  --accent:#f3f4f6; --accent-ink:#0b0c0e; --ok:#4cc38a; --bad:#ff6b6b; --sig:#7fb2ff; --bb:#f3f4f6;
+}
+:root[data-stile="essenziale"][data-theme="chiaro"]{
+  --bg:#ffffff; --bg2:#f4f4f6; --card:#ffffff; --line:#e2e3e8; --text:#111214; --muted:#666a74;
+  --accent:#111214; --accent-ink:#ffffff; --ok:#18794e; --bad:#c62828; --sig:#1a5fd0; --bb:#111214;
+}
+[data-stile="essenziale"] .bat,[data-stile="essenziale"] .bb{font-weight:700}
+[data-stile="essenziale"] h1,[data-stile="essenziale"] .big,[data-stile="essenziale"] .repnum,[data-stile="essenziale"] .cur-b{letter-spacing:-.015em}
+[data-stile="essenziale"] .label{letter-spacing:.05em}
+
+/* ---------- Spartito: carta e inchiostro, testo con le grazie come in un'edizione musicale ---------- */
+:root[data-stile="spartito"]{
+  --font:"Source Serif 4",Georgia,"Times New Roman",serif; --font-head:var(--font); --font-ui:"Inter",system-ui,sans-serif;
+  --r-card:4px; --r-btn:4px; --r-field:4px; --r-sm:4px; --w-head:650; --w-btn:600; --w-instr:400; --lh-instr:1.45;
+  --bg:#16130f; --bg2:#1f1b15; --card:#1c1813; --line:#3b342a; --text:#efe7d8; --muted:#a99e8b;
+  --accent:#e6d3ad; --accent-ink:#231d14; --ok:#7fc08f; --bad:#ef8a80; --sig:#a3bfee; --bb:#e3a58f;
+}
+:root[data-stile="spartito"][data-theme="chiaro"]{
+  --bg:#f4efe4; --bg2:#fbf8f1; --card:#fbf8f1; --line:#d6ccb9; --text:#221d16; --muted:#6b6254;
+  --accent:#7b1e2b; --accent-ink:#fff8ee; --ok:#2f6b3f; --bad:#a32222; --sig:#1d4e89; --bb:#7b1e2b;
+}
+[data-stile="spartito"] body{font-size:1.04rem}
+[data-stile="spartito"] .instr{font-size:1.36rem}
+[data-stile="spartito"] .label,[data-stile="spartito"] .panel .lbl,[data-stile="spartito"] .sigcard dt{letter-spacing:.09em;font-size:.72rem;font-weight:600}
+[data-stile="spartito"] .repnum{font-style:italic}
+[data-stile="spartito"] .btn{letter-spacing:.01em}
+[data-stile="spartito"] .card,[data-stile="spartito"] details.acc,[data-stile="spartito"] .circ{box-shadow:0 1px 0 var(--line)}
+
+/* ---------- Salvia: morbido e arrotondato, verde, senza bordi duri ---------- */
+:root[data-stile="salvia"]{
+  --font:"Manrope",system-ui,sans-serif; --r-card:22px; --r-btn:999px; --r-field:14px; --r-sm:999px; --w-head:800; --w-btn:700; --w-instr:500;
+  --bg:#0f1512; --bg2:#1c2520; --card:#18201c; --line:#2c3832; --text:#e9f0ec; --muted:#95a59d;
+  --accent:#93d6b4; --accent-ink:#0c1a14; --ok:#6fcf97; --bad:#f08a8a; --sig:#93cbe9; --bb:#93d6b4;
+}
+:root[data-stile="salvia"][data-theme="chiaro"]{
+  --bg:#eef3ee; --bg2:#f7faf7; --card:#ffffff; --line:#d3dcd5; --text:#16201b; --muted:#5a6860;
+  --accent:#2c6a51; --accent-ink:#ffffff; --ok:#2f7d4f; --bad:#b3362e; --sig:#1f5f8b; --bb:#2c6a51;
+}
+[data-stile="salvia"] .card,[data-stile="salvia"] details.acc,[data-stile="salvia"] .circ,[data-stile="salvia"] .dayrow{border-color:transparent}
+[data-stile="salvia"] .card.now{border-color:var(--accent)}
+[data-stile="salvia"] .fatto{border-radius:26px}
+[data-stile="salvia"] .ib{min-width:40px;height:40px}
+[data-stile="salvia"] .pausebtn,[data-stile="salvia"] .stepb{border-radius:14px}
+[data-stile="salvia"] .seg button{padding-left:16px;padding-right:16px}
+[data-stile="salvia"] .seg.small button{padding-left:10px;padding-right:10px}
+[data-stile="salvia"] .chip,[data-stile="salvia"] .tag{border-radius:999px;padding-left:8px;padding-right:8px}
+[data-stile="salvia"] .tabwrap,[data-stile="salvia"] .bar{border-top-color:transparent;box-shadow:0 -6px 20px rgba(0,0,0,.12)}
+
+/* ---------- Inchiostro: titoli grandi con carattere, bottoni pieni, accento vermiglio ---------- */
+:root[data-stile="inchiostro"]{
+  --font:"Inter",system-ui,sans-serif; --font-head:"Fraunces",Georgia,serif; --font-ui:"Inter",system-ui,sans-serif;
+  --r-card:2px; --r-btn:2px; --r-field:2px; --r-sm:2px; --w-head:650; --w-btn:650; --w-instr:450;
+  --bg:#111110; --bg2:#1c1b19; --card:#161614; --line:#35332e; --text:#f5f1e8; --muted:#a6a094;
+  --accent:#ff7d54; --accent-ink:#1c0d06; --ok:#74c98b; --bad:#ff7b7b; --sig:#9ab6ff; --bb:#ff7d54;
+}
+:root[data-stile="inchiostro"][data-theme="chiaro"]{
+  --bg:#fffdf8; --bg2:#f4f0e7; --card:#fffdf8; --line:#d2ccbe; --text:#151514; --muted:#5f5b53;
+  --accent:#c8431e; --accent-ink:#ffffff; --ok:#256b3a; --bad:#b3261e; --sig:#2b50aa; --bb:#c8431e;
+}
+[data-stile="inchiostro"] .btn.primary{background:var(--text);border-color:var(--text);color:var(--bg)}
+[data-stile="inchiostro"] .top h1{font-size:1.3rem}
+[data-stile="inchiostro"] .big{font-size:2.1rem}
+[data-stile="inchiostro"] .repnum{font-size:2.6rem}
+[data-stile="inchiostro"] .card,[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] .circ{border-width:0;border-top:2px solid var(--text);background:transparent;padding-left:2px;padding-right:2px}
+[data-stile="inchiostro"] details.acc{padding:0}
+[data-stile="inchiostro"] .card.now{border:2px solid var(--accent);padding:14px 14px;background:var(--accent-soft)}
+[data-stile="inchiostro"] .label{letter-spacing:.07em;font-weight:700;color:var(--text)}
+[data-stile="inchiostro"] .dayrow{background:transparent;border-width:0 0 1px;border-radius:0;padding-left:2px;padding-right:2px}
+[data-stile="inchiostro"] .top{border-bottom:2px solid var(--text)}
+
+/* scelta dello stile nelle Impostazioni */
+.stili{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.stile{border:2px solid var(--line);border-radius:12px;padding:0;overflow:hidden;text-align:left;background:none;display:flex;flex-direction:column}
+.stile.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.stile .sw{display:block;padding:12px 12px 10px}
+.stile .sw b{display:block;font-size:1.35rem;line-height:1.1}
+.stile .sw i{display:block;font-style:normal;font-size:.8rem;margin-top:4px;opacity:.75}
+.stile .sw u{display:inline-block;text-decoration:none;margin-top:8px;padding:3px 10px;font-size:.75rem;font-weight:700}
+.stile .nm{display:block;padding:8px 12px;font-weight:700;font-size:.92rem;border-top:1px solid var(--line);color:var(--text);font-family:var(--font-ui)}
+.stile .nm small{display:block;font-weight:500;color:var(--muted);font-size:.76rem}

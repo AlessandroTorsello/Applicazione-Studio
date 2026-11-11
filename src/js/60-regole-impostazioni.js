@@ -34,8 +34,12 @@ SCREENS.settings = () => {
   const I = D.impostazioni, nSes = D.sessioni.length;
   app.innerHTML = topbar('Impostazioni') + `<main class="wrap tabbed">
     <section class="card"><div class="label" style="margin-bottom:8px">Aspetto</div>
-      <div class="row" style="align-items:center;margin-bottom:10px"><span>Tema</span><div class="seg" style="flex:0 0 auto"><button data-act="tema" data-v="scuro" class="${I.tema === 'scuro' ? 'on' : ''}" aria-pressed="${I.tema === 'scuro'}">Scuro</button><button data-act="tema" data-v="chiaro" class="${I.tema === 'chiaro' ? 'on' : ''}" aria-pressed="${I.tema === 'chiaro'}">Chiaro</button></div></div>
-      <div class="row" style="align-items:center"><span>Dimensione del testo</span><div class="seg" style="flex:0 0 auto"><button data-act="testo" data-v="normale" class="${I.testo === 'normale' ? 'on' : ''}" aria-label="Testo normale">A</button><button data-act="testo" data-v="grande" class="${I.testo === 'grande' ? 'on' : ''}" style="font-size:1.1em" aria-label="Testo grande">A</button><button data-act="testo" data-v="molto" class="${I.testo === 'molto' ? 'on' : ''}" style="font-size:1.25em" aria-label="Testo molto grande">A</button></div></div>
+      <div class="optrow"><span>Tema</span><div class="seg"><button data-act="tema" data-v="scuro" class="${I.tema === 'scuro' ? 'on' : ''}" aria-pressed="${I.tema === 'scuro'}">Scuro</button><button data-act="tema" data-v="chiaro" class="${I.tema === 'chiaro' ? 'on' : ''}" aria-pressed="${I.tema === 'chiaro'}">Chiaro</button></div></div>
+      <div class="optrow"><span>Dimensione del testo</span><div class="seg">${[['piccolo', 'Testo piccolo', '.85em'], ['normale', 'Testo normale', '1em'], ['grande', 'Testo grande', '1.15em'], ['molto', 'Testo molto grande', '1.3em']].map(([v, lab, fs]) => `<button data-act="testo" data-v="${v}" class="${I.testo === v ? 'on' : ''}" style="font-size:${fs}" aria-label="${lab}" aria-pressed="${I.testo === v}">A</button>`).join('')}</div></div>
+      <div class="optrow" style="display:block"><span>Stile</span>
+        <div class="stili">${STILI.map(s => { const c = s[I.tema === 'chiaro' ? 'chiaro' : 'scuro']; return `<button class="stile ${I.stile === s.id ? 'on' : ''}" data-act="stile" data-v="${s.id}" aria-pressed="${I.stile === s.id}">
+          <span class="sw" style="background:${c[0]};color:${c[1]}"><b style="font-family:${s.titoli}">Rep 2</b><i style="font-family:${s.testo}">Senza pedale, a mp</i><u style="background:${c[2]};color:${c[3]};border-radius:${s.raggio};font-family:${s.ui}">Fatto</u></span>
+          <span class="nm">${esc(s.nome)}<small>${esc(s.descr)}</small></span></button>`; }).join('')}</div></div>
     </section>
     <section class="card"><div class="label">Backup dei dati</div>
       <p class="small muted">I dati stanno solo su questo dispositivo. Salva ogni tanto un backup e conservalo altrove (Drive, email…). ${I.ultimo_export ? 'Ultimo backup: ' + new Date(I.ultimo_export).toLocaleString('it-IT', { dateStyle: 'medium', timeStyle: 'short' }) + '.' : 'Nessun backup finora.'} Sessioni salvate: ${nSes}.</p>
@@ -56,7 +60,7 @@ SCREENS.settings = () => {
       <p class="small muted" style="margin:0">Frammenti nel catalogo: ${C.frammenti.length} (${D.catalogo_importato.frammenti.length} importati, ${D.frammenti_utente.length} aggiunti a mano).</p>
     </section>
     <section class="card"><div class="label">Informazioni</div>
-      <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 2.0</button>
+      <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 2</button>
       <p class="small muted" style="margin:0">Circuiti di studio ${APP_VERSION} · catalogo: ${esc(CATALOGO.fonte || '')}</p>
     </section>
     <section class="card"><div class="label">Zona pericolosa</div>
@@ -91,9 +95,13 @@ function branoSheet(id) {
   });
 }
 function applyPrefs() {
-  document.documentElement.dataset.theme = D.impostazioni.tema === 'chiaro' ? 'chiaro' : 'scuro';
-  document.documentElement.dataset.testo = D.impostazioni.testo || 'normale';
-  const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = D.impostazioni.tema === 'chiaro' ? '#f6f4ef' : '#0f1216';
+  const I = D.impostazioni, el = document.documentElement;
+  if (!STILI.some(s => s.id === I.stile)) I.stile = STILE_PREDEFINITO;
+  el.dataset.theme = I.tema === 'chiaro' ? 'chiaro' : 'scuro';
+  el.dataset.testo = I.testo || 'normale';
+  el.dataset.stile = I.stile;
+  const m = document.querySelector('meta[name=theme-color]');
+  if (m) m.content = (getComputedStyle(el).getPropertyValue('--bg') || '').trim() || '#0f1216';
 }
 function readJsonFile(input, cb) {
   const file = input.files && input.files[0]; if (!file) return;
@@ -164,7 +172,7 @@ function resetSheet() {
   });
 }
 function newsSheet() {
-  openSheet(`<h2>Novità della versione 2.0</h2>
+  openSheet(`<h2>Novità della versione 2</h2>
     <p class="small muted" style="margin-top:-6px">Tutti i dati della versione precedente sono stati mantenuti. Nessuna opzione è stata tolta.</p>
     <ul class="news">
       <li><b>Barra in basso</b> con Oggi, Storico, Sigle e regole, Impostazioni. «Per frammento» ora è una scheda dello Storico.</li>
@@ -172,6 +180,7 @@ function newsSheet() {
       <li><b>Durante lo studio</b> il pulsante Fatto dice che cosa viene dopo, una barra mostra a che punto sei e la pausa si vede bene. Toccando Fatto il cronometro in pausa riparte.</li>
       <li><b>Tempo target</b> per ogni passaggio: l'app traduce le percentuali delle regole in bpm per ogni Rep. Si imposta dalla finestra del tempo di Rep 4 o dalla pagina del frammento.</li>
       <li><b>Registra a mano</b> lo studio fatto senza l'app e <b>aggiungi brani</b> col solo nome, per la sessione libera.</li>
+      <li><b>Stili e dimensione del testo</b>: in Impostazioni scegli tra più stili, con caratteri diversi, e quattro misure del testo.</li>
       <li><b>Meno errori</b>: puoi scartare una sessione partita per sbaglio, e se il cronometro resta acceso con l'app chiusa, al ritorno ti chiede se contare quel tempo.</li>
     </ul>
     <button class="btn primary xl" data-act="closesheet">Ho capito</button>`);

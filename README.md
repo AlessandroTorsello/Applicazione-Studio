@@ -2,7 +2,7 @@
 
 App per guidare e registrare lo studio al pianoforte a micro-circuiti (primo brano in catalogo: Beethoven, Sonata op. 111, I movimento). È una web app in un solo file, installabile come PWA e distribuita anche come APK Android.
 
-Versione attuale: **2.0.0**.
+Versione attuale: **2.1.0**.
 
 ## Struttura
 
@@ -10,6 +10,7 @@ Versione attuale: **2.0.0**.
 |---|---|
 | `src/js/` | Codice dell'app, in file numerati che `build.py` unisce nell'ordine |
 | `src/app.css`, `src/template.html`, `src/sw.js`, `src/manifest.webmanifest`, `src/icons/` | Stile, pagina, service worker e icone |
+| `src/stili.css`, `src/fonts/` | Gli stili selezionabili (Essenziale, Spartito, Salvia, Inchiostro, Ambra), le dimensioni del testo e i font incorporati (licenza OFL, vedi `src/fonts/LICENZE.txt`) |
 | `data/` | Catalogo `dati_op111.json` (sola lettura, testi mostrati così come sono) e specifica originale |
 | `docs/` | App compilata, pronta per GitHub Pages |
 | `android/` | Involucro Android (WebView) e script che produce l'APK |
@@ -26,7 +27,7 @@ node tests/e2e.js            # prova automatica; con una cartella come argomento
 
 ```
 KS_PASS=… python3 android/build_apk.py --html docs/index.html --out Circuiti-di-studio.apk \
-    --version-code 2 --version-name 2.0.0 --keystore /percorso/android-keystore.jks
+    --version-code 3 --version-name 2.1.0 --keystore /percorso/android-keystore.jks
 ```
 
 Servono `zipalign` e `apksigner`. A ogni rilascio `--version-code` deve aumentare.
@@ -39,4 +40,4 @@ L'involucro in `android/base` è quello compilato per la 1.0 e non è cambiato: 
 
 Stanno in `localStorage`, chiave `circuiti_studio_v2` (la stessa dalla 1.0). `normalize()` in `src/js/10-base.js` porta qualsiasi salvataggio alla forma attuale senza togliere campi, quindi i backup della 1.0 si importano nella 2.0. Al primo avvio della 2.0 su dati esistenti l'app tiene una copia del salvataggio precedente (`circuiti_studio_v2_prima_della_2`).
 
-Campi aggiunti dalla 2.0: `target` (tempo target per frammento), `brani_nascosti`, `impostazioni.visto_versione`, sessioni con `tipo: "manuale"` (registrate a mano).
+Campo aggiunto dalla 2.1: `impostazioni.stile`. Campi aggiunti dalla 2.0: `target` (tempo target per frammento), `brani_nascosti`, `impostazioni.visto_versione`, sessioni con `tipo: "manuale"` (registrate a mano).

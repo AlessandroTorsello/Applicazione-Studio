@@ -93,6 +93,7 @@ const ACT = {
   histall: () => { histAll = true; render(); },
   tema: el => { D.impostazioni.tema = el.dataset.v; save(); applyPrefs(); render(); },
   testo: el => { D.impostazioni.testo = el.dataset.v; save(); applyPrefs(); render(); },
+  stile: el => { const y = window.scrollY; D.impostazioni.stile = el.dataset.v; save(); applyPrefs(); render(); window.scrollTo(0, y); },
   export: () => exportData(),
   pickfile: el => $('#' + el.dataset.target).click(),
   undoimport: () => undoImport(),

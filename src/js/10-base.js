@@ -1,6 +1,21 @@
 'use strict';
 /* Circuiti di studio — versione 2. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '2.0.0';
+const APP_VERSION = '2.1.0';
+/* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
+const SANS = "system-ui,sans-serif";
+const STILI = [
+  { id: 'essenziale', nome: 'Essenziale', descr: 'Inter, bianco e nero', titoli: "'Inter'," + SANS, testo: "'Inter'," + SANS, ui: "'Inter'," + SANS, raggio: '10px',
+    scuro: ['#0b0c0e', '#f3f4f6', '#f3f4f6', '#0b0c0e'], chiaro: ['#ffffff', '#111214', '#111214', '#ffffff'] },
+  { id: 'spartito', nome: 'Spartito', descr: 'Con le grazie, carta e inchiostro', titoli: "'Source Serif 4',Georgia,serif", testo: "'Source Serif 4',Georgia,serif", ui: "'Inter'," + SANS, raggio: '4px',
+    scuro: ['#16130f', '#efe7d8', '#e6d3ad', '#231d14'], chiaro: ['#f4efe4', '#221d16', '#7b1e2b', '#fff8ee'] },
+  { id: 'salvia', nome: 'Salvia', descr: 'Manrope, morbido e verde', titoli: "'Manrope'," + SANS, testo: "'Manrope'," + SANS, ui: "'Manrope'," + SANS, raggio: '999px',
+    scuro: ['#0f1512', '#e9f0ec', '#93d6b4', '#0c1a14'], chiaro: ['#eef3ee', '#16201b', '#2c6a51', '#ffffff'] },
+  { id: 'inchiostro', nome: 'Inchiostro', descr: 'Titoli Fraunces, accento vermiglio', titoli: "'Fraunces',Georgia,serif", testo: "'Inter'," + SANS, ui: "'Inter'," + SANS, raggio: '2px',
+    scuro: ['#111110', '#f5f1e8', '#f5f1e8', '#111110'], chiaro: ['#fffdf8', '#151514', '#151514', '#fffdf8'] },
+  { id: 'ambra', nome: 'Ambra', descr: 'Lo stile della versione 2.0', titoli: SANS, testo: SANS, ui: SANS, raggio: '12px',
+    scuro: ['#0f1216', '#eef1f5', '#f2b84b', '#1a1405'], chiaro: ['#f6f4ef', '#14161a', '#9a5b00', '#ffffff'] }
+];
+const STILE_PREDEFINITO = 'essenziale';
 const KEY = 'circuiti_studio_v2';          // stessa chiave della versione 1: i dati restano leggibili
 const KEY_PRE2 = KEY + '_prima_della_2';   // copia di sicurezza fatta al primo avvio della 2.0
 const KEY_PREIMP = KEY + '_prima_import';  // copia fatta prima di ogni importazione
@@ -17,7 +32,7 @@ function defaultData() {
     versione: 3,
     frammenti_utente: [], brani_utente: [], famiglie_utente: [], brani_nascosti: [],
     catalogo_importato: { brani: [], frammenti: [], famiglie: [], sigle: [] },
-    impostazioni: { tema: 'scuro', testo: 'normale', ultimo_export: null, visto_versione: null },
+    impostazioni: { tema: 'scuro', testo: 'normale', stile: STILE_PREDEFINITO, ultimo_export: null, visto_versione: null },
     target: {},
     sessione_aperta: null, sessioni: [],
     bozza: { selezionati: [], circuiti: [], circuiti_lib: [], brani_liberi: [], cfg: { tipo: 'circuito', slot: 3, andate: 3, modo: 'scritti' } }
