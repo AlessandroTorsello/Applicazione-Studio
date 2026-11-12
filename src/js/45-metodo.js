@@ -166,11 +166,24 @@ function vincNome(f, k, rep, giro) {
   const riga = t.split('\n')[0].replace(/^bb?\.\s*\d[^:]{0,30}:\s*/, '');
   return riga.length <= 34 ? riga.replace(/[.:;,]$/, '') : riga.slice(0, 32).replace(/\s+\S*$/, '') + '…';
 }
+/* Dalla 3.4 un vincolo scelto a mano può anche essere «libero» (nessuna tecnica) o una tecnica scritta da te,
+   che non sta tra le sigle: in v.r2 / v.r3 c'è allora LIBERO oppure il testo scritto. */
+const LIBERO = 'libero';
+const tecnicaTipo = x => !x ? null : x === LIBERO ? 'libero' : C.S.has(x) ? 'sigla' : 'mia';
+/* Tecniche scritte a mano già usate, per proporle di nuovo. */
+function tecnicheMie() {
+  const s = new Set(); [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])].forEach(x => (x.log || []).forEach(l => [l.vincolo_rep2, l.vincolo_rep3].forEach(t => { if (tecnicaTipo(t) === 'mia') s.add(t); })));
+  Object.values((D.sessione_aperta && D.sessione_aperta.vincoli) || {}).forEach(v => [v.r2, v.r3].forEach(t => { if (tecnicaTipo(t) === 'mia') s.add(t); }));
+  return [...s].sort((a, b) => a.localeCompare(b, 'it'));
+}
 function vincBreve(f, v) {
   return { r2: v.r2 || (v.k ? vincNome(f, v.k, 'rep2') : '—'), r3: v.r3 || (v.k ? vincNome(f, v.k, 'rep3') : '—'), mio: !!(v.r2 || v.r3) };
 }
 function vincBody(f, v, r) {
   const A = v.k ? f.andate[v.k] : null, cat = A ? (r === 2 ? A.rep2 : A.rep3) : null, mio = r === 2 ? v.r2 : v.r3;
+  const altro = cat ? `<details class="sub2"><summary>Vincolo del catalogo, non usato oggi</summary><div>${fmtText(cat)}</div></details>` : '';
+  if (mio === LIBERO) return `<span class="vlabel">Libero, senza vincolo</span><p>Nessuna tecnica: suoni il passaggio come vuoi. Pulsazione e dinamica restano quelle delle regole di Rep 2-3.</p>` + altro;
+  if (tecnicaTipo(mio) === 'mia') return `<span class="vlabel">Tecnica scelta da te</span><p><b>${esc(mio)}</b></p>` + altro;
   if (mio) {
     const s = C.S.get(mio) || {};
     return `<span class="vlabel">Vincolo scelto dopo la diagnosi</span><span class="txt"><span class="line"><button type="button" class="sig" data-sigla="${esc(mio)}">${esc(mio)}</button> · ${esc(s.nome || '')}</span></span>${fmtText(s.come_si_fa)}`
@@ -191,7 +204,8 @@ function vincLogTesto(l) {
   const f = fr(l.frammento); if (!l.coppia && !l.vincolo_rep2 && !l.vincolo_rep3) return '';
   const b = vincBreve(f, { k: l.coppia, r2: l.vincolo_rep2, r3: l.vincolo_rep3 });
   const e = l.errore && (M3.errori || []).find(x => x.id === l.errore);
-  return (b.mio ? 'scelto dopo la diagnosi' : 'coppia ' + l.coppia) + `: ${b.r2} / ${b.r3}` + (e ? ` (${e.errore.toLowerCase()})` : '');
+  if (l.vincolo_rep2 === LIBERO && l.vincolo_rep3 === LIBERO) return 'libero, senza vincolo';
+  return (b.mio ? (l.errore ? 'scelto dopo la diagnosi' : 'scelto da te') : 'coppia ' + l.coppia) + `: ${b.r2} / ${b.r3}` + (e ? ` (${e.errore.toLowerCase()})` : '');
 }
 function vincoloSheet(S, fid, after) {
   const f = fr(fid); if (!f) return;
@@ -199,12 +213,19 @@ function vincoloSheet(S, fid, after) {
   let err = v.err || null, r2 = v.r2 || null, r3 = v.r3 || null;
   const done = () => { save(); if (after) after(); else { closeSheet(); render(); } };
   const nome = s => (C.S.get(s) || {}).nome || '';
+  const mia = x => tecnicaTipo(x) === 'mia' ? x : '';
   openSheet(`<h2>Cambia vincolo</h2>
     <p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)} · vale per tutte le andate di questa sessione.</p>
     <div class="label">Che errore hai trovato in Rep 1?</div>
     <div class="errs">${errs.map(e => `<button data-err="${esc(e.id)}"><span>${esc(e.errore)}</span><small>${e.sigle.map(esc).join(' · ')}</small></button>`).join('')}</div>
     <div id="vpick"></div>
     ${keys.length > 1 || v.r2 || v.r3 ? `<div class="label" style="margin-top:16px">Oppure una coppia del catalogo</div>` + keys.map(k => { const b = vincBreve(f, { k }); return `<button class="btn two" data-k="${esc(k)}"><b>Coppia dell'andata ${esc(k)}${k === v.k && !v.r2 && !v.r3 ? ' (in uso)' : ''}</b><span>Rep 2: ${esc(b.r2)} · Rep 3: ${esc(b.r3)}</span></button>`; }).join('') : ''}
+    <div class="label" style="margin-top:16px">Oppure fuori dal catalogo</div>
+    <button class="btn two" id="vlib"><b>Libero${v.r2 === LIBERO && v.r3 === LIBERO ? ' (in uso)' : ''}</b><span>Rep 2 e Rep 3 senza nessuna tecnica: suoni come vuoi</span></button>
+    <div class="field"><label for="vt2">Una tecnica tua per Rep 2</label><input type="text" id="vt2" list="vtl" value="${esc(mia(v.r2))}" placeholder="es. ritmi puntati" enterkeyhint="next"></div>
+    <div class="field"><label for="vt3">E per Rep 3</label><input type="text" id="vt3" list="vtl" value="${esc(mia(v.r3))}" placeholder="vuoto = libero" enterkeyhint="done"></div>
+    <datalist id="vtl">${tecnicheMie().map(t => `<option value="${esc(t)}">`).join('')}</datalist>
+    <button class="btn" id="vtok">Usa le mie tecniche</button>
     <button class="btn" id="vno">Annulla</button>`, sh => {
     const pick = $('#vpick', sh);
     const draw = () => {
@@ -223,6 +244,13 @@ function vincoloSheet(S, fid, after) {
       draw(); pick.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }));
     $$('[data-k]', sh).forEach(b => b.addEventListener('click', () => { v.k = b.dataset.k; delete v.r2; delete v.r3; delete v.err; done(); }));
+    $('#vlib', sh).addEventListener('click', () => { v.r2 = LIBERO; v.r3 = LIBERO; delete v.err; done(); });
+    $('#vtok', sh).addEventListener('click', () => {
+      const t2 = $('#vt2', sh).value.trim(), t3 = $('#vt3', sh).value.trim();
+      if (!t2 && !t3) { toast('Scrivi almeno una tecnica, oppure scegli «Libero»'); $('#vt2', sh).focus(); return; }
+      const norm = t => !t ? LIBERO : (C.S.has(t.toUpperCase()) ? t.toUpperCase() : t);
+      v.r2 = norm(t2); v.r3 = norm(t3); delete v.err; done();
+    });
     $('#vno', sh).addEventListener('click', () => { if (after) after(); else closeSheet(); });
     draw();
   });

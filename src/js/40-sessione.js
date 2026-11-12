@@ -202,7 +202,7 @@ SCREENS.run = () => {
     ${r > 1 && (S.cur.voto != null || S.cur.diagnosi) ? `<p class="diag">Rep 1: ${S.cur.voto != null ? 'voto ' + fmtV(S.cur.voto) : '—'}${S.cur.diagnosi ? ' · ' + esc(S.cur.diagnosi) : ''}</p>` : ''}
     ${eTest ? `<p class="diag">${esc(AVV.test || '')} ${esc(votoTesto(fid))}.</p>` : ''}
     ${tempoLine(sl.frammento, r)}
-    ${r === 2 || r === 3 ? `<div class="vrow"><span>${vb.mio ? 'Vincolo scelto dopo la diagnosi' : v.k ? 'Vincoli di oggi: coppia ' + esc(v.k) : 'Vincolo'} · <b>${esc(r === 2 ? vb.r2 : vb.r3)}</b></span><button class="link" data-act="vincolo">Cambia vincolo</button></div>` : ''}
+    ${r === 2 || r === 3 ? `<div class="vrow"><span>${vb.mio ? (v.err ? 'Vincolo scelto dopo la diagnosi' : 'Vincolo scelto da te') : v.k ? 'Vincoli di oggi: coppia ' + esc(v.k) : 'Vincolo'} · <b>${esc(r === 2 ? vb.r2 : vb.r3)}</b></span><button class="link" data-act="vincolo">Cambia vincolo</button></div>` : ''}
     ${avvisi}
     <div class="instr">${body}</div>
     <div class="toggles">
@@ -277,7 +277,7 @@ function rep1Sheet(S) {
       <p class="small muted" style="margin:6px 0 0">${votoTesto(fid) ? esc(votoTesto(fid)) + '.' : 'Primo voto di questo frammento.'} Lascialo vuoto se non vuoi votare.</p></div>
     ${riferimentiHtml()}` : ''}
     <div class="field"><label for="diag">Diagnosi (una riga)</label><input type="text" id="diag" value="${esc(S.cur.diagnosi)}" placeholder="es. b. 26 q3, sx anticipa" enterkeyhint="done"></div>
-    ${vb ? `<div class="vbox"><div><span class="label">${prima ? 'Vincoli di oggi' : 'Vincoli di questa sessione'}</span><b>Rep 2: ${esc(vb.r2)} · Rep 3: ${esc(vb.r3)}</b><small>${vb.mio ? 'scelti dopo la diagnosi' : 'coppia dell\'andata ' + esc(v.k || '—') + ' del catalogo'}</small></div>${prima ? '<button class="btn inline" id="r1v">Cambia</button>' : ''}</div>` : ''}
+    ${vb ? `<div class="vbox"><div><span class="label">${prima ? 'Vincoli di oggi' : 'Vincoli di questa sessione'}</span><b>Rep 2: ${esc(vb.r2)} · Rep 3: ${esc(vb.r3)}</b><small>${vb.mio ? (v.err ? 'scelti dopo la diagnosi' : 'scelti da te') : 'coppia dell\'andata ' + esc(v.k || '—') + ' del catalogo'}</small></div>${prima ? '<button class="btn inline" id="r1v">Cambia</button>' : ''}</div>` : ''}
     ${puoDrop ? `<div class="toggles"><label class="tg"><input type="checkbox" id="r1drop" ${S.cur.drop_out ? 'checked' : ''}> <span>Drop-out<small>${esc(String(CATALOGO.regole_slot.drop_out || '').split('\n')[0])}</small></span></label></div>` : ''}
     <button class="btn primary xl" id="r1ok">Avanti a Rep 2</button>
     <p class="small muted" style="margin:0;text-align:center">${eTest ? 'Prima Rep 1 di oggi: il voto conta per «Da ripassare». Le altre Rep 1 di oggi non contano.' : 'Il test di oggi è già fatto: qui solo la diagnosi, facoltativa.'}</p>`, sh => {

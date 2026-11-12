@@ -35,7 +35,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const finoAllaFine = async () => { await fatto(); await fatto(); await fatto(); await p.click('#r4no'); await w(); };
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '3.3.0', 'versione 3.3.0');
+  ok(await p.evaluate(() => APP_VERSION) === '3.4.0', 'versione 3.4.0');
   ok(!(await p.locator('.sheet.on').count()), 'nessun foglio novità su installazione nuova');
   ok(!(await p.locator('[data-act="ripasso"]').count()), 'home: niente «Da ripassare oggi» senza voti');
 
@@ -158,6 +158,36 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(Object.values((await D()).sessione_aperta.dropout).includes(3), 'drop-out registrato');
   await p.evaluate(() => { D.sessione_aperta = null; save(); });
 
+  /* --- 3b. libero o tecnica scritta a mano (3.4) --- */
+  await avvia(['op111-40-43', 'op111-44-47']);
+  await rep1(8); await p.click('#r1v'); await w();
+  ok(await p.locator('.sheet.on #vlib').count() === 1 && await p.locator('.sheet.on #vt2').count() === 1, 'cambia vincolo: «Libero» e campo per una tecnica tua');
+  await shot('vincolo-libero-o-mio');
+  await p.click('#vlib'); await w();
+  ok((await txt('.sheet.on .vbox')).includes('Rep 2: libero · Rep 3: libero') && (await txt('.sheet.on .vbox')).includes('scelti da te'), 'foglio di Rep 1: libero per Rep 2 e Rep 3');
+  await p.click('#r1ok'); await w();
+  ok((await txt('.vrow')).includes('Vincolo scelto da te · libero') && (await txt('.instr')).includes('Nessuna tecnica'), 'Rep 2 libera: nessuna tecnica');
+  await shot('rep2-libero');
+  await fatto(); await fatto(); await fatto(); await p.click('#r4no'); await w();
+  await rep1(7); await p.click('#r1v'); await w();
+  await p.click('#vtok'); await w(300);
+  ok(await p.locator('.sheet.on #vt2').count() === 1, 'senza nessuna tecnica scritta il foglio non si chiude');
+  await p.fill('#vt2', 'ritmi puntati'); await p.click('#vtok'); await w();
+  ok((await txt('.sheet.on .vbox')).includes('Rep 2: ritmi puntati · Rep 3: libero'), 'tecnica tua per Rep 2, Rep 3 vuota = libera');
+  await p.click('#r1ok'); await w();
+  ok((await txt('.instr')).includes('Tecnica scelta da te'.toUpperCase()) || /tecnica scelta da te/i.test(await txt('.instr')), 'Rep 2: la tecnica scritta');
+  ok((await txt('.instr')).includes('ritmi puntati'), 'Rep 2: testo della tecnica');
+  await shot('rep2-tecnica-mia');
+  await fatto(); ok((await txt('.vrow')).includes('libero'), 'Rep 3 libera');
+  await fatto(); await fatto(); await p.click('#r4no'); await w();
+  await p.evaluate(() => closeSession()); await w(700);
+  d = await D();
+  const lgl = d.sessioni[d.sessioni.length - 1].log;
+  ok(lgl[0].vincolo_rep2 === 'libero' && lgl[0].vincolo_rep3 === 'libero' && lgl[1].vincolo_rep2 === 'ritmi puntati' && lgl[1].vincolo_rep3 === 'libero' && !lgl[1].errore, 'registro: libero e tecnica tua');
+  ok(await p.evaluate(() => vincLogTesto(D.sessioni[D.sessioni.length - 1].log[0]) === 'libero, senza vincolo' && vincLogTesto(D.sessioni[D.sessioni.length - 1].log[1]) === 'scelto da te: ritmi puntati / libero'), 'storico: «libero, senza vincolo» e «scelto da te»');
+  ok(await p.evaluate(() => tecnicheMie().includes('ritmi puntati') && tecnicaTipo('NODO') === 'sigla' && tecnicaTipo('libero') === 'libero'), 'le tecniche scritte vengono riproposte');
+  await p.evaluate(() => { D.sessione_aperta = null; save(); });
+
   /* --- 4. cucitura --- */
   await p.goto(U + '#new'); await w();
   ok(await p.locator('.choice [data-k="tipo"]').count() === 4, 'nuova sessione: quattro tipi');
@@ -245,7 +275,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on h2')).includes('versione 3'), 'chi arriva dalla 2.2 vede le novità della versione 3');
   await shot('novita');
   d = await D();
-  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.3.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
+  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.4.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
   ok(d.riascolti.length === 1 && d.riascolti[0].voto === 10 && d.riascolti[0].da3 === 3 && d.riascolti[0].scala === 10, 'voto di riascolto 1-3 convertito in decimi (3 → 10)');
   ok((await txt('.sheet.on')).includes('3.2 · Voto in decimi') && (await txt('.sheet.on')).includes('3.3 · Niente riascolto settimanale'), 'novità: voci della 3.2 e della 3.3');
   await p.click('.sheet.on [data-act="closesheet"]'); await w();

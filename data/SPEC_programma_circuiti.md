@@ -286,3 +286,11 @@ Chiesto da Alessandro il 12/11/2026: «basta il voto che do io».
 - Il **riascolto settimanale** non c'è più: niente schermata, niente pulsante nello Storico, niente promemoria in home, niente campo nella pagina del frammento. I voti di riascolto già dati restano nei dati e contano ancora.
 - **Verifica a due settimane** per i brani «suono»: usa solo i voti del test a freddo.
 - Una proposta di sostituirlo con un'azione «Dopo la lezione» (passaggi segnalati dall'insegnante a voto 5) è stata scartata da Alessandro.
+
+## 13. Libero o tecnica scritta a mano (app 3.4.0)
+
+Chiesto da Alessandro il 12/11/2026: poter non usare nessuna tecnica, o usarne una che non sta scritta.
+
+- Nel foglio «Cambia vincolo», sotto le coppie del catalogo, la sezione «Oppure fuori dal catalogo»: **Libero** (Rep 2 e Rep 3 senza tecnica) oppure due campi di testo, «Una tecnica tua per Rep 2» e «E per Rep 3»; un campo vuoto vale «libero». Se il testo è una sigla del catalogo (anche in minuscolo) diventa quella sigla.
+- Come gli altri vincoli scelti a mano vale per il frammento in tutte le andate della sessione e si registra in `vincolo_rep2` / `vincolo_rep3` (il valore `"libero"` oppure il testo scritto), senza `errore`. Nello storico si legge «libero, senza vincolo» o «scelto da te: … / …»; in «Vincoli usati» compare come gli altri.
+- Le tecniche scritte già usate si ripropongono nei campi (suggerimenti del campo di testo).

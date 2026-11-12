@@ -194,6 +194,7 @@ function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
     <p class="small muted" style="margin-top:-6px">Il metodo cambia in quattro punti, più le revisioni della 3.2 e della 3.3; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.4 · Libero o tecnica tua</b>: in «Cambia vincolo» puoi suonare Rep 2 e Rep 3 senza nessuna tecnica («Libero») oppure scrivere una tecnica che non sta tra le sigle. Vale per tutte le andate della sessione e resta nello storico.</li>
       <li><b>3.3 · Niente riascolto settimanale</b>: basta il voto che dai al test a freddo. Per i brani «suono» la verifica a due settimane guarda il voto del test. I voti di riascolto già dati restano e contano.</li>
       <li><b>3.2 · Voto in decimi</b>: al posto dei livelli e di «Rep 1 pulita sì/no», dopo la prima Rep 1 del giorno dai un voto da 0 a 10 sulla metrica del brano (pulizia al tempo o suono). Il voto cala da solo di 0,25 al giorno: un 10 torna da ripassare dopo 12 giorni.</li>
       <li><b>3.2 · Da ripassare oggi</b>: niente più date fisse. In cima alla scelta dei passaggi trovi i frammenti col voto sceso a 7 o meno, dal più basso; quelli di una famiglia studiata negli ultimi 2 giorni vanno in fondo.</li>

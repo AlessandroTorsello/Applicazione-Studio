@@ -85,7 +85,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await shot('riepilogo');
   let d = await D();
   ok(d.sessioni.length === 1 && d.sessioni[0].log[0].tempo_rep4 === 96 && d.sessioni[0].log[0].voto === 8 && d.sessioni[0].log[0].test && d.target && Object.values(d.target)[0] === 120, 'dati salvati (bpm, voto del test, target)');
-  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.3.0', 'versione dei dati');
+  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.4.0', 'versione dei dati');
 
   /* --- ripeti la sessione --- */
   await p.click('[data-act="repeat"]'); await w(700);

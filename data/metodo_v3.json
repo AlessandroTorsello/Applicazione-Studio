@@ -150,7 +150,7 @@
   "regole": [
     {
       "titolo": "La diagnosi sceglie il vincolo",
-      "testo": "In una sessione ogni frammento usa una sola coppia di vincoli (Rep 2 e Rep 3) per tutte le andate. La coppia predefinita alterna tra i giorni: quella dell'andata 1 del catalogo, la volta dopo quella dell'andata 2 (poi 3 e 4, se esistono).\nDopo la Rep 1 della prima andata, se la diagnosi indica un problema diverso da quello che il vincolo predefinito colpisce, puoi cambiare vincolo con la tabella degli errori qui sotto.\nIl vincolo usato viene registrato, per vedere poi quali funzionano."
+      "testo": "In una sessione ogni frammento usa una sola coppia di vincoli (Rep 2 e Rep 3) per tutte le andate. La coppia predefinita alterna tra i giorni: quella dell'andata 1 del catalogo, la volta dopo quella dell'andata 2 (poi 3 e 4, se esistono).\nDopo la Rep 1 della prima andata, se la diagnosi indica un problema diverso da quello che il vincolo predefinito colpisce, puoi cambiare vincolo con la tabella degli errori qui sotto.\nFuori dal catalogo si può anche suonare Rep 2-3 libere, senza nessuna tecnica, oppure scrivere una tecnica che non sta tra le sigle.\nIl vincolo usato viene registrato, per vedere poi quali funzionano."
     },
     {
       "titolo": "Voto in decimi",
