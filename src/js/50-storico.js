@@ -5,12 +5,13 @@ function fragStats(logs) {
   const m = new Map();
   logs.forEach(l => {
     const k = logKey(l);
-    if (!m.has(k)) m.set(k, { fid: l.frammento || null, brano: l.brano, battute: l.battute || '', libera: l.circuito == null, manuale: !!l.manuale, cuc: !!l.cucitura, prova: !!l.prova, giu: 0, giuN: 0, giuOk: 0, sec: 0, andate: new Set(), pul: 0, pulN: 0, tempo: null, drop: false, n: 0 });
+    if (!m.has(k)) m.set(k, { fid: l.frammento || null, brano: l.brano, battute: l.battute || '', libera: l.circuito == null, manuale: !!l.manuale, cuc: !!l.cucitura, prova: !!l.prova, giu: 0, giuN: 0, giuOk: 0, ctrl: 0, ctrlN: 0, ctrlOk: 0, slot4: 0, sec: 0, andate: new Set(), pul: 0, pulN: 0, tempo: null, drop: false, n: 0 });
     const x = m.get(k);
     x.sec += l.secondi || 0; if (l.circuito != null) x.andate.add(l.circuito + '|' + l.andata); x.n++;
     if (l.rep1_pulita != null) { x.pulN++; if (l.rep1_pulita) x.pul++; }
     if (l.tempo_rep4 != null) x.tempo = l.tempo_rep4;
     if (l.drop_out) x.drop = true;
+    if (l.controllo) { x.ctrl++; if (l.senza_errori != null) { x.ctrlN++; if (l.senza_errori) x.ctrlOk++; } } else if (l.frammento) x.slot4++;
     if (l.cucitura) { x.giu++; if (l.giuntura_pulita != null) { x.giuN++; if (l.giuntura_pulita) x.giuOk++; } }
   });
   return [...m.values()];
@@ -30,7 +31,8 @@ function statName(x) {
 function statDetails(x) {
   const d = [];
   if (x.andate.size) d.push(`${x.andate.size} andat${x.andate.size === 1 ? 'a' : 'e'}`);
-  if (x.fid) { d.push(`Rep 1 pulite ${x.pulN ? x.pul + '/' + x.pulN : '—'}`); d.push(`Rep 4 ${x.tempo != null ? x.tempo + ' bpm' : '—'}`); }
+  if (x.fid && (x.slot4 || !x.ctrl)) { d.push(`Rep 1 pulite ${x.pulN ? x.pul + '/' + x.pulN : '—'}`); d.push(`Rep 4 ${x.tempo != null ? x.tempo + ' bpm' : '—'}`); }
+  if (x.ctrl) d.push(`controllo senza errori ${x.ctrlN ? x.ctrlOk + '/' + x.ctrlN : '—'}`);
   if (x.drop) d.push('drop-out');
   if (x.cuc) d.push(`${x.giu} ${x.giu === 1 ? 'giuntura' : 'giunture'}`, `pulite ${x.giuN ? x.giuOk + '/' + x.giuN : '—'}`);
   return d.join(' · ');
@@ -73,7 +75,8 @@ function logWhat(l) {
 function logItem(l, si, li) {
   const f = l.frammento ? fr(l.frammento) : null;
   const parts = [fmtMin(l.secondi)];
-  if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`, `Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'}`); if (l.tempo_rep4 != null) parts.push(l.tempo_rep4 + ' bpm'); }
+  if (l.controllo) parts.push(`controllo · ${l.rep_completate || 0} ripetizioni`, l.senza_errori === true ? 'senza errori' : l.senza_errori === false ? 'con errori' : 'esito —');
+  else if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`, `Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'}`); if (l.tempo_rep4 != null) parts.push(l.tempo_rep4 + ' bpm'); }
   if (l.arresto) parts.push('arresto'); if (l.drop_out) parts.push('drop-out');
   if (l.cucitura) parts.push(`passi ${l.passi || 0}/2`, `giuntura ${l.giuntura_pulita === true ? 'pulita' : l.giuntura_pulita === false ? 'non pulita' : '—'}`);
   if (l.prova && Array.isArray(l.sporchi)) parts.push(l.sporchi.length ? 'punti sporchi: ' + l.sporchi.map(id => 'bb. ' + frLabel(id)).join(', ') : 'nessun punto sporco');
@@ -102,14 +105,16 @@ function editLog(sid, i) {
   openSheet(`<h2>Correggi ${esc(logPos(l))}</h2><p class="muted" style="margin-top:-6px">${esc(logWhat(l))}</p>
     <div class="row"><div class="field"><label for="em">Minuti</label><input type="number" id="em" inputmode="numeric" min="0" value="${Math.floor((l.secondi || 0) / 60)}"></div>
     <div class="field"><label for="es">Secondi</label><input type="number" id="es" inputmode="numeric" min="0" max="59" value="${(l.secondi || 0) % 60}"></div></div>
-    <div ${l.frammento ? '' : 'hidden'}><div class="field"><label for="eb">Rep 4 (bpm)</label><input type="number" id="eb" inputmode="numeric" value="${l.tempo_rep4 != null ? l.tempo_rep4 : ''}"></div>
+    ${l.controllo ? `<div class="field"><label for="ec">Controllo senza errori</label><select class="sel" id="ec" style="width:100%"><option value="">—</option><option value="1" ${l.senza_errori === true ? 'selected' : ''}>Sì</option><option value="0" ${l.senza_errori === false ? 'selected' : ''}>No</option></select></div>` : ''}
+    <div ${l.frammento && !l.controllo ? '' : 'hidden'}><div class="field"><label for="eb">Rep 4 (bpm)</label><input type="number" id="eb" inputmode="numeric" value="${l.tempo_rep4 != null ? l.tempo_rep4 : ''}"></div>
     <div class="field"><label for="ep">Rep 1 pulita</label><select class="sel" id="ep" style="width:100%"><option value="">—</option><option value="1" ${l.rep1_pulita === true ? 'selected' : ''}>Sì</option><option value="0" ${l.rep1_pulita === false ? 'selected' : ''}>No</option></select></div>
     <div class="field"><label for="ed">Diagnosi</label><input type="text" id="ed" value="${esc(l.diagnosi || '')}"></div></div>
     <div class="field"><label for="en">Note</label><textarea id="en">${esc(l.note || '')}</textarea></div>
     <button class="btn primary" id="esave">Salva</button><button class="btn danger" id="edel">Elimina questa voce</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     $('#esave', sh).addEventListener('click', () => {
       l.secondi = Math.max(0, (Number($('#em', sh).value) || 0) * 60 + (Number($('#es', sh).value) || 0));
-      if (l.frammento) {
+      if (l.controllo) { const c = $('#ec', sh).value; l.senza_errori = c === '' ? null : c === '1'; }
+      else if (l.frammento) {
         const b = $('#eb', sh).value; l.tempo_rep4 = b === '' ? null : Math.round(Number(b));
         const p = $('#ep', sh).value, prima = l.rep1_pulita; l.rep1_pulita = p === '' ? null : p === '1';
         if (l.rep1_pulita !== prima) ricalcolaTest(l);
@@ -235,7 +240,7 @@ SCREENS.frag = fid => {
       ${vst.map(([lab, x]) => `<div class="logi">${esc(lab)}<br><span class="muted">${x.n} ${x.n === 1 ? 'giorno' : 'giorni'} · test successivo pulito ${x.tot ? x.pul + '/' + x.tot : '—'}</span></div>`).join('')}</section>` : ''}
     <section class="card"><div class="label">Cronologia</div>
       ${[...h].reverse().map(l => `<div class="logi"><b style="text-transform:capitalize">${esc(fmtDateShort(l.data))}</b> · circuito ${l.circuito}, andata ${l.andata}, slot ${esc(l.etichetta)} · ${fmtMin(l.secondi)}<br>
-        Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'} · Rep 4 ${l.tempo_rep4 != null ? l.tempo_rep4 + ' bpm' : '—'}${l.arresto ? ' · arresto' : ''}${l.drop_out ? ' · drop-out' : ''}
+        ${l.controllo ? `Controllo · ${l.rep_completate || 0} ripetizioni · ${l.senza_errori === true ? 'senza errori' : l.senza_errori === false ? 'con errori' : 'esito —'}` : `Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'} · Rep 4 ${l.tempo_rep4 != null ? l.tempo_rep4 + ' bpm' : '—'}`}${l.arresto ? ' · arresto' : ''}${l.drop_out ? ' · drop-out' : ''}
         ${vincLogTesto(l) || l.test ? `<br><span class="muted">Vincoli:</span> ${esc([vincLogTesto(l), testTesto(l)].filter(Boolean).join(' · '))}` : ''}
         ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}</div>`).join('') || '<p class="muted" style="margin:8px 0 0">Ancora nessun dato.</p>'}
     </section>

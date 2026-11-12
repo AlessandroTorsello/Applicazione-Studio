@@ -1,16 +1,18 @@
 
 /* ================= SESSIONE ================= */
-const newCur = () => ({ rep1_pulita: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false, note: '' });
+const newCur = () => ({ rep1_pulita: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false, note: '', senza_errori: null });
 function startSession(modo) {
   modo = modo === 'libero' ? 'libero' : 'scritti';
   const circ = modo === 'libero'
     ? D.bozza.circuiti_lib.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.map((s, j) => ({ etichetta: slotLab(j, i), frammento: null, brano: s.brano, battute: (s.battute || '').trim() })) }))
-    : D.bozza.circuiti.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.map((fid, j) => ({ etichetta: slotLab(j, i), frammento: fid })) }));
+    : D.bozza.circuiti.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.map((fid, j) => Object.assign({ etichetta: slotLab(j, i), frammento: fid }, eNuovo(fid) ? { ctrl: true } : {})) }));   // ctrl: slot di controllo dei brani nuovi
   if (!circ.length) { toast('Aggiungi almeno uno slot'); return; }
   const now = Date.now(); navDepth = 0;
   D.sessione_aperta = { tipo: 'circuito', modo, id: 's' + now.toString(36), data: todayStr(), inizio: new Date(now).toISOString(), circuiti: circ,
     pos: { c: 0, a: 1, s: 0, r: 1 }, cur: newCur(), dropout: {}, vincoli: {}, log: [],
     timer: { sess: 0, slot: 0, since: now, seen: now } };
+  // brani nuovi: sempre i due vincoli dell'andata 1
+  circ.forEach(c => c.slot.forEach(sl => { if (sl.ctrl) D.sessione_aperta.vincoli[sl.frammento] = { k: coppie(fr(sl.frammento))[0] || null }; }));
   save(); replaceTo('#run');
 }
 function fold(T) { if (T.since) { const n = Date.now(), d = (n - T.since) / 1000; T.slot += d; T.sess += d; T.since = n; } }
@@ -63,6 +65,7 @@ function finalizeSlot(S, rc) {
     secondi: Math.round(S.timer.slot), rep_completate: rc, rep1_pulita: S.cur.rep1_pulita, diagnosi: S.cur.diagnosi,
     tempo_rep4: S.cur.tempo_rep4, arresto: S.cur.arresto, drop_out: S.cur.drop_out, note: S.cur.note };
   if (S.modo === 'libero') { e.battute = sl.battute || ''; e.rep_completate = null; }
+  else if (sl.ctrl) { e.controllo = true; e.senza_errori = S.cur.senza_errori == null ? null : !!S.cur.senza_errori; e.rep1_pulita = null; e.tempo_rep4 = null; if (f && rc >= 1) vincLog(e, f, S.vincoli && S.vincoli[sl.frammento]); }
   else if (f) { if (rc >= 2) vincLog(e, f, S.vincoli && S.vincoli[sl.frammento]); if (S.cur.test) e.test = S.cur.test; }
   if ((rc != null && rc > 0) || e.test || e.secondi >= (S.modo === 'libero' ? 1 : 5)) S.log.push(e);
   S.timer.slot = 0; S.cur = newCur();
@@ -175,6 +178,7 @@ SCREENS.run = () => {
   if (S.tipo === 'cucitura') return renderCuc(S);
   if (S.tipo === 'prova') return renderProva(S);
   if (S.modo === 'libero') return renderLib(S);
+  if (ctrlSlot(S)) return renderCtrl(S);
   const { c, a, s, r } = S.pos, circ = S.circuiti[c], sl = circ.slot[s], f = fr(sl.frammento) || { battute: sl.frammento, titolo: '(frammento non trovato)', andate: {} };
   /* Metodo v3: una sola coppia di vincoli per frammento in tutta la sessione (non più una per andata). */
   const fid = sl.frammento, v = vinc(S, fid), vb = vincBreve(f, v), liv = livDi(fid), res = isResistenza(f);
@@ -253,6 +257,7 @@ function onFatto() {
   if (S.tipo === 'cucitura') return cucFatto(S);
   if (S.tipo === 'prova') { provaFinalize(S); S.pos.r = 1; S.timer.slot = 0; closeSession(); return; }
   if (S.modo === 'libero') { finalizeSlot(S, null); moveNext(S); return; }
+  if (ctrlSlot(S)) return ctrlFatto(S);
   const r = S.pos.r;
   if (r === 1) return rep1Sheet(S);
   if (r === 4) return rep4Sheet(S);
@@ -322,12 +327,12 @@ function repBack() {
   const cur = S.timer.slot;
   if (last && last.circuito === circ.n && last.andata === p.a && last.etichetta === sl.etichetta) {
     S.log.pop();
-    S.cur = { rep1_pulita: last.rep1_pulita, diagnosi: last.diagnosi || '', tempo_rep4: last.tempo_rep4, arresto: !!last.arresto, drop_out: !!last.drop_out, note: last.note || '' };
+    S.cur = { rep1_pulita: last.rep1_pulita, diagnosi: last.diagnosi || '', tempo_rep4: last.tempo_rep4, arresto: !!last.arresto, drop_out: !!last.drop_out, note: last.note || '', senza_errori: last.senza_errori == null ? null : last.senza_errori };
     if (last.test) S.cur.test = last.test;
     S.timer.slot = (last.secondi || 0) + cur;
-    S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' ? 1 : last.rep_completate >= 4 ? 4 : Math.max(1, (last.rep_completate || 0) + 1) };
+    S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' ? 1 : sl.ctrl ? Math.min(CTRL_MAX, Math.max(1, last.rep_completate || 1)) : last.rep_completate >= 4 ? 4 : Math.max(1, (last.rep_completate || 0) + 1) };
   } else {
-    S.cur = newCur(); S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' ? 1 : 4 };
+    S.cur = newCur(); S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' || sl.ctrl ? 1 : 4 };
   }
   save(); render();
 }

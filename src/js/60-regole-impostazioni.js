@@ -11,8 +11,8 @@ SCREENS.rules = anchor => {
     <details class="acc" id="metodo" ${anchor === 'metodo' ? 'open' : ''}><summary><span class="grow">Metodo, versione 3</span></summary><div class="accbody">
       ${(M3.regole || []).map(x => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(x.titolo)}</div><p style="margin:4px 0 0">${fmtText(x.testo)}</p></div>`).join('')}
       <div class="sigcard"><div class="label">Dall'errore al vincolo</div>${(M3.errori || []).map(e => `<p style="margin:8px 0">${esc(e.errore)}<br>${linkSigle(esc(e.sigle.join(' · ')))}</p>`).join('')}</div>
-      <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">metrica: ${metricaDi(x.id)}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · frammenti di resistenza: priorità ' + x.resistenza.join(', ') : ''}</span></p>`).join('')}
-        <p class="small muted" style="margin:8px 0 0">La metrica di un brano si cambia in Impostazioni, toccando il brano.</p></div>
+      <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${statoDi(x.id)} · metrica: ${metricaDi(x.id)}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · frammenti di resistenza: priorità ' + x.resistenza.join(', ') : ''}</span></p>`).join('')}
+        <p class="small muted" style="margin:8px 0 0">Stato e metrica di un brano si cambiano in Impostazioni, toccando il brano.</p></div>
       ${M3.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(M3.fonte)}</p>` : ''}</div></details>
     <details class="acc"><summary><span class="grow">Regole dello slot</span></summary><div class="accbody">
       ${Object.keys(RS).map(k => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(SLOT_LABELS[k] || k)}</div><p style="margin:4px 0 0">${fmtText(RS[k])}</p></div>`).join('')}</div></details>
@@ -63,19 +63,19 @@ SCREENS.settings = () => {
       ${stored(KEY_PREIMP) ? '<button class="btn" data-act="undoimport">Annulla l\'ultimo ripristino</button>' : ''}
     </section>
     <section class="card"><div class="label">Brani</div>
-      <p class="small muted">Tocca un brano per rinominarlo o nasconderlo dagli elenchi. Lo storico non cambia.</p>
-      ${C.brani.map(b => `<button class="brow" data-act="brano" data-id="${esc(b.id)}"><span class="grow">${esc(b.nome)}</span>${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`).join('')}
+      <p class="small muted">Tocca un brano per dividerlo in frammenti, cambiare i frammenti, passarlo da nuovo a consolidato, rinominarlo o nasconderlo. Lo storico non cambia.</p>
+      ${C.brani.map(b => `<button class="brow" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}"><span class="grow">${esc(b.nome)}</span>${statoDi(b.id) === 'nuovo' ? '<span class="tag">nuovo</span>' : ''}${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`).join('')}
       <button class="btn" style="margin-top:10px" data-act="newbrano" data-then="settings">+ Aggiungi un brano</button>
     </section>
     <section class="card"><div class="label">Catalogo dei passaggi</div>
-      <p class="small muted">Importa l'analisi di un altro brano, con lo stesso schema di quelle già presenti. I frammenti con lo stesso id vengono aggiornati, i nuovi aggiunti; lo storico resta intatto.</p>
+      <p class="small muted">Per dividere un brano in frammenti o cambiarli, tocca il brano qui sopra. Qui importi l'analisi di un altro brano, con lo stesso schema di quelle già presenti. I frammenti con lo stesso id vengono aggiornati, i nuovi aggiunti; lo storico resta intatto.</p>
       <button class="btn" data-act="pickfile" data-target="impcat">Importa un catalogo</button>
       <input type="file" id="impcat" accept="application/json,.json" hidden>
       <p class="small muted" style="margin:0">Frammenti nel catalogo: ${C.frammenti.length} (${D.catalogo_importato.frammenti.length} importati, ${D.frammenti_utente.length} aggiunti a mano).</p>
     </section>
     <section class="card"><div class="label">Informazioni</div>
       <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 3</button>
-      <p class="small muted" style="margin:0">Circuiti di studio ${APP_VERSION} · catalogo: ${CATALOGO.brani.filter(b => b.completo).length} brani, ${CATALOGO.frammenti.length} frammenti. Le fonti sono in Sigle e regole, alla voce Priorità e famiglie.</p>
+      <p class="small muted" style="margin:0">Summum Studium ${APP_VERSION} · catalogo: ${CATALOGO.brani.filter(b => b.completo).length} brani, ${CATALOGO.frammenti.length} frammenti. Le fonti sono in Sigle e regole, alla voce Priorità e famiglie.</p>
     </section>
     <section class="card"><div class="label">Zona pericolosa</div>
       ${stored(KEY_PRE2) ? '<button class="btn" data-act="restorepre2" style="margin-top:8px">Torna ai dati di prima dell\'aggiornamento alla 2.0</button>' : ''}
@@ -127,7 +127,7 @@ function readJsonFile(input, cb) {
   rd.readAsText(file);
 }
 async function exportData() {
-  const name = `circuiti-backup-${todayStr()}.json`;
+  const name = `summum-studium-backup-${todayStr()}.json`;
   if (window.AndroidApp) {
     window.onAndroidSave = ok => { if (ok) { D.impostazioni.ultimo_export = new Date().toISOString(); save(); render(); } };
     window.AndroidApp.saveFile(name, JSON.stringify(D, null, 2)); return;
@@ -181,7 +181,7 @@ function importCatalog(obj) {
 }
 function resetSheet() {
   openSheet(`<h2>Azzerare tutti i dati?</h2>
-    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti, tempi target, livelli, voti di riascolto e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
+    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti o modificati, tempi target, livelli, voti di riascolto e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
     <div class="field"><label for="rz">Per confermare scrivi AZZERA</label><input type="text" id="rz" autocomplete="off" autocapitalize="characters"></div>
     <button class="btn dangerfill xl" id="rzok">Azzera tutto</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     $('#rzok', sh).addEventListener('click', () => {
@@ -194,6 +194,9 @@ function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
     <p class="small muted" style="margin-top:-6px">Il metodo cambia in cinque punti; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.1 · Nuovo nome</b>: l'app ora si chiama Summum Studium. È la stessa app: dati e backup precedenti restano validi.</li>
+      <li><b>3.1 · Brani nuovi e consolidati</b>: un brano nuovo lavora a ripetizioni di controllo al 50-65%, senza test a freddo e senza Rep 4; quando lo passi a consolidato usa lo slot da 4 Rep. Il Nabucco entra nel catalogo come brano nuovo.</li>
+      <li><b>3.1 · Editor</b>: da Impostazioni, toccando un brano, lo dividi in frammenti per battute, cambi battute e testi di qualsiasi frammento, ne dividi uno in due o lo unisci al seguente. Gli originali del catalogo si possono sempre ripristinare.</li>
       <li><b>Una coppia di vincoli per sessione</b>: ogni frammento usa gli stessi vincoli di Rep 2 e Rep 3 in tutte le andate, e la coppia cambia da un giorno all'altro. Dopo la Rep 1 puoi sceglierne altri partendo dall'errore trovato. Il vincolo usato resta nello storico.</li>
       <li><b>Livelli da 0 a 4</b>: la prima Rep 1 del giorno è il test. Pulita, il frammento sale di livello e torna dopo 2, 4, 8, 16 giorni; sporca, scende di uno. In cima alla scelta dei passaggi trovi «Da ripassare oggi».</li>
       <li><b>Condizioni reali più spesso</b>: dal livello 2 la Rep 3 è con dinamica e pedale reali. I frammenti di resistenza del Mephisto lavorano nella dinamica scritta fin dall'inizio.</li>

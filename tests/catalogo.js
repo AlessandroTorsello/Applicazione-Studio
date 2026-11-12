@@ -19,9 +19,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
 
   await p.goto(U); await w();
   const cat = await p.evaluate(() => ({ brani: CATALOGO.brani.map(x => [x.id, x.completo, (x.priorita || []).length]), n: CATALOGO.frammenti.length, perBrano: CATALOGO.brani.map(x => CATALOGO.frammenti.filter(f => f.brano === x.id).length) }));
-  ok(JSON.stringify(cat.brani.map(x => x[0])) === JSON.stringify(['op111', 'op111-2', 'mephisto', 'scriabin28']), 'quattro brani: ' + cat.brani.map(x => x[0]).join(', '));
+  ok(JSON.stringify(cat.brani.map(x => x[0])) === JSON.stringify(['op111', 'op111-2', 'mephisto', 'scriabin28', 'nabucco']), 'cinque brani: ' + cat.brani.map(x => x[0]).join(', '));
   ok(cat.brani.every(x => x[1] === true && x[2] === 7), 'tutti completi, ognuno con le sue 7 priorità');
-  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29]) && cat.n === 204, 'frammenti per brano: ' + cat.perBrano.join(', '));
+  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29, 84]) && cat.n === 288, 'frammenti per brano: ' + cat.perBrano.join(', '));
   const refs = await p.evaluate(() => { const ids = new Set(CATALOGO.frammenti.map(f => f.id)), fam = new Set(CATALOGO.famiglie.map(f => f.id)), br = new Set(CATALOGO.brani.map(x => x.id));
     return { fam: CATALOGO.frammenti.filter(f => f.famiglia && !fam.has(f.famiglia)).length, fr: CATALOGO.famiglie.flatMap(g => g.frammenti).filter(i => !ids.has(i)).length, br: CATALOGO.frammenti.filter(f => !br.has(f.brano)).length,
       sig: [...new Set(JSON.stringify(CATALOGO.frammenti).match(/\b(?:[A-Z]{3,})\b/g))].filter(s => !C.S.has(s) && !['III', 'VII', 'MAX'].includes(s)) }; });
@@ -30,9 +30,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
 
   // selezione: quattro elenchi, priorità del brano giusto
   await p.goto(U + '#select'); await w();
-  ok(await p.locator('details.acc').count() === 4, 'la selezione mostra quattro brani');
+  ok(await p.locator('details.acc').count() === 5, 'la selezione mostra cinque brani');
   const pills = await p.locator('details.acc .pill').allInnerTexts();
-  ok(pills.join(' ') === '0/50 0/49 0/76 0/29', 'contatori: ' + pills.join(' '));
+  ok(pills.join(' ') === '0/50 0/49 0/76 0/29 0/84', 'contatori: ' + pills.join(' '));
   await p.click('details.acc[data-brano="op111-2"] summary'); await w();
   const h3 = await p.locator('details.acc[data-brano="op111-2"] .prio h3').first().innerText();
   ok(h3.includes('Velocità in forte'), 'II movimento: la priorità 1 è la sua («' + h3.replace(/\s+/g, ' ').slice(0, 40) + '…»)');
@@ -49,7 +49,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.check('input[data-sel="scriabin fantasie-1-4"]');
   await p.click('details.acc[data-brano="mephisto"] summary'); await w();
   await p.check('input[data-sel="mephisto-137-144"]'); await w();
-  ok((await p.locator('details.acc .pill').allInnerTexts()).join(' ') === '0/50 1/49 1/76 1/29', 'selezione con identificativi che contengono spazi');
+  ok((await p.locator('details.acc .pill').allInnerTexts()).join(' ') === '0/50 1/49 1/76 1/29 0/84', 'selezione con identificativi che contengono spazi');
   await p.click('#gocompose'); await w(); await shot('composizione-tre-brani');
   await p.click('[data-act="start"]'); await w(900);
   const l2 = await p.locator('.runh .l2').innerText();
@@ -68,7 +68,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const r = await p.evaluate(() => { importCatalog({ versione: 2, brani: [{ id: 'prova', nome: 'Brano di prova', completo: true }], priorita: [{ n: 1, nome: 'Priorità del brano di prova', perche: 'x' }],
     definizioni: { priorita: 'd', famiglia: 'd' }, famiglie: [], frammenti: [{ id: 'prova-1-2', brano: 'prova', battute: '1-2', titolo: 't', priorita: 1, famiglia: null, nodo_motorio: 'n', andate: { 1: { rep2: 'a', rep3: 'b' }, 2: { rep2: 'c', rep3: 'd' } }, rep4_verifica: 'v' }] });
     return { mio: prioDi('prova')[0].nome, op111: prioDi('op111')[0].nome, n: C.frammenti.length }; });
-  ok(r.mio === 'Priorità del brano di prova' && r.op111 === 'Semicrome parallele a due mani' && r.n === 205, 'importazione: priorità legate al brano importato, le altre intatte');
+  ok(r.mio === 'Priorità del brano di prova' && r.op111 === 'Semicrome parallele a due mani' && r.n === 289, 'importazione: priorità legate al brano importato, le altre intatte');
 
   console.log(errs.length ? 'ERRORI:\n' + errs.join('\n') : 'nessun errore in console');
   console.log(fails || errs.length ? `\n${fails} controlli falliti` : '\nTutti i controlli passati');

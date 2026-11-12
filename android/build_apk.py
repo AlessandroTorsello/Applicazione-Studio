@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Costruisce l'APK Android di Circuiti di studio.
+"""Costruisce l'APK Android di Summum Studium (fino alla 3.0 «Circuiti di studio»; il pacchetto resta app.circuiti.studio).
 
 L'involucro nativo (android/base: manifest, classes.dex, risorse) è quello della versione 1.0 e non
 cambia: è una WebView che apre assets/index.html e offre a JavaScript il ponte `AndroidApp`
 (keepScreenOn, saveFile, copy). Qui si sostituisce solo l'app web e si aggiorna il numero di versione.
 
 Uso:
-  python3 android/build_apk.py --html docs/index.html --out Circuiti-di-studio.apk \
+  python3 android/build_apk.py --html docs/index.html --out Summum-Studium.apk \
       --version-code 2 --version-name 2.0.0 --keystore /percorso/android-keystore.jks
 
 La password del keystore si passa con la variabile d'ambiente KS_PASS. L'APK va firmato SEMPRE con
@@ -55,11 +55,44 @@ def patch_manifest(data, code, name):
     return bytes(b)
 
 
+def patch_label(data, old, new):
+    """Cambia il nome dell'app (la stringa `old`) nella tabella delle risorse, ricostruendo l'elenco delle stringhe.
+    Le risorse puntano alle stringhe per posizione, quindi basta riscrivere l'elenco e aggiornare le dimensioni."""
+    if old == new:
+        return data
+    off = 12
+    ctype, hsize, csize = struct.unpack_from('<HHI', data, off)
+    nstr, nstyle, flags, sstart, _ = struct.unpack_from('<IIIII', data, off + 8)
+    if ctype != 0x0001 or nstyle or not flags & 0x100:
+        sys.exit('resources.arsc: elenco delle stringhe in un formato non previsto')
+    offs = struct.unpack_from('<%dI' % nstr, data, off + hsize)
+    def leggi(p):
+        def ln(p):
+            return (((data[p] & 0x7f) << 8) | data[p + 1], p + 2) if data[p] & 0x80 else (data[p], p + 1)
+        _c, p = ln(p); n, p = ln(p)
+        return data[p:p + n].decode('utf-8')
+    strs = [leggi(off + sstart + o) for o in offs]
+    if strs.count(old) != 1:
+        sys.exit(f'resources.arsc: «{old}» non trovato (o trovato più volte)')
+    strs[strs.index(old)] = new
+    ln = lambda n: bytes([n]) if n < 0x80 else bytes([0x80 | (n >> 8), n & 0xff])
+    blob = bytearray(); nuovi = []
+    for s in strs:
+        nuovi.append(len(blob)); e = s.encode('utf-8'); blob += ln(len(s.encode('utf-16-le')) // 2) + ln(len(e)) + e + b'\0'
+    blob += b'\0' * (-len(blob) % 4)
+    pool = bytearray(data[off:off + hsize]) + struct.pack('<%dI' % nstr, *nuovi) + blob
+    struct.pack_into('<I', pool, 4, len(pool))
+    out = bytearray(data[:off]) + pool + data[off + csize:]
+    struct.pack_into('<I', out, 4, len(out))
+    return bytes(out)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--html', required=True); ap.add_argument('--out', required=True)
     ap.add_argument('--version-code', type=int, required=True); ap.add_argument('--version-name', required=True)
     ap.add_argument('--keystore', required=True); ap.add_argument('--alias', default='circuiti')
+    ap.add_argument('--label', default='Summum Studium', help="nome dell'app sotto l'icona")
     a = ap.parse_args()
     if 'KS_PASS' not in os.environ:
         sys.exit('Imposta la variabile KS_PASS con la password del keystore')
@@ -76,7 +109,7 @@ def main():
         for root, _d, files in sorted(os.walk(os.path.join(BASE, 'res'))):
             for f in sorted(files):
                 p = os.path.join(root, f); add(os.path.relpath(p, BASE).replace(os.sep, '/'), open(p, 'rb').read())
-        add('resources.arsc', open(os.path.join(BASE, 'resources.arsc'), 'rb').read())
+        add('resources.arsc', patch_label(open(os.path.join(BASE, 'resources.arsc'), 'rb').read(), 'Circuiti', a.label))
         add('classes.dex', open(os.path.join(BASE, 'classes.dex'), 'rb').read())
     subprocess.check_call(['zipalign', '-f', '-p', '4', unaligned, aligned])
     subprocess.check_call(['apksigner', 'sign', '--ks', a.keystore, '--ks-key-alias', a.alias, '--ks-pass', 'env:KS_PASS', '--key-pass', 'env:KS_PASS',

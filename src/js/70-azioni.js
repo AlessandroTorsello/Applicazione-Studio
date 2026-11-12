@@ -14,6 +14,7 @@ const ACT = {
     const then = el.dataset.then;
     newBranoSheet(id => {
       if (then === 'libera') { D.bozza.brani_liberi.push(id); save(); render(); }
+      else if (then === 'settings' || then === 'brano') go('#brano/' + encodeURIComponent(id));   // subito alla scheda, per dividerlo in frammenti
       else if (then === 'free') freeSwitch(id);
       else render();
       toast('Brano aggiunto');
@@ -26,12 +27,13 @@ const ACT = {
     if (!D.bozza.selezionati.length) return;
     if (await ask({ title: 'Togliere tutte le spunte?', text: `Hai ${D.bozza.selezionati.length} passaggi scelti.`, ok: 'Togli tutte le spunte' })) { D.bozza.selezionati = []; D.bozza.circuiti = []; save(); render(); }
   },
-  delfrag: async el => {
-    const id = el.dataset.id, f = fr(id);
-    if (!(await ask({ title: 'Eliminare questo frammento?', text: `${f ? 'bb. ' + f.battute + ' · ' + f.titolo + '. ' : ''}Lo storico delle sessioni resta.`, ok: 'Elimina il frammento', danger: true }))) return;
-    D.frammenti_utente = D.frammenti_utente.filter(x => x.id !== id); D.bozza.selezionati = D.bozza.selezionati.filter(x => x !== id);
-    save(); buildCat(); render();
-  },
+  delfrag: el => delFrag(el.dataset.id),
+  frrestore: el => ripristinaFrammento(el.dataset.id),
+  frsplit: el => dividiFrammento(el.dataset.id),
+  frmerge: el => unisciFrammento(el.dataset.id),
+  stato: el => { const y = window.scrollY; setStato(el.dataset.id, el.dataset.v); render(); window.scrollTo(0, y); toast(el.dataset.v === 'nuovo' ? 'Brano nuovo: ripetizioni di controllo' : 'Brano consolidato: slot da 4 Rep'); },
+  dvmodo: el => { if (DV) { DV.modo = el.dataset.v; render(); } },
+  ctrlpiu: () => ctrlPiu(),
   savefrag: el => saveFrag(el.dataset.brano, el.dataset.id || null),
   andate: el => { D.bozza.circuiti[+el.dataset.ci].andate = +el.dataset.n; save(); render(); },
   mv: el => { const c = D.bozza.circuiti[+el.dataset.ci].slot, i = +el.dataset.i, j = i + +el.dataset.d; if (j < 0 || j >= c.length) return; [c[i], c[j]] = [c[j], c[i]]; save(); render(); },
@@ -129,6 +131,7 @@ render();
 if (D.impostazioni.visto_versione !== APP_VERSION) {
   const prima = D.impostazioni.visto_versione;   // null alla prima installazione
   D.impostazioni.visto_versione = APP_VERSION; save();
-  // le novità si mostrano a chi arriva dalla versione 1 o da una 2.x: con la 3 cambia il metodo
-  if (arrivaDaV1 || (prima && parseInt(prima, 10) < 3)) setTimeout(newsSheet, 350);
+  // le novità si mostrano a chi arriva da un'altra versione (non per le sole correzioni, es. 3.1.0 → 3.1.1)
+  const mm = v => String(v).split('.').slice(0, 2).join('.');
+  if (arrivaDaV1 || (prima && mm(prima) !== mm(APP_VERSION))) setTimeout(newsSheet, 350);
 } else setTimeout(() => checkStale(bootFrom), 400);

@@ -33,7 +33,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const finoAllaFine = async () => { await fatto(); await fatto(); await fatto(); await p.click('#r4no'); await w(); };
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '3.0.0', 'versione 3.0.0');
+  ok(await p.evaluate(() => APP_VERSION) === '3.1.0', 'versione 3.1.0');
   ok(!(await p.locator('.sheet.on').count()), 'nessun foglio novità su installazione nuova');
   ok(!(await p.locator('[data-act="ripasso"]').count()), 'home: niente «Da ripassare oggi» senza livelli');
 
@@ -138,7 +138,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.goto(U + '#new'); await w();
   ok(await p.locator('.choice [data-k="tipo"]').count() === 4, 'nuova sessione: quattro tipi');
   await p.click('[data-k="tipo"][data-v="cucitura"]'); await w();
-  await p.selectOption('#sb', 'scriabin28'); await w();
+  await p.selectOption('#sb', { label: 'Scriabin, Fantasia op. 28' }); await w();
   await shot('nuova-cucitura');
   ok((await txt('.card:has(#sb)')).includes('3 frammenti consecutivi · 2 giunture'), 'cucitura: tre frammenti, due giunture');
   ok(await p.evaluate(() => listaSezione('cucitura', 'op111').every(eIntervallo) && listaSezione('cucitura', 'op111').length === 47 && listaSezione('prova', 'op111').length === 50), 'cucitura: i frammenti a battute sparse restano fuori');
@@ -161,7 +161,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   /* --- 5. prova --- */
   await p.goto(U + '#new'); await w();
   await p.click('[data-k="tipo"][data-v="prova"]'); await w();
-  await p.selectOption('#sb', 'scriabin28'); await w();
+  await p.selectOption('#sb', { label: 'Scriabin, Fantasia op. 28' }); await w();
   ok((await txt('.card:has(#sb)')).includes('tutto il brano'), 'prova: di partenza tutto il brano');
   await p.selectOption('#sa', 'scriabin fantasie-13-16'); await w(); await shot('nuova-prova');
   ok((await txt('.card:has(#sb)')).includes('bb. 1–16 · 3 frammenti'), 'prova: sezione bb. 1–16');
@@ -205,7 +205,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(/Ultimo voto/i.test(fs) && fs.includes('2 su 3') && fs.includes('il voto di riascolto non sale'), 'brano «suono»: ultimo voto e verifica a due settimane sul voto');
   await shot('frammento-suono');
   // la metrica di un brano si cambia dalle Impostazioni
-  await p.goto(U + '#settings'); await w();
+  await p.goto(U + '#brano/op111'); await w();
   await p.click('[data-act="brano"][data-id="op111"]'); await w(); await shot('brano-metrica');
   await p.click('.sheet.on [data-met="suono"]'); await w();
   ok((await D()).metrica.op111 === 'suono' && await p.evaluate(() => metricaDi('op111')) === 'suono', 'metrica cambiata a mano');
@@ -224,7 +224,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on h2')).includes('versione 3'), 'chi arriva dalla 2.2 vede le novità della versione 3');
   await shot('novita');
   d = await D();
-  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.0.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
+  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.1.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
   await p.click('.sheet.on [data-act="closesheet"]'); await w();
   await avvia([A]);
   await rep1(true); ok((await txt('.sheet.on .vbox')).includes('andata 1'), 'storico senza coppie registrate: si parte dalla coppia 1'); await p.click('#r1ok'); await w();

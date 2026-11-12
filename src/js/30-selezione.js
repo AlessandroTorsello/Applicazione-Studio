@@ -12,6 +12,8 @@ function fragRow(f, sel) {
   <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${fragMeta(f)}</button></div>`;
 }
 function prioritaHtml(list, sel, bid) {
+  // i brani aggiunti a mano non hanno priorità con un nome: elenco semplice, in ordine di battuta
+  if (C.braniUtente.has(bid) && !(Array.isArray((C.B.get(bid) || {}).priorita) && C.B.get(bid).priorita.length)) return tuttiDi(bid).map(f => fragRow(f, sel)).join('');
   let h = '';
   const prios = prioDi(bid);
   const extra = [...new Set(list.map(f => f.priorita))].filter(n => !prios.some(p => p.n === n));
@@ -43,15 +45,16 @@ SCREENS.select = () => {
   const body = C.braniVis.map(b => {
     const list = C.frammenti.filter(f => f.brano === b.id);
     const nSel = list.filter(f => sel.has(f.id)).length;
-    return `<details class="acc" data-brano="${esc(b.id)}" ${openBrani.has(b.id) ? 'open' : ''}><summary><span class="grow">${esc(b.nome)}</span><span class="pill" data-count="${esc(b.id)}">${nSel}/${list.length}</span></summary>
+    return `<details class="acc" data-brano="${esc(b.id)}" ${openBrani.has(b.id) ? 'open' : ''}><summary><span class="grow">${esc(b.nome)}${statoDi(b.id) === 'nuovo' ? ' <span class="tag">nuovo</span>' : ''}</span><span class="pill" data-count="${esc(b.id)}">${nSel}/${list.length}</span></summary>
     <div class="accbody">${prioritaHtml(list, sel, b.id)}
-      ${!b.completo ? `<div class="todo"><h4>Frammenti da inserire</h4><p class="muted small">Il catalogo di questo brano non è ancora completo. Puoi importarlo da Impostazioni o inserire i frammenti a mano.</p><button class="btn" data-act="go" data-h="#form/${esc(b.id)}">Aggiungi frammento</button></div>`
-      : `<div class="todo"><button class="btn" data-act="go" data-h="#form/${esc(b.id)}">Aggiungi frammento</button></div>`}
+      ${!b.completo && !list.length ? `<div class="todo"><h4>Frammenti da inserire</h4><p class="muted small">Questo brano non ha ancora frammenti. Puoi dividerlo in frammenti per battute, inserirli a mano uno per uno, o importare un'analisi da Impostazioni.</p><button class="btn primary" data-act="go" data-h="#dividi/${encodeURIComponent(b.id)}">Dividi il brano in frammenti</button><button class="btn" data-act="go" data-h="#form/${encodeURIComponent(b.id)}">Aggiungi frammento</button></div>`
+      : `<div class="todo"><div class="row"><button class="btn" data-act="go" data-h="#form/${encodeURIComponent(b.id)}">Aggiungi frammento</button><button class="btn" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}">Gestisci i frammenti</button></div></div>`}
     </div></details>`;
   }).join('');
   app.innerHTML = header('Scegli i passaggi', `Circuito a ${D.bozza.cfg.slot} slot`, '#new') +
     `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">${steps(['Tipo', 'Passaggi', 'Circuiti'], 1)}
-    <p class="lead">Spunta la casella per scegliere un passaggio. Tocca il titolo per leggere la scheda completa.</p>${dueHtml}${body}</main>
+    <p class="lead">Spunta la casella per scegliere un passaggio. Tocca il titolo per leggere la scheda completa.</p>${dueHtml}${body}
+    <button class="btn" data-act="newbrano" data-then="brano">+ Nuovo brano</button></main>
     <div class="bar"><div class="inner"><p class="barnote" id="selnote">${esc(selNote(sel.size))}</p><div class="row"><button class="btn" data-act="deselall" style="flex:0 0 auto;width:auto">Azzera</button><button class="btn primary" data-act="go" data-h="#compose" id="gocompose" ${sel.size ? '' : 'disabled'}>Avanti: componi i circuiti</button></div></div></div>`;
   $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); }));
   $$('input[data-sel]').forEach(inp => inp.addEventListener('change', () => toggleSel(inp.dataset.sel, inp.checked)));
@@ -90,22 +93,24 @@ function openPreview(id) {
   openSheet(previewHtml(f) + `
     <button class="btn ${on ? '' : 'primary'}" data-act="presel" data-id="${esc(id)}">${on ? 'Togli dalla selezione' : 'Seleziona'}</button>
     <button class="btn" data-act="go" data-h="#frag/${encodeURIComponent(id)}">Cronologia del frammento</button>
-    ${C.userIds.has(id) ? `<div class="row"><button class="btn" data-act="go" data-h="#form/${esc(f.brano)}/${encodeURIComponent(id)}">Modifica</button><button class="btn danger" data-act="delfrag" data-id="${esc(id)}">Elimina</button></div>` : ''}
+    <button class="btn" data-act="go" data-h="#form/${encodeURIComponent(f.brano)}/${encodeURIComponent(id)}">Modifica${eModificato(id) ? ' (già modificato)' : ''}</button>
     <button class="btn" data-act="closesheet">Chiudi</button>`);
 }
 
 /* ================= FORM FRAMMENTO ================= */
 SCREENS.form = (brano, fid) => {
-  const f = fid ? D.frammenti_utente.find(x => x.id === fid) : null;
-  if (fid && !f) { replaceTo('#select'); return; }
+  const f = fid ? fr(fid) : null;   // anche un frammento del catalogo: salvando se ne fa una copia modificata
+  if (fid && (!f || C.fnasc.has(fid))) { replaceTo('#select'); return; }
+  const cat = !!fid && C.orig.has(fid), segue = fid ? seguente(fid) : null;
   const v = f || { battute: '', titolo: '', priorita: 1, famiglia: null, nodo_motorio: '', andate: {}, rep4_verifica: '', note: '' };
   const A = n => (v.andate && v.andate[n]) || { rep2: '', rep3: '' };
   const famOpts = C.famiglie.map(x => `<option value="${esc(x.id)}" ${v.famiglia === x.id ? 'selected' : ''}>${esc(x.nome)}</option>`).join('');
   const andataFields = n => `<div class="field"><label>Andata ${n} · Rep 2</label><textarea data-f="a${n}r2">${esc(A(n).rep2)}</textarea></div><div class="field"><label>Andata ${n} · Rep 3</label><textarea data-f="a${n}r3">${esc(A(n).rep3)}</textarea></div>`;
   app.innerHTML = header(f ? 'Modifica frammento' : 'Aggiungi frammento', branoNome(brano), '#select') + `<main class="wrap">
+    ${cat ? `<div class="hint">${eModificato(fid) ? 'Frammento del catalogo già modificato da te.' : 'Frammento del catalogo: salvando ne tieni una versione tua.'} L'originale resta e si può ripristinare.</div>` : ''}
     <p class="muted small">Per i frammenti uniti scrivi una riga per parte con il prefisso, es. «bb. 16-18: …» e a capo «bb. 18-19: …».</p>
     <div class="field"><label>Battute *</label><input type="text" data-f="battute" value="${esc(v.battute)}" placeholder="es. 24-28"></div>
-    <div class="field"><label>Titolo *</label><input type="text" data-f="titolo" value="${esc(v.titolo)}"></div>
+    <div class="field"><label>Titolo</label><input type="text" data-f="titolo" value="${esc(v.titolo)}"></div>
     <div class="field"><label>Priorità</label><select class="sel" data-f="priorita" style="width:100%">${prioDi(brano).map(p => `<option value="${p.n}" ${v.priorita === p.n ? 'selected' : ''}>${p.n} · ${esc(p.nome)}</option>`).join('')}</select></div>
     <div class="field"><label>Famiglia</label><select class="sel" data-f="famiglia" style="width:100%"><option value="">Nessuna</option>${famOpts}<option value="__nuova">Nuova famiglia…</option></select>
       <input type="text" data-f="famnuova" placeholder="Nome della nuova famiglia" style="margin-top:8px;display:none"></div>
@@ -115,6 +120,12 @@ SCREENS.form = (brano, fid) => {
     <div class="field"><label>Verifica Rep 4</label><textarea data-f="rep4">${esc(v.rep4_verifica)}</textarea></div>
     <div class="field"><label>Note</label><textarea data-f="note">${esc(v.note || '')}</textarea></div>
     <label class="tg" style="margin-bottom:12px"><input type="checkbox" data-f="trillo" ${v.trillo_3_5 ? 'checked' : ''}> Trillo 3-5</label>
+    ${f ? `<section class="card" style="margin-top:6px"><div class="label" style="margin-bottom:8px">Cambiare la divisione</div>
+      ${eIntervallo(f) && ultimaBattuta(f) > primaBattuta(f) ? `<button class="btn" data-act="frsplit" data-id="${esc(fid)}">Dividi in due</button>` : ''}
+      ${segue && eIntervallo(f) && eIntervallo(segue) ? `<button class="btn" data-act="frmerge" data-id="${esc(fid)}">Unisci al seguente (bb. ${esc(segue.battute)})</button>` : ''}
+      ${eModificato(fid) ? `<button class="btn" data-act="frrestore" data-id="${esc(fid)}">Ripristina l'originale del catalogo</button>` : ''}
+      <button class="btn danger" data-act="delfrag" data-id="${esc(fid)}" style="margin-bottom:0">${cat ? 'Nascondi dagli elenchi' : 'Elimina il frammento'}</button>
+      <p class="small muted" style="margin:8px 0 0">Dividere e unire usano il frammento com'è salvato: se hai cambiato qualcosa qui sopra, prima salva.</p></section>` : ''}
   </main><div class="bar"><div class="inner"><button class="btn primary" data-act="savefrag" data-brano="${esc(brano)}" data-id="${esc(fid || '')}">Salva frammento</button></div></div>`;
   const famSel = $('[data-f="famiglia"]'), famNew = $('[data-f="famnuova"]');
   famSel.addEventListener('change', () => { famNew.style.display = famSel.value === '__nuova' ? 'block' : 'none'; });
@@ -122,7 +133,7 @@ SCREENS.form = (brano, fid) => {
 function slug(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 30); }
 function saveFrag(brano, fid) {
   const g = k => { const el = $(`[data-f="${k}"]`); return el ? (el.type === 'checkbox' ? el.checked : el.value.trim()) : ''; };
-  if (!g('battute') || !g('titolo')) { toast('Battute e titolo sono obbligatori'); return; }
+  if (!g('battute')) { toast('Scrivi le battute'); return; }
   let fam = g('famiglia') || null;
   if (fam === '__nuova') {
     const nome = g('famnuova'); if (!nome) { toast('Scrivi il nome della nuova famiglia'); return; }
@@ -131,13 +142,14 @@ function saveFrag(brano, fid) {
   }
   const andate = {};
   [1, 2, 3, 4].forEach(n => { const r2 = g(`a${n}r2`), r3 = g(`a${n}r3`); if (n <= 2 || r2 || r3) andate[String(n)] = { rep2: r2, rep3: r3 }; });
-  const obj = {
+  // modificando un frammento esistente si conservano i campi che il modulo non mostra (es. «parti»)
+  const obj = Object.assign(fid && fr(fid) ? JSON.parse(JSON.stringify(fr(fid))) : {}, {
     id: fid || `${brano}-${slug(g('battute'))}-u${Date.now().toString(36)}`,
     brano, battute: g('battute'), titolo: g('titolo'), priorita: Number(g('priorita')) || 1, famiglia: fam,
     nodo_motorio: g('nodo'), andate, rep4_verifica: g('rep4')
-  };
-  if (g('note')) obj.note = g('note');
-  if (g('trillo')) obj.trillo_3_5 = true;
+  });
+  if (g('note')) obj.note = g('note'); else delete obj.note;
+  if (g('trillo')) obj.trillo_3_5 = true; else delete obj.trillo_3_5;
   const i = D.frammenti_utente.findIndex(x => x.id === obj.id);
   if (i >= 0) D.frammenti_utente[i] = obj; else D.frammenti_utente.push(obj);
   D.famiglie_utente.forEach(x => { x.frammenti = (x.frammenti || []).filter(id => id !== obj.id); if (x.id === fam) x.frammenti.push(obj.id); });
@@ -154,7 +166,7 @@ SCREENS.compose = () => {
   save();
   const placed = new Set(B.circuiti.flatMap(c => c.slot));
   const tray = sel.filter(id => !placed.has(id));
-  const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])} · ${esc(f.titolo)}</span>` : esc(id); };
+  const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])}${f.titolo ? ' · ' + esc(f.titolo) : ''}${eNuovo(id) ? ' <span class="tag">controllo</span>' : ''}</span>` : esc(id); };
   const circs = B.circuiti.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3>
       <span class="small muted">Andate</span><div class="seg">${[3, 4, 5].map(n => `<button data-act="andate" data-ci="${ci}" data-n="${n}" class="${c.andate === n ? 'on' : ''}">${n}</button>`).join('')}</div></div>
       ${c.slot.map((id, i) => `<div class="slot"><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>

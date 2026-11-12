@@ -1,0 +1,2048 @@
+{
+  "versione": 2,
+  "fonte": "Analisi di Claude, «Nabucco (Sinfonia e «S'appressan gl'istanti») — lavoro motorio per passaggio» (12/11/2026), Ricordi (riduzione per canto e pianoforte, 42312)",
+  "brani": [
+    {
+      "id": "nabucco",
+      "nome": "Verdi, Nabucco: Sinfonia e concertato «S'appressan gl'istanti»",
+      "completo": true
+    }
+  ],
+  "frammenti": [
+    {
+      "id": "nabucco-sinfonia-1-4",
+      "brano": "nabucco",
+      "battute": "1-4",
+      "titolo": "Sinfonia · Andante, corale p maestoso",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-corale",
+      "nodo_motorio": "Accordi di tre note della destra in chiave di basso, nello stesso registro della sinistra, con ritmo semiminima–due crome–semiminime e punti sotto legatura (portato). Sinistra a note singole staccate con salti di quarta e quinta nel grave. Le mani sono vicine e le forme d'accordo cambiano a ogni quarto.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: ogni accordo della destra come forma, cambio al quarto seguente CIECO; sinistra assente.",
+          "rep3": "DIN dentro la mano: voce superiore suonata, resto dell'accordo muto; poi il contrario."
+        },
+        "2": {
+          "rep2": "PESO a p: ogni accordo dal tasto con un piccolo impulso e rilascio; il portato è una caduta corta, non uno staccato.",
+          "rep3": "Sinistra sola, CIECO sui salti; poi insieme, destra pp."
+        }
+      },
+      "rep4_verifica": "Tutte le note di ogni accordo scendono insieme a p; portato uguale sulle crome; la destra non copre la sinistra pur stando nel suo registro.",
+      "note": "Ricordi p. 1, sistema 1 batt. 1 – sistema 1 batt. 4.\nA matita leggo «1» sopra la destra di b. 3: diteggiatura, alta sicurezza."
+    },
+    {
+      "id": "nabucco-sinfonia-5-8",
+      "brano": "nabucco",
+      "battute": "5-8",
+      "titolo": "Sinfonia · Corale: accento di b. 6 e cambio di chiave verso l'ff",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-corale",
+      "nodo_motorio": "Come 1-4 (b. 5 come b. 1). A b. 6 accordo accentato della destra con la sinistra al grave accentato, poi crome legate; b. 8 minima e pausa, con la destra che passa in chiave di violino per l'ff di b. 9.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC CIECO sulle forme di 5-7.",
+          "rep3": "PESO sull'accento di b. 6: impulso e rilascio subito, le crome legate dopo pp."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto pp.",
+          "rep3": "CHUNK a ritroso: b. 8 più l'accordo ff di b. 9; durante la pausa la mano è già sulla posizione in chiave di violino."
+        }
+      },
+      "rep4_verifica": "L'accento di b. 6 non indurisce il suono che segue; l'ff di b. 9 arriva pronto, senza ritardo dopo la pausa.",
+      "note": "Ricordi p. 1, sistema 1 batt. 5 – sistema 2 batt. 1.\nA matita leggo «3» e «1» sopra la destra di b. 6: diteggiature, alta sicurezza."
+    },
+    {
+      "id": "nabucco-sinfonia-9-13",
+      "brano": "nabucco",
+      "battute": "9-13",
+      "titolo": "Sinfonia · ff: accordi e volate parallele a due mani, corona",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-volate",
+      "nodo_motorio": "Accordi pieni ff in entrambe le mani (9, 11); da un accordo parte una volata ascendente rapida a due mani in parallelo, poi una discesa in semicrome (10, 12); b. 13 discesa a due mani verso la corona. Il passaggio accordo → volata è un cambio di motore: braccio per l'accordo, dita per la volata.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: la volata divisa in posizioni di mano, ogni posizione come accordo a mani unite; poi CIECO.",
+          "rep3": "RIT sulla volata: fermata sulla prima nota dopo l'accordo, il resto di scatto fino all'arrivo."
+        },
+        "2": {
+          "rep2": "NODO dove le due mani passano il pollice in punti diversi.",
+          "rep3": "CHUNK: accordo più volata fino alla prima nota della discesa, stop; poi discesa più corona."
+        }
+      },
+      "rep4_verifica": "Accordi ff dal tasto, senza durezza; volata uguale e insieme nelle due mani, senza accelerare in cima; corona a mano rilasciata.",
+      "note": "Ricordi p. 1, sistema 2 batt. 2 – sistema 2 batt. 6.\nLe volate di 10 e 12 sono stampate piccole e fitte: descrivo la figura, non ogni nota."
+    },
+    {
+      "id": "nabucco-sinfonia-14-16",
+      "brano": "nabucco",
+      "battute": "14-16",
+      "titolo": "Sinfonia · Corale p, ripresa",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-corale",
+      "nodo_motorio": "Come 1-3 (14 come 5, 15 con l'accento di 6, 16 come 7), poi l'aggancio al p di b. 17.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC CIECO sulle forme.",
+          "rep3": "DIN dentro la mano: voce superiore suonata, resto muto; poi il contrario."
+        },
+        "2": {
+          "rep2": "PESO a p, rilascio a fondo tasto.",
+          "rep3": "CHUNK a ritroso: b. 16 più il primo quarto di b. 17 (cambio di chiave della destra)."
+        }
+      },
+      "rep4_verifica": "Come 1-4; dal corale al tremolo di b. 17 senza buco.",
+      "note": "Ricordi p. 1, sistema 3 batt. 1 – sistema 3 batt. 3."
+    },
+    {
+      "id": "nabucco-sinfonia-17-20",
+      "brano": "nabucco",
+      "battute": "17-20",
+      "titolo": "Sinfonia · Tremolo d'ottava della destra p, linea cromatica della sinistra",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-tremolo-ottava",
+      "nodo_motorio": "Destra: ottava La ripetuta in valori rapidi (la leggo come tremolo misurato tra le due note), p e poi crescendo poco a poco. Sinistra: linea legata cromatica in semiminime e crome. Il rischio è irrigidire la destra per tenere il p e legare male la sinistra mentre la destra lavora.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla destra: due battute di sola rotazione, due di sole dita, poi la miscela minima.",
+          "rep3": "Sinistra sola legata senza pedale; poi insieme, destra pp."
+        },
+        "2": {
+          "rep2": "ACC sulla destra: accento ogni 3 note, poi ogni 4, il resto pp.",
+          "rep3": "DIN: sinistra mp, destra pp. Il crescendo solo in Rep 4."
+        }
+      },
+      "rep4_verifica": "Tremolo uniforme senza ronzio; il crescendo viene dall'ampiezza della rotazione, non dalla pressione; la linea della sinistra legata sopra il fondo.",
+      "note": "Ricordi p. 1, sistema 3 batt. 4 – sistema 4 batt. 1.\nIl segno di tremolo è piccolo nella scansione. Se a 17-24 la destra ha crome ribattute e non un tremolo, sostituisci ROT con STAC pp."
+    },
+    {
+      "id": "nabucco-sinfonia-21-24",
+      "brano": "nabucco",
+      "battute": "21-24",
+      "titolo": "Sinfonia · Tremolo della destra, crome della sinistra mf, dim.",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-tremolo-ottava",
+      "nodo_motorio": "Come 17-20; la sinistra passa a crome legate con alterazioni fitte e sale al mf (b. 23), poi dim. (b. 24) prima della pausa dell'Allegro.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla destra, come 17-20.",
+          "rep3": "Sinistra sola: le crome di 23-24 con la diteggiatura che userai, STAC pp, poi legate."
+        },
+        "2": {
+          "rep2": "ACC sulla destra: accento ogni 3 note, il resto pp.",
+          "rep3": "CLIC: un clic per battuta."
+        }
+      },
+      "rep4_verifica": "Il mf della sinistra non trascina la destra; dim. di b. 24 netto; tremolo regolare fino all'ultima nota.",
+      "note": "Ricordi p. 1, sistema 4 batt. 2 – sistema 4 batt. 5."
+    },
+    {
+      "id": "nabucco-sinfonia-25-30",
+      "brano": "nabucco",
+      "battute": "25-30",
+      "titolo": "Sinfonia · Allegro, p assai staccato e sotto voce",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-staccato-crome",
+      "nodo_motorio": "Bicordi e note singole staccate a crome nelle due mani, in moto parallelo, con pause e alterazioni cromatiche; la sinistra entra con acciaccature nel grave (25-26). Il compito è leggerezza e simultaneità a p.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp: ogni bicordo dal tasto, le due note insieme.",
+          "rep3": "BLOC: le note di ogni quarto come un solo accordo, mani unite, CIECO."
+        },
+        "2": {
+          "rep2": "DIN: sinistra mp, destra pp; poi il contrario.",
+          "rep3": "CLIC sul levare (2ª croma)."
+        }
+      },
+      "rep4_verifica": "Staccato corto e uguale, sotto voce; bicordi sempre a due suoni simultanei; acciaccature attaccate alla nota reale.",
+      "note": "Ricordi p. 2, sistema 1 batt. 1 – sistema 2 batt. 1.\nA b. 30 hai scritto «5 3» sopra la destra e «1 2» sotto il bicordo: diteggiature, media sicurezza."
+    },
+    {
+      "id": "nabucco-sinfonia-31-36",
+      "brano": "nabucco",
+      "battute": "31-36",
+      "titolo": "Sinfonia · Allegro: staccato con accordi più fitti",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-staccato-crome",
+      "nodo_motorio": "Come 25-30, con bicordi e accordi di tre note e alterazioni (♭, ♮) a quasi ogni quarto; la sinistra passa ad accordi di tre note.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp, le note di ogni accordo insieme.",
+          "rep3": "BLOC CIECO, mani unite."
+        },
+        "2": {
+          "rep2": "ACC sulla 2ª croma di ogni coppia, il resto pp.",
+          "rep3": "CHUNK: un quarto più la prima nota del seguente, stop con la mano già sull'accordo seguente."
+        }
+      },
+      "rep4_verifica": "Come 25-30; nessun accordo incompleto dove cambiano le alterazioni.",
+      "note": "Ricordi p. 2, sistema 2 batt. 2 – sistema 3 batt. 2.\nA b. 31 c'è un tratto a matita sulla sinistra che sembra una cancellatura."
+    },
+    {
+      "id": "nabucco-sinfonia-37-41",
+      "brano": "nabucco",
+      "battute": "37-41",
+      "titolo": "Sinfonia · ff improvviso, salita pp, ripresa",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-accordi-ff-allegro",
+      "nodo_motorio": "37-38: accordi pieni ff della destra in crome, sinistra in ottave con salto all'ottava grave. 39: accordo e piccola salita pp. 40: staccato p come 33. 41: di nuovo ff. Il problema è cambiare dinamica senza preparazione.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp sugli accordi di 37-38: un impulso per gruppo, il resto di rimbalzo.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sul salto all'ottava grave."
+        },
+        "2": {
+          "rep2": "BLOC sulle forme di 37-38 a tempo di quarti, CIECO.",
+          "rep3": "CHUNK: b. 38 più la salita di b. 39, stop sulla prima nota pp."
+        }
+      },
+      "rep4_verifica": "ff pieno senza colpi; il pp di 39 arriva subito, senza assestamento; l'ff di 41 parte dal tasto.",
+      "note": "Ricordi p. 2, sistema 3 batt. 3 – sistema 4 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-42-46",
+      "brano": "nabucco",
+      "battute": "42-46",
+      "titolo": "Sinfonia · Accordi e ottave accentati",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-accordi-ff-allegro",
+      "nodo_motorio": "Accordi accentati della destra sui quarti; sinistra in ottave accentate che si muovono per semitono, con salti all'ottava grave (44, 46).",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accento, rilascio subito.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sui salti all'ottava grave."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano (sinistra): solo pollici, poi solo mignoli.",
+          "rep3": "MUTA: destra suona, sinistra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Accenti uguali, senza spinta di spalla; ottave complete; salti al grave a tempo.",
+      "note": "Ricordi p. 2, sistema 4 batt. 3 – sistema 5 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-47-51",
+      "brano": "nabucco",
+      "battute": "47-51",
+      "titolo": "Sinfonia · ff, accordi lunghi e corona",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-accordi-ff-allegro",
+      "nodo_motorio": "47-48 ff: accordi della destra nell'acuto (minime e crome), sinistra in ottave e accordi accentati. 49: accordo e pausa. 50-51: sinistra sola con accordi lunghi accentati fino alla corona.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: impulso e rilascio sulle minime; durante la nota lunga il polso si muove.",
+          "rep3": "BLOC CIECO sulle forme di 47-48."
+        },
+        "2": {
+          "rep2": "Sinistra sola 49-51: PESO sugli accordi lunghi, polso mobile mentre li tieni.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "ff di caduta, nessuna tensione tenuta sulle note lunghe; pause contate; corona sul silenzio.",
+      "note": "Ricordi p. 2, sistema 5 batt. 3 – sistema 5 batt. 7."
+    },
+    {
+      "id": "nabucco-sinfonia-52-54",
+      "brano": "nabucco",
+      "battute": "52-54",
+      "titolo": "Sinfonia · Andante come prima: accordi staccati p",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-corale",
+      "nodo_motorio": "Tre battute di accordi staccati p a due mani con cromatismi; a 53-54 legature di valore e una voce interna legata. Poi il cambio a 3/8.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto muto.",
+          "rep3": "STAC pp dal tasto."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "CHUNK a ritroso: b. 54 più l'attacco dell'Andantino (b. 55)."
+        }
+      },
+      "rep4_verifica": "Accordi insieme a p; le note legate restano tenute; il cambio di tempo verso l'Andantino senza buco.",
+      "note": "Ricordi p. 2, sistema 6 batt. 1 – sistema 6 batt. 3."
+    },
+    {
+      "id": "nabucco-sinfonia-55-60",
+      "brano": "nabucco",
+      "battute": "55-60",
+      "titolo": "Sinfonia · Andantino 3/8: corone e canto sopra accordi staccati",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-canto-andantino",
+      "nodo_motorio": "b. 55 corone sulle pause e prime note; da b. 56 la destra canta con ritmi puntati e terzine di semicrome, legato e «con espress.», sopra coppie di accordi staccati della sinistra (due crome e pausa). Il compito è legare il canto senza pedale e tenere l'accompagnamento sotto.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola, legato senza pedale, CIECO.",
+          "rep3": "DIN: destra mp, sinistra pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola: STAC pp, accordi dal tasto con le note insieme.",
+          "rep3": "MUTA: destra suona, sinistra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Canto legato sopra un accompagnamento leggero; terzine di semicrome non affrettate; dopo le corone di b. 55 la pulsazione è già pronta.",
+      "note": "Ricordi p. 2, sistema 6 batt. 4 – p. 3, sistema 1 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-61-64",
+      "brano": "nabucco",
+      "battute": "61-64",
+      "titolo": "Sinfonia · Canto con voce interna in terzine",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-canto-andantino",
+      "nodo_motorio": "Il canto continua; a 62-63 la destra tiene la nota del canto mentre una voce interna fa terzine di semicrome cromatiche nella stessa mano; b. 64 accordo e ripresa.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano: canto tenuto e suonato, terzine interne mute; poi terzine pp e canto muto.",
+          "rep3": "Voce interna sola, ACC: accento sulla 2ª nota di ogni terzina, poi sulla 3ª, pp."
+        },
+        "2": {
+          "rep2": "STAC pp sulle terzine interne, canto tenuto legato.",
+          "rep3": "DIN: destra mp, sinistra pp."
+        }
+      },
+      "rep4_verifica": "Il canto resta tenuto e sopra; terzine interne uguali e leggere, senza accento sul cromatismo.",
+      "note": "Ricordi p. 3, sistema 1 batt. 5 – sistema 2 batt. 2.\nLeggo 62-63 come canto più voce interna nella stessa mano dalla direzione dei gambi; se la voce interna va alla sinistra, il vincolo vale per la sinistra."
+    },
+    {
+      "id": "nabucco-sinfonia-65-68",
+      "brano": "nabucco",
+      "battute": "65-68",
+      "titolo": "Sinfonia · Canto con terzine e salita all'acuto",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-canto-andantino",
+      "nodo_motorio": "Canto con terzine di semicrome (66) e salita in semicrome fino all'acuto (68), sopra accordi staccati.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: ACC sulle terzine, accento sulla 2ª nota, poi sulla 3ª, pp.",
+          "rep3": "Destra sola: RIT sulla salita di 68, coppie lungo-corto, poi corto-lungo."
+        },
+        "2": {
+          "rep2": "DIN: destra mp, sinistra pp.",
+          "rep3": "CHUNK a ritroso: b. 68 più il primo quarto di b. 69."
+        }
+      },
+      "rep4_verifica": "Terzine e salita senza affrettare; il canto arriva in cima a b. 68 senza durezza.",
+      "note": "Ricordi p. 3, sistema 2 batt. 3 – sistema 2 batt. 6."
+    },
+    {
+      "id": "nabucco-sinfonia-69-71",
+      "brano": "nabucco",
+      "battute": "69-71",
+      "titolo": "Sinfonia · Appoggiature, scala in terzine di biscrome a due mani, attacco ff",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-volate",
+      "nodo_motorio": "b. 69: coppie legate (appoggiature) della destra sopra accordi staccati. b. 70: scala ascendente rapida in terzine di biscrome a due mani, in parallelo, verso l'ff marcato di b. 71 (lettera A). Sopra e sotto la scala hai scritto diteggiature a matita.",
+      "andate": {
+        "1": {
+          "rep2": "NODO sulla scala di 70: fermati dove una mano passa il pollice e l'altra no.",
+          "rep3": "RIT sulla scala: fermata sulla 1ª nota di ogni terzina, le altre di scatto."
+        },
+        "2": {
+          "rep2": "PESO sulle coppie di 69: caduta sulla prima nota, rilascio sulla seconda; sinistra pp.",
+          "rep3": "CHUNK a ritroso: scala di 70 più l'accordo ff di 71."
+        }
+      },
+      "rep4_verifica": "Coppie di 69 con la seconda nota più leggera; scala uguale e a mani insieme; ff di 71 dal tasto e a tempo.",
+      "note": "Ricordi p. 3, sistema 3 batt. 1 – sistema 3 batt. 3.\nMatita a b. 70: leggo «1 3 1» sotto la destra e due «3» sotto la sinistra, con incertezza."
+    },
+    {
+      "id": "nabucco-sinfonia-72-76",
+      "brano": "nabucco",
+      "battute": "72-76",
+      "titolo": "Sinfonia · ff marcato all'ottava alta, arpeggi spezzati della sinistra",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-arpeggi-andantino",
+      "nodo_motorio": "Destra all'ottava sopra (8va): accordi marcati con ritmi puntati e terzine di semicrome. Sinistra: sei semicrome per battuta in arpeggio spezzato legato su circa un'ottava e mezza, con la nota grave sul battere. b. 76: pp subito.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: BLOC, ogni battuta come una o due posizioni a blocco; poi CIECO.",
+          "rep3": "Sinistra sola: ACC sulla 2ª semicroma di ogni coppia, poi sulla 3ª di ogni gruppo di tre; pp."
+        },
+        "2": {
+          "rep2": "Destra sola: PESO a mp sugli accordi marcati, impulso e rilascio; terzine di scatto.",
+          "rep3": "MUTA: sinistra suona, destra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Arpeggio della sinistra uguale e legato sotto l'ff, senza accento sul pollice; accordi della destra marcati ma non duri; il pp di 76 arriva subito.",
+      "note": "Ricordi p. 3, sistema 3 batt. 4 – sistema 4 batt. 3."
+    },
+    {
+      "id": "nabucco-sinfonia-77-81",
+      "brano": "nabucco",
+      "battute": "77-81",
+      "titolo": "Sinfonia · pp e di nuovo ff marcato sugli arpeggi",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-arpeggi-andantino",
+      "nodo_motorio": "Come 72-76: pp (77-78) con coppie di accordi della destra legate, ff marcato a 79-81 sopra lo stesso arpeggio della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CHUNK, una battuta più la prima nota della seguente, stop con la mano già sulla posizione.",
+          "rep3": "DIN: nel pp sinistra p e destra pp; nell'ff il contrario."
+        },
+        "2": {
+          "rep2": "Destra sola: BLOC sulle forme d'accordo, CIECO.",
+          "rep3": "CLIC: un clic per battuta."
+        }
+      },
+      "rep4_verifica": "Il cambio pp–ff non sposta la pulsazione; la sinistra resta uguale in tutte e due le dinamiche.",
+      "note": "Ricordi p. 3, sistema 4 batt. 4 – sistema 5 batt. 3."
+    },
+    {
+      "id": "nabucco-sinfonia-82-85",
+      "brano": "nabucco",
+      "battute": "82-85",
+      "titolo": "Sinfonia · Fine dell'ff, pp, «leggermente»",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-arpeggi-andantino",
+      "nodo_motorio": "Fine dell'ff (82), pp (83), poi «leggermente» (84-85): stessi arpeggi della sinistra sotto accordi leggeri della destra.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: STAC pp, poi legato.",
+          "rep3": "DIN dentro la mano (destra): voce superiore suonata, resto pp."
+        },
+        "2": {
+          "rep2": "ACC nella sinistra sulla 2ª semicroma di ogni coppia.",
+          "rep3": "MUTA: destra suona, sinistra fantasma."
+        }
+      },
+      "rep4_verifica": "«leggermente» davvero: l'arpeggio sotto il p senza culmini; accordi della destra con le note insieme.",
+      "note": "Ricordi p. 3, sistema 5 batt. 4 – sistema 6 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-86-89",
+      "brano": "nabucco",
+      "battute": "86-89",
+      "titolo": "Sinfonia · Volata in terzine di biscrome, doppie note cromatiche in crescendo",
+      "priorita": 6,
+      "famiglia": "nabucco-fam-volate",
+      "nodo_motorio": "b. 86: salita rapida della destra in terzine di biscrome (la sinistra ha una figura simile in chiave di violino). b. 87: crome staccate. 88-89: doppie note cromatiche della destra in semicrome, p cres., verso la lettera B (b. 90).",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola su 88-89: STAC pp, ogni doppia nota con le due note insieme.",
+          "rep3": "RIT sulla volata di 86: fermata sulla 1ª nota di ogni terzina."
+        },
+        "2": {
+          "rep2": "Destra sola: DOPPIE su 88-89.",
+          "rep3": "CHUNK a ritroso: b. 89 più l'attacco di b. 90."
+        }
+      },
+      "rep4_verifica": "Volata uguale; doppie note a due suoni sempre simultanei; crescendo di peso, non di velocità.",
+      "note": "Ricordi p. 3, sistema 6 batt. 3 – p. 4, sistema 1 batt. 1.\nSopra e sotto b. 86 ci sono segni a matita che non leggo (forse diteggiature)."
+    },
+    {
+      "id": "nabucco-sinfonia-90-93",
+      "brano": "nabucco",
+      "battute": "90-93",
+      "titolo": "Sinfonia · B, legg.: accordi ribattuti a semicrome con il canto sotto",
+      "priorita": 3,
+      "famiglia": "nabucco-fam-ribattuti-canto",
+      "nodo_motorio": "Tre strati: in alto accordi di tre note staccati a semicrome nella destra (ribattuti); sotto, il canto, nella destra e, dove è scritto m.s., preso dalla sinistra; in basso, basso e accordi della sinistra a semicrome con pause. Ogni mano fa due cose. Da b. 93 «marc. il canto».",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: ribattuti dalla metà corsa del tasto, senza staccare le dita, pp; il canto tenuto.",
+          "rep3": "DIN dentro la mano: canto suonato e ribattuti muti; poi ribattuti pp e canto muto."
+        },
+        "2": {
+          "rep2": "Sinistra sola: le note del canto prese con m.s. suonate mp, basso e accordi pp; CIECO sullo spostamento verso il rigo superiore.",
+          "rep3": "Scheletro: basso e canto soli; poi i ribattuti pp sopra."
+        },
+        "3": {
+          "rep2": "ROT sui ribattuti della destra: sola rotazione, poi sole dita, poi la miscela minima.",
+          "rep3": "CHUNK: una croma più il primo accordo della seguente, a tempo pieno."
+        },
+        "4": {
+          "rep2": "MUTA: sinistra suona, destra fantasma; poi il contrario.",
+          "rep3": "CLIC sul levare."
+        }
+      },
+      "rep4_verifica": "Il canto si sente sopra due fondi leggeri; ribattuti uguali, corti e pp; lo scambio m.s. non si sente.",
+      "note": "Ricordi p. 4, sistema 1 batt. 2 – sistema 2 batt. 1."
+    },
+    {
+      "id": "nabucco-sinfonia-94-97",
+      "brano": "nabucco",
+      "battute": "94-97",
+      "titolo": "Sinfonia · Canto alla destra (m.d.), cromatismi, ribattuti soli",
+      "priorita": 3,
+      "famiglia": "nabucco-fam-ribattuti-canto",
+      "nodo_motorio": "Come 90-93: la destra riprende il canto in legato sotto i ribattuti (m.d., b. 94); cromatismi fitti a 95; b. 96 chiusa e pause; b. 97 solo i ribattuti della destra sopra un accordo.",
+      "andate": {
+        "1": {
+          "rep2": "DIN dentro la mano: canto suonato, ribattuti muti; poi il contrario.",
+          "rep3": "Ribattuti dalla metà corsa del tasto pp, canto mf."
+        },
+        "2": {
+          "rep2": "BLOC sui cromatismi di 95: ogni posizione della destra come accordo, CIECO.",
+          "rep3": "Scheletro: basso e canto; poi completo."
+        }
+      },
+      "rep4_verifica": "Canto marcato senza indurire i ribattuti; a 96-97 pause contate e ribattuti soli ancora pp.",
+      "note": "Ricordi p. 4, sistema 2 batt. 2 – sistema 3 batt. 1."
+    },
+    {
+      "id": "nabucco-sinfonia-98-101",
+      "brano": "nabucco",
+      "battute": "98-101",
+      "titolo": "Sinfonia · Ribattuti sopra la linea cromatica della sinistra",
+      "priorita": 3,
+      "famiglia": "nabucco-fam-ribattuti-canto",
+      "nodo_motorio": "Ribattuti della destra sopra una linea cromatica della sinistra in semicrome, a coppie ascendenti (98-99), con il canto legato nella destra; b. 100 chiusa, b. 101 ribattuti soli.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: STAC pp sulla linea cromatica, poi legato.",
+          "rep3": "DIN dentro la mano (destra): canto suonato, ribattuti pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola: ACC sulla 2ª nota di ogni coppia.",
+          "rep3": "MUTA: sinistra suona, destra fantasma."
+        }
+      },
+      "rep4_verifica": "Linea cromatica della sinistra uguale sotto il canto; ribattuti sempre pp.",
+      "note": "Ricordi p. 4, sistema 3 batt. 2 – sistema 4 batt. 1."
+    },
+    {
+      "id": "nabucco-sinfonia-102-104",
+      "brano": "nabucco",
+      "battute": "102-104",
+      "titolo": "Sinfonia · Ribattuti e linea cromatica, poi «p e cres.»",
+      "priorita": 3,
+      "famiglia": "nabucco-fam-ribattuti-canto",
+      "nodo_motorio": "Come 98-100 (102-103); a b. 104 «p e cres.»: i ribattuti partono con una salita dal registro medio, la sinistra fa basso e note ribattute.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ACC sulla 2ª nota di ogni coppia, pp.",
+          "rep3": "Destra sola: ribattuti dalla metà corsa; la salita di 104 con RIT, fermata sulla 1ª nota."
+        },
+        "2": {
+          "rep2": "Scheletro: basso e canto.",
+          "rep3": "CHUNK a ritroso: b. 104 più il primo quarto di b. 105."
+        }
+      },
+      "rep4_verifica": "Il crescendo parte da un p vero; ribattuti senza indurire.",
+      "note": "Ricordi p. 4, sistema 4 batt. 2 – sistema 4 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-105-108",
+      "brano": "nabucco",
+      "battute": "105-108",
+      "titolo": "Sinfonia · a poco a poco cresc.: ribattuti pieni e corona",
+      "priorita": 3,
+      "famiglia": "nabucco-fam-ribattuti-canto",
+      "nodo_motorio": "Accordi ribattuti di quattro note della destra a semicrome, sinistra con basso e accordi e piccoli salti, a poco a poco crescendo; b. 108 accordo arpeggiato a due mani con corona e pedale.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per croma, i ribattuti seguenti di rimbalzo dalla metà corsa del tasto.",
+          "rep3": "BLOC: un accordo per croma, CIECO."
+        },
+        "2": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play sui salti.",
+          "rep3": "MENT del crescendo 105-107 e della corona, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Crescendo di peso, ribattuti completi fino a b. 107; l'avambraccio è morbido sulla corona di b. 108.",
+      "note": "Ricordi p. 4, sistema 5 batt. 1 – sistema 5 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-109-114",
+      "brano": "nabucco",
+      "battute": "109-114",
+      "titolo": "Sinfonia · Allegro: accordi staccati in semiminime, p",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-staccato-semiminime",
+      "nodo_motorio": "Accordi staccati di due-tre note in semiminime a due mani, p; la sinistra salta all'ottava grave a battute alterne (109, 111). Mani in moto parallelo, forme che cambiano a ogni quarto.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp: ogni accordo dal tasto, le note insieme.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sul salto all'ottava grave."
+        },
+        "2": {
+          "rep2": "BLOC CIECO, mani unite.",
+          "rep3": "CLIC: un clic per battuta."
+        }
+      },
+      "rep4_verifica": "Accordi corti e completi; salto al grave a tempo; p uniforme.",
+      "note": "Ricordi p. 4, sistema 5 batt. 5 – sistema 6 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-115-120",
+      "brano": "nabucco",
+      "battute": "115-120",
+      "titolo": "Sinfonia · Accordi staccati con terze e seste",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-staccato-semiminime",
+      "nodo_motorio": "Come 109-114: accordi staccati con terze e seste, minime e pause; salto all'ottava grave a b. 117.",
+      "andate": {
+        "1": {
+          "rep2": "DIN: sinistra mp, destra pp.",
+          "rep3": "STAC pp."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "CLIC sul levare (2° quarto)."
+        }
+      },
+      "rep4_verifica": "Come 109-114; le minime tenute per tutto il valore.",
+      "note": "Ricordi p. 4, sistema 6 batt. 5 – p. 5, sistema 1 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-121-126",
+      "brano": "nabucco",
+      "battute": "121-126",
+      "titolo": "Sinfonia · Accordi staccati con alterazioni",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-staccato-semiminime",
+      "nodo_motorio": "Accordi staccati più fitti, con alterazioni (♯, ♮) e la sinistra a tre note; pause a metà battuta.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC CIECO, mani unite.",
+          "rep3": "STAC pp."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto pp.",
+          "rep3": "CHUNK: due quarti più il primo accordo seguente."
+        }
+      },
+      "rep4_verifica": "Nessun accordo incompleto ai cambi di alterazione; staccato uguale nelle due mani.",
+      "note": "Ricordi p. 5, sistema 1 batt. 3 – sistema 1 batt. 8."
+    },
+    {
+      "id": "nabucco-sinfonia-127-131",
+      "brano": "nabucco",
+      "battute": "127-131",
+      "titolo": "Sinfonia · cres.: accordi più pieni e accordi lunghi",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-staccato-semiminime",
+      "nodo_motorio": "b. 127 cres.: accordi staccati più pieni; 128-131 accordi lunghi e semiminime con cromatismi, verso il rinforzando di b. 132.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per battuta.",
+          "rep3": "BLOC CIECO."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto pp.",
+          "rep3": "CHUNK a ritroso: b. 131 più il primo quarto di b. 132."
+        }
+      },
+      "rep4_verifica": "Crescendo di peso, senza accelerare; accordi lunghi tenuti senza tensione.",
+      "note": "Ricordi p. 5, sistema 1 batt. 9 – sistema 2 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-132-135",
+      "brano": "nabucco",
+      "battute": "132-135",
+      "titolo": "Sinfonia · rinf.: ottave a salti della sinistra, accordi della destra con acciaccature",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-ottave-sx-rinf",
+      "nodo_motorio": "Sinistra: crome a coppie dalla nota grave alla nota un'ottava sopra, a ogni quarto. Destra: note e accordi con acciaccatura che salgono di registro. Rinforzando fino al cambio d'armatura (b. 136).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play tra la nota grave e quella alta.",
+          "rep3": "Sinistra sola: PESO, un impulso sulla nota grave, quella alta di rimbalzo."
+        },
+        "2": {
+          "rep2": "Destra sola: acciaccatura e nota reale in un solo gesto; CIECO sui cambi di registro.",
+          "rep3": "MUTA: sinistra suona, destra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Coppie della sinistra uguali, nessuna nota alta accorciata; rinforzando di peso; l'ff di b. 136 arriva pronto.",
+      "note": "Ricordi p. 5, sistema 2 batt. 5 – sistema 2 batt. 8."
+    },
+    {
+      "id": "nabucco-sinfonia-136-139",
+      "brano": "nabucco",
+      "battute": "136-139",
+      "titolo": "Sinfonia · C, ff: tema con basso e accordi della sinistra",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Destra: accordo pieno accentato (minima puntata) e poi crome del tema; sinistra: basso accentato nel grave e salto agli accordi (croma e semiminime) a ogni battuta, quindi un salto grande per battuta. A b. 139 salti in entrambe le mani.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play dal basso all'accordo.",
+          "rep3": "Destra sola: PESO a mp sull'accordo accentato, crome del tema leggere."
+        },
+        "2": {
+          "rep2": "BLOC: per ogni battuta due eventi (basso e accordo nella sinistra, accordo e prima croma nella destra), CIECO.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Bassi presi dal tasto e a tempo; accordi completi; il tema delle crome sopra l'accompagnamento, ff senza durezza.",
+      "note": "Ricordi p. 5, sistema 3 batt. 1 – sistema 3 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-140-143",
+      "brano": "nabucco",
+      "battute": "140-143",
+      "titolo": "Sinfonia · Tema ff con acciaccature",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Come 136-139; a 142-143 acciaccature prima delle note acute della destra e accordi accentati della sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play dal basso all'accordo.",
+          "rep3": "Destra sola: acciaccatura e nota acuta in un solo gesto, CIECO."
+        },
+        "2": {
+          "rep2": "DIN: sinistra f, destra pp; poi il contrario.",
+          "rep3": "CHUNK: una battuta più il basso della seguente."
+        }
+      },
+      "rep4_verifica": "Acciaccature attaccate alla loro nota; bassi a tempo; nessun accento della destra dopo il salto della sinistra.",
+      "note": "Ricordi p. 5, sistema 3 batt. 5 – sistema 4 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-144-148",
+      "brano": "nabucco",
+      "battute": "144-148",
+      "titolo": "Sinfonia · Tema con accenti su ogni quarto",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Tema della destra con accenti sui quarti e note ribattute; la sinistra alterna basso e accordi accentati; 146-148 terze e accordi in crome nella destra.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accento, rilascio subito.",
+          "rep3": "Sinistra sola: BLOC (basso e accordo insieme), poi CIECO."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano (destra): voce superiore suonata, resto pp.",
+          "rep3": "MUTA: destra suona, sinistra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Accenti uguali e di caduta; crome di 146-148 uguali; bassi senza ritardo.",
+      "note": "Ricordi p. 5, sistema 4 batt. 3 – sistema 4 batt. 7."
+    },
+    {
+      "id": "nabucco-sinfonia-149-153",
+      "brano": "nabucco",
+      "battute": "149-153",
+      "titolo": "Sinfonia · Coppie accentate, accordi arpeggiati, salita verso il pp",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Coppie legate accentate della destra (nota accentata e risposta), accordi arpeggiati e accentati della sinistra con pause; 151-153 crome del tema che salgono verso la lettera D (pp, b. 154).",
+      "andate": {
+        "1": {
+          "rep2": "PESO sulle coppie: caduta sulla prima nota, rilascio sulla seconda.",
+          "rep3": "Sinistra sola: accordi arpeggiati rapidi che finiscono sul quarto, CIECO."
+        },
+        "2": {
+          "rep2": "BLOC CIECO sugli accordi della sinistra.",
+          "rep3": "CHUNK a ritroso: b. 153 più il primo quarto di b. 154."
+        }
+      },
+      "rep4_verifica": "Seconda nota delle coppie più leggera; accordi arpeggiati che finiscono sul tempo; il pp di 154 subito.",
+      "note": "Ricordi p. 5, sistema 5 batt. 1 – sistema 5 batt. 5."
+    },
+    {
+      "id": "nabucco-sinfonia-154-159",
+      "brano": "nabucco",
+      "battute": "154-159",
+      "titolo": "Sinfonia · D, pp: accordi staccati con pause",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Accordi staccati di due-tre note in entrambe le mani: semiminima, due pause, coppia di crome, pp; armonie che cambiano a ogni battuta.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp: la coppia di crome dal tasto, le note insieme.",
+          "rep3": "BLOC CIECO sulle forme di ogni battuta."
+        },
+        "2": {
+          "rep2": "DIN: sinistra p, destra pp.",
+          "rep3": "CLIC: un clic per battuta; pause contate."
+        }
+      },
+      "rep4_verifica": "pp uguale; coppie di crome non anticipate; pause esatte.",
+      "note": "Ricordi p. 5, sistema 5 batt. 6 – sistema 6 batt. 5."
+    },
+    {
+      "id": "nabucco-sinfonia-160-165",
+      "brano": "nabucco",
+      "battute": "160-165",
+      "titolo": "Sinfonia · pp, quattro accordi per battuta, cres.",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Come 154-159; a 160-161 quattro accordi staccati per battuta; cres. da b. 162.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp.",
+          "rep3": "PESO a p: un impulso per battuta, gli altri accordi di rimbalzo."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "ACC sulla 2ª croma della coppia."
+        }
+      },
+      "rep4_verifica": "Crescendo di 162 graduale, senza accelerare; accordi completi.",
+      "note": "Ricordi p. 5, sistema 6 batt. 6 – sistema 7 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-166-171",
+      "brano": "nabucco",
+      "battute": "166-171",
+      "titolo": "Sinfonia · Accordi staccati in crescendo fino al f",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Accordi staccati in crescendo; f a b. 170 con la sinistra all'ottava grave e accordi in crome.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play sui salti all'ottava grave.",
+          "rep3": "PESO a mp: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "DIN: sinistra f, destra pp."
+        }
+      },
+      "rep4_verifica": "f di 170 di caduta; salti al grave a tempo; accordi della destra corti anche nel f.",
+      "note": "Ricordi p. 5, sistema 7 batt. 5 – p. 6, sistema 1 batt. 3."
+    },
+    {
+      "id": "nabucco-sinfonia-172-177",
+      "brano": "nabucco",
+      "battute": "172-177",
+      "titolo": "Sinfonia · f: accordi staccati e ottave gravi, salita verso E",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Accordi staccati f con la sinistra all'ottava grave; b. 177 quattro ottave della sinistra in semiminime sotto accordi della destra, verso la salita di b. 178.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO sui salti all'ottava grave.",
+          "rep3": "PESO a mp: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma; poi il contrario.",
+          "rep3": "CHUNK a ritroso: b. 177 più il primo quarto di b. 178."
+        }
+      },
+      "rep4_verifica": "Ottave complete e uguali; l'attacco di 178 senza pausa in più.",
+      "note": "Ricordi p. 6, sistema 1 batt. 4 – sistema 2 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-178-181",
+      "brano": "nabucco",
+      "battute": "178-181",
+      "titolo": "Sinfonia · E, ff: salita e bicordi a salti sopra ottave ribattute",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-ottave-spezzate",
+      "nodo_motorio": "b. 178 (o 186): salita della destra in crome con crescendo. Poi ff: la destra alterna un bicordo acuto (ottava o sesta) e una croma più bassa, con salti di un'ottava e più a ogni quarto; la sinistra ribatte ottave in semiminime nel grave per tutta la battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: CIECO shift–touch–play tra il bicordo acuto e la croma bassa.",
+          "rep3": "Sinistra sola a mp: PESO, un impulso per battuta e le ottave seguenti di rimbalzo."
+        },
+        "2": {
+          "rep2": "BLOC: le due posizioni della destra di ogni quarto come accordo, CIECO.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Bicordi acuti completi e presi dal tasto; ottave della sinistra uguali senza irrigidire; ff di caduta.",
+      "note": "Ricordi p. 6, sistema 2 batt. 3 – sistema 2 batt. 6."
+    },
+    {
+      "id": "nabucco-sinfonia-182-185",
+      "brano": "nabucco",
+      "battute": "182-185",
+      "titolo": "Sinfonia · dim.: figure spezzate della destra, basso e accordo",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-ottave-spezzate",
+      "nodo_motorio": "dim.: figure spezzate della destra (nota acuta e risposta più in basso, a coppie legate), la sinistra alterna basso e accordo a quarti.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla destra: sola rotazione, poi sole dita, poi la miscela minima.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play dal basso all'accordo."
+        },
+        "2": {
+          "rep2": "BLOC sulla destra, una posizione per quarto, CIECO.",
+          "rep3": "DIN: destra mp, sinistra pp."
+        }
+      },
+      "rep4_verifica": "Diminuendo regolare; la nota bassa di ogni coppia udibile; bassi a tempo.",
+      "note": "Ricordi p. 6, sistema 3 batt. 1 – sistema 3 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-186-189",
+      "brano": "nabucco",
+      "battute": "186-189",
+      "titolo": "Sinfonia · Salita e bicordi a salti ff (ripresa)",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-ottave-spezzate",
+      "nodo_motorio": "Come 178-181. b. 178 (o 186): salita della destra in crome con crescendo. Poi ff: la destra alterna un bicordo acuto (ottava o sesta) e una croma più bassa, con salti di un'ottava e più a ogni quarto; la sinistra ribatte ottave in semiminime nel grave per tutta la battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: CIECO shift–touch–play tra il bicordo acuto e la croma bassa.",
+          "rep3": "Sinistra sola a mp: PESO, un impulso per battuta e le ottave seguenti di rimbalzo."
+        },
+        "2": {
+          "rep2": "BLOC: le due posizioni della destra di ogni quarto come accordo, CIECO.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Come 178-181.",
+      "note": "Ricordi p. 6, sistema 3 batt. 5 – sistema 4 batt. 2.\nGemello di 178-181: lavorali in circuiti diversi finché uno dei due non è in drop-out."
+    },
+    {
+      "id": "nabucco-sinfonia-190-193",
+      "brano": "nabucco",
+      "battute": "190-193",
+      "titolo": "Sinfonia · dim.: figure spezzate (ripresa)",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-ottave-spezzate",
+      "nodo_motorio": "Come 182-185. dim.: figure spezzate della destra (nota acuta e risposta più in basso, a coppie legate), la sinistra alterna basso e accordo a quarti.",
+      "andate": {
+        "1": {
+          "rep2": "ROT sulla destra: sola rotazione, poi sole dita, poi la miscela minima.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play dal basso all'accordo."
+        },
+        "2": {
+          "rep2": "BLOC sulla destra, una posizione per quarto, CIECO.",
+          "rep3": "DIN: destra mp, sinistra pp."
+        }
+      },
+      "rep4_verifica": "Come 182-185.",
+      "note": "Ricordi p. 6, sistema 4 batt. 3 – sistema 4 batt. 6.\nGemello di 182-185."
+    },
+    {
+      "id": "nabucco-sinfonia-194-199",
+      "brano": "nabucco",
+      "battute": "194-199",
+      "titolo": "Sinfonia · ff: accordi ribattuti a crome in tutte e due le mani",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Destra: bicordi e accordi ribattuti a crome con la melodia in alto (194-197); sinistra: accordi ribattuti a crome; 198-199 ff con la sinistra in ottave gravi ribattute a crome. Sei battute senza pause: carico alto sull'avambraccio.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per quarto, la seconda croma di rimbalzo dalla metà corsa del tasto.",
+          "rep3": "DIN dentro la mano (destra): melodia suonata, ribattuti interni pp."
+        },
+        "2": {
+          "rep2": "Sinistra sola 198-199: ottave con il solo pollice, poi intere, a mp.",
+          "rep3": "CLIC: un clic per battuta."
+        }
+      },
+      "rep4_verifica": "Ribattuti uguali fino a b. 199; avambraccio morbido alla fine; melodia della destra sopra.",
+      "note": "Ricordi p. 6, sistema 5 batt. 1 – sistema 5 batt. 6.\nSe senti indurimento nell'avambraccio, fermati: non completare la Rep."
+    },
+    {
+      "id": "nabucco-sinfonia-200-203",
+      "brano": "nabucco",
+      "battute": "200-203",
+      "titolo": "Sinfonia · dim.: ribattuti che si spengono, pausa, accordi p",
+      "priorita": 7,
+      "famiglia": null,
+      "nodo_motorio": "b. 200 accordo della destra e ribattuti della sinistra in dim.; b. 201 sinistra sola; b. 202 pausa e accordi p; b. 203 accordi verso la lettera F.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ribattuti dalla metà corsa del tasto, diminuendo per ampiezza.",
+          "rep3": "MENT sulle pause di 201-202, poi reale."
+        },
+        "2": {
+          "rep2": "STAC pp sugli accordi di 202-203.",
+          "rep3": "CHUNK a ritroso: b. 203 più il primo quarto di b. 204."
+        }
+      },
+      "rep4_verifica": "Diminuendo senza note mute; pause contate; attacco p di 202 pulito.",
+      "note": "Ricordi p. 6, sistema 6 batt. 1 – sistema 6 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-204-209",
+      "brano": "nabucco",
+      "battute": "204-209",
+      "titolo": "Sinfonia · F, p: basso e accordo della sinistra, accordi della destra",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-basso-accordo-p",
+      "nodo_motorio": "Sinistra: basso grave staccato sul primo quarto, poi note e un accordo nel registro centrale sugli altri quarti: un salto grande per battuta. Destra: accordi di due-tre note in semiminime, staccati o legati, p.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play dal basso al registro centrale.",
+          "rep3": "DIN: sinistra pp, destra mp."
+        },
+        "2": {
+          "rep2": "Destra sola: STAC pp, poi legato dove è scritto.",
+          "rep3": "MUTA: destra suona, sinistra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Bassi a tempo e leggeri; la destra sopra; nessun accento dopo il salto.",
+      "note": "Ricordi p. 6, sistema 6 batt. 5 – sistema 7 batt. 3."
+    },
+    {
+      "id": "nabucco-sinfonia-210-215",
+      "brano": "nabucco",
+      "battute": "210-215",
+      "titolo": "Sinfonia · Basso e accordo della sinistra, accordi legati",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-basso-accordo-p",
+      "nodo_motorio": "Come 204-209, con accordi legati della destra e alterazioni (doppi diesis, ♮) a 210-213; terzina a b. 213.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: BLOC (basso e accordo insieme), poi CIECO.",
+          "rep3": "Destra sola: legato senza pedale, CIECO."
+        },
+        "2": {
+          "rep2": "DIN: sinistra pp, destra mp.",
+          "rep3": "CLIC: un clic per battuta."
+        }
+      },
+      "rep4_verifica": "Accordi legati della destra senza buchi; bassi a tempo.",
+      "note": "Ricordi p. 6, sistema 7 batt. 4 – p. 7, sistema 1 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-216-221",
+      "brano": "nabucco",
+      "battute": "216-221",
+      "titolo": "Sinfonia · cres. e: basso e note della sinistra, melodia che sale",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-basso-accordo-p",
+      "nodo_motorio": "La destra sale a semiminime (melodia in note singole e bicordi), la sinistra continua basso e note più in alto a ogni quarto; cres. e (219-221).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play sui salti.",
+          "rep3": "PESO a mp: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "MUTA: sinistra suona, destra fantasma; poi il contrario.",
+          "rep3": "CHUNK a ritroso: b. 221 più il primo quarto di b. 222."
+        }
+      },
+      "rep4_verifica": "Crescendo di peso e senza accelerare; salti della sinistra precisi anche nel f.",
+      "note": "Ricordi p. 7, sistema 1 batt. 3 – sistema 1 batt. 8."
+    },
+    {
+      "id": "nabucco-sinfonia-222-225",
+      "brano": "nabucco",
+      "battute": "222-225",
+      "titolo": "Sinfonia · rinf.: melodia della destra, ottave a salti della sinistra",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-ottave-sx-rinf",
+      "nodo_motorio": "Destra: melodia a semiminime con bicordi. Sinistra: crome a coppie dalla nota grave alla nota un'ottava sopra, a ogni quarto. Rinforzando verso l'ff della lettera G (b. 226).",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play tra la nota grave e quella alta.",
+          "rep3": "Sinistra sola: PESO, un impulso sulla nota grave, quella alta di rimbalzo."
+        },
+        "2": {
+          "rep2": "DIN: destra mp, sinistra pp.",
+          "rep3": "MUTA: sinistra suona, destra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Come 132-135: coppie della sinistra uguali, arrivo all'ff pronto.",
+      "note": "Ricordi p. 7, sistema 2 batt. 1 – sistema 2 batt. 4.\nGemello di 132-135."
+    },
+    {
+      "id": "nabucco-sinfonia-226-229",
+      "brano": "nabucco",
+      "battute": "226-229",
+      "titolo": "Sinfonia · G, ff: tema con basso e accordi (ripresa)",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Come 136-139. Destra: accordo pieno accentato (minima puntata) e poi crome del tema; sinistra: basso accentato nel grave e salto agli accordi (croma e semiminime) a ogni battuta, quindi un salto grande per battuta.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play dal basso all'accordo.",
+          "rep3": "Destra sola: PESO a mp sull'accordo accentato, crome del tema leggere."
+        },
+        "2": {
+          "rep2": "BLOC: per ogni battuta due eventi (basso e accordo nella sinistra, accordo e prima croma nella destra), CIECO.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Come 136-139.",
+      "note": "Ricordi p. 7, sistema 2 batt. 5 – sistema 2 batt. 8.\nGemello di 136-139: in circuiti diversi finché uno dei due non è in drop-out."
+    },
+    {
+      "id": "nabucco-sinfonia-230-233",
+      "brano": "nabucco",
+      "battute": "230-233",
+      "titolo": "Sinfonia · Tema ff, secondo attacco",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Di nuovo l'accordo ff della lettera G e il tema, con salti in entrambe le mani a b. 233.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play dal basso all'accordo.",
+          "rep3": "Destra sola: acciaccatura e nota acuta in un solo gesto, CIECO."
+        },
+        "2": {
+          "rep2": "DIN: sinistra f, destra pp; poi il contrario.",
+          "rep3": "CHUNK: una battuta più il basso della seguente."
+        }
+      },
+      "rep4_verifica": "Come 140-143.",
+      "note": "Ricordi p. 7, sistema 3 batt. 1 – sistema 3 batt. 4.\nGemello di 140-143."
+    },
+    {
+      "id": "nabucco-sinfonia-234-238",
+      "brano": "nabucco",
+      "battute": "234-238",
+      "titolo": "Sinfonia · Tema con acciaccature e accenti",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Come 142-146: acciaccature prima delle note acute, accenti sui quarti, la sinistra tra basso e accordi accentati.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accento, rilascio subito.",
+          "rep3": "Sinistra sola: BLOC (basso e accordo insieme), poi CIECO."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano (destra): voce superiore suonata, resto pp.",
+          "rep3": "MUTA: destra suona, sinistra fantasma; poi il contrario."
+        }
+      },
+      "rep4_verifica": "Come 144-148.",
+      "note": "Ricordi p. 7, sistema 3 batt. 5 – sistema 4 batt. 2.\nGemello di 144-148."
+    },
+    {
+      "id": "nabucco-sinfonia-239-244",
+      "brano": "nabucco",
+      "battute": "239-244",
+      "titolo": "Sinfonia · Coppie accentate, salita all'acuto verso H",
+      "priorita": 4,
+      "famiglia": "nabucco-fam-tema-ff",
+      "nodo_motorio": "Come 149-153, con una battuta in più: coppie accentate della destra, accordi accentati della sinistra con pause, crome che salgono all'acuto (243-244) prima del pp della lettera H.",
+      "andate": {
+        "1": {
+          "rep2": "PESO sulle coppie: caduta sulla prima nota, rilascio sulla seconda.",
+          "rep3": "Sinistra sola: accordi accentati con pause, CIECO."
+        },
+        "2": {
+          "rep2": "BLOC CIECO sugli accordi della sinistra.",
+          "rep3": "CHUNK a ritroso: b. 244 più il primo quarto di b. 245."
+        }
+      },
+      "rep4_verifica": "Come 149-153; il pp di b. 245 subito.",
+      "note": "Ricordi p. 7, sistema 4 batt. 3 – sistema 5 batt. 1.\nGemello di 149-153."
+    },
+    {
+      "id": "nabucco-sinfonia-245-250",
+      "brano": "nabucco",
+      "battute": "245-250",
+      "titolo": "Sinfonia · H, pp: accordi staccati con pause (ripresa)",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Come 154-159. Accordi staccati di due-tre note in entrambe le mani: semiminima, due pause, coppia di crome, pp; armonie che cambiano a ogni battuta.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp: la coppia di crome dal tasto, le note insieme.",
+          "rep3": "BLOC CIECO sulle forme di ogni battuta."
+        },
+        "2": {
+          "rep2": "DIN: sinistra p, destra pp.",
+          "rep3": "CLIC: un clic per battuta; pause contate."
+        }
+      },
+      "rep4_verifica": "Come 154-159.",
+      "note": "Ricordi p. 7, sistema 5 batt. 2 – sistema 5 batt. 7.\nGemello di 154-159."
+    },
+    {
+      "id": "nabucco-sinfonia-251-256",
+      "brano": "nabucco",
+      "battute": "251-256",
+      "titolo": "Sinfonia · pp, quattro accordi per battuta, cres.",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Come 160-165, con il cres. a b. 253.",
+      "andate": {
+        "1": {
+          "rep2": "STAC pp.",
+          "rep3": "PESO a p: un impulso per battuta, gli altri accordi di rimbalzo."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "ACC sulla 2ª croma della coppia."
+        }
+      },
+      "rep4_verifica": "Come 160-165.",
+      "note": "Ricordi p. 7, sistema 5 batt. 8 – sistema 6 batt. 5.\nGemello di 160-165."
+    },
+    {
+      "id": "nabucco-sinfonia-257-262",
+      "brano": "nabucco",
+      "battute": "257-262",
+      "titolo": "Sinfonia · Accordi staccati verso il f",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Come 166-171, con il f a b. 261 e la sinistra all'ottava grave.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO shift–touch–play sui salti all'ottava grave.",
+          "rep3": "PESO a mp: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "DIN: sinistra f, destra pp."
+        }
+      },
+      "rep4_verifica": "Come 166-171.",
+      "note": "Ricordi p. 7, sistema 6 batt. 6 – sistema 7 batt. 2.\nGemello di 166-171."
+    },
+    {
+      "id": "nabucco-sinfonia-263-266",
+      "brano": "nabucco",
+      "battute": "263-266",
+      "titolo": "Sinfonia · f: accordi staccati e ottave gravi",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "Accordi staccati f con la sinistra tra ottave gravi e accordi.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CIECO sui salti all'ottava grave.",
+          "rep3": "PESO a mp: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "MUTA: destra suona, sinistra fantasma; poi il contrario.",
+          "rep3": "CLIC: un clic per battuta."
+        }
+      },
+      "rep4_verifica": "Come 172-177: ottave complete, accordi corti.",
+      "note": "Ricordi p. 7, sistema 7 batt. 3 – sistema 7 batt. 6."
+    },
+    {
+      "id": "nabucco-sinfonia-267-269",
+      "brano": "nabucco",
+      "battute": "267-269",
+      "titolo": "Sinfonia · Chiusa dell'Allegro: ottave della sinistra in semiminime",
+      "priorita": 7,
+      "famiglia": "nabucco-fam-pp-staccato",
+      "nodo_motorio": "b. 268 quattro ottave della sinistra in semiminime sotto accordi della destra; b. 269 due accordi e pausa prima del Più stretto.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: DIN dentro la mano, solo pollice, poi ottave intere.",
+          "rep3": "PESO a mp."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "CHUNK a ritroso: b. 269 più il primo quarto di b. 270."
+        }
+      },
+      "rep4_verifica": "Ottave uguali; pausa di b. 269 esatta; il tutta forza di b. 270 parte dal tasto.",
+      "note": "Ricordi p. 7, sistema 7 batt. 7 – sistema 7 batt. 9."
+    },
+    {
+      "id": "nabucco-sinfonia-270-273",
+      "brano": "nabucco",
+      "battute": "270-273",
+      "titolo": "Sinfonia · Più stretto, tutta forza: minima e accordi accentati",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-stretto-accordi",
+      "nodo_motorio": "Destra all'ottava sopra (8va): minima e due accordi accentati, poi accordi e pausa; sinistra accordi di tre note nello stesso ritmo. Forme d'accordo che cambiano a ogni battuta, tutta forza.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accordo accentato, rilascio completo nella pausa.",
+          "rep3": "BLOC CIECO sulle forme."
+        },
+        "2": {
+          "rep2": "DIN: sinistra f, destra pp; poi il contrario.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Tutta forza di caduta, non di spinta; accordi completi; pause reali.",
+      "note": "Ricordi p. 8, sistema 1 batt. 1 – sistema 1 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-274-278",
+      "brano": "nabucco",
+      "battute": "274-278",
+      "titolo": "Sinfonia · Accordi della destra sopra ottave gravi",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-stretto-accordi",
+      "nodo_motorio": "La sinistra scende alle ottave gravi (minima e due semiminime accentate) sotto gli accordi della destra; a 277-278 di nuovo accordi a tre note nella sinistra.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola, DIN dentro la mano: solo pollice, poi solo mignolo, poi ottave intere a mp.",
+          "rep3": "PESO a mp a due mani: un impulso per battuta."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "CHUNK: una battuta più il primo accordo della seguente."
+        }
+      },
+      "rep4_verifica": "Ottave gravi senza spinta di spalla; accordi della destra completi; rilascio nelle pause.",
+      "note": "Ricordi p. 8, sistema 1 batt. 5 – sistema 2 batt. 2."
+    },
+    {
+      "id": "nabucco-sinfonia-279-283",
+      "brano": "nabucco",
+      "battute": "279-283",
+      "titolo": "Sinfonia · Accordi e ottave gravi, seconda frase",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-stretto-accordi",
+      "nodo_motorio": "Come 270-278: accordi a due mani, poi ottave gravi della sinistra (281-283).",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accordo accentato.",
+          "rep3": "Sinistra sola: CIECO shift–touch–play sui salti all'ottava grave."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "MUTA: una mano suona, l'altra fantasma; poi si scambia."
+        }
+      },
+      "rep4_verifica": "Come 270-278.",
+      "note": "Ricordi p. 8, sistema 2 batt. 3 – sistema 2 batt. 7."
+    },
+    {
+      "id": "nabucco-sinfonia-284-289",
+      "brano": "nabucco",
+      "battute": "284-289",
+      "titolo": "Sinfonia · Sequenza di accordi pieni a due mani",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-stretto-accordi",
+      "nodo_motorio": "Sequenza di accordi pieni a due mani (quattro-cinque note per mano) in minima e due semiminime, che scendono di posizione a ogni battuta.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: solo la prima forma di ogni battuta, a tempo di minime, CIECO.",
+          "rep3": "PESO a mp: un impulso per battuta, i due accordi seguenti di rimbalzo."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto pp.",
+          "rep3": "CHUNK: una battuta più il primo accordo della seguente."
+        }
+      },
+      "rep4_verifica": "Accordi completi in tutte le voci; cambio di forma pronto; nessun irrigidimento.",
+      "note": "Ricordi p. 8, sistema 3 batt. 1 – sistema 3 batt. 6."
+    },
+    {
+      "id": "nabucco-sinfonia-290-294",
+      "brano": "nabucco",
+      "battute": "290-294",
+      "titolo": "Sinfonia · Sequenza di accordi, seconda volta",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-stretto-accordi",
+      "nodo_motorio": "Come 284-289: sequenza di accordi pieni a due mani (quattro-cinque note per mano) in minima e due semiminime, che scendono di posizione a ogni battuta.",
+      "andate": {
+        "1": {
+          "rep2": "BLOC: solo la prima forma di ogni battuta, a tempo di minime, CIECO.",
+          "rep3": "PESO a mp: un impulso per battuta, i due accordi seguenti di rimbalzo."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto pp.",
+          "rep3": "CHUNK: una battuta più il primo accordo della seguente."
+        }
+      },
+      "rep4_verifica": "Come 284-289.",
+      "note": "Ricordi p. 8, sistema 3 batt. 7 – sistema 4 batt. 4.\nLe due sequenze sono quasi uguali: in circuiti diversi finché una non è in drop-out."
+    },
+    {
+      "id": "nabucco-sinfonia-295-298",
+      "brano": "nabucco",
+      "battute": "295-298",
+      "titolo": "Sinfonia · Fine della sequenza",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-stretto-accordi",
+      "nodo_motorio": "Ultime quattro battute della sequenza di accordi pieni, verso le sincopi della lettera I.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per battuta.",
+          "rep3": "BLOC CIECO."
+        },
+        "2": {
+          "rep2": "MENT, poi la ripetizione reale.",
+          "rep3": "CHUNK a ritroso: b. 298 più il primo accordo di b. 299."
+        }
+      },
+      "rep4_verifica": "Accordi completi fino in fondo; avambraccio libero a b. 298.",
+      "note": "Ricordi p. 8, sistema 4 batt. 5 – sistema 4 batt. 8."
+    },
+    {
+      "id": "nabucco-sinfonia-299-302",
+      "brano": "nabucco",
+      "battute": "299-302",
+      "titolo": "Sinfonia · I: accordi legati in sincope",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-sincopi",
+      "nodo_motorio": "b. 299-300 accordi a due mani; da b. 301 (lettera I) accordi della destra con l'accento sul secondo tempo, legato di valore oltre la stanghetta (sincope); sinistra in ottave gravi con le stesse legature. Il gesto cade sul tempo debole e la mano tiene durante il battere.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp sull'accento sincopato; mentre tieni, polso mobile.",
+          "rep3": "CLIC sul levare: il clic sul tempo dell'accento."
+        },
+        "2": {
+          "rep2": "BLOC CIECO.",
+          "rep3": "MENT, poi la ripetizione reale."
+        }
+      },
+      "rep4_verifica": "Le sincopi non anticipano; legature tenute per tutto il valore; nessuna tensione tenuta.",
+      "note": "Ricordi p. 8, sistema 5 batt. 1 – sistema 5 batt. 4."
+    },
+    {
+      "id": "nabucco-sinfonia-303-307",
+      "brano": "nabucco",
+      "battute": "303-307",
+      "titolo": "Sinfonia · Sincopi, seconda serie",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-sincopi",
+      "nodo_motorio": "Accordi della destra con l'accento sul secondo tempo, legato di valore oltre la stanghetta (sincope); sinistra in ottave gravi con le stesse legature. Il gesto cade sul tempo debole e la mano tiene durante il battere.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp sull'accento sincopato; mentre tieni, polso mobile.",
+          "rep3": "CLIC sul levare."
+        },
+        "2": {
+          "rep2": "DIN: sinistra f, destra pp.",
+          "rep3": "CHUNK a ritroso: b. 307 più il primo accordo di b. 308."
+        }
+      },
+      "rep4_verifica": "Come 299-302.",
+      "note": "Ricordi p. 8, sistema 5 batt. 5 – sistema 5 batt. 9."
+    },
+    {
+      "id": "nabucco-sinfonia-308-312",
+      "brano": "nabucco",
+      "battute": "308-312",
+      "titolo": "Sinfonia · Accordi pieni accentati a minime",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-accordi-accentati",
+      "nodo_motorio": "Accordi pieni accentati a minime, due per battuta, a due mani (destra all'ottava sopra).",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accordo, rilascio completo prima del seguente.",
+          "rep3": "BLOC CIECO."
+        },
+        "2": {
+          "rep2": "DIN dentro la mano: voce superiore suonata, resto pp.",
+          "rep3": "CLIC: un clic per battuta."
+        }
+      },
+      "rep4_verifica": "Accordi uguali senza crescere di tensione; avambraccio libero alla fine.",
+      "note": "Ricordi p. 8, sistema 6 batt. 1 – sistema 6 batt. 5."
+    },
+    {
+      "id": "nabucco-sinfonia-313-317",
+      "brano": "nabucco",
+      "battute": "313-317",
+      "titolo": "Sinfonia · Accordi pieni accentati, seconda metà",
+      "priorita": 5,
+      "famiglia": "nabucco-fam-accordi-accentati",
+      "nodo_motorio": "Accordi pieni accentati a minime, due per battuta, a due mani (destra all'ottava sopra). b. 317: accordo e pausa.",
+      "andate": {
+        "1": {
+          "rep2": "PESO a mp: un impulso per accordo, rilascio completo prima del seguente.",
+          "rep3": "BLOC CIECO."
+        },
+        "2": {
+          "rep2": "MENT, poi la ripetizione reale.",
+          "rep3": "CHUNK a ritroso: b. 317 più il primo accordo di b. 318."
+        }
+      },
+      "rep4_verifica": "Come 308-312; pausa di b. 317 esatta.",
+      "note": "Ricordi p. 8, sistema 6 batt. 6 – sistema 6 batt. 10."
+    },
+    {
+      "id": "nabucco-sinfonia-318-323",
+      "brano": "nabucco",
+      "battute": "318-323",
+      "titolo": "Sinfonia · Accordi a minime alternati a pause, salti di registro",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Accordi a minima alternati a pause di minima; a ogni battuta cambiano registro in entrambe le mani (ottave della sinistra verso il grave, accordi della destra verso l'acuto).",
+      "andate": {
+        "1": {
+          "rep2": "CIECO shift–touch–play tra un accordo e il seguente, mani unite.",
+          "rep3": "PESO: rilascio completo nella pausa."
+        },
+        "2": {
+          "rep2": "MENT, poi la ripetizione reale.",
+          "rep3": "BLOC: tocca muto l'accordo seguente durante la pausa."
+        }
+      },
+      "rep4_verifica": "Ogni accordo dal tasto e completo; pause esatte.",
+      "note": "Ricordi p. 8, sistema 7 batt. 1 – sistema 7 batt. 6."
+    },
+    {
+      "id": "nabucco-sinfonia-324-329",
+      "brano": "nabucco",
+      "battute": "324-329",
+      "titolo": "Sinfonia · Ultimi accordi, acciaccature e corona",
+      "priorita": 5,
+      "famiglia": null,
+      "nodo_motorio": "Ultimi accordi con pause, battute di silenzio, poi due accordi preceduti da acciaccature (tre note di slancio) a due mani, l'ultimo con corona.",
+      "andate": {
+        "1": {
+          "rep2": "Acciaccature e accordo in un solo gesto del braccio, a due mani, CIECO.",
+          "rep3": "MENT sulle battute di pausa, poi reale."
+        },
+        "2": {
+          "rep2": "PESO sull'accordo finale: caduta e rilascio, corona tenuta con il polso libero.",
+          "rep3": "CHUNK a ritroso: ultime due battute."
+        }
+      },
+      "rep4_verifica": "Acciaccature attaccate all'accordo, mani insieme; pause contate; accordo finale lasciato vibrare.",
+      "note": "Ricordi p. 8, sistema 7 batt. 7 – sistema 7 batt. 12."
+    },
+    {
+      "id": "nabucco-concertato-1-4",
+      "brano": "nabucco",
+      "battute": "1-4",
+      "titolo": "Concertato · Andantino, ingresso di Nabucco: rullo della sinistra e terzine",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-rullo",
+      "nodo_motorio": "Sinistra: rullo (gruppo di 12 note in un quarto, scritto come tremolo misurato) sul primo tempo, poi una croma e pause; da b. 4 basso con rullo e accordi in terzine. Destra: accordi ribattuti in terzine di crome, pp, portato. Voce (linea guida: Nabucco, chiave di basso, «sotto voce e cupo»): attacco in levare con croma puntata–semicroma contro le terzine del piano.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: ROT sul rullo (sola rotazione, poi sole dita), dodici note uguali in un quarto.",
+          "rep3": "Canto parlato sul ritmo con la destra; sinistra MUTA."
+        },
+        "2": {
+          "rep2": "Destra sola: terzine dalla metà corsa del tasto, portato pp, polso fermo.",
+          "rep3": "Canto + sinistra, destra MUTA; poi canto con tutto, piano pp."
+        }
+      },
+      "rep4_verifica": "La voce tiene il puntato contro le terzine senza piegarlo; rullo uniforme; terzine della destra uguali e pp; prima nota della voce intonata.",
+      "note": "Ricordi p. 140, sistema 1 batt. 1 – sistema 2 batt. 1.\nPuntato della voce contro terzina del piano: decidi con il tuo insegnante se assimilarlo alla terzina e fai sempre lo stesso."
+    },
+    {
+      "id": "nabucco-concertato-5-8",
+      "brano": "nabucco",
+      "battute": "5-8",
+      "titolo": "Concertato · Nabucco: rullo e accordi in terzine, «sui muti sembianti»",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-rullo",
+      "nodo_motorio": "Come 1-4: rullo della sinistra con accordi in terzine (5), terzine ribattute della destra (6-7), coppie di accordi con pause (8). Voce: Nabucco, con accenti e terzine su «già piomba il terror».",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: ACC sulle terzine, accento sulla 2ª, poi sulla 3ª, pp.",
+          "rep3": "Canto + destra, sinistra MUTA."
+        },
+        "2": {
+          "rep2": "Sinistra sola: ROT sul rullo; gli accordi in terzine dalla metà corsa.",
+          "rep3": "Canto con tutto, piano pp e voce mp."
+        }
+      },
+      "rep4_verifica": "Terzine della voce allineate a quelle del piano; accenti della voce non spostano il piano; rullo senza buchi.",
+      "note": "Ricordi p. 140, sistema 2 batt. 2 – sistema 3 batt. 1."
+    },
+    {
+      "id": "nabucco-concertato-9-12",
+      "brano": "nabucco",
+      "battute": "9-12",
+      "titolo": "Concertato · Rullo a due mani, acciaccature della sinistra, f>p",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-acciaccature",
+      "nodo_motorio": "b. 9: rullo accentato a due mani (accordo della destra, basso della sinistra), poi pause. 10-11: la sinistra suona un basso e poi note con acciaccatura in terzine, un salto a ogni tempo; la destra coppie di accordi. b. 12 tutta forza: accordo f e subito p. Voce: Nabucco, «le folgori intorno... di lutto e squallor».",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola 10-11: acciaccatura e nota in un solo gesto; CIECO shift–touch–play dal basso.",
+          "rep3": "Canto parlato sul ritmo, con tutto il piano."
+        },
+        "2": {
+          "rep2": "PESO sull'accento di b. 9 e sul f di b. 12, rilascio subito.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        }
+      },
+      "rep4_verifica": "Acciaccature leggere e attaccate alla loro nota; dopo le pause di b. 9 la voce entra a tempo; f>p di b. 12 netto nel piano.",
+      "note": "Ricordi p. 140, sistema 3 batt. 2 – sistema 4 batt. 2."
+    },
+    {
+      "id": "nabucco-concertato-13-16",
+      "brano": "nabucco",
+      "battute": "13-16",
+      "titolo": "Concertato · [32] Ingresso di Abigaille",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-rullo",
+      "nodo_motorio": "Piano come 1-5: rullo della sinistra, terzine della destra, accordi in terzine della sinistra (14-16). Voce: la linea guida passa ad Abigaille («cupo»), da cantare un'ottava sotto; Nabucco continua in controcanto.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: terzine portato pp dalla metà corsa.",
+          "rep3": "Prima nota di Abigaille presa dal piano, poi canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "Sinistra sola: ROT sul rullo.",
+          "rep3": "Canto con tutto, piano pp."
+        }
+      },
+      "rep4_verifica": "Il cambio di personaggio a b. 13 non sposta l'intonazione; voce sopra un piano pp.",
+      "note": "Ricordi p. 140, sistema 4 batt. 3 – p. 141, sistema 1 batt. 3."
+    },
+    {
+      "id": "nabucco-concertato-17-20",
+      "brano": "nabucco",
+      "battute": "17-20",
+      "titolo": "Concertato · Abigaille, rullo accentato a due mani",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-rullo",
+      "nodo_motorio": "Come 5-9: terzine della destra, rullo della sinistra, coppie di accordi (19), rullo accentato a due mani (20). Voce: Abigaille, «già piomba il terror».",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: ACC sulle terzine, accento sulla 2ª, poi sulla 3ª, pp.",
+          "rep3": "Canto + destra, sinistra MUTA."
+        },
+        "2": {
+          "rep2": "PESO sul rullo accentato di b. 20, rilascio subito.",
+          "rep3": "Canto con tutto, piano pp."
+        }
+      },
+      "rep4_verifica": "Come 5-8; l'accento di b. 20 è del piano, la voce non lo imita.",
+      "note": "Ricordi p. 141, sistema 1 batt. 4 – sistema 2 batt. 3.\nGemello di 5-8: in circuiti diversi finché uno non è in drop-out."
+    },
+    {
+      "id": "nabucco-concertato-21-23",
+      "brano": "nabucco",
+      "battute": "21-23",
+      "titolo": "Concertato · Acciaccature della sinistra, tutta forza",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-acciaccature",
+      "nodo_motorio": "21-22: la sinistra con basso e note con acciaccatura in terzine (un salto a ogni tempo), la destra coppie di accordi. b. 23 tutta forza: accordo accentato, poi terzine di accordi e basso con pause. Voce: Abigaille («apprestan un giorno di lutto e squallor»), Ismaele entra in levare.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: acciaccatura e nota in un solo gesto; CIECO shift–touch–play dal basso.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "PESO sull'accordo di b. 23, terzine seguenti di rimbalzo.",
+          "rep3": "Canto parlato con tutto, poi cantato."
+        }
+      },
+      "rep4_verifica": "Come 9-12; il tutta forza di 23 pieno ma non duro; la voce lo sostiene senza spingere.",
+      "note": "Ricordi p. 141, sistema 3 batt. 1 – p. 142, sistema 1 batt. 1.\nGemello di 9-12."
+    },
+    {
+      "id": "nabucco-concertato-24-28",
+      "brano": "nabucco",
+      "battute": "24-28",
+      "titolo": "Concertato · Ingresso di Ismaele: basso–accordo in terzine della sinistra",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-terzine-sx",
+      "nodo_motorio": "Sinistra: basso e due accordi in terzine di crome a ogni tempo (salto continuo). Destra: pause, poi terzine di accordi pp (b. 25), accordi lunghi (26-27). Voce: linea guida a Ismaele (tenore), alla tua altezza.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: BLOC (basso e accordo insieme), poi CIECO shift–touch–play sul salto.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "Sinistra sola: ACC sulla 2ª croma di ogni terzina, poi sulla 3ª; basso pp.",
+          "rep3": "Canto con tutto, piano pp."
+        }
+      },
+      "rep4_verifica": "Terzine della sinistra uguali, basso senza accento; voce legata sopra.",
+      "note": "Ricordi p. 142, sistema 1 batt. 2 – sistema 2 batt. 3."
+    },
+    {
+      "id": "nabucco-concertato-29-32",
+      "brano": "nabucco",
+      "battute": "29-32",
+      "titolo": "Concertato · Ismaele: terzine accentate, rullo, semicrome",
+      "priorita": 2,
+      "famiglia": "nabucco-fam-conc-terzine-sx",
+      "nodo_motorio": "Terzine della destra con accenti (29), rullo accentato a due mani (31), terzine e semicrome della destra (32); sinistra basso–accordo in terzine. Voce: Ismaele, «già piomba il terror».",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: RIT sulle terzine accentate, fermata sulla 1ª nota, le altre di scatto.",
+          "rep3": "Canto parlato con tutto."
+        },
+        "2": {
+          "rep2": "PESO sul rullo di b. 31, rilascio subito.",
+          "rep3": "Canto + destra, sinistra MUTA."
+        }
+      },
+      "rep4_verifica": "Accenti netti senza durezza; dopo il rullo la voce riparte a tempo.",
+      "note": "Ricordi p. 142, sistema 2 batt. 4 – sistema 3 batt. 3."
+    },
+    {
+      "id": "nabucco-concertato-33-36",
+      "brano": "nabucco",
+      "battute": "33-36",
+      "titolo": "Concertato · Ingresso di Fenena e inizio delle sestine",
+      "priorita": 1,
+      "famiglia": "nabucco-fam-conc-sestine-p",
+      "nodo_motorio": "33-34: sinistra in terzine basso–accordo, f e subito p a b. 34. Da b. 35 (numero 33) la sinistra passa a sestine di semicrome in arpeggio staccato con il basso tenuto in croma; la destra canta in terzine e accordi. Voce: Ismaele chiude (34), poi Fenena («cupo»), un'ottava sotto.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola 35-36: BLOC, ogni sestina come posizione a blocco con il basso; poi CIECO.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "Sinistra sola: STAC pp sulle sestine, basso tenuto.",
+          "rep3": "Canto con tutto, piano pp."
+        },
+        "3": {
+          "rep2": "Sinistra sola: ACC, sestine raggruppate 3+3, poi 2+2+2.",
+          "rep3": "Canto parlato sul ritmo, con tutto."
+        },
+        "4": {
+          "rep2": "MUTA: destra suona, sinistra fantasma; poi il contrario.",
+          "rep3": "CHUNK: un tempo più la prima nota del seguente, con la voce."
+        }
+      },
+      "rep4_verifica": "Passaggio da terzine a sestine senza scossa; sestine uguali e staccate sotto; la voce non accelera sopra le sestine.",
+      "note": "Ricordi p. 143, sistema 1 batt. 1 – sistema 2 batt. 1."
+    },
+    {
+      "id": "nabucco-concertato-37-41",
+      "brano": "nabucco",
+      "battute": "37-41",
+      "titolo": "Concertato · Fenena sopra le sestine",
+      "priorita": 1,
+      "famiglia": "nabucco-fam-conc-sestine-p",
+      "nodo_motorio": "Sestine della sinistra continue (staccato, basso tenuto), destra in terzine di accordi e accordi lunghi; b. 41 coppie di accordi. Voce: Fenena, «sui muti sembianti... già piomba il terror».",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola: CHUNK, una sestina più il basso della seguente, stop con la mano già sopra.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "Sinistra sola: ACC 3+3, poi 2+2+2, pp.",
+          "rep3": "Canto con tutto, piano pp."
+        }
+      },
+      "rep4_verifica": "Sestine sotto senza culmini; voce in tempo sopra; destra pp.",
+      "note": "Ricordi p. 143, sistema 2 batt. 2 – p. 144, sistema 1 batt. 3."
+    },
+    {
+      "id": "nabucco-concertato-42-45",
+      "brano": "nabucco",
+      "battute": "42-45",
+      "titolo": "Concertato · Rullo ff, sotto voce, f–p–ff verso il tutti",
+      "priorita": 1,
+      "famiglia": "nabucco-fam-conc-sestine-p",
+      "nodo_motorio": "b. 42: rullo accentato a due mani e pause. 43-44: la destra con acciaccatura, terzine e salti all'acuto sopra le sestine (sotto voce). b. 45: accordo arpeggiato f, poi p, poi ff. Voce: Fenena, poi in levare l'ingresso di Zaccaria e del coro (ff).",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: CIECO shift–touch–play sui salti all'acuto di 43-44.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "PESO sull'accento di b. 42 e sull'accordo di b. 45.",
+          "rep3": "CHUNK a ritroso: b. 45 più il primo tempo di b. 46, con la voce."
+        }
+      },
+      "rep4_verifica": "Sotto voce davvero; i tre livelli di b. 45 netti; ingresso del tutti a tempo.",
+      "note": "Ricordi p. 144, sistema 2 batt. 1 – p. 145, sistema 1 batt. 1."
+    },
+    {
+      "id": "nabucco-concertato-46-50",
+      "brano": "nabucco",
+      "battute": "46-50",
+      "titolo": "Concertato · [34] Tutti ff: tema di Zaccaria e coro, sestine larghe",
+      "priorita": 1,
+      "famiglia": "nabucco-fam-conc-tutti",
+      "nodo_motorio": "Destra: tema in ottave e accordi nell'acuto, note lunghe legate. Sinistra: sestine più larghe dal basso grave, ff; b. 49 accordo con rullo. Voce: Zaccaria e bassi del coro, alla tua altezza, ff.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola a mp: BLOC per posizioni, CIECO sul basso grave.",
+          "rep3": "Canto + destra, sinistra MUTA (la destra porta il tema)."
+        },
+        "2": {
+          "rep2": "Destra sola: DIN dentro la mano, voce superiore f e pollice pp; PESO sulle minime.",
+          "rep3": "Canto con tutto, a mp."
+        }
+      },
+      "rep4_verifica": "ff del piano pieno ma sotto la voce; sestine uguali anche nel ff; voce sostenuta sulle note lunghe.",
+      "note": "Ricordi p. 145, sistema 1 batt. 2 – p. 146, sistema 1 batt. 3.\nRep 2-3 con voce a mezza voce, come il piano a mp."
+    },
+    {
+      "id": "nabucco-concertato-51-55",
+      "brano": "nabucco",
+      "battute": "51-55",
+      "titolo": "Concertato · «già piomba il terror», rullo ff, [35] sotto voce",
+      "priorita": 1,
+      "famiglia": "nabucco-fam-conc-tutti",
+      "nodo_motorio": "51-52: destra in ottave con terzine accentate sopra le sestine. b. 53: rullo ff a due mani. 54-55 (numero 35): sotto voce, destra in terzine con salti all'acuto, sinistra sestine p. Voce: Zaccaria e coro.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: RIT sulle terzine accentate di b. 52.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "PESO sul rullo di b. 53, poi pp subito.",
+          "rep3": "Canto con tutto."
+        }
+      },
+      "rep4_verifica": "ff di b. 53 e sotto voce di b. 54 senza tempo perso; voce piano a b. 54.",
+      "note": "Ricordi p. 147, sistema 1 batt. 1 – p. 148, sistema 1 batt. 2."
+    },
+    {
+      "id": "nabucco-concertato-56-60",
+      "brano": "nabucco",
+      "battute": "56-60",
+      "titolo": "Concertato · Tutta forza, pp, cresc.",
+      "priorita": 1,
+      "famiglia": "nabucco-fam-conc-tutti",
+      "nodo_motorio": "b. 56 ff: accordo della destra in tremolo misurato e sinistra ad accordi spezzati fitti nel grave, poi p. 57-60 pp e cresc.: accordi in terzine della destra sopra le sestine. Voce: tutti «di lutto e squallor», Zaccaria pp su note lunghe.",
+      "andate": {
+        "1": {
+          "rep2": "Sinistra sola b. 56: BLOC sulle posizioni dell'accordo spezzato, poi CIECO.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "Destra sola: ROT sul tremolo di b. 56; terzine pp dalla metà corsa.",
+          "rep3": "Canto con tutto."
+        }
+      },
+      "rep4_verifica": "ff di 56 e pp di 57 netti; cresc. graduale; note lunghe della voce intonate sull'armonia del piano.",
+      "note": "Ricordi p. 149, sistema 1 batt. 1 – p. 150, sistema 1 batt. 2."
+    },
+    {
+      "id": "nabucco-concertato-61-63",
+      "brano": "nabucco",
+      "battute": "61-63",
+      "titolo": "Concertato · Finale: «ah!» ff e corona",
+      "priorita": 1,
+      "famiglia": "nabucco-fam-conc-tutti",
+      "nodo_motorio": "b. 61: destra in semicrome alternate (bicordo e nota sotto) in crescendo, sinistra sestine. b. 62 ff: tremolo della destra e accordi spezzati fitti della sinistra nel grave. b. 63: accordo e corona. Voce: tutti «ah!» ff su nota lunga.",
+      "andate": {
+        "1": {
+          "rep2": "Destra sola: ROT sulle semicrome alternate di b. 61.",
+          "rep3": "Canto + sinistra, destra MUTA."
+        },
+        "2": {
+          "rep2": "Sinistra sola b. 62: BLOC, poi CIECO.",
+          "rep3": "MENT con la voce immaginata, poi reale."
+        }
+      },
+      "rep4_verifica": "Crescendo di 61 di peso; ff senza durezza; nota lunga della voce tenuta fino alla corona.",
+      "note": "Ricordi p. 151, sistema 1 batt. 1 – sistema 1 batt. 3."
+    }
+  ],
+  "priorita": [
+    {
+      "n": 1,
+      "nome": "Voce sopra le sestine della sinistra",
+      "perche": "È il compito nuovo nella forma più carica: canti, la sinistra non si ferma mai e la destra porta un'altra linea. Se la voce cede, cede tutto."
+    },
+    {
+      "n": 2,
+      "nome": "Voce sopra accordi ribattuti in terzine e rulli",
+      "perche": "Stesso compito con un accompagnamento più semplice; qui si decide l'indipendenza ritmica della voce (puntati contro terzine, attacchi in levare dopo le pause)."
+    },
+    {
+      "n": 3,
+      "nome": "Ribattuti leggeri con il canto nella stessa mano",
+      "perche": "È il passo più difficile della Sinfonia: tre strati divisi tra le mani, ribattuti a semicrome pp, canto che deve sentirsi."
+    },
+    {
+      "n": 4,
+      "nome": "Salti della sinistra tra basso e accordo",
+      "perche": "Dai difetti che mi hai indicato per il Mephisto: salti imprecisi. Qui la sinistra salta a ogni battuta per pagine intere."
+    },
+    {
+      "n": 5,
+      "nome": "Accordi e ottave ff, resistenza",
+      "perche": "L'altro difetto del Mephisto: accordi e ottave che si irrigidiscono. Più stretto, lettera E e ff dell'Allegro sono il carico più alto per l'avambraccio."
+    },
+    {
+      "n": 6,
+      "nome": "Volate, arpeggi spezzati e tremoli",
+      "perche": "Uniformità e coordinazione a mani unite (il difetto dell'op. 111). Passaggi brevi, ma decadono per primi."
+    },
+    {
+      "n": 7,
+      "nome": "Staccato p, corale e canto dell'Andantino",
+      "perche": "Non dipendono dalla velocità: simultaneità degli accordi a p, legato del canto senza pedale."
+    }
+  ],
+  "famiglie": [
+    {
+      "id": "nabucco-fam-corale",
+      "nome": "Corale e accordi staccati dell'Andante",
+      "frammenti": [
+        "nabucco-sinfonia-1-4",
+        "nabucco-sinfonia-5-8",
+        "nabucco-sinfonia-14-16",
+        "nabucco-sinfonia-52-54"
+      ]
+    },
+    {
+      "id": "nabucco-fam-volate",
+      "nome": "Volate e scale a due mani verso l'arrivo",
+      "frammenti": [
+        "nabucco-sinfonia-9-13",
+        "nabucco-sinfonia-69-71",
+        "nabucco-sinfonia-86-89"
+      ]
+    },
+    {
+      "id": "nabucco-fam-tremolo-ottava",
+      "nome": "Tremolo d'ottava della destra su linea cromatica",
+      "frammenti": [
+        "nabucco-sinfonia-17-20",
+        "nabucco-sinfonia-21-24"
+      ]
+    },
+    {
+      "id": "nabucco-fam-staccato-crome",
+      "nome": "Allegro: bicordi staccati a crome, sotto voce",
+      "frammenti": [
+        "nabucco-sinfonia-25-30",
+        "nabucco-sinfonia-31-36"
+      ]
+    },
+    {
+      "id": "nabucco-fam-accordi-ff-allegro",
+      "nome": "Allegro: accordi e ottave ff con salti al grave",
+      "frammenti": [
+        "nabucco-sinfonia-37-41",
+        "nabucco-sinfonia-42-46",
+        "nabucco-sinfonia-47-51"
+      ]
+    },
+    {
+      "id": "nabucco-fam-canto-andantino",
+      "nome": "Andantino: canto sopra accordi staccati",
+      "frammenti": [
+        "nabucco-sinfonia-55-60",
+        "nabucco-sinfonia-61-64",
+        "nabucco-sinfonia-65-68"
+      ]
+    },
+    {
+      "id": "nabucco-fam-arpeggi-andantino",
+      "nome": "Andantino: arpeggi spezzati della sinistra sotto accordi",
+      "frammenti": [
+        "nabucco-sinfonia-72-76",
+        "nabucco-sinfonia-77-81",
+        "nabucco-sinfonia-82-85"
+      ]
+    },
+    {
+      "id": "nabucco-fam-ribattuti-canto",
+      "nome": "Ribattuti a semicrome con il canto nella stessa mano (B)",
+      "frammenti": [
+        "nabucco-sinfonia-90-93",
+        "nabucco-sinfonia-94-97",
+        "nabucco-sinfonia-98-101",
+        "nabucco-sinfonia-102-104",
+        "nabucco-sinfonia-105-108"
+      ]
+    },
+    {
+      "id": "nabucco-fam-staccato-semiminime",
+      "nome": "Allegro: accordi staccati in semiminime",
+      "frammenti": [
+        "nabucco-sinfonia-109-114",
+        "nabucco-sinfonia-115-120",
+        "nabucco-sinfonia-121-126",
+        "nabucco-sinfonia-127-131"
+      ]
+    },
+    {
+      "id": "nabucco-fam-ottave-sx-rinf",
+      "nome": "Rinforzando: crome a salti d'ottava della sinistra",
+      "frammenti": [
+        "nabucco-sinfonia-132-135",
+        "nabucco-sinfonia-222-225"
+      ]
+    },
+    {
+      "id": "nabucco-fam-tema-ff",
+      "nome": "Tema ff: accordi della destra, basso e accordo della sinistra (C e G)",
+      "frammenti": [
+        "nabucco-sinfonia-136-139",
+        "nabucco-sinfonia-140-143",
+        "nabucco-sinfonia-144-148",
+        "nabucco-sinfonia-149-153",
+        "nabucco-sinfonia-226-229",
+        "nabucco-sinfonia-230-233",
+        "nabucco-sinfonia-234-238",
+        "nabucco-sinfonia-239-244"
+      ]
+    },
+    {
+      "id": "nabucco-fam-pp-staccato",
+      "nome": "pp staccato: accordi con pause (D e H)",
+      "frammenti": [
+        "nabucco-sinfonia-154-159",
+        "nabucco-sinfonia-160-165",
+        "nabucco-sinfonia-166-171",
+        "nabucco-sinfonia-172-177",
+        "nabucco-sinfonia-245-250",
+        "nabucco-sinfonia-251-256",
+        "nabucco-sinfonia-257-262",
+        "nabucco-sinfonia-263-266",
+        "nabucco-sinfonia-267-269"
+      ]
+    },
+    {
+      "id": "nabucco-fam-ottave-spezzate",
+      "nome": "Lettera E: bicordi a salti e figure spezzate della destra",
+      "frammenti": [
+        "nabucco-sinfonia-178-181",
+        "nabucco-sinfonia-182-185",
+        "nabucco-sinfonia-186-189",
+        "nabucco-sinfonia-190-193"
+      ]
+    },
+    {
+      "id": "nabucco-fam-basso-accordo-p",
+      "nome": "Lettera F: basso e accordo della sinistra a p",
+      "frammenti": [
+        "nabucco-sinfonia-204-209",
+        "nabucco-sinfonia-210-215",
+        "nabucco-sinfonia-216-221"
+      ]
+    },
+    {
+      "id": "nabucco-fam-stretto-accordi",
+      "nome": "Più stretto: accordi pieni a due mani e ottave gravi",
+      "frammenti": [
+        "nabucco-sinfonia-270-273",
+        "nabucco-sinfonia-274-278",
+        "nabucco-sinfonia-279-283",
+        "nabucco-sinfonia-284-289",
+        "nabucco-sinfonia-290-294",
+        "nabucco-sinfonia-295-298"
+      ]
+    },
+    {
+      "id": "nabucco-fam-sincopi",
+      "nome": "Più stretto: accordi in sincope",
+      "frammenti": [
+        "nabucco-sinfonia-299-302",
+        "nabucco-sinfonia-303-307"
+      ]
+    },
+    {
+      "id": "nabucco-fam-accordi-accentati",
+      "nome": "Più stretto: accordi accentati a minime",
+      "frammenti": [
+        "nabucco-sinfonia-308-312",
+        "nabucco-sinfonia-313-317"
+      ]
+    },
+    {
+      "id": "nabucco-fam-conc-rullo",
+      "nome": "Concertato: voce sopra rullo e terzine ribattute",
+      "frammenti": [
+        "nabucco-concertato-1-4",
+        "nabucco-concertato-5-8",
+        "nabucco-concertato-13-16",
+        "nabucco-concertato-17-20"
+      ]
+    },
+    {
+      "id": "nabucco-fam-conc-acciaccature",
+      "nome": "Concertato: voce sopra acciaccature della sinistra",
+      "frammenti": [
+        "nabucco-concertato-9-12",
+        "nabucco-concertato-21-23"
+      ]
+    },
+    {
+      "id": "nabucco-fam-conc-terzine-sx",
+      "nome": "Concertato: voce sopra basso e accordo in terzine",
+      "frammenti": [
+        "nabucco-concertato-24-28",
+        "nabucco-concertato-29-32"
+      ]
+    },
+    {
+      "id": "nabucco-fam-conc-sestine-p",
+      "nome": "Concertato: voce sopra sestine p",
+      "frammenti": [
+        "nabucco-concertato-33-36",
+        "nabucco-concertato-37-41",
+        "nabucco-concertato-42-45"
+      ]
+    },
+    {
+      "id": "nabucco-fam-conc-tutti",
+      "nome": "Concertato: tutti ff sopra sestine larghe",
+      "frammenti": [
+        "nabucco-concertato-46-50",
+        "nabucco-concertato-51-55",
+        "nabucco-concertato-56-60",
+        "nabucco-concertato-61-63"
+      ]
+    }
+  ],
+  "definizioni": {
+    "priorita": "Organizzazione dei passaggi: 7 gruppi in ordine di urgenza (1 = più urgente). Le battute della Sinfonia e del concertato si contano da 1 in ciascun estratto.",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+  }
+}

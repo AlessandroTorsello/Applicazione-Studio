@@ -85,7 +85,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await shot('riepilogo');
   let d = await D();
   ok(d.sessioni.length === 1 && d.sessioni[0].log[0].tempo_rep4 === 96 && d.sessioni[0].log[0].rep1_pulita === true && d.target && Object.values(d.target)[0] === 120, 'dati salvati (bpm, Rep 1, target)');
-  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.0.0', 'versione dei dati');
+  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.1.0', 'versione dei dati');
 
   /* --- ripeti la sessione --- */
   await p.click('[data-act="repeat"]'); await w(700);
@@ -156,8 +156,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.click('.tabs [data-h="#settings"]'); await w(); await shot('impostazioni');
   await p.click('[data-act="tema"][data-v="chiaro"]'); await w(); await shot('impostazioni-chiaro');
   await p.click('[data-act="news"]'); await w(); await shot('novita'); await p.click('.sheet [data-act="closesheet"]'); await w();
-  await p.click('.brow >> nth=1'); await w(); await shot('brano'); await p.click('#brhide'); await w();
+  await p.click('.brow >> nth=1'); await w(); await shot('brano'); await p.click('[data-act="brano"]'); await w(); await p.click('#brhide'); await w();
   d = await D(); ok(d.brani_nascosti.length === 1, 'brano nascosto');
+  await p.click('[data-act="back"]'); await w();
   await p.click('[data-act="reset"]'); await w(); await shot('azzera'); await p.click('#rzok'); await w();
   d = await D(); ok(d.sessioni.length === 4, 'azzera senza conferma scritta non cancella');
   await p.click('.sheet [data-act="closesheet"]'); await w();

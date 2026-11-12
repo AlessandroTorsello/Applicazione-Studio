@@ -20,8 +20,24 @@ const primaBattuta = f => { const n = numeri(f); return n.length ? n[0] : 1e9; }
 const ultimaBattuta = f => { const n = numeri(f); return n.length ? n[n.length - 1] : 1e9; };
 const eIntervallo = f => /^\s*\d+\s*([-–]\s*\d+\s*)?$/.test(String(f.battute));   // «24-28» oppure «57»; non «1, 3, 5»
 /* Per la cucitura servono tratti continui: i frammenti fatti di battute sparse («1, 3, 5») restano fuori. */
-const listaSezione = (tipo, bid) => tipo === 'cucitura' ? inOrdine(bid).filter(eIntervallo) : inOrdine(bid);
-function inOrdine(bid) { return C.frammenti.filter(f => f.brano === bid && numeri(f).length).sort((a, b) => primaBattuta(a) - primaBattuta(b) || ultimaBattuta(a) - ultimaBattuta(b)); }
+const listaSezione = (tipo, bid, sez) => inOrdine(bid).filter(f => (tipo !== 'cucitura' || eIntervallo(f)) && (!sez || sezioneDi(f) === sez));
+/* Sezioni di un brano: servono quando un brano riunisce più estratti e le battute ripartono da 1 (Nabucco:
+   «Sinfonia · …», «Concertato · …»). Valgono solo se tutti i titoli hanno il prefisso «Nome · », i nomi sono
+   almeno due e ognuno occupa un tratto continuo nell'ordine del catalogo. */
+function sezioniDi(bid) {
+  if (!C._sez) C._sez = new Map();
+  if (C._sez.has(bid)) return C._sez.get(bid);
+  const pre = C.frammenti.filter(f => f.brano === bid).map(f => { const m = String(f.titolo || '').match(/^([^·]{1,40}?) · /); return m ? m[1] : null; });
+  const nomi = []; let ok = pre.length > 1 && pre.every(Boolean);
+  if (ok) pre.forEach((p, i) => { if (i && p === pre[i - 1]) return; if (nomi.includes(p)) ok = false; else nomi.push(p); });
+  const out = ok && nomi.length > 1 ? nomi : [];
+  C._sez.set(bid, out); return out;
+}
+const sezioneDi = f => { const s = f ? sezioniDi(f.brano) : []; return s.length ? String(f.titolo).split(' · ')[0] : ''; };
+function inOrdine(bid) {
+  const s = sezioniDi(bid), k = f => s.indexOf(sezioneDi(f));
+  return C.frammenti.filter(f => f.brano === bid && numeri(f).length).sort((a, b) => k(a) - k(b) || primaBattuta(a) - primaBattuta(b) || ultimaBattuta(a) - ultimaBattuta(b));
+}
 function giunturaTesto(a, b) {
   if (!eIntervallo(a) || !eIntervallo(b)) return `le ultime 2 battute di bb. ${a.battute} + le prime 2 di bb. ${b.battute}`;
   const x1 = ultimaBattuta(a), x0 = Math.max(primaBattuta(a), x1 - 1), y0 = primaBattuta(b), y1 = Math.min(ultimaBattuta(b), y0 + 1);
@@ -235,9 +251,11 @@ SCREENS.riascolto = () => {
 /* Scelta di brano e tratto (dal frammento… al frammento…) per la cucitura e la prova. */
 function sezioneCfg(cfg) {
   const min = cfg.tipo === 'cucitura' ? 2 : 1;
-  const brani = C.braniVis.filter(b => listaSezione(cfg.tipo, b.id).length >= min); if (!brani.length) return null;
-  if (!brani.some(b => b.id === cfg.sb)) { cfg.sb = brani[0].id; cfg.sda = cfg.sa = null; }
-  const list = listaSezione(cfg.tipo, cfg.sb);
+  // un brano con più estratti compare una volta per estratto: cucitura e prova restano dentro un estratto
+  const brani = C.braniVis.flatMap(b => (sezioniDi(b.id).length ? sezioniDi(b.id) : ['']).map(z => ({ id: b.id, sez: z, nome: b.nome + (z ? ' · ' + z : '') }))).filter(x => listaSezione(cfg.tipo, x.id, x.sez).length >= min);
+  if (!brani.length) return null;
+  if (!brani.some(x => x.id === cfg.sb && x.sez === (cfg.ssez || ''))) { cfg.sb = brani[0].id; cfg.ssez = brani[0].sez; cfg.sda = cfg.sa = null; }
+  const list = listaSezione(cfg.tipo, cfg.sb, cfg.ssez);
   let i0 = list.findIndex(f => f.id === cfg.sda), i1 = list.findIndex(f => f.id === cfg.sa);
   if (i0 < 0) i0 = 0;
   if (i1 < 0) i1 = cfg.tipo === 'cucitura' ? Math.min(list.length - 1, i0 + 2) : list.length - 1;
@@ -249,20 +267,21 @@ function sezioneCfg(cfg) {
 function sezioneHtml(cfg) {
   const z = sezioneCfg(cfg);
   if (!z) return `<div class="empty"><b>Nessun brano adatto</b><span>Servono frammenti del catalogo con le battute.</span></div>`;
-  const opt = (f, cur) => `<option value="${esc(f.id)}" ${f.id === cur ? 'selected' : ''}>bb. ${esc(f.battute)} · ${esc(f.titolo)}</option>`;
+  const opt = (f, cur) => `<option value="${esc(f.id)}" ${f.id === cur ? 'selected' : ''}>bb. ${esc(f.battute)}${f.titolo ? ' · ' + esc(f.titolo) : ''}</option>`;
   const n = z.i1 - z.i0 + 1, tutto = z.i0 === 0 && z.i1 === z.list.length - 1;
   return `<section class="card">
-    <div class="field"><label for="sb">Brano</label><select class="sel" id="sb" style="width:100%">${z.brani.map(b => `<option value="${esc(b.id)}" ${b.id === cfg.sb ? 'selected' : ''}>${esc(b.nome)}</option>`).join('')}</select></div>
+    <div class="field"><label for="sb">Brano</label><select class="sel" id="sb" style="width:100%">${z.brani.map((b, i) => `<option value="${i}" ${b.id === cfg.sb && b.sez === (cfg.ssez || '') ? 'selected' : ''}>${esc(b.nome)}</option>`).join('')}</select></div>
     <div class="field"><label for="sda">Dal frammento</label><select class="sel" id="sda" style="width:100%">${z.list.map(f => opt(f, cfg.sda)).join('')}</select></div>
     <div class="field"><label for="sa">Al frammento</label><select class="sel" id="sa" style="width:100%">${z.list.map(f => opt(f, cfg.sa)).join('')}</select></div>
-    ${cfg.tipo === 'prova' && !tutto ? '<button class="link" id="stutto">Tutto il brano</button>' : ''}
-    <p class="small muted" style="margin:6px 0 0">${cfg.tipo === 'cucitura' ? `${n} frammenti consecutivi · ${n - 1} ${n - 1 === 1 ? 'giuntura' : 'giunture'}` : `bb. ${primaBattuta(z.list[z.i0])}–${ultimaBattuta(z.list[z.i1])} · ${n} ${n === 1 ? 'frammento' : 'frammenti'}${tutto ? ' (tutto il brano)' : ''}`}</p>
+    ${cfg.tipo === 'prova' && !tutto ? `<button class="link" id="stutto">${cfg.ssez ? 'Tutto l\'estratto' : 'Tutto il brano'}</button>` : ''}
+    <p class="small muted" style="margin:6px 0 0">${cfg.tipo === 'cucitura' ? `${n} frammenti consecutivi · ${n - 1} ${n - 1 === 1 ? 'giuntura' : 'giunture'}` : `bb. ${primaBattuta(z.list[z.i0])}–${ultimaBattuta(z.list[z.i1])} · ${n} ${n === 1 ? 'frammento' : 'frammenti'}${tutto ? (cfg.ssez ? ' (tutto l\'estratto)' : ' (tutto il brano)') : ''}`}</p>
   </section>`;
 }
 function sezioneBind() {
-  const cfg = D.bozza.cfg, set = (k, v) => { cfg[k] = v; if (k === 'sb') cfg.sda = cfg.sa = null; save(); render(); };
-  ['sb', 'sda', 'sa'].forEach(id => { const el = $('#' + id); if (el) el.addEventListener('change', () => set(id, el.value)); });
-  const t = $('#stutto'); if (t) t.addEventListener('click', () => { const l = listaSezione(cfg.tipo, cfg.sb); cfg.sda = l[0].id; cfg.sa = l[l.length - 1].id; save(); render(); });
+  const cfg = D.bozza.cfg, z = sezioneCfg(cfg), set = (k, v) => { cfg[k] = v; save(); render(); };
+  ['sda', 'sa'].forEach(id => { const el = $('#' + id); if (el) el.addEventListener('change', () => set(id, el.value)); });
+  const sb = $('#sb'); if (sb && z) sb.addEventListener('change', () => { const x = z.brani[Number(sb.value)]; if (!x) return; cfg.sb = x.id; cfg.ssez = x.sez; cfg.sda = cfg.sa = null; save(); render(); });
+  const t = $('#stutto'); if (t) t.addEventListener('click', () => { const l = listaSezione(cfg.tipo, cfg.sb, cfg.ssez); cfg.sda = l[0].id; cfg.sa = l[l.length - 1].id; save(); render(); });
 }
 function startSezione(tipo, ids, brano) {
   if (ids.length < (tipo === 'cucitura' ? 2 : 1)) { toast('Scegli almeno due frammenti consecutivi'); return; }
@@ -272,7 +291,11 @@ function startSezione(tipo, ids, brano) {
   save(); replaceTo('#run');
 }
 const voceVuota = () => ({ circuito: null, andata: null, etichetta: null, frammento: null, rep_completate: null, rep1_pulita: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false });
-function tratto(ids) { const a = fr(ids[0]), b = fr(ids[ids.length - 1]); return a && b ? `bb. ${primaBattuta(a)}–${ultimaBattuta(b)}` : ''; }
+function tratto(ids) {
+  const a = fr(ids[0]), b = fr(ids[ids.length - 1]); if (!a || !b) return '';
+  const sa = sezioneDi(a), sb = sezioneDi(b);
+  return sa !== sb ? `${sa} b. ${primaBattuta(a)} – ${sb} b. ${ultimaBattuta(b)}` : `${sa ? sa + ' · ' : ''}bb. ${primaBattuta(a)}–${ultimaBattuta(b)}`;
+}
 
 /* ---- cucitura ---- */
 function cucFinalize(S, passi) {

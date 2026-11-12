@@ -16,7 +16,7 @@ function posDescr(S) {
   if (S.tipo === 'prova') return 'Prova in corso · ' + tratto(S.frammenti);
   if (S.tipo === 'cucitura') return `Giuntura ${S.pos.g + 1} di ${S.frammenti.length - 1} · passo ${S.pos.r} di 2`;
   const circ = S.circuiti[S.pos.c], sl = circ.slot[S.pos.s];
-  return `Circuito ${circ.n} · Andata ${S.pos.a}/${circ.andate_previste} · Slot ${sl.etichetta}` + (S.modo === 'libero' ? '' : ` · Rep ${S.pos.r}`);
+  return `Circuito ${circ.n} · Andata ${S.pos.a}/${circ.andate_previste} · Slot ${sl.etichetta}` + (S.modo === 'libero' ? '' : sl.ctrl ? ` · ripetizione ${S.pos.r}` : ` · Rep ${S.pos.r}`);
 }
 function lastRepeatable() {
   for (let i = D.sessioni.length - 1; i >= 0; i--) { const s = D.sessioni[i]; if (canRepeat(s)) return s; }
@@ -32,7 +32,7 @@ SCREENS.home = () => {
   const lastExp = D.impostazioni.ultimo_export;
   const needBackup = D.sessioni.length && (!lastExp || (Date.now() - new Date(lastExp).getTime()) > 7 * 864e5);
   const ch = daysChart(7), last = lastRepeatable(), due = daRipassare();
-  app.innerHTML = topbar('Circuiti di studio', fmtDateLong(today)) + `<main class="wrap tabbed">
+  app.innerHTML = topbar('Summum Studium', fmtDateLong(today)) + `<main class="wrap tabbed">
     ${!storageOk ? `<div class="hint">Questo browser non permette di salvare i dati. Usa l'app installata o un altro browser.</div>` : ''}
     ${needBackup ? `<div class="hint">${lastExp ? 'Ultimo backup più di una settimana fa.' : 'Non hai ancora fatto un backup.'} <button class="link" data-act="export">Salva un backup adesso</button></div>` : ''}
     <section class="card"><div class="label">Oggi</div><div class="big" data-live="today">${fmtMin(t.tot)}</div>
@@ -152,16 +152,19 @@ async function repeatSession(ses) {
 
 /* ---- brano nuovo (solo il nome): serve per la sessione libera, il circuito libero e la registrazione a mano ---- */
 function newBranoSheet(then) {
+  let stato = 'nuovo';
   openSheet(`<h2>Nuovo brano</h2>
     <div class="field"><label for="nbn">Nome del brano</label><input type="text" id="nbn" placeholder="es. Chopin, Ballata n. 4" enterkeyhint="done"></div>
+    <div class="optrow" style="border-top:0;padding-top:0"><span><b>Stato</b><br><span class="small muted">si cambia quando vuoi dalla scheda del brano</span></span><div class="seg"><button data-nst="nuovo" class="on">Nuovo</button><button data-nst="consolidato">Consolidato</button></div></div>
     <button class="btn primary xl" id="nbok">Aggiungi</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     const inp = $('#nbn', sh);
     const ok = () => {
       const nome = inp.value.trim(); if (!nome) { toast('Scrivi il nome del brano'); return; }
       if (C.brani.some(b => b.nome.toLowerCase() === nome.toLowerCase())) { toast('Questo brano c\'è già'); return; }
       const id = 'u-' + (slug(nome) || 'brano') + '-' + Date.now().toString(36);
-      D.brani_utente.push({ id, nome, completo: false }); save(); buildCat(); then(id);
+      D.brani_utente.push({ id, nome, completo: false }); D.stato[id] = stato; save(); buildCat(); then(id);
     };
+    $$('[data-nst]', sh).forEach(x => x.addEventListener('click', () => { stato = x.dataset.nst; $$('[data-nst]', sh).forEach(y => y.classList.toggle('on', y === x)); }));
     $('#nbok', sh).addEventListener('click', ok);
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') ok(); });
     setTimeout(() => inp.focus(), 250);

@@ -1,6 +1,6 @@
 'use strict';
-/* Circuiti di studio — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '3.0.0';
+/* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
+const APP_VERSION = '3.1.0';
 /* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
 const SANS = "system-ui,sans-serif";
 const STILI = [
@@ -16,7 +16,7 @@ const STILI = [
     scuro: ['#0f1216', '#eef1f5', '#f2b84b', '#1a1405'], chiaro: ['#f6f4ef', '#14161a', '#9a5b00', '#ffffff'] }
 ];
 const STILE_PREDEFINITO = 'salvia';
-const KEY = 'circuiti_studio_v2';          // stessa chiave della versione 1: i dati restano leggibili
+const KEY = 'circuiti_studio_v2';          // stessa chiave dalla versione 1, anche dopo il cambio di nome: i dati restano leggibili
 const KEY_PRE2 = KEY + '_prima_della_2';   // copia di sicurezza fatta al primo avvio della 2.0
 const KEY_PREIMP = KEY + '_prima_import';  // copia fatta prima di ogni importazione
 const app = document.getElementById('app');
@@ -34,6 +34,7 @@ function defaultData() {
     catalogo_importato: { brani: [], frammenti: [], famiglie: [], sigle: [] },
     impostazioni: { tema: 'scuro', testo: 'normale', stile: STILE_PREDEFINITO, ultimo_export: null, visto_versione: null },
     target: {},
+    stato: {}, frammenti_nascosti: [],         // brano nuovo o consolidato; frammenti tolti dagli elenchi
     livelli: {}, riascolti: [], metrica: {},   // metodo v3: livello di ogni frammento, voti di riascolto, metrica scelta per brano
     sessione_aperta: null, sessioni: [],
     bozza: { selezionati: [], circuiti: [], circuiti_lib: [], brani_liberi: [], cfg: { tipo: 'circuito', slot: 3, andate: 3, modo: 'scritti' } }
@@ -47,9 +48,9 @@ function normalize(d) {
   out.catalogo_importato = Object.assign(defaultData().catalogo_importato, (d && d.catalogo_importato) || {});
   out.bozza = Object.assign(defaultData().bozza, (d && d.bozza) || {});
   out.bozza.cfg = Object.assign(defaultData().bozza.cfg, out.bozza.cfg || {});
-  ['frammenti_utente', 'brani_utente', 'famiglie_utente', 'sessioni', 'brani_nascosti'].forEach(k => { if (!Array.isArray(out[k])) out[k] = []; });
+  ['frammenti_utente', 'brani_utente', 'famiglie_utente', 'sessioni', 'brani_nascosti', 'frammenti_nascosti'].forEach(k => { if (!Array.isArray(out[k])) out[k] = []; });
   ['selezionati', 'circuiti', 'circuiti_lib', 'brani_liberi'].forEach(k => { if (!Array.isArray(out.bozza[k])) out.bozza[k] = []; });
-  ['target', 'livelli', 'metrica'].forEach(k => { if (!out[k] || typeof out[k] !== 'object' || Array.isArray(out[k])) out[k] = {}; });
+  ['target', 'livelli', 'metrica', 'stato'].forEach(k => { if (!out[k] || typeof out[k] !== 'object' || Array.isArray(out[k])) out[k] = {}; });
   if (!Array.isArray(out.riascolti)) out.riascolti = [];
   out.riascolti = out.riascolti.filter(v => v && v.frammento && v.data);
   out.sessioni = out.sessioni.filter(s => s && typeof s === 'object');
@@ -85,17 +86,21 @@ function mergeBy(key, ...lists) { const m = new Map(); lists.forEach(l => (l || 
 function buildCat() {
   const imp = D.catalogo_importato || {};
   const brani = mergeBy('id', CATALOGO.brani, imp.brani, D.brani_utente);
-  const frammenti = mergeBy('id', CATALOGO.frammenti, imp.frammenti, D.frammenti_utente);
+  /* I frammenti dell'utente con lo stesso id di uno del catalogo lo sostituiscono (frammento modificato);
+     quelli nascosti restano leggibili per lo storico (C.F) ma escono dagli elenchi (C.frammenti). */
+  const tutti = mergeBy('id', CATALOGO.frammenti, imp.frammenti, D.frammenti_utente);
+  const fnasc = new Set(D.frammenti_nascosti), frammenti = tutti.filter(f => !fnasc.has(f.id));
+  const orig = new Map(mergeBy('id', CATALOGO.frammenti, imp.frammenti).map(f => [f.id, f]));
   const famiglie = mergeBy('id', CATALOGO.famiglie, imp.famiglie, D.famiglie_utente);
   const sigle = mergeBy('sigla', CATALOGO.sigle, imp.sigle);
   const userIds = new Set(D.frammenti_utente.map(f => f.id));
   const hidden = new Set(D.brani_nascosti);
   C = {
-    brani, frammenti, famiglie, sigle, userIds, hidden,
+    brani, frammenti, famiglie, sigle, userIds, hidden, fnasc, orig,
     braniVis: brani.filter(b => !hidden.has(b.id)),
     braniUtente: new Set(D.brani_utente.map(b => b.id)),
     priorita: [...CATALOGO.priorita].sort((a, b) => a.n - b.n),
-    F: new Map(frammenti.map(f => [f.id, f])),
+    F: new Map(tutti.map(f => [f.id, f])),
     B: new Map(brani.map(b => [b.id, b])),
     FAM: new Map(famiglie.map(f => [f.id, f])),
     S: new Map(sigle.map(s => [s.sigla, s]))
@@ -108,7 +113,9 @@ const branoNome = id => (C.B.get(id) || {}).nome || id || '—';
 const branoCorto = id => branoNome(id).split(',')[0];
 const fr = id => C.F.get(id);
 // Le priorità sono proprie di ogni brano: il n. 1 dell'op. 111 non è il n. 1 del Mephisto.
-const prioDi = bid => { const b = C.B.get(bid); return [...((b && Array.isArray(b.priorita) && b.priorita.length ? b.priorita : CATALOGO.priorita) || [])].sort((x, y) => x.n - y.n); };
+const PRIO_GENERICHE = [1, 2, 3, 4, 5, 6, 7].map(n => ({ n, nome: 'Priorità ' + n, perche: '' }));
+const prioDi = bid => { const b = C.B.get(bid); if (b && C.braniUtente.has(bid) && !(Array.isArray(b.priorita) && b.priorita.length)) return PRIO_GENERICHE.map(p => ({ ...p }));
+  return [...((b && Array.isArray(b.priorita) && b.priorita.length ? b.priorita : CATALOGO.priorita) || [])].sort((x, y) => x.n - y.n); };
 const frLabel = id => { const f = fr(id); return f ? f.battute : id; };
 
 /* Testo del catalogo: verbatim, righe separate, prefisso "bb. X-Y:" in evidenza, sigle cliccabili */
@@ -269,7 +276,10 @@ function nav(h, push) {
 const go = h => nav(h, true);
 const replaceTo = h => nav(h, false);
 /* Torna alla schermata precedente; se non c'è (app appena aperta su quella pagina) va a quella indicata. */
-function goBack(def) { if (navDepth > 0) { navDepth--; ovConsume(); ovHide(); history.back(); } else replaceTo(def || '#home'); }
+function goBack(def) {
+  if (navDepth > 0) { navDepth--; const had = ovConsume(); ovHide(); history.go(had ? -2 : -1); }   // con un foglio appena chiuso c'è anche il suo passo da togliere
+  else replaceTo(def || '#home');
+}
 const SCREENS = {};
 let ticker = null, lastRender = 0;
 function render() {

@@ -22,6 +22,9 @@ AGGIUNTE = [
      '«Mephisto Valzer n. 1 — lavoro motorio per passaggio» (11/11/2026), Peters (ed. Sauer)'),
     # «scriabin28» è l'identificativo che l'app usa dalla versione 1 per questo brano: lo storico già registrato resta collegato.
     ('dati_scriabin_fantasie.json', 'scriabin fantasie', 'scriabin28', 'Scriabin, Fantasia op. 28', None),
+    # Due estratti (Sinfonia e concertato) in un solo brano: le battute ripartono da 1 nel concertato,
+    # l'app li distingue dal prefisso del titolo («Sinfonia · …», «Concertato · …»).
+    ('dati_nabucco.json', 'nabucco', 'nabucco', "Verdi, Nabucco: Sinfonia e concertato «S'appressan gl'istanti»", None),
 ]
 leggi = lambda f: json.load(open(os.path.join(data, f), encoding='utf-8'))
 base = leggi(BASE)
@@ -52,6 +55,6 @@ out['regole_slot'] = dict(base['regole_slot'], **metodo['regole_slot'])
 for b in out['brani']:
     b.update(metodo['brani'].get(b['id'], {}))
 assert all(s in {x['sigla'] for x in base['sigle']} for e in metodo['errori'] for s in e['sigle']), 'sigla sconosciuta nella tabella degli errori'
-out['metodo'] = {k: metodo[k] for k in ('versione', 'fonte', 'intervalli', 'errori', 'voti', 'avvisi', 'regole')}
+out['metodo'] = {k: metodo[k] for k in ('versione', 'fonte', 'intervalli', 'errori', 'voti', 'avvisi', 'regole', 'nuovi')}
 json.dump(out, open(os.path.join(data, 'catalogo.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('catalogo:', ', '.join(f"{b['nome']} ({sum(1 for x in frammenti if x['brano'] == b['id'])})" for b in out['brani']), '· famiglie', len(famiglie))

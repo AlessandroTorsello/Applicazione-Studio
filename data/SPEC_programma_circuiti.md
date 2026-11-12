@@ -1,4 +1,4 @@
-# Programma "Circuiti di studio" — specifica (v3)
+# Programma "Summum Studium" (già "Circuiti di studio") — specifica (v3.1)
 
 Prima di scrivere codice leggi tutto questo file. Insieme ricevi `dati_op111.json`, il catalogo dei frammenti. I testi del catalogo (vincoli, verifiche, note) vanno mostrati così come sono: non riscriverli, non riassumerli, non completarli.
 
@@ -154,7 +154,7 @@ Ogni slot effettivamente suonato produce una voce in `log`. I minuti si calcolan
 - Si usa con una mano, sul leggio: caratteri grandi, pulsante "Fatto" grande e in basso, contrasto alto, tema scuro.
 - L'istruzione della Rep corrente è l'elemento più visibile dello schermo.
 - Nessun dato si perde: si salva a ogni azione.
-- Nessun testo del catalogo viene modificato.
+- L'app non modifica mai da sola un testo del catalogo. Dalla 3.1 l'utente può farlo con l'editor (§ 10): l'originale resta e si può ripristinare.
 
 ## 8. Fuori ambito per ora
 
@@ -207,3 +207,39 @@ Due tipi di sessione in più, scelti in «Nuova sessione» insieme a Libera e Ci
 ### 9.6 Dati e aggiornamento
 
 Tre campi nuovi nei dati utente: `livelli`, `riascolti`, `metrica`. I dati della 2.x restano così come sono; lo storico precedente non ha `coppia`, quindi ogni frammento riparte dalla coppia 1 e fuori dalla rotazione finché non fa il primo test. Al primo avvio dopo l'aggiornamento compare «Novità della versione 3».
+
+## 10. Brani nuovi e consolidati, editor (app 3.1.0)
+
+Richiesta di Alessandro del 12/11/2026. Il catalogo ha un quinto brano, `nabucco` (84 frammenti), da `data/dati_nabucco.json`.
+
+### 10.1 Un brano con più estratti
+
+Il Nabucco riunisce due estratti, Sinfonia (bb. 1-329) e concertato «S'appressan gl'istanti» (bb. 1-63), e le battute ripartono da 1. Resta **un solo brano**. L'app riconosce gli estratti dai titoli: valgono come «sezioni» solo se tutti i titoli del brano hanno il prefisso «Nome · », i nomi sono almeno due e ognuno occupa un tratto continuo nell'ordine del catalogo. Con le sezioni: l'ordine dei frammenti è per sezione e poi per battuta; in Cucitura e Prova il brano si sceglie un estratto alla volta (non esiste una giuntura tra la fine della Sinfonia e l'inizio del concertato).
+
+### 10.2 Stato del brano: nuovo o consolidato
+
+- `stato[id brano]` = `nuovo` | `consolidato`. Predefinito: quello del catalogo (`nabucco` è nuovo, gli altri quattro consolidati); un brano aggiunto dall'utente nasce nuovo. Si cambia dalla scheda del brano, quando si vuole e nei due sensi.
+- **Brano consolidato**: tutto come al § 9 (slot da 4 Rep, test del giorno, livelli).
+- **Brano nuovo**: lo slot diventa uno **slot di controllo**. 5-7 ripetizioni al 50-65%, alternando i due vincoli dell'andata 1 (ripetizioni dispari: vincolo di Rep 2; pari: vincolo di Rep 3). Niente Rep 1 a freddo, niente Rep 4, niente tempo da annotare, nessun livello. Dalla quinta ripetizione il pulsante è «Slot finito», con «Un'altra ripetizione» fino alla settima. Alla fine: «Controllo senza errori?» (facoltativo). Voce del registro: `controllo`, `rep_completate` (ripetizioni), `senza_errori`, `coppia`.
+- La forma dello slot è decisa all'inizio della sessione per ogni frammento (`slot.ctrl`): un circuito può mescolare brani nuovi e consolidati, anche se per i nuovi è meglio un circuito di soli frammenti dello stesso brano (l'app non lo impone, come per le altre regole di composizione).
+- La scheda del brano nuovo dice quanti frammenti sono stati senza errori nelle ultime due sessioni di controllo. È solo un'indicazione: il passaggio a consolidato lo decide l'utente, per tutto il brano.
+- Numeri e testi sono in `data/metodo_v3.json`, voce `nuovi`. Fonte: la pagina «Come usare il documento» dell'analisi del Nabucco, che riporta il metodo per i passaggi nuovi; la soglia delle due sessioni è una proposta di quell'analisi, non una regola.
+
+### 10.3 Editor di brani e frammenti
+
+- **Aggiungere un brano**: nome e stato; si apre subito la sua scheda (`#brano/<id>`), raggiungibile anche da Impostazioni toccando il brano e dalla selezione dei passaggi.
+- **Dividere il brano in frammenti** (`#dividi/<id>`): prima e ultima battuta, poi «ogni N battute» oppure «punti di taglio» (le battute in cui inizia un nuovo frammento), con anteprima. Crea frammenti vuoti: solo battute e un eventuale titolo comune. I frammenti che il brano ha già restano.
+- **Cambiare un frammento** (`#form/<brano>/<id>`): battute, titolo, priorità, famiglia, nodo motorio, vincoli delle andate, verifica, note. Vale per qualsiasi frammento, anche del catalogo. Il titolo non è più obbligatorio.
+- **Dividi in due**: si indica la battuta in cui inizia la seconda parte; la prima tiene l'id, quindi storico, livello e tempo target; i testi sono copiati in entrambe.
+- **Unisci al seguente**: un solo frammento con le battute di entrambi; i testi diversi vanno uno sotto l'altro con il prefisso «bb. X-Y:».
+- **Togliere**: un frammento aggiunto si elimina; uno del catalogo si nasconde (`frammenti_nascosti[]`) e si ripristina dalla scheda del brano.
+- I frammenti del catalogo non vengono mai riscritti: la modifica è una copia in `frammenti_utente[]` con lo stesso id, che prende il posto dell'originale; «Ripristina l'originale» la toglie. Lo storico resta sempre collegato all'id.
+- I brani aggiunti a mano non hanno priorità con un nome: nella selezione i loro frammenti sono un elenco semplice in ordine di battuta.
+
+### 10.4 Nome
+
+Dalla 3.1.0 l'app si chiama **Summum Studium**: titolo, manifest della web app, nome sotto l'icona Android, nome del file di backup. Non cambiano l'identificativo del pacchetto Android (`app.circuiti.studio`), la chiave di firma e la chiave dei dati (`circuiti_studio_v2`): così l'aggiornamento si installa sopra la versione precedente senza perdere nulla.
+
+### 10.5 Dati
+
+Due campi nuovi: `stato` e `frammenti_nascosti`. I dati delle versioni precedenti restano così come sono.
