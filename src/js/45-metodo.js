@@ -4,6 +4,9 @@
    condizioni reali, cucitura, prova. Le regole di composizione dei circuiti non cambiano. */
 const M3 = CATALOGO.metodo || {};
 const AVV = M3.avvisi || {};
+/* 3.5: testi fissi dello slot superati (il testo del catalogo resta, in Sigle e regole, segnato come superato). */
+const SUP = M3.superate || {};
+const slotTesto = k => SUP[k] || CATALOGO.regole_slot[k] || '';
 const giorniTra = (a, b) => Math.round((dparse(b).getTime() - dparse(a).getTime()) / 864e5);
 
 /* ---- metrica del brano e frammenti di resistenza ---- */
@@ -84,10 +87,12 @@ function votoTesto(fid, M) {
   return `Voto ${fmtV(i.a)}${g > 0 ? ` (${fmtV(i.u.v)} dato ${g === 1 ? 'ieri' : g + ' giorni fa'})` : ' oggi'} · ${n ? 'da ripassare ' + (n === 1 ? 'domani' : 'tra ' + n + ' giorni') : 'da ripassare'}`;
 }
 /* Il frammento ha già fatto il test oggi (in questa sessione o in un'altra)? */
+/* Conta solo un test con il voto: fino alla 3.4 un test lasciato senza voto «consumava» il test del giorno e nei
+   ripassi successivi della giornata il voto non veniva più chiesto (bug segnalato il 12/11/2026). */
 function testatoOggi(S, fid) {
   const t = todayStr();
-  if (S && S.cur && S.cur.test && S.circuiti && S.circuiti[S.pos.c] && (S.circuiti[S.pos.c].slot[S.pos.s] || {}).frammento === fid) return true;
-  return [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])].some(s => (s.log || []).some(l => l.frammento === fid && l.test && ((l.test.g || s.data) === t)));
+  if (S && S.cur && S.cur.test && S.cur.voto != null && S.circuiti && S.circuiti[S.pos.c] && (S.circuiti[S.pos.c].slot[S.pos.s] || {}).frammento === fid) return true;
+  return [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])].some(s => (s.log || []).some(l => l.frammento === fid && l.test && typeof l.voto === 'number' && ((l.test.g || s.data) === t)));
 }
 /* Voto di oggi per un frammento: quello appena dato nello slot in corso, altrimenti quello registrato oggi. */
 function votoOggi(S, fid) {
@@ -139,25 +144,40 @@ function votoSheet(fid) {
   });
 }
 
-/* ---- vincolo: una sola coppia (Rep 2 e Rep 3) per frammento in tutta la sessione ---- */
+/* ---- varianti di Rep 2 e Rep 3 (dalla 3.5) ----
+   Le sceglie chi studia, una per Rep, dall'indice delle sigle (con la tabella errore-sigle come suggerimento),
+   oppure nessuna, oppure una tecnica scritta a mano. I testi Rep 2/Rep 3 delle andate del catalogo non sono più
+   istruzioni: restano nei dati e si leggono solo come «suggerimenti del catalogo». In S.vincoli[fid] = { r2, r3 }
+   c'è la sigla, LIBERO o il testo scritto; la scelta resta per le andate successive finché non la cambi. */
 const coppie = f => Object.keys((f && f.andate) || {}).sort();
 const sigleIn = t => [...new Set(String(t || '').match(C.sigRe) || [])];
-/* Coppia predefinita: se oggi il frammento è già stato fatto resta quella; altrimenti la successiva
-   rispetto all'ultimo giorno in cui è stato studiato (1, poi 2, poi 3 e 4 se esistono, poi di nuovo 1). */
-function coppiaDelGiorno(fid) {
-  const keys = coppie(fr(fid)); if (!keys.length) return null;
-  let best = null;
-  D.sessioni.forEach(s => (s.log || []).forEach(l => { if (l.frammento === fid && l.coppia && keys.includes(l.coppia) && (!best || s.data >= best.data)) best = { data: s.data, k: l.coppia }; }));
-  if (!best) return keys[0];
-  return best.data === todayStr() ? best.k : keys[(keys.indexOf(best.k) + 1) % keys.length];
-}
+const LIBERO = 'libero';
+const tecnicaTipo = x => !x ? null : x === LIBERO ? 'libero' : C.S.has(x) ? 'sigla' : 'mia';
+const usaMetronomo = x => x === 'MET' || x === 'CLIC';
 function vinc(S, fid) {
   if (!S.vincoli) S.vincoli = {};
-  if (!S.vincoli[fid]) S.vincoli[fid] = { k: coppiaDelGiorno(fid) };
+  if (!S.vincoli[fid]) S.vincoli[fid] = {};
   return S.vincoli[fid];
 }
-/* Nome corto di un vincolo del catalogo: le sigle che contiene; se non ne ha, l'inizio del testo
-   (seguendo il rimando «come in andata 1» quando il testo è solo quello). */
+const varianteDi = (S, fid, rep) => vinc(S, fid)['r' + rep] || LIBERO;
+const varianteNome = x => !x || x === LIBERO ? 'nessuna' : x;
+/* Tecniche scritte a mano già usate, per proporle di nuovo. */
+function tecnicheMie() {
+  const s = new Set(); [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])].forEach(x => (x.log || []).forEach(l => [l.vincolo_rep2, l.vincolo_rep3].forEach(t => { if (tecnicaTipo(t) === 'mia') s.add(t); })));
+  Object.values((D.sessione_aperta && D.sessione_aperta.vincoli) || {}).forEach(v => [v.r2, v.r3].forEach(t => { if (tecnicaTipo(t) === 'mia') s.add(t); }));
+  return [...s].sort((a, b) => a.localeCompare(b, 'it'));
+}
+/* Istruzione di Rep 2 o Rep 3 per la variante scelta. */
+function varianteBody(f, x, rep) {
+  const sugg = f && f.andate && coppie(f).some(k => (f.andate[k] || {})['rep' + rep])
+    ? `<details class="sub2"><summary>Suggerimenti del catalogo per questo frammento</summary><div>${coppie(f).map(k => (f.andate[k] || {})['rep' + rep] ? `<span class="vlabel">Andata ${esc(k)}</span>` + fmtText(f.andate[k]['rep' + rep]) : '').join('')}<p class="small muted">Solo una guida: la variante la scegli tu.</p></div></details>` : '';
+  if (!x || x === LIBERO) return `<span class="vlabel">Nessuna variante</span><p>Suoni il passaggio senza una tecnica particolare. Puoi sceglierne una con «Scegli variante».</p>` + sugg;
+  if (tecnicaTipo(x) === 'mia') return `<span class="vlabel">Tecnica tua</span><p><b>${esc(x)}</b></p>` + sugg;
+  const s = C.S.get(x) || {};
+  return `<span class="vlabel">Variante</span><span class="txt"><span class="line"><button type="button" class="sig" data-sigla="${esc(x)}">${esc(x)}</button> · ${esc(s.nome || '')}</span></span>${fmtText(s.come_si_fa)}`
+    + (usaMetronomo(x) ? `<p class="small muted">Alla fine puoi segnare i bpm del metronomo; non è obbligatorio.</p>` : '') + sugg;
+}
+/* Nome corto di un vincolo del catalogo (serve solo per leggere le voci registrate fino alla 3.4). */
 function vincNome(f, k, rep, giro) {
   const t = String((((f && f.andate) || {})[k] || {})[rep] || '').trim(); if (!t) return '—';
   const s = sigleIn(t); if (s.length) return s.join(' + ');
@@ -166,110 +186,93 @@ function vincNome(f, k, rep, giro) {
   const riga = t.split('\n')[0].replace(/^bb?\.\s*\d[^:]{0,30}:\s*/, '');
   return riga.length <= 34 ? riga.replace(/[.:;,]$/, '') : riga.slice(0, 32).replace(/\s+\S*$/, '') + '…';
 }
-/* Dalla 3.4 un vincolo scelto a mano può anche essere «libero» (nessuna tecnica) o una tecnica scritta da te,
-   che non sta tra le sigle: in v.r2 / v.r3 c'è allora LIBERO oppure il testo scritto. */
-const LIBERO = 'libero';
-const tecnicaTipo = x => !x ? null : x === LIBERO ? 'libero' : C.S.has(x) ? 'sigla' : 'mia';
-/* Tecniche scritte a mano già usate, per proporle di nuovo. */
-function tecnicheMie() {
-  const s = new Set(); [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])].forEach(x => (x.log || []).forEach(l => [l.vincolo_rep2, l.vincolo_rep3].forEach(t => { if (tecnicaTipo(t) === 'mia') s.add(t); })));
-  Object.values((D.sessione_aperta && D.sessione_aperta.vincoli) || {}).forEach(v => [v.r2, v.r3].forEach(t => { if (tecnicaTipo(t) === 'mia') s.add(t); }));
-  return [...s].sort((a, b) => a.localeCompare(b, 'it'));
-}
-function vincBreve(f, v) {
-  return { r2: v.r2 || (v.k ? vincNome(f, v.k, 'rep2') : '—'), r3: v.r3 || (v.k ? vincNome(f, v.k, 'rep3') : '—'), mio: !!(v.r2 || v.r3) };
-}
-function vincBody(f, v, r) {
-  const A = v.k ? f.andate[v.k] : null, cat = A ? (r === 2 ? A.rep2 : A.rep3) : null, mio = r === 2 ? v.r2 : v.r3;
-  const altro = cat ? `<details class="sub2"><summary>Vincolo del catalogo, non usato oggi</summary><div>${fmtText(cat)}</div></details>` : '';
-  if (mio === LIBERO) return `<span class="vlabel">Libero, senza vincolo</span><p>Nessuna tecnica: suoni il passaggio come vuoi. Pulsazione e dinamica restano quelle delle regole di Rep 2-3.</p>` + altro;
-  if (tecnicaTipo(mio) === 'mia') return `<span class="vlabel">Tecnica scelta da te</span><p><b>${esc(mio)}</b></p>` + altro;
-  if (mio) {
-    const s = C.S.get(mio) || {};
-    return `<span class="vlabel">Vincolo scelto dopo la diagnosi</span><span class="txt"><span class="line"><button type="button" class="sig" data-sigla="${esc(mio)}">${esc(mio)}</button> · ${esc(s.nome || '')}</span></span>${fmtText(s.come_si_fa)}`
-      + (cat ? `<details class="sub2"><summary>Vincolo del catalogo, non usato oggi</summary><div>${fmtText(cat)}</div></details>` : '');
-  }
-  if (!cat) return '<span class="muted">Nessun testo per questo frammento.</span>';
-  // Molti testi della coppia 2 rimandano alla 1 («come in andata 1»): con una sola coppia per sessione il testo richiamato va mostrato qui.
-  const rich = [...new Set((String(cat).match(/come in andata\s*\d/gi) || []).map(x => x.slice(-1)))].filter(n => n !== v.k && f.andate[n]);
-  return fmtText(cat) + rich.map(n => `<span class="vlabel">Andata ${esc(n)}, richiamata dal testo</span>` + fmtText(r === 2 ? f.andate[n].rep2 : f.andate[n].rep3)).join('');
-}
-/* Che cosa scrivere nel registro per il vincolo usato. */
-function vincLog(e, f, v) {
-  if (!f || !v) return;
-  e.coppia = v.k || null;
-  if (v.r2) e.vincolo_rep2 = v.r2; if (v.r3) e.vincolo_rep3 = v.r3; if (v.err) e.errore = v.err;
+/* Che cosa scrivere nel registro: la variante di ogni Rep fatta. */
+function vincLog(e, S, fid, fatte) {
+  const v = vinc(S, fid);
+  if (fatte >= 2) e.vincolo_rep2 = v.r2 || LIBERO;
+  if (fatte >= 3) e.vincolo_rep3 = v.r3 || LIBERO;
 }
 function vincLogTesto(l) {
-  const f = fr(l.frammento); if (!l.coppia && !l.vincolo_rep2 && !l.vincolo_rep3) return '';
-  const b = vincBreve(f, { k: l.coppia, r2: l.vincolo_rep2, r3: l.vincolo_rep3 });
-  const e = l.errore && (M3.errori || []).find(x => x.id === l.errore);
-  if (l.vincolo_rep2 === LIBERO && l.vincolo_rep3 === LIBERO) return 'libero, senza vincolo';
-  return (b.mio ? (l.errore ? 'scelto dopo la diagnosi' : 'scelto da te') : 'coppia ' + l.coppia) + `: ${b.r2} / ${b.r3}` + (e ? ` (${e.errore.toLowerCase()})` : '');
+  if (!l.coppia && !l.vincolo_rep2 && !l.vincolo_rep3) return '';
+  if (l.coppia || l.errore) {   // voci fino alla 3.4: coppia del catalogo o vincolo scelto dopo la diagnosi
+    const f = fr(l.frammento), n = (rep, x) => x || (l.coppia ? vincNome(f, l.coppia, rep) : '—');
+    const e = l.errore && (M3.errori || []).find(x => x.id === l.errore);
+    return (l.vincolo_rep2 || l.vincolo_rep3 ? 'scelto dopo la diagnosi' : 'coppia ' + l.coppia) + `: ${n('rep2', l.vincolo_rep2)} / ${n('rep3', l.vincolo_rep3)}` + (e ? ` (${e.errore.toLowerCase()})` : '');
+  }
+  const a = l.vincolo_rep2, b = l.vincolo_rep3;
+  if ((!a || a === LIBERO) && (!b || b === LIBERO)) return 'nessuna variante';
+  return `Rep 2: ${varianteNome(a)}` + (b ? ` · Rep 3: ${varianteNome(b)}` : '');
 }
-function vincoloSheet(S, fid, after) {
+/* Scelta della variante di una Rep: nessuna, una sigla (anche partendo dall'errore trovato) o una tecnica tua. */
+function varianteSheet(S, fid, rep, after) {
   const f = fr(fid); if (!f) return;
-  const v = vinc(S, fid), keys = coppie(f), errs = M3.errori || [];
-  let err = v.err || null, r2 = v.r2 || null, r3 = v.r3 || null;
-  const done = () => { save(); if (after) after(); else { closeSheet(); render(); } };
-  const nome = s => (C.S.get(s) || {}).nome || '';
-  const mia = x => tecnicaTipo(x) === 'mia' ? x : '';
-  openSheet(`<h2>Cambia vincolo</h2>
-    <p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)} · vale per tutte le andate di questa sessione.</p>
-    <div class="label">Che errore hai trovato in Rep 1?</div>
-    <div class="errs">${errs.map(e => `<button data-err="${esc(e.id)}"><span>${esc(e.errore)}</span><small>${e.sigle.map(esc).join(' · ')}</small></button>`).join('')}</div>
-    <div id="vpick"></div>
-    ${keys.length > 1 || v.r2 || v.r3 ? `<div class="label" style="margin-top:16px">Oppure una coppia del catalogo</div>` + keys.map(k => { const b = vincBreve(f, { k }); return `<button class="btn two" data-k="${esc(k)}"><b>Coppia dell'andata ${esc(k)}${k === v.k && !v.r2 && !v.r3 ? ' (in uso)' : ''}</b><span>Rep 2: ${esc(b.r2)} · Rep 3: ${esc(b.r3)}</span></button>`; }).join('') : ''}
-    <div class="label" style="margin-top:16px">Oppure fuori dal catalogo</div>
-    <button class="btn two" id="vlib"><b>Libero${v.r2 === LIBERO && v.r3 === LIBERO ? ' (in uso)' : ''}</b><span>Rep 2 e Rep 3 senza nessuna tecnica: suoni come vuoi</span></button>
-    <div class="field"><label for="vt2">Una tecnica tua per Rep 2</label><input type="text" id="vt2" list="vtl" value="${esc(mia(v.r2))}" placeholder="es. ritmi puntati" enterkeyhint="next"></div>
-    <div class="field"><label for="vt3">E per Rep 3</label><input type="text" id="vt3" list="vtl" value="${esc(mia(v.r3))}" placeholder="vuoto = libero" enterkeyhint="done"></div>
+  const v = vinc(S, fid), cur = v['r' + rep] || LIBERO, errs = M3.errori || [];
+  const done = x => { v['r' + rep] = x; save(); if (after) after(); else { closeSheet(); render(); } };
+  const sigBtn = s => `<button class="sigpick ${s === cur ? 'on' : ''}" data-pick="${esc(s)}"><b>${esc(s)}</b><span>${esc((C.S.get(s) || {}).nome || '')}</span></button>`;
+  openSheet(`<h2>Variante di Rep ${rep}</h2>
+    <p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)} · resta per le andate successive finché non la cambi.</p>
+    <button class="btn two ${cur === LIBERO ? 'on' : ''}" data-pick="${LIBERO}"><b>Nessuna variante${cur === LIBERO ? ' (in uso)' : ''}</b><span>Rep ${rep} senza una tecnica particolare</span></button>
+    <details class="sub2"><summary>Suggerimenti dall'errore trovato</summary><div>${errs.map(e => `<div class="errsug"><span>${esc(e.errore)}</span><div class="sigrow">${e.sigle.map(sigBtn).join('')}</div></div>`).join('')}</div></details>
+    <div class="label" style="margin-top:12px">Tutte le sigle</div>
+    <div class="sigrow">${C.sigle.map(s => sigBtn(s.sigla)).join('')}</div>
+    <div class="field" style="margin-top:12px"><label for="vtx">Oppure una tecnica tua</label><input type="text" id="vtx" list="vtl" value="${esc(tecnicaTipo(cur) === 'mia' ? cur : '')}" placeholder="es. ritmi puntati" enterkeyhint="done"></div>
     <datalist id="vtl">${tecnicheMie().map(t => `<option value="${esc(t)}">`).join('')}</datalist>
-    <button class="btn" id="vtok">Usa le mie tecniche</button>
+    <button class="btn" id="vtok">Usa la mia tecnica</button>
     <button class="btn" id="vno">Annulla</button>`, sh => {
-    const pick = $('#vpick', sh);
-    const draw = () => {
-      $$('[data-err]', sh).forEach(b => b.classList.toggle('on', b.dataset.err === err));
-      const e = errs.find(x => x.id === err); if (!e) { pick.innerHTML = ''; return; }
-      const seg = (lab, cur, which) => `<div class="optrow"><span><b>${lab}</b></span><div class="seg">${e.sigle.map(s => `<button data-w="${which}" data-s="${esc(s)}" class="${cur === s ? 'on' : ''}" aria-pressed="${cur === s}">${esc(s)}</button>`).join('')}</div></div>`;
-      pick.innerHTML = `<div class="label" style="margin-top:14px">Sigle adatte</div>${seg('Rep 2', r2, 'r2')}${seg('Rep 3', r3, 'r3')}
-        <p class="small muted" style="margin:6px 0 10px">${e.sigle.map(s => `<b>${esc(s)}</b> ${esc(nome(s))}`).join(' · ')}</p>
-        <button class="btn primary xl" id="vok">Usa questi vincoli</button>`;
-      $$('[data-w]', pick).forEach(b => b.addEventListener('click', () => { if (b.dataset.w === 'r2') r2 = b.dataset.s; else r3 = b.dataset.s; draw(); }));
-      $('#vok', pick).addEventListener('click', () => { v.err = err; v.r2 = r2; v.r3 = r3; done(); });
-    };
-    $$('[data-err]', sh).forEach(b => b.addEventListener('click', () => {
-      err = b.dataset.err; const e = errs.find(x => x.id === err);
-      if (!e.sigle.includes(r2)) r2 = e.sigle[0]; if (!e.sigle.includes(r3)) r3 = e.sigle[1] || e.sigle[0];
-      draw(); pick.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-    }));
-    $$('[data-k]', sh).forEach(b => b.addEventListener('click', () => { v.k = b.dataset.k; delete v.r2; delete v.r3; delete v.err; done(); }));
-    $('#vlib', sh).addEventListener('click', () => { v.r2 = LIBERO; v.r3 = LIBERO; delete v.err; done(); });
-    $('#vtok', sh).addEventListener('click', () => {
-      const t2 = $('#vt2', sh).value.trim(), t3 = $('#vt3', sh).value.trim();
-      if (!t2 && !t3) { toast('Scrivi almeno una tecnica, oppure scegli «Libero»'); $('#vt2', sh).focus(); return; }
-      const norm = t => !t ? LIBERO : (C.S.has(t.toUpperCase()) ? t.toUpperCase() : t);
-      v.r2 = norm(t2); v.r3 = norm(t3); delete v.err; done();
-    });
+    $$('[data-pick]', sh).forEach(b => b.addEventListener('click', () => done(b.dataset.pick)));
+    const usa = () => { const t = $('#vtx', sh).value.trim(); if (!t) { toast('Scrivi la tecnica, oppure scegli una sigla'); $('#vtx', sh).focus(); return; } done(C.S.has(t.toUpperCase()) ? t.toUpperCase() : t); };
+    $('#vtok', sh).addEventListener('click', usa);
+    $('#vtx', sh).addEventListener('keydown', e => { if (e.key === 'Enter') usa(); });
     $('#vno', sh).addEventListener('click', () => { if (after) after(); else closeSheet(); });
-    draw();
   });
 }
-/* Per ogni vincolo usato: in quanti giorni, e com'era la prima Rep 1 del giorno di studio successivo. */
-/* Per ogni vincolo: in quanti giorni è stato usato e, quando c'è, di quanto è cambiato il voto del test
-   dal giorno in cui l'hai usato al giorno di studio successivo. */
+/* Per ogni variante usata: in quanti giorni, e di quanto è cambiato in media il voto del test
+   dal giorno in cui l'hai usata al giorno di studio successivo. */
 function vincoliStats(h) {
   const giorni = new Map();
-  h.forEach(l => { const g = giorni.get(l.data) || { lab: '', voto: null }; if (!g.lab) g.lab = vincLogTesto(l); if (l.test && typeof l.voto === 'number') g.voto = l.voto; giorni.set(l.data, g); });
+  h.forEach(l => {
+    const g = giorni.get(l.data) || { labs: new Set(), voto: null };
+    if (l.coppia || l.errore) { const t = vincLogTesto(l); if (t) g.labs.add(t); }
+    else [l.vincolo_rep2, l.vincolo_rep3].forEach(x => { if (x && x !== LIBERO) g.labs.add(x); });
+    if (l.test && typeof l.voto === 'number') g.voto = l.voto;
+    giorni.set(l.data, g);
+  });
   const ds = [...giorni.keys()].sort(), m = new Map();
   ds.forEach((d, i) => {
-    const g = giorni.get(d); if (!g.lab) return;
-    const x = m.get(g.lab) || { n: 0, tot: 0, delta: 0 }; x.n++;
-    const next = i + 1 < ds.length ? giorni.get(ds[i + 1]) : null;
-    if (g.voto != null && next && next.voto != null) { x.tot++; x.delta += next.voto - g.voto; }
-    m.set(g.lab, x);
+    const g = giorni.get(d), next = i + 1 < ds.length ? giorni.get(ds[i + 1]) : null;
+    g.labs.forEach(lab => {
+      const x = m.get(lab) || { n: 0, tot: 0, delta: 0 }; x.n++;
+      if (g.voto != null && next && next.voto != null) { x.tot++; x.delta += next.voto - g.voto; }
+      m.set(lab, x);
+    });
   });
   return [...m.entries()];
+}
+/* Ultimi bpm segnati con MET o CLIC (e, per le voci fino alla 3.4, il tempo di Rep 4). */
+const bpmDi = l => l.bpm_rep3 != null ? l.bpm_rep3 : l.bpm_rep2 != null ? l.bpm_rep2 : null;
+function lastBpm(fid) {
+  const all = [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])];
+  for (let j = all.length - 1; j >= 0; j--) { const L = all[j].log || []; for (let i = L.length - 1; i >= 0; i--) if (L[i].frammento === fid && bpmDi(L[i]) != null) return bpmDi(L[i]); }
+  return null;
+}
+/* Bpm facoltativi dopo una Rep con MET o CLIC: si può sempre andare avanti senza. */
+function bpmSheet(S, rep, next) {
+  const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento, prev = lastBpm(fid), pre = S.cur.bpm && S.cur.bpm[rep] != null ? S.cur.bpm[rep] : prev;
+  const x = varianteDi(S, fid, rep);
+  openSheet(`<h2>Metronomo (${esc(x)})</h2>
+    <div class="field"><label for="bpm">A quanti bpm? Facoltativo, serve solo a seguire la velocità del passaggio.</label>
+      <div class="row" style="align-items:center"><button class="ib stepb" data-step="-2" aria-label="Meno 2">−</button>
+      <input type="number" id="bpm" inputmode="numeric" min="1" max="400" value="${pre != null ? esc(pre) : ''}" class="bignum">
+      <button class="ib stepb" data-step="2" aria-label="Più 2">+</button></div>
+      <p class="small muted" style="margin:6px 0 0">${prev != null ? `Ultimo valore: ${esc(prev)} bpm (già inserito qui sopra).` : 'Nessun valore precedente per questo frammento.'}</p></div>
+    <button class="btn primary xl" id="bpok">Salva e vai avanti</button>
+    <button class="btn" id="bpno">Avanti senza bpm</button>`, sh => {
+    const inp = $('#bpm', sh);
+    $$('[data-step]', sh).forEach(b => b.addEventListener('click', () => { inp.value = Math.max(1, (Number(inp.value) || 60) + Number(b.dataset.step)); }));
+    const fine = val => { S.cur.bpm = Object.assign({}, S.cur.bpm || {}); if (val == null) delete S.cur.bpm[rep]; else S.cur.bpm[rep] = val; save(); next(); };
+    $('#bpok', sh).addEventListener('click', () => { const v = Number(inp.value); fine(inp.value !== '' && v > 0 ? Math.round(v) : null); });
+    $('#bpno', sh).addEventListener('click', () => fine(null));
+  });
 }
 
 /* ================= CUCITURA E PROVA ================= */

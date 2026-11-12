@@ -69,8 +69,9 @@ function cfgRecap(cfg) {
 }
 const stepsFor = cfg => cfg.modo === 'scritti' ? ['Tipo', 'Passaggi', 'Circuiti'] : ['Tipo', 'Circuiti'];
 SCREENS.new = () => {
-  const cfg = D.bozza.cfg, lib = cfg.tipo === 'libera', sez = cfg.tipo === 'cucitura' || cfg.tipo === 'prova';
-  if (!lib && !sez && cfg.tipo !== 'circuito') cfg.tipo = 'circuito';
+  const cfg = D.bozza.cfg;
+  if (!['libera', 'circuito', 'prova'].includes(cfg.tipo)) cfg.tipo = 'circuito';   // 3.5: la Cucitura non c'è più
+  const lib = cfg.tipo === 'libera', sez = cfg.tipo === 'prova';
   const tipoBtn = (v, nome, descr) => `<button data-act="cfg" data-k="tipo" data-v="${v}" class="${cfg.tipo === v ? 'on' : ''}" aria-pressed="${cfg.tipo === v}"><b>${nome}</b><span>${descr}</span></button>`;
   const seg = (k, vals) => `<div class="seg">${vals.map(v => `<button data-act="cfg" data-k="${k}" data-v="${v}" class="${cfg[k] === v ? 'on' : ''}" aria-pressed="${cfg[k] === v}">${v}</button>`).join('')}</div>`;
   D.bozza.brani_liberi = D.bozza.brani_liberi.filter(id => C.B.has(id) && !C.hidden.has(id));
@@ -81,7 +82,6 @@ SCREENS.new = () => {
     <div class="choice">
       ${tipoBtn('libera', 'Libera', 'Solo cronometro: scegli i brani e cambi brano con un tasto.')}
       ${tipoBtn('circuito', 'Circuito', 'Slot a rotazione, ripetuti per più andate.')}
-      ${tipoBtn('cucitura', 'Cucitura', 'Le giunture tra frammenti consecutivi, poi i due di fila.')}
       ${tipoBtn('prova', 'Prova', 'Una sezione o tutto il brano, una volta, senza fermarti.')}
     </div>
     ${sez ? sezioneHtml(cfg) : lib ? `<section class="card"><div class="label" style="margin-bottom:4px">Brani da studiare</div><div class="blist">

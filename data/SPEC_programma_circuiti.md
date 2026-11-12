@@ -294,3 +294,42 @@ Chiesto da Alessandro il 12/11/2026: poter non usare nessuna tecnica, o usarne u
 - Nel foglio «Cambia vincolo», sotto le coppie del catalogo, la sezione «Oppure fuori dal catalogo»: **Libero** (Rep 2 e Rep 3 senza tecnica) oppure due campi di testo, «Una tecnica tua per Rep 2» e «E per Rep 3»; un campo vuoto vale «libero». Se il testo è una sigla del catalogo (anche in minuscolo) diventa quella sigla.
 - Come gli altri vincoli scelti a mano vale per il frammento in tutte le andate della sessione e si registra in `vincolo_rep2` / `vincolo_rep3` (il valore `"libero"` oppure il testo scritto), senza `errore`. Nello storico si legge «libero, senza vincolo» o «scelto da te: … / …»; in «Vincoli usati» compare come gli altri.
 - Le tecniche scritte già usate si ripropongono nei campi (suggerimenti del campo di testo).
+
+## 14. Varianti scelte da te, Rep di contesto, MET (app 3.5.0)
+
+Deciso da Alessandro il 12/11/2026 (elenco completo in `DA_FARE_metodo_e_app.md`, punti 1-15). Il principio dello slot non cambia: cambia chi sceglie le varianti. Le regole di composizione dei circuiti restano intatte.
+
+### 14.1 Varianti
+
+- Per Rep 2 e Rep 3 di ogni frammento la variante si sceglie una per una dal foglio «Scegli variante»: **nessuna** (predefinita), una **sigla** dell'indice (anche partendo dalla tabella degli errori, che resta come suggerimento) oppure una **tecnica scritta a mano**. In `S.vincoli[fid] = { r2, r3 }`: la sigla, `"libero"` o il testo.
+- La scelta resta per le andate successive della sessione finché non la cambi. Non passa da una sessione all'altra.
+- I testi Rep 2/Rep 3 delle andate del catalogo non sono più istruzioni: restano nei dati e si leggono come «Suggerimenti del catalogo» sotto la Rep. Diventano inutili l'alternanza della coppia tra i giorni, la regola «andata 3 = andata 1» e il cambio di vincolo dopo la diagnosi.
+- Brani nuovi (slot di controllo): ripetizioni dispari con la variante A, pari con la variante B, scelte allo stesso modo.
+- Registro: `vincolo_rep2` / `vincolo_rep3` come prima. Le voci fino alla 3.4 con `coppia` o `errore` si leggono ancora.
+
+### 14.2 Slot
+
+- **Rep 1** è il test a freddo solo alla prima andata del frammento nella sessione, poi il voto da 0 a 10. Niente riga di diagnosi (le voci vecchie la conservano).
+- Nelle andate successive al posto di Rep 1 c'è la **Rep di contesto**: il frammento con 2 battute prima e 2 dopo, all'85-90%, senza voto.
+- **Rep 4** è un'esecuzione: niente metronomo e nessuna domanda alla fine. Il tempo di Rep 4 (`tempo_rep4`) e il tempo target non si chiedono più; i dati vecchi restano e si leggono nello storico.
+- Nessuna domanda sull'esito delle Rep: niente «senza errori» negli slot di controllo (il conteggio «reggono» della scheda del brano è tolto).
+- **Test senza voto**: se il foglio di Rep 1 si chiude con il voto vuoto, il test non conta. Prima un test senza voto «consumava» il test del giorno, e i ripassi successivi non chiedevano più il voto: è la causa più probabile del problema segnalato («quando ho ripassato non ha aggiornato i voti»).
+
+### 14.3 Metronomo e bpm
+
+- Nuova sigla **MET** (Metronomo), in `sigle_aggiunte` di `metodo_v3.json`, unita in fondo all'indice da `unisci_catalogo.py`. È anche il primo suggerimento per «la pulsazione cede o corre».
+- Dopo una Rep con MET o CLIC l'app chiede i bpm, sempre facoltativi («Avanti senza bpm»). Registro: `bpm_rep2` / `bpm_rep3`.
+- La pagina del frammento mostra la cronologia dei bpm di MET e CLIC. Nessuna regola su quando alzare il metronomo.
+
+### 14.4 Circuito
+
+- **Drop-out** manuale e immediato, da un pulsante in ogni Rep: lo slot si chiude con le Rep fatte e il frammento esce dal circuito già nell'andata in corso (`S.dropout[c|slot] = andata`, `isDropped` vale da quell'andata in poi).
+- **Circuito modificabile** dal menu della sessione: si aggiungono frammenti non previsti (in fondo al circuito in corso, con la prima etichetta libera, già nell'andata in corso) e se ne tolgono altri, tranne lo slot in cui sei. Vale per il circuito in corso.
+- La sessione **Cucitura** non c'è più (le sessioni già salvate restano). Prova resta.
+- Nella **scelta dei passaggi** i frammenti sono in ordine di battuta, dall'inizio alla fine del brano (per estratto, se ce n'è più d'uno).
+
+### 14.5 Verifica a due settimane e testi superati
+
+- Per tutti i brani: avviso nella pagina del frammento se in due settimane il voto del test a freddo non sale e resta sotto 8,5 (`voto.verifica_sotto`).
+- I testi fissi del catalogo superati (`regole_slot` rep1, rep4, andate, drop_out, da_annotare, verifica_2_settimane) non si riscrivono: in Sigle e regole compare la regola valida, con il testo del catalogo sotto «superato dalla 3.5» (mappa `superate` di `metodo_v3.json`). La regola di arresto resta com'è.
+- Escluse da Alessandro: diagnosi per categorie, regole sulla memoria.

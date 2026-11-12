@@ -67,7 +67,9 @@ const ACT = {
   repback: () => repBack(),
   cucback: () => cucBack(),
   cucskip: () => cucSkip(),
-  vincolo: () => { const S = D.sessione_aperta; if (!S || !S.circuiti[S.pos.c]) return; vincoloSheet(S, S.circuiti[S.pos.c].slot[S.pos.s].frammento); },
+  vincolo: () => { const S = D.sessione_aperta; if (!S || !S.circuiti[S.pos.c]) return; const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento; varianteSheet(S, fid, ctrlSlot(S) ? repCtrl(S.pos.r) : S.pos.r); },
+  dropnow: () => dropNow(),
+  circedit: () => circEditSheet(),
   votomano: el => votoSheet(el.dataset.id),
   ripasso: () => { const B = D.bozza; B.cfg.tipo = 'circuito'; B.cfg.modo = 'scritti'; B.circuiti = []; save(); go('#select'); },
   seldue: () => { const B = D.bozza, s = new Set(B.selezionati); daRipassare().filter(f => !RIP.get(f.id).rec).forEach(f => s.add(f.id)); B.selezionati = [...s]; B.circuiti = []; save(); render(); },
@@ -98,7 +100,6 @@ const ACT = {
     D.sessioni = D.sessioni.filter(x => x.id !== s.id); save(); navDepth = 0; toast('Sessione eliminata'); replaceTo('#day/' + s.data);
   },
   editlog: el => editLog(el.dataset.s, +el.dataset.i),
-  target: el => targetSheet(el.dataset.id),
   period: el => { histPeriod = el.dataset.v; render(); },
   histall: () => { histAll = true; render(); },
   tema: el => { D.impostazioni.tema = el.dataset.v; save(); applyPrefs(); render(); },

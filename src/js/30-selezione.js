@@ -4,7 +4,7 @@ let LAST = new Map(); // ultimo studio per frammento, ricalcolato quando si apre
 let VMAP = null;      // voti per frammento, ricalcolati insieme
 function fragMeta(f) {
   const x = LAST.get(f.id), liv = votoTesto(f.id, VMAP), p = [];
-  if (x && x.data) p.push(`Ultimo studio: ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}`);
+  if (x && x.data) p.push(`Ultimo studio: ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}`);
   if (liv) p.push(esc(liv));
   return p.length ? `<span class="fmeta">${p.join(' · ')}</span>` : '';
 }
@@ -12,26 +12,15 @@ function fragRow(f, sel) {
   return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
   <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${fragMeta(f)}</button></div>`;
 }
+/* 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano (per estratto, se il brano ne ha più d'uno);
+   priorità e famiglia restano nella scheda del frammento e in Sigle e regole. */
 function prioritaHtml(list, sel, bid) {
-  // i brani aggiunti a mano non hanno priorità con un nome: elenco semplice, in ordine di battuta
-  if (C.braniUtente.has(bid) && !(Array.isArray((C.B.get(bid) || {}).priorita) && C.B.get(bid).priorita.length)) return tuttiDi(bid).map(f => fragRow(f, sel)).join('');
-  let h = '';
-  const prios = prioDi(bid);
-  const extra = [...new Set(list.map(f => f.priorita))].filter(n => !prios.some(p => p.n === n));
-  extra.forEach(n => prios.push({ n, nome: 'Priorità ' + n, perche: '' }));
-  prios.forEach(p => {
-    const frs = list.filter(f => f.priorita === p.n); if (!frs.length) return;
-    const groups = []; const seen = new Map();
-    frs.forEach(f => {
-      if (f.famiglia) { if (!seen.has(f.famiglia)) { const g = { fam: f.famiglia, items: [] }; seen.set(f.famiglia, g); groups.push(g); } seen.get(f.famiglia).items.push(f); }
-      else groups.push({ fam: null, items: [f] });
-    });
-    h += `<div class="prio"><h3><span class="pn">${p.n}</span><span>${esc(p.nome)}</span></h3>${p.perche ? `<p class="why">${esc(p.perche)}</p>` : ''}`;
-    groups.forEach(g => {
-      if (g.fam) h += `<div class="fam"><div class="famh">${esc((C.FAM.get(g.fam) || {}).nome || g.fam)}</div>${g.items.map(f => fragRow(f, sel)).join('')}</div>`;
-      else h += fragRow(g.items[0], sel);
-    });
-    h += '</div>';
+  const sez = sezioniDi(bid);
+  let h = '', ultima = null;
+  tuttiDi(bid).forEach(f => {
+    const z = sez.length ? sezioneDi(f) : '';
+    if (z && z !== ultima) { h += `<div class="famh" style="margin-top:8px">${esc(z)}</div>`; ultima = z; }
+    h += fragRow(f, sel);
   });
   return h;
 }
@@ -85,10 +74,10 @@ function previewHtml(f) {
   <p class="small muted" style="margin:-6px 0 12px">Priorità ${esc(f.priorita)}${p ? ' · ' + esc(p.nome) : ''} · Famiglia: ${esc(famN)}${f.parti ? ' · Parti: ' + f.parti.map(esc).join(' + ') : ''}${f.trillo_3_5 ? ' · trillo 3-5' : ''}</p>
   <div class="label">Nodo motorio</div><p>${fmtText(f.nodo_motorio)}</p>
   ${isResistenza(f) ? `<div class="hint">${fmtText(AVV.resistenza)}</div>` : ''}
-  ${keys.map(k => `<div class="card" style="margin-bottom:10px"><div class="label">Vincoli · coppia ${esc(k)}</div><p style="margin:6px 0"><b>Rep 2.</b> ${fmtText(f.andate[k].rep2)}</p><p style="margin:6px 0"><b>Rep 3.</b> ${fmtText(f.andate[k].rep3)}</p></div>`).join('')}
+  ${keys.map(k => `<div class="card" style="margin-bottom:10px"><div class="label">Suggerimenti del catalogo · andata ${esc(k)}</div><p style="margin:6px 0"><b>Rep 2.</b> ${fmtText(f.andate[k].rep2)}</p><p style="margin:6px 0"><b>Rep 3.</b> ${fmtText(f.andate[k].rep3)}</p></div>`).join('')}
   <div class="label">Verifica Rep 4</div><p>${fmtText(f.rep4_verifica)}</p>
   ${f.note ? `<div class="label">Note</div><p>${fmtText(f.note)}</p>` : ''}
-  ${f.id && D.target[f.id] ? `<p class="small muted">Tempo target che hai impostato: ${esc(D.target[f.id])} bpm</p>` : ''}`;
+`;
 }
 function openPreview(id) {
   const f = fr(id); if (!f) return;

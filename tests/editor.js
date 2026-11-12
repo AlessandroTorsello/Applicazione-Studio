@@ -34,45 +34,46 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(cat.n === 84 && cat.prio === 7 && cat.st === 'nuovo' && cat.altri.every(x => x === 'consolidato'), 'Nabucco: 84 frammenti, 7 priorità, brano nuovo; gli altri consolidati');
   ok(cat.sez.join() === 'Sinfonia,Concertato' && cat.senza.every(x => x === 0), 'due estratti riconosciuti dai titoli; gli altri brani non ne hanno');
   ok(cat.ord[68] === 'nabucco-sinfonia-324-329' && cat.ord[69] === 'nabucco-concertato-1-4', 'ordine: tutta la Sinfonia, poi il concertato (le battute ripartono da 1)');
-  await p.goto(U + '#new'); await w(); await p.click('[data-k="tipo"][data-v="cucitura"]'); await w();
+  await p.goto(U + '#new'); await w();
+  ok(!(await p.locator('[data-k="tipo"][data-v="cucitura"]').count()), '3.5: la sessione Cucitura non c\'è più');
+  await p.click('[data-k="tipo"][data-v="prova"]'); await w();
   const opts = await p.locator('#sb option').allInnerTexts();
-  ok(opts.filter(x => x.includes('Nabucco')).length === 2 && opts.some(x => x.endsWith('· Concertato')), 'cucitura e prova: il Nabucco si sceglie un estratto alla volta');
+  ok(opts.filter(x => x.includes('Nabucco')).length === 2 && opts.some(x => x.endsWith('· Concertato')), 'prova: il Nabucco si sceglie un estratto alla volta');
   await p.selectOption('#sb', { label: opts.find(x => x.endsWith('· Concertato')) }); await w();
-  ok((await txt('.card:has(#sb)')).includes('3 frammenti consecutivi') && (await p.locator('#sda option').count()) === 15, 'estratto del concertato: 15 frammenti');
-  await shot('cucitura-estratti');
+  ok((await txt('.card:has(#sb)')).includes('15 frammenti') && (await p.locator('#sda option').count()) === 15, 'estratto del concertato: 15 frammenti');
+  await shot('prova-estratti');
 
-  /* --- 2. brano nuovo: slot di controllo --- */
+  /* --- 2. brano nuovo: slot di controllo con varianti scelte da te --- */
   await avvia([N1, A]);
   ok(/Ripetizione 1/i.test(await txt('.repnum')) && (await txt('.repnum')).includes('5-7'), 'brano nuovo: ripetizione 1 di 5-7');
-  ok((await txt('.diag')).includes('50-65%') && (await txt('.instr')).includes('BLOC') && (await txt('.vrow')).includes('Rep 2'), 'ripetizione 1: vincolo di Rep 2 dell\'andata 1, controllo al 50-65%');
+  ok((await txt('.diag')).includes('50-65%') && /Variante A/.test(await txt('.vrow')) && /nessuna/i.test(await txt('.vrow')), 'ripetizione 1: variante A, si parte da nessuna; controllo al 50-65%');
+  await p.click('[data-act="vincolo"]'); await w(); await p.locator('.sheet .sigpick[data-pick="MET"]').last().click(); await w();
+  ok((await txt('.vrow')).includes('MET'), 'variante A scelta: MET');
   await shot('controllo-1');
   await fatto();
-  ok(!(await p.locator('.sheet.on').count()) && /Ripetizione 2/i.test(await txt('.repnum')) && (await txt('.instr')).includes('DIN dentro la mano'), 'nessun test a freddo: ripetizione 2 con il vincolo di Rep 3');
-  await fatto(); ok((await txt('.instr')).includes('BLOC'), 'ripetizione 3: di nuovo il vincolo di Rep 2');
+  ok(!(await p.locator('.sheet.on').count()) && /Ripetizione 2/i.test(await txt('.repnum')) && /Variante B/.test(await txt('.vrow')) && /nessuna/i.test(await txt('.vrow')), 'nessun test a freddo: ripetizione 2 con la variante B');
+  await fatto(); ok((await txt('.vrow')).includes('MET'), 'ripetizione 3: di nuovo la variante A');
   await fatto(); await fatto();
   ok(/Ripetizione 5/i.test(await txt('.repnum')) && (await txt('.fatto')).includes('Slot finito') && await p.locator('[data-act="ctrlpiu"]').count() === 1, 'dalla quinta: «Slot finito» oppure un\'altra ripetizione');
   await shot('controllo-5');
   await p.click('[data-act="ctrlpiu"]'); await w(); await p.click('[data-act="ctrlpiu"]'); await w();
   ok(/Ripetizione 7/i.test(await txt('.repnum')) && !(await p.locator('[data-act="ctrlpiu"]').count()), 'alla settima non se ne aggiungono altre');
   await fatto();
-  ok((await txt('.sheet.on h2')).includes('senza errori'), 'alla fine: controllo senza errori?');
-  await p.click('.sheet.on [data-yn="1"]'); await shot('controllo-esito'); await p.click('#cok'); await w();
-  ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'slot seguente di un brano consolidato: Rep 1 con il test');
+  ok((await txt('.sheet.on h2')).includes('MET') && !(await p.locator('.sheet.on [data-yn]').count()), '3.5: alla fine solo i bpm di MET (facoltativi), nessuna domanda sull\'esito');
+  await shot('controllo-bpm'); await p.click('#bpno'); await w();
+  ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'avanti senza bpm; slot seguente di un brano consolidato: Rep 1 con il test');
   let d = await D();
   let e = d.sessione_aperta.log[0];
-  ok(e.controllo === true && e.rep_completate === 7 && e.senza_errori === true && e.coppia === '1' && !e.test && e.rep1_pulita === null && e.voto === undefined && !(await p.evaluate(id => mappaVoti().has(id), N1)), 'registro: controllo, 7 ripetizioni, senza errori; nessun voto');
+  ok(e.controllo === true && e.rep_completate === 7 && e.senza_errori === undefined && e.vincolo_rep2 === 'MET' && e.bpm_rep2 === undefined && !e.test && e.voto === undefined && !(await p.evaluate(id => mappaVoti().has(id), N1)), 'registro: controllo, 7 ripetizioni, variante MET senza bpm; nessun voto: ' + JSON.stringify(e));
   await p.click('[data-act="repback"]'); await w();
-  ok(/Ripetizione 7/i.test(await txt('.repnum')) && (await D()).sessione_aperta.cur.senza_errori === true, 'tornando indietro si riapre lo slot di controllo com\'era');
-  await fatto(); await p.click('#cok'); await w();
+  ok(/Ripetizione 7/i.test(await txt('.repnum')), 'tornando indietro si riapre lo slot di controllo');
+  await fatto(); await p.fill('#bpm', '70'); await p.click('#bpok'); await w();
   await p.evaluate(() => closeSession()); await w(700);
-  ok((await txt('main')).includes('controllo senza errori 1/1'), 'riepilogo: controllo senza errori 1/1');
+  d = await D();
+  ok(d.sessioni[d.sessioni.length - 1].log[0].bpm_rep2 === 70 && !(await txt('main')).includes('senza errori'), 'bpm salvati al secondo passaggio; riepilogo senza «senza errori»: ' + JSON.stringify(d.sessioni[d.sessioni.length - 1].log[0]) + ' ' + (await txt('main')).slice(0, 600));
   await shot('controllo-riepilogo');
-  // seconda sessione pulita: il frammento «regge»
-  await avvia([N1]); for (let i = 0; i < 5; i++) await fatto(); await p.click('.sheet.on [data-yn="1"]'); await p.click('#cok'); await w();
-  await p.evaluate(() => closeSession()); await w(700);
-  ok(await p.evaluate(id => controlloPulito(id), N1), 'due sessioni senza errori: il frammento regge');
   await p.goto(U + '#brano/nabucco'); await w();
-  ok((await txt('main')).includes('1 su 84') && (await p.locator('.frow .tag', { hasText: 'regge' }).count()) === 1, 'scheda del brano: 1 su 84 frammenti reggono');
+  ok(!(await txt('main')).includes('reggono'), '3.5: nella scheda del brano niente conteggio «reggono»');
   await shot('brano-nuovo');
   // passaggio a consolidato
   await p.click('[data-act="stato"][data-v="consolidato"]'); await w();
@@ -81,7 +82,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await avvia([N1]);
   ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'consolidato: slot da 4 Rep con il test del giorno');
   await fatto(); await p.fill('#r1voto', '6'); await p.click('#r1ok'); await w();
-  ok((await D()).sessione_aperta.cur.voto === 6 && (await p.evaluate(id => daRipassare().some(f => f.id === id), N1)) && (await txt('.vrow')).includes('coppia 1'), 'consolidato: il voto 6 lo mette in «Da ripassare»; nello stesso giorno resta la coppia già usata');
+  ok((await D()).sessione_aperta.cur.voto === 6 && (await p.evaluate(id => daRipassare().some(f => f.id === id), N1)) && /nessuna/i.test(await txt('.vrow')), 'consolidato: il voto 6 lo mette in «Da ripassare»; Rep 2 parte senza variante');
   await p.evaluate(() => { D.sessione_aperta = null; setStato('nabucco', 'nuovo'); });
 
   /* --- 3. editor: brano nuovo, divisione in frammenti --- */
@@ -133,7 +134,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await shot('selezione-brano-aggiunto');
   const u2 = await p.evaluate(b => tuttiDi(b)[1].id, bid);
   await avvia([u2]);
-  ok(/Ripetizione 1/i.test(await txt('.repnum')) && (await txt('.instr')).includes('Nessun testo'), 'frammento senza testi: lo slot di controllo funziona lo stesso');
+  ok(/Ripetizione 1/i.test(await txt('.repnum')) && /nessuna/i.test(await txt('.vrow')), 'frammento senza testi: lo slot di controllo funziona lo stesso');
   await p.evaluate(() => { D.sessione_aperta = null; save(); });
 
   /* --- 5. frammenti del catalogo: modifica, ripristino, nascondi --- */
@@ -167,7 +168,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on .news')).includes('3.1'), 'chi arriva dalla 3.0 vede le novità della 3.1');
   await shot('novita-31');
   d = await D();
-  ok(d.impostazioni.visto_versione === '3.4.0' && d.sessioni.length === 2 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio');
+  ok(d.impostazioni.visto_versione === '3.5.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
   await p.reload(); await w(900);
   ok(!(await p.locator('.sheet.on').count()), 'al secondo avvio le novità non tornano');
 

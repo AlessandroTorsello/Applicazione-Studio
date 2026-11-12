@@ -359,6 +359,13 @@
    "come_si_fa": "Numero fisso di note per quarto (4, poi 6, poi 8), inizio dalla nota reale, dita vicine al tasto. Se la stessa mano tiene un'altra voce, prima tieni quella voce e trilla pp.",
    "cosa_allena": "Trillo che non disturba l'altra voce né l'altra mano.",
    "origine": "Aggiunto"
+  },
+  {
+   "sigla": "MET",
+   "nome": "Metronomo",
+   "come_si_fa": "Il frammento a metronomo, al tempo che scegli tu. Alla fine puoi segnare i bpm: servono solo a sapere più o meno la velocità del passaggio e non sono obbligatori. Quando alzare il metronomo lo decidi tu.",
+   "cosa_allena": "La regolarità della pulsazione. I bpm segnati danno la cronologia della velocità del passaggio.",
+   "origine": "Aggiunta il 12/11/2026 su richiesta di Alessandro"
   }
  ],
  "regole_slot": {
@@ -7233,7 +7240,7 @@
  },
  "metodo": {
   "versione": 3,
-  "fonte": "Metodo dei circuiti, versione 3 (proposta dell'11/11/2026, dal confronto «Rivedere il metodo di studio»), con la revisione del 12/11/2026 (voto in decimi). Soglie, calo del voto e tabella degli errori sono scelte di lavoro, non dati di letteratura: vanno corrette con l'uso.",
+  "fonte": "Metodo dei circuiti, versione 3 (proposta dell'11/11/2026, dal confronto «Rivedere il metodo di studio»), con la revisione del 12/11/2026 (voto in decimi). Soglie, calo del voto e tabella degli errori sono scelte di lavoro, non dati di letteratura: vanno corrette con l'uso. Revisione 3.5 del 12/11/2026, decisa da Alessandro: varianti scelte liberamente, Rep di contesto, variante MET, drop-out immediato, bpm solo di monitoraggio.",
   "errori": [
    {
     "id": "mani",
@@ -7296,6 +7303,7 @@
     "id": "pulsazione",
     "errore": "La pulsazione cede o corre",
     "sigle": [
+     "MET",
      "CLIC",
      "CHUNK"
     ]
@@ -7315,11 +7323,11 @@
    "pausa_famiglia": 2,
    "passo": 0.5,
    "prova_sporco": 5,
-   "nota": "Revisione del 12/11/2026, chiesta da Alessandro: voto in decimi al posto dei livelli 0-4 e di «Rep 1 pulita sì/no». Calo di 0,25 al giorno (un 10 torna da ripassare dopo 12 giorni), soglia 7, pausa di famiglia di 2 giorni: scelte di lavoro da correggere con l'uso. Dal 12/11/2026 (3.3) niente riascolto settimanale: basta il voto del test.",
+   "nota": "Revisione del 12/11/2026, chiesta da Alessandro: voto in decimi al posto dei livelli 0-4 e di «Rep 1 pulita sì/no». Calo di 0,25 al giorno (un 10 torna da ripassare dopo 12 giorni), soglia 7, pausa di famiglia di 2 giorni: scelte di lavoro da correggere con l'uso. Dal 12/11/2026 (3.3) niente riascolto settimanale: basta il voto del test. Dalla 3.5 la verifica a due settimane avvisa solo se il voto del test a freddo non sale e resta sotto 8,5.",
    "riferimenti": [
     [
      "10",
-     "al tempo target, pulito, suono giusto"
+     "al tempo giusto, pulito, suono giusto"
     ],
     [
      "8-9",
@@ -7341,33 +7349,44 @@
      "0",
      "non si riesce a suonare"
     ]
-   ]
+   ],
+   "verifica_sotto": 8.5
   },
   "avvisi": {
    "test": "Prima Rep 1 di oggi: è il test. Dopo, un voto da 0 a 10.",
-   "reali": "Voto del test di oggi da 7 in su: questa Rep 3 con dinamica e pedale reali, mantenendo il vincolo.",
+   "reali": "Voto del test di oggi da 7 in su: questa Rep 3 con dinamica e pedale reali, mantenendo la variante.",
    "resistenza": "Frammento di resistenza: Rep 2-3 nella dinamica scritta. Durante lo stop il polso deve potersi muovere (test di PESO). Se l'avambraccio si indurisce, fermati.",
    "prova": "Una sola volta, senza fermarti, registrandoti. L'app non registra l'audio: usa un registratore o un'altra app.",
    "cucitura_giuntura": "Solo la giuntura: le ultime 2 battute del primo frammento e le prime 2 del secondo.",
    "cucitura_fila": "I due frammenti di fila, una volta, all'85-90%.",
-   "metrica_suono": "Per questo brano la metrica è il suono: il tempo è facoltativo, il voto del test riguarda il suono."
+   "metrica_suono": "Per questo brano la metrica è il suono: il tempo è facoltativo, il voto del test riguarda il suono.",
+   "contesto": "Il frammento con 2 battute prima e 2 dopo, all'85-90%. Non è un test: nessun voto.",
+   "due_settimane": "Da due settimane il voto del test a freddo non sale e resta sotto 8,5: torna a Rep 2-3 al 70-80% uniforme."
   },
   "regole": [
    {
-    "titolo": "La diagnosi sceglie il vincolo",
-    "testo": "In una sessione ogni frammento usa una sola coppia di vincoli (Rep 2 e Rep 3) per tutte le andate. La coppia predefinita alterna tra i giorni: quella dell'andata 1 del catalogo, la volta dopo quella dell'andata 2 (poi 3 e 4, se esistono).\nDopo la Rep 1 della prima andata, se la diagnosi indica un problema diverso da quello che il vincolo predefinito colpisce, puoi cambiare vincolo con la tabella degli errori qui sotto.\nFuori dal catalogo si può anche suonare Rep 2-3 libere, senza nessuna tecnica, oppure scrivere una tecnica che non sta tra le sigle.\nIl vincolo usato viene registrato, per vedere poi quali funzionano."
+    "titolo": "Varianti scelte da te",
+    "testo": "Per Rep 2 e Rep 3 di ogni frammento scegli tu la variante, una per una: una sigla dell'indice, una tecnica scritta da te, oppure nessuna (Rep libera). Si parte da «nessuna».\nLa tabella degli errori qui sotto e i testi Rep 2/Rep 3 del catalogo restano come suggerimenti, non come istruzioni.\nLa variante scelta resta per le andate successive della sessione finché non la cambi, e viene registrata per vedere poi quali funzionano."
+   },
+   {
+    "titolo": "Rep di contesto",
+    "testo": "Rep 1 è il test a freddo solo alla prima andata del frammento nella sessione. Nelle andate dopo, al suo posto, si suona il frammento con 2 battute prima e 2 dopo, all'85-90%, senza voto."
+   },
+   {
+    "titolo": "Metronomo e bpm",
+    "testo": "Il metronomo si usa solo nelle varianti MET e CLIC, quando le scegli. Dopo una di queste l'app chiede i bpm, ma si può lasciare vuoto e andare avanti: servono solo come monitoraggio. Rep 4 è un'esecuzione, senza metronomo.\nNessuna regola su quando alzare il metronomo: lo alzi quando senti il passaggio.\nLa cronologia dei bpm nella pagina del frammento usa i bpm di MET e CLIC."
+   },
+   {
+    "titolo": "Drop-out e circuito modificabile",
+    "testo": "Il drop-out lo decidi tu, in qualsiasi Rep: il frammento esce subito dal circuito.\nDurante un circuito puoi aggiungere frammenti non previsti (entrano in fondo, già nell'andata in corso) o toglierne altri, tranne quello in cui sei. Le regole di composizione dei circuiti non cambiano."
    },
    {
     "titolo": "Voto in decimi",
-    "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 sulla metrica del brano: pulizia al tempo per i brani «tempo», suono per i brani «suono». Le altre Rep 1 dello stesso giorno non contano.\nPunti di riferimento: 10 = al tempo target, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 torna a 7 in 12 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sceso a 7 o meno, divisi per brano, dal voto più basso (a parità, la priorità). Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
+    "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 sulla metrica del brano: pulizia al tempo per i brani «tempo», suono per i brani «suono». Le altre Rep 1 dello stesso giorno non contano. Se il test resta senza voto non conta: al ripasso successivo il voto viene chiesto di nuovo.\nPunti di riferimento: 10 = al tempo giusto, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 torna a 7 in 12 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sceso a 7 o meno, divisi per brano, dal voto più basso (a parità, la priorità). Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
    },
    {
     "titolo": "Condizioni reali più spesso",
-    "testo": "Voto del test di oggi sotto 7: Rep 2-3 a mp e senza pedale.\nVoto del test di oggi da 7 in su: Rep 3 con dinamica e pedale reali, mantenendo il vincolo. Due Rep su quattro sono in condizioni reali.\nFrammenti di resistenza (priorità 2 del Mephisto): Rep 2-3 sempre nella dinamica scritta, con il test di PESO (polso mobile durante lo stop). Se l'avambraccio si indurisce, ci si ferma."
-   },
-   {
-    "titolo": "Cucitura",
-    "testo": "Si scelgono frammenti consecutivi di un brano. Per ogni giuntura: ultime 2 battute del frammento N + prime 2 del frammento N+1, poi N e N+1 di fila una volta all'85-90%. Si registra se la giuntura è pulita."
+    "testo": "Voto del test di oggi sotto 7: Rep 2-3 a mp e senza pedale.\nVoto del test di oggi da 7 in su: Rep 3 con dinamica e pedale reali, mantenendo la variante. Due Rep su quattro sono in condizioni reali.\nFrammenti di resistenza (priorità 2 del Mephisto): Rep 2-3 sempre nella dinamica scritta, con il test di PESO (polso mobile durante lo stop). Se l'avambraccio si indurisce, ci si ferma."
    },
    {
     "titolo": "Prova",
@@ -7375,11 +7394,15 @@
    },
    {
     "titolo": "Metrica adatta al brano",
-    "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto, Nabucco) o suono (op. 111 Arietta, Fantasia op. 28). Il voto del test riguarda quella metrica.\nVerifica a due settimane: per i brani «tempo» resta sui bpm di Rep 4; per i brani «suono» scatta se il voto del test a freddo non sale."
+    "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto, Nabucco) o suono (op. 111 Arietta, Fantasia op. 28). Il voto del test riguarda quella metrica.\nVerifica a due settimane, per tutti i brani: se il voto del test a freddo non sale in due settimane e resta sotto 8,5, la pagina del frammento lo segnala."
    },
    {
     "titolo": "Brani nuovi e consolidati",
-    "testo": "Ogni brano è «nuovo» o «consolidato»; si cambia in Impostazioni, toccando il brano.\nBrano nuovo: in ogni slot 5-7 ripetizioni di puro controllo al 50-65%, alternando i due vincoli dell'andata 1. Niente Rep 1 a freddo, niente Rep 4, nessun test e nessun voto: il frammento non entra in «Da ripassare». Meglio in circuiti di soli frammenti dello stesso brano (l'app non lo impone).\nBrano consolidato: lo slot da 4 Rep, con test del giorno e voto in decimi.\nAlla fine di ogni slot di controllo si segna se è stato senza errori: nella scheda del brano si vede quanti frammenti lo sono stati nelle ultime due sessioni."
+    "testo": "Ogni brano è «nuovo» o «consolidato»; si cambia in Impostazioni, toccando il brano.\nBrano nuovo: in ogni slot 5-7 ripetizioni di puro controllo al 50-65%, alternando le due varianti che scegli tu (A e B), oppure nessuna. Niente Rep 1 a freddo, niente Rep 4, nessun test e nessun voto: il frammento non entra in «Da ripassare». Meglio in circuiti di soli frammenti dello stesso brano (l'app non lo impone).\nBrano consolidato: lo slot da 4 Rep, con test del giorno e voto in decimi."
+   },
+   {
+    "titolo": "Scelta dei passaggi",
+    "testo": "Nella scelta dei passaggi i frammenti di ogni brano sono in ordine di battuta, dall'inizio alla fine (per estratto, se il brano ne ha più d'uno). Priorità e famiglie restano nella scheda del frammento e qui sotto. Il tipo di sessione Cucitura non c'è più: per le giunture basta la Prova."
    }
   ],
   "nuovi": {
@@ -7391,9 +7414,17 @@
     50,
     65
    ],
-   "slot": "Brano nuovo: 5-7 ripetizioni di puro controllo al 50-65%, alternando i due vincoli (Rep 2 e Rep 3 dell'andata 1). Niente Rep 1 a freddo, niente Rep 4, nessun test di velocità.",
+   "slot": "Brano nuovo: 5-7 ripetizioni di puro controllo al 50-65%, alternando le due varianti che scegli tu (A e B), oppure nessuna. Niente Rep 1 a freddo, niente Rep 4, nessun test e nessun voto.",
    "soglia": "Proposta dell'analisi del Nabucco, non una regola: un frammento è pronto per lo slot da 4 Rep quando regge note e diteggiatura al 65% senza errori per due sessioni.",
    "fonte": "«Come usare il documento» dell'analisi del Nabucco (12/11/2026), che riporta il metodo di Alessandro per i passaggi nuovi."
+  },
+  "superate": {
+   "rep1": "Test a freddo all'85-95%, solo alla prima andata del frammento nella sessione, poi un voto da 0 a 10. Niente riga di diagnosi. Nelle andate dopo, al posto di Rep 1 c'è la Rep di contesto: il frammento con 2 battute prima e 2 dopo, all'85-90%.",
+   "rep4": "85-100%, pedale e dinamiche reali. È un'esecuzione: niente metronomo e nessuna domanda alla fine. Attenzione al suono, non alle dita.",
+   "andate": "Le varianti di Rep 2 e Rep 3 le scegli tu, una per una, dall'indice delle sigle, oppure nessuna. La tabella degli errori e i testi del catalogo sono solo suggerimenti. La scelta resta per le andate successive finché non la cambi. Andata 4 solo se il frammento non è in drop-out.",
+   "drop_out": "Quando lo decidi tu: il frammento esce subito dal circuito, già dall'andata in corso. Non cambia il voto.",
+   "da_annotare": "Il voto del test (prima Rep 1 del giorno) e le varianti usate. I bpm solo dopo una variante MET o CLIC, e sono facoltativi.",
+   "verifica_2_settimane": "Per tutti i brani: se in due settimane il voto del test a freddo non sale e resta sotto 8,5, torna a Rep 2-3 al 70-80% uniforme."
   }
  }
 }

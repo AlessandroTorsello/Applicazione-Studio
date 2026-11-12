@@ -34,8 +34,11 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const pills = await p.locator('details.acc .pill').allInnerTexts();
   ok(pills.join(' ') === '0/50 0/49 0/76 0/29 0/84', 'contatori: ' + pills.join(' '));
   await p.click('details.acc[data-brano="op111-2"] summary'); await w();
-  const h3 = await p.locator('details.acc[data-brano="op111-2"] .prio h3').first().innerText();
-  ok(h3.includes('Velocità in forte'), 'II movimento: la priorità 1 è la sua («' + h3.replace(/\s+/g, ' ').slice(0, 40) + '…»)');
+  // 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano
+  const bats = await p.locator('details.acc[data-brano="op111-2"] .frow .bat').allInnerTexts();
+  const primi = bats.map(t => parseInt(t, 10));
+  ok(bats.length === 49 && primi.every((n, i) => !i || isNaN(n) || isNaN(primi[i - 1]) || n >= primi[i - 1]) && primi[0] === 1, 'II movimento in ordine di battuta: ' + bats.slice(0, 5).join(' | ') + ' …');
+  ok(!(await p.locator('details.acc[data-brano="op111-2"] .prio').count()), 'niente gruppi per priorità nella selezione');
   await shot('selezione-arietta');
   const fid = 'op 111 secondo movimento-1-4';
   await p.click(`details.acc[data-brano="op111-2"] [data-act="preview"][data-id="${fid}"]`); await w();
@@ -55,8 +58,8 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const l2 = await p.locator('.runh .l2').innerText();
   ok(/II movimento/.test(l2), 'in sessione: brano del primo slot «' + l2 + '»');
   await p.click('[data-act="fatto"]'); await w(); await p.fill('#r1voto', '7'); await p.click('#r1ok'); await w();
-  const instr = await p.locator('.instr').first().innerText();
-  ok(instr.includes('DIN dentro la mano'), 'Rep 2 mostra il vincolo del catalogo dell\'Arietta');
+  const instr = await p.locator('.instr').first().evaluate(e => e.textContent);
+  ok(/nessuna/i.test(await p.locator('.vrow').innerText()) && instr.includes('DIN dentro la mano') && instr.includes('Suggerimenti del catalogo'), '3.5: Rep 2 senza variante, il testo del catalogo dell\'Arietta solo come suggerimento');
   await shot('rep2-arietta');
   await p.evaluate(() => { D.sessione_aperta = null; save(); }); await p.goto(U + '#rules'); await w();
   await p.locator('details.acc summary', { hasText: 'Priorità e famiglie' }).click(); await w();

@@ -10,12 +10,14 @@ SCREENS.rules = anchor => {
         <dt>Come si fa</dt><dd>${fmtText(s.come_si_fa)}</dd><dt>Cosa allena</dt><dd>${fmtText(s.cosa_allena)}</dd><dt>Origine</dt><dd>${esc(s.origine)}</dd></dl></div>`).join('')}</div></details>
     <details class="acc" id="metodo" ${anchor === 'metodo' ? 'open' : ''}><summary><span class="grow">Metodo, versione 3</span></summary><div class="accbody">
       ${(M3.regole || []).map(x => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(x.titolo)}</div><p style="margin:4px 0 0">${fmtText(x.testo)}</p></div>`).join('')}
-      <div class="sigcard"><div class="label">Dall'errore al vincolo</div>${(M3.errori || []).map(e => `<p style="margin:8px 0">${esc(e.errore)}<br>${linkSigle(esc(e.sigle.join(' · ')))}</p>`).join('')}</div>
+      <div class="sigcard"><div class="label">Dall'errore alla variante (suggerimenti)</div>${(M3.errori || []).map(e => `<p style="margin:8px 0">${esc(e.errore)}<br>${linkSigle(esc(e.sigle.join(' · ')))}</p>`).join('')}</div>
       <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${statoDi(x.id)} · metrica: ${metricaDi(x.id)}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · frammenti di resistenza: priorità ' + x.resistenza.join(', ') : ''}</span></p>`).join('')}
         <p class="small muted" style="margin:8px 0 0">Stato e metrica di un brano si cambiano in Impostazioni, toccando il brano.</p></div>
       ${M3.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(M3.fonte)}</p>` : ''}</div></details>
     <details class="acc"><summary><span class="grow">Regole dello slot</span></summary><div class="accbody">
-      ${Object.keys(RS).map(k => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(SLOT_LABELS[k] || k)}</div><p style="margin:4px 0 0">${fmtText(RS[k])}</p></div>`).join('')}</div></details>
+      ${Object.keys(RS).map(k => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(SLOT_LABELS[k] || k)}</div>${SUP[k]
+        ? `<p style="margin:4px 0 0">${fmtText(SUP[k])}</p><details class="sub2"><summary>Testo del catalogo, superato dalla 3.5</summary><div class="muted">${fmtText(RS[k])}</div></details>`
+        : `<p style="margin:4px 0 0">${fmtText(RS[k])}</p>`}</div>`).join('')}</div></details>
     <details class="acc" id="fable" ${anchor === 'fable' ? 'open' : ''}><summary><span class="grow">Regole del circuito (Fable)</span></summary><div class="accbody">
       <div class="sigcard"><div class="label">Struttura</div><p style="margin:4px 0 0">${fmtText(RC.struttura)}</p></div>
       <div class="sigcard"><div class="label">Composizione</div><ol class="fable">${(RC.fable_composizione || []).map(x => `<li>${fmtText(x)}</li>`).join('')}</ol></div>
@@ -181,7 +183,7 @@ function importCatalog(obj) {
 }
 function resetSheet() {
   openSheet(`<h2>Azzerare tutti i dati?</h2>
-    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti o modificati, tempi target, voti e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
+    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti o modificati, voti e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
     <div class="field"><label for="rz">Per confermare scrivi AZZERA</label><input type="text" id="rz" autocomplete="off" autocapitalize="characters"></div>
     <button class="btn dangerfill xl" id="rzok">Azzera tutto</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     $('#rzok', sh).addEventListener('click', () => {
@@ -192,8 +194,14 @@ function resetSheet() {
 }
 function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
-    <p class="small muted" style="margin-top:-6px">Il metodo cambia in quattro punti, più le revisioni della 3.2 e della 3.3; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
+    <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.5 · Varianti scelte da te</b>: per Rep 2 e Rep 3 scegli tu la variante, una per una (sigla, tecnica tua o nessuna). Il catalogo non prescrive più varianti: i suoi testi e la tabella degli errori restano come suggerimenti.</li>
+      <li><b>3.5 · Rep di contesto</b>: il test a freddo solo alla prima andata del frammento; nelle andate dopo, il frammento con 2 battute prima e 2 dopo, all'85-90%.</li>
+      <li><b>3.5 · Metronomo solo in MET e CLIC</b>: nuova sigla MET. I bpm si segnano solo dopo MET o CLIC e si possono lasciare vuoti. Rep 4 è un'esecuzione, senza metronomo e senza domande. Il tempo target non c'è più.</li>
+      <li><b>3.5 · Drop-out immediato e circuito modificabile</b>: il frammento esce subito dal circuito. Durante un circuito puoi aggiungere frammenti non previsti o toglierne altri.</li>
+      <li><b>3.5 · Meno domande</b>: resta solo il voto del test. Niente diagnosi, niente «senza errori» negli slot di controllo, niente domande dopo Rep 4.</li>
+      <li><b>3.5 · Altro</b>: nella scelta dei passaggi i frammenti sono in ordine di battuta; la sessione Cucitura non c'è più; la verifica a due settimane avvisa solo se il voto del test non sale e resta sotto 8,5. Un test chiuso senza voto non conta più come fatto, così il ripasso successivo chiede di nuovo il voto.</li>
       <li><b>3.4 · Libero o tecnica tua</b>: in «Cambia vincolo» puoi suonare Rep 2 e Rep 3 senza nessuna tecnica («Libero») oppure scrivere una tecnica che non sta tra le sigle. Vale per tutte le andate della sessione e resta nello storico.</li>
       <li><b>3.3 · Niente riascolto settimanale</b>: basta il voto che dai al test a freddo. Per i brani «suono» la verifica a due settimane guarda il voto del test. I voti di riascolto già dati restano e contano.</li>
       <li><b>3.2 · Voto in decimi</b>: al posto dei livelli e di «Rep 1 pulita sì/no», dopo la prima Rep 1 del giorno dai un voto da 0 a 10 sulla metrica del brano (pulizia al tempo o suono). Il voto cala da solo di 0,25 al giorno: un 10 torna da ripassare dopo 12 giorni.</li>
@@ -202,9 +210,9 @@ function newsSheet() {
       <li><b>3.1 · Nuovo nome</b>: l'app ora si chiama Summum Studium. È la stessa app: dati e backup precedenti restano validi.</li>
       <li><b>3.1 · Brani nuovi e consolidati</b>: un brano nuovo lavora a ripetizioni di controllo al 50-65%, senza test a freddo e senza Rep 4; quando lo passi a consolidato usa lo slot da 4 Rep. Il Nabucco entra nel catalogo come brano nuovo.</li>
       <li><b>3.1 · Editor</b>: da Impostazioni, toccando un brano, lo dividi in frammenti per battute, cambi battute e testi di qualsiasi frammento, ne dividi uno in due o lo unisci al seguente. Gli originali del catalogo si possono sempre ripristinare.</li>
-      <li><b>Una coppia di vincoli per sessione</b>: ogni frammento usa gli stessi vincoli di Rep 2 e Rep 3 in tutte le andate, e la coppia cambia da un giorno all'altro. Dopo la Rep 1 puoi sceglierne altri partendo dall'errore trovato. Il vincolo usato resta nello storico.</li>
+      <li><b>Una coppia di vincoli per sessione</b> (superato dalla 3.5: ora le varianti le scegli tu): ogni frammento usava gli stessi vincoli di Rep 2 e Rep 3 in tutte le andate, e la coppia cambiava da un giorno all'altro.</li>
       <li><b>Condizioni reali più spesso</b>: con voto del test di oggi da 7 in su la Rep 3 è con dinamica e pedale reali. I frammenti di resistenza del Mephisto lavorano nella dinamica scritta fin dall'inizio.</li>
-      <li><b>Cucitura e Prova</b>: due nuovi tipi di sessione. La prima lavora le giunture tra frammenti consecutivi, la seconda è un'esecuzione unica; al riascolto segni i punti sporchi e quei frammenti finiscono in «Da ripassare».</li>
+      <li><b>Prova</b> (la Cucitura è stata tolta nella 3.5): un'esecuzione unica; al riascolto segni i punti sporchi e quei frammenti finiscono in «Da ripassare».</li>
       <li><b>Tempo o suono</b>: ogni brano ha la sua metrica. Il voto del test riguarda quella metrica. L'app non registra l'audio.</li>
     </ul>
     <button class="link" data-act="go" data-h="#rules/metodo" style="display:block;margin:0 0 10px">Leggi le regole complete</button>
@@ -212,7 +220,6 @@ function newsSheet() {
       <li><b>Barra in basso</b> con Oggi, Storico, Sigle e regole, Impostazioni. «Per frammento» ora è una scheda dello Storico.</li>
       <li><b>Ripeti l'ultima sessione</b> dalla home, oppure «Ripeti questa sessione» da qualsiasi riepilogo.</li>
       <li><b>Durante lo studio</b> il pulsante Fatto dice che cosa viene dopo, una barra mostra a che punto sei e la pausa si vede bene. Toccando Fatto il cronometro in pausa riparte.</li>
-      <li><b>Tempo target</b> per ogni passaggio: l'app traduce le percentuali delle regole in bpm per ogni Rep. Si imposta dalla finestra del tempo di Rep 4 o dalla pagina del frammento.</li>
       <li><b>Registra a mano</b> lo studio fatto senza l'app e <b>aggiungi brani</b> col solo nome, per la sessione libera.</li>
       <li><b>Stili e dimensione del testo</b>: in Impostazioni scegli tra più stili, con caratteri diversi, e quattro misure del testo.</li>
       <li><b>Quattro brani nel catalogo</b>: op. 111 I e II movimento, Mephisto Valzer n. 1, Fantasia op. 28 di Scriabin, ognuno con le sue priorità.</li>

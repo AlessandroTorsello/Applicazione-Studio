@@ -4,7 +4,7 @@
 
 App per guidare e registrare lo studio al pianoforte a micro-circuiti (in catalogo: Beethoven op. 111 I e II movimento, Liszt Mephisto Valzer n. 1, Scriabin Fantasia op. 28, Verdi Nabucco, Sinfonia e concertato). È una web app in un solo file, installabile come PWA e distribuita anche come APK Android.
 
-Versione attuale: **3.4.0** (voto in decimi al posto dei livelli, § 11; niente riascolto settimanale, § 12; Rep 2-3 libere o con una tecnica scritta a mano, § 13). Metodo versione 3: regole in `data/metodo_v3.json`, codice in `src/js/45-metodo.js`, specifica al § 9 di `data/SPEC_programma_circuiti.md`. Brani nuovi e consolidati, editor di brani e frammenti: `src/js/47-editor.js`, specifica al § 10.
+Versione attuale: **3.5.0** (voto in decimi al posto dei livelli, § 11; niente riascolto settimanale, § 12; Rep 2-3 libere o con una tecnica scritta a mano, § 13; varianti scelte da te, Rep di contesto, sigla MET, drop-out immediato e circuito modificabile, § 14). Metodo versione 3: regole in `data/metodo_v3.json`, codice in `src/js/45-metodo.js`, specifica al § 9 di `data/SPEC_programma_circuiti.md`. Brani nuovi e consolidati, editor di brani e frammenti: `src/js/47-editor.js`, specifica al § 10.
 
 ## Struttura
 
@@ -33,7 +33,7 @@ node tests/editor.js         # brani nuovi e consolidati, editor di brani e fram
 
 ```
 KS_PASS=… python3 android/build_apk.py --html docs/index.html --out Summum-Studium.apk \
-    --version-code 10 --version-name 3.4.0 --keystore /percorso/android-keystore.jks
+    --version-code 11 --version-name 3.5.0 --keystore /percorso/android-keystore.jks
 ```
 
 Servono `zipalign` e `apksigner`. A ogni rilascio `--version-code` deve aumentare.

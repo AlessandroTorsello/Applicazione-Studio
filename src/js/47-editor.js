@@ -9,58 +9,56 @@ const eNuovo = fid => { const f = fr(fid); return !!f && statoDi(f.brano) === 'n
 function setStato(bid, st) { D.stato[bid] = st === 'nuovo' ? 'nuovo' : 'consolidato'; save(); }
 /* Lo slot in corso è di controllo? (deciso all'inizio della sessione, non cambia a metà) */
 function ctrlSlot(S) { const c = S && S.circuiti && S.circuiti[S.pos.c], sl = c && c.slot[S.pos.s]; return sl && sl.ctrl ? sl : null; }
-/* Un frammento «regge» quando nelle ultime due sessioni con controllo è stato senza errori. */
+/* Un frammento «regge» quando nelle ultime due sessioni con controllo è stato senza errori (dato registrato fino alla 3.4;
+   dalla 3.5 la domanda non c'è più). */
 function controlloPulito(fid) {
   const ses = [];
   D.sessioni.forEach(s => { const v = (s.log || []).filter(l => l.frammento === fid && l.controllo && l.senza_errori != null); if (v.length) ses.push(v.every(l => l.senza_errori)); });
   return ses.length >= 2 && ses[ses.length - 1] && ses[ses.length - 2];
 }
+/* Slot di controllo: ripetizioni dispari con la variante di Rep 2, pari con quella di Rep 3, scelte da te (3.5). */
+const repCtrl = r => r % 2 ? 2 : 3;
 function renderCtrl(S) {
   const { c, s, r } = S.pos, circ = S.circuiti[c], sl = circ.slot[s], fid = sl.frammento;
   const f = fr(fid) || { battute: fid, titolo: '(frammento non trovato)', andate: {} };
-  const v = vinc(S, fid), vb = vincBreve(f, v), rep = r % 2 ? 2 : 3, tg = D.target[fid], fine = r >= CTRL_MIN;
+  const rep = repCtrl(r), x = varianteDi(S, fid, rep), fine = r >= CTRL_MIN;
   const dots = `<span class="dots" aria-label="Ripetizione ${r} di ${CTRL_MIN}-${CTRL_MAX}">${Array.from({ length: CTRL_MAX }, (_, i) => `<span class="dot ${i + 1 < r ? 'done' : i + 1 === r ? 'cur' : ''} ${i >= CTRL_MIN ? 'opt' : ''}"></span>`).join('')}</span>`;
   const canBack = r > 1 || !!retreat(S, S.pos);
+  const met = [2, 3].some(k => usaMetronomo(varianteDi(S, fid, k)));
   app.innerHTML = runHead(S, { dots, lines: `<div class="l2">${esc(branoNome(f.brano))}</div>
     <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</div>` }) + `
   <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
     ${pausedBanner(S)}
     <div class="repnum">Ripetizione ${r}<small>di ${CTRL_MIN}-${CTRL_MAX}</small></div>
     <p class="diag">Brano nuovo · controllo al ${CTRL_PCT[0]}-${CTRL_PCT[1]}%, senza test a freddo e senza Rep 4.</p>
-    ${tg ? `<button class="tgt" data-act="target" data-id="${esc(fid)}" aria-label="Cambia il tempo target"><span>Target ${esc(tg)} bpm</span><b>${CTRL_PCT[0]}-${CTRL_PCT[1]}% = ${Math.round(tg * CTRL_PCT[0] / 100)}–${Math.round(tg * CTRL_PCT[1] / 100)} bpm</b></button>` : ''}
-    <div class="vrow"><span>${vb.mio ? 'Vincolo scelto' : 'Vincolo di Rep ' + rep} · <b>${esc(rep === 2 ? vb.r2 : vb.r3)}</b></span><button class="link" data-act="vincolo">Cambia vincolo</button></div>
-    <div class="instr">${vincBody(f, v, rep)}</div>
+    <div class="vrow"><span>Variante ${rep === 2 ? 'A' : 'B'} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>
+    <div class="instr">${varianteBody(f, x, rep)}</div>
     <div class="toggles">
       <label class="tg"><input type="checkbox" id="arresto" ${S.cur.arresto ? 'checked' : ''}> <span>Regola di arresto applicata</span></label>
-      <label class="tg"><input type="checkbox" id="dropout" ${S.cur.drop_out ? 'checked' : ''}> <span>Drop-out<small>questo frammento salta le andate successive</small></span></label>
     </div>
+    <button class="btn dropb" data-act="dropnow">Drop-out: togli il frammento dal circuito<small>esce subito, già da questa andata</small></button>
     <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note${S.cur.note ? ' ✎' : ''}</summary><div><textarea id="note" placeholder="Annotazioni su questo slot">${esc(S.cur.note)}</textarea></div></details>
     <details class="sub2"><summary>Nodo motorio</summary><div>${fmtText(f.nodo_motorio)}</div></details>
     ${f.note ? `<details class="sub2"><summary>Note del frammento</summary><div>${fmtText(f.note)}</div></details>` : ''}
-    <details class="sub2"><summary>Regole per i brani nuovi</summary><div><p>${fmtText(NUOVI.slot)}</p><p>${fmtText(NUOVI.soglia)}</p><div class="label">Regola di arresto</div><p>${fmtText(CATALOGO.regole_slot.arresto)}</p></div></details>
+    <details class="sub2"><summary>Regole per i brani nuovi</summary><div><p>${fmtText(NUOVI.slot)}</p><div class="label">Regola di arresto</div><p>${fmtText(CATALOGO.regole_slot.arresto)}</p></div></details>
   </main>
   <div class="bar"><div class="inner">
     <div class="sec"><button class="btn" data-act="repback" ${canBack ? '' : 'disabled'}>${r > 1 ? '‹ Ripetizione ' + (r - 1) : '‹ Slot precedente'}</button>
       ${fine && r < CTRL_MAX ? '<button class="btn" data-act="ctrlpiu">Un\'altra ripetizione</button>' : '<button class="btn" data-act="skipslot">Salta slot ›</button>'}</div>
-    <button class="btn primary fatto" data-act="fatto">${fine ? 'Slot finito' : 'Fatto'}<small>${esc(fine ? 'poi: senza errori? · ' + nextInfo(S).replace(/^poi: /, '') : `poi: ripetizione ${r + 1}, vincolo di Rep ${rep === 2 ? 3 : 2}`)}</small></button>
+    <button class="btn primary fatto" data-act="fatto">${fine ? 'Slot finito' : 'Fatto'}<small>${esc(fine ? (met ? 'poi: bpm (facoltativi) · ' : '') + nextInfo(S) : `poi: ripetizione ${r + 1}, variante ${rep === 2 ? 'B' : 'A'}`)}</small></button>
   </div></div>`;
   $('#arresto').addEventListener('change', e => { S.cur.arresto = e.target.checked; save(); });
-  $('#dropout').addEventListener('change', e => { setDropout(S, e.target.checked); save(); render(); });
   $('#note').addEventListener('input', e => { S.cur.note = e.target.value; save(); });
   runTicker(S);
 }
+/* Fine dello slot di controllo: nessuna domanda sull'esito (3.5); i bpm solo se c'era MET o CLIC, e facoltativi. */
 function ctrlFatto(S) {
   if (S.pos.r < CTRL_MIN) { S.pos.r++; save(); render(); return; }
-  const set = sh => $$('[data-yn]', sh).forEach(x => { const on = S.cur.senza_errori === (x.dataset.yn === '1'); x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
-  openSheet(`<h2>Controllo senza errori?</h2>
-    <p class="small muted" style="margin-top:-6px">Note e diteggiatura giuste in tutte le ripetizioni, al tempo di controllo.</p>
-    <div class="yn"><button class="si" data-yn="1">Sì</button><button class="no" data-yn="0">No</button></div>
-    <button class="btn primary xl" id="cok">Avanti</button>
-    <p class="small muted" style="margin:0;text-align:center">La risposta è facoltativa.</p>`, sh => {
-    set(sh);
-    $$('[data-yn]', sh).forEach(b => b.addEventListener('click', () => { const x = b.dataset.yn === '1'; S.cur.senza_errori = S.cur.senza_errori === x ? null : x; save(); set(sh); }));
-    $('#cok', sh).addEventListener('click', () => { finalizeSlot(S, S.pos.r); moveNext(S); });
-  });
+  const fid = ctrlSlot(S).frammento, met = [2, 3].filter(k => usaMetronomo(varianteDi(S, fid, k)));
+  const fine = () => { closeSheet(); finalizeSlot(S, S.pos.r); moveNext(S); };
+  if (met.length === 2) return bpmSheet(S, 2, () => bpmSheet(S, 3, fine));
+  if (met.length) return bpmSheet(S, met[0], fine);
+  finalizeSlot(S, S.pos.r); moveNext(S);
 }
 function ctrlPiu() { const S = D.sessione_aperta; if (!S || !ctrlSlot(S)) return; resumeIfPaused(S); S.pos.r = Math.min(CTRL_MAX, S.pos.r + 1); save(); render(); }
 
@@ -146,12 +144,12 @@ async function unisciFrammento(id) {
 SCREENS.brano = bid => {
   const b = C.B.get(bid); if (!b) { replaceTo('#settings'); return; }
   const list = tuttiDi(bid), st = statoDi(bid), nasc = [...C.F.values()].filter(f => f.brano === bid && C.fnasc.has(f.id)), mod = list.filter(f => eModificato(f.id));
-  const pronti = st === 'nuovo' ? list.filter(f => controlloPulito(f.id)).length : 0, sez = sezioniDi(bid);
+  const sez = sezioniDi(bid);
   const riga = f => `<div class="frow"><button class="fbody" data-act="go" data-h="#form/${encodeURIComponent(bid)}/${encodeURIComponent(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${eModificato(f.id) ? '<span class="tag">modificato</span>' : C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${st === 'nuovo' && controlloPulito(f.id) ? '<span class="tag">regge</span>' : ''}</button><span class="muted" aria-hidden="true" style="align-self:center;padding:0 6px">›</span></div>`;
   app.innerHTML = header(b.nome, `${list.length} ${list.length === 1 ? 'frammento' : 'frammenti'} · brano ${st}`, '#settings') + `<main class="wrap">
     <section class="card"><div class="optrow" style="border-top:0;padding-top:0"><span><b>Stato del brano</b></span><div class="seg">${[['nuovo', 'Nuovo'], ['consolidato', 'Consolidato']].map(([v, l]) => `<button data-act="stato" data-id="${esc(bid)}" data-v="${v}" class="${st === v ? 'on' : ''}" aria-pressed="${st === v}">${l}</button>`).join('')}</div></div>
       <p class="small muted" style="margin:6px 0 0">${st === 'nuovo' ? esc(NUOVI.slot || '') : 'Brano consolidato: lo slot da 4 Rep, con il test del giorno e i livelli.'}</p>
-      ${st === 'nuovo' && list.length ? `<p class="small" style="margin:8px 0 0"><b>${pronti} su ${list.length}</b> frammenti senza errori nelle ultime due sessioni di controllo.</p><p class="small muted" style="margin:4px 0 0">${esc(NUOVI.soglia || '')}</p>` : ''}</section>
+      ${st === 'nuovo' && list.length ? `<p class="small muted" style="margin:8px 0 0">${esc(NUOVI.soglia || '')}</p>` : ''}</section>
     <section class="card"><div class="label" style="margin-bottom:8px">Frammenti</div>
       <button class="btn ${list.length ? '' : 'primary'}" data-act="go" data-h="#dividi/${encodeURIComponent(bid)}">Dividi il brano in frammenti</button>
       <button class="btn" data-act="go" data-h="#form/${encodeURIComponent(bid)}">Aggiungi un frammento a mano</button>

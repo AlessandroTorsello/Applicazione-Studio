@@ -49,24 +49,31 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok((await txt('.fatto')).includes('poi'), 'Fatto dice cosa viene dopo');
   // doppio tocco: il secondo non deve saltare
   await p.click('[data-act="fatto"]'); await w(); await shot('rep1-esito');
-  await p.fill('#r1voto', '8'); await p.fill('#diag', 'b. 26 sporca');
+  ok(!(await p.locator('#diag').count()), '3.5: nessuna riga di diagnosi dopo Rep 1');
+  await p.fill('#r1voto', '8');
   await p.click('#r1ok'); await w();
   ok((await txt('.repnum')).startsWith('Rep 2'), 'Rep 2');
+  ok(/nessuna/i.test(await txt('.vrow')), '3.5: si parte senza variante: ' + await txt('.vrow'));
   await p.click('[data-act="pause"]'); await w(); await shot('pausa');
   ok(await p.locator('.pausebar').count() === 1, 'pausa evidente');
-  await p.click('[data-act="fatto"]'); await w();
+  // variante MET scelta da te: dopo Fatto i bpm (facoltativi)
+  await p.click('[data-act="vincolo"]'); await w(); await shot('scegli-variante');
+  await p.locator('.sheet .sigpick[data-pick="MET"]').last().click(); await w();
+  ok((await txt('.vrow')).includes('MET') || (await txt('.vrow')).includes('Metronomo'), 'variante MET scelta: ' + await txt('.vrow'));
+  ok((await txt('.fatto')).includes('bpm'), 'Fatto annuncia i bpm facoltativi');
+  await p.click('[data-act="fatto"]'); await w(); await shot('bpm-met');
+  ok(await p.locator('.sheet.on #bpm').count() === 1, 'foglio dei bpm dopo MET');
+  await p.fill('#bpm', '96'); await p.click('#bpok'); await w();
   ok((await txt('.repnum')).startsWith('Rep 3') && !(await p.locator('.pausebar').count()), 'Fatto riprende il cronometro e va a Rep 3');
+  await p.click('[data-act="fatto"]'); await w(); await shot('rep4');
+  ok((await txt('.repnum')).startsWith('Rep 4') && !(await txt('.instr')).includes('target'), 'Rep 4 senza tempo target');
   await p.click('[data-act="fatto"]'); await w();
-  await p.click('[data-act="fatto"]'); await w(); await shot('rep4-tempo');
-  await p.click('#r4tg'); await w(); await p.fill('#tgv', '120'); await shot('target'); await p.click('#tgok'); await w();
-  ok(await p.locator('#bpm').count() === 1, 'dopo il target torna al tempo di Rep 4');
-  await p.fill('#bpm', '96'); await p.click('#r4ok'); await w();
-  ok((await txt('.l1')).includes('Slot B1'), 'slot B1');
-  // torna indietro e avanti: A1 riaperto a Rep 4 con il target visibile
+  ok(!(await p.locator('.sheet.on').count()) && (await txt('.l1')).includes('Slot B1'), '3.5: Rep 4 senza domande, si passa a B1');
+  // torna indietro e avanti: A1 riaperto a Rep 4
   await p.click('[data-act="repback"]'); await w();
-  ok((await txt('.repnum')).startsWith('Rep 4') && (await txt('.tgt')).includes('102'), 'indietro riapre A1 a Rep 4 con i bpm del target: ' + (await txt('.tgt')).replace(/\n/g, ' '));
-  await shot('rep4-target');
-  await p.click('[data-act="fatto"]'); await w(); await p.click('#r4ok'); await w();
+  ok((await txt('.repnum')).startsWith('Rep 4'), 'indietro riapre A1 a Rep 4');
+  await p.click('[data-act="fatto"]'); await w();
+  ok((await txt('.l1')).includes('Slot B1'), 'di nuovo B1');
   // salta B1
   await p.click('[data-act="skipslot"]'); await w(); await shot('conferma-salta');
   await p.click('#ask-ok'); await w(600);
@@ -84,8 +91,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok((await hash()).startsWith('#summary/'), 'riepilogo dopo «termina»');
   await shot('riepilogo');
   let d = await D();
-  ok(d.sessioni.length === 1 && d.sessioni[0].log[0].tempo_rep4 === 96 && d.sessioni[0].log[0].voto === 8 && d.sessioni[0].log[0].test && d.target && Object.values(d.target)[0] === 120, 'dati salvati (bpm, voto del test, target)');
-  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.4.0', 'versione dei dati');
+  { const l0 = d.sessioni[0].log[0];
+    ok(d.sessioni.length === 1 && l0.bpm_rep2 === 96 && l0.vincolo_rep2 === 'MET' && l0.tempo_rep4 == null && l0.voto === 8 && l0.test && !l0.diagnosi, 'dati salvati (bpm di MET, voto del test, niente Rep 4): ' + JSON.stringify(l0)); }
+  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.5.0', 'versione dei dati');
 
   /* --- ripeti la sessione --- */
   await p.click('[data-act="repeat"]'); await w(700);

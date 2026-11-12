@@ -54,7 +54,11 @@ metodo = leggi('metodo_v3.json')
 out['regole_slot'] = dict(base['regole_slot'], **metodo['regole_slot'])
 for b in out['brani']:
     b.update(metodo['brani'].get(b['id'], {}))
-assert all(s in {x['sigla'] for x in base['sigle']} for e in metodo['errori'] for s in e['sigle']), 'sigla sconosciuta nella tabella degli errori'
-out['metodo'] = {k: metodo[k] for k in ('versione', 'fonte', 'errori', 'voto', 'avvisi', 'regole', 'nuovi')}
+# 3.5: sigle aggiunte dal metodo (MET), in fondo all'indice
+nuove = metodo.get('sigle_aggiunte', [])
+assert not {x['sigla'] for x in nuove} & {x['sigla'] for x in base['sigle']}, 'sigla aggiunta già presente'
+out['sigle'] = list(base['sigle']) + nuove
+assert all(s in {x['sigla'] for x in out['sigle']} for e in metodo['errori'] for s in e['sigle']), 'sigla sconosciuta nella tabella degli errori'
+out['metodo'] = {k: metodo[k] for k in ('versione', 'fonte', 'errori', 'voto', 'avvisi', 'regole', 'nuovi', 'superate') if k in metodo}
 json.dump(out, open(os.path.join(data, 'catalogo.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('catalogo:', ', '.join(f"{b['nome']} ({sum(1 for x in frammenti if x['brano'] == b['id'])})" for b in out['brani']), '· famiglie', len(famiglie))

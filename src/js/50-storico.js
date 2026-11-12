@@ -10,7 +10,7 @@ function fragStats(logs) {
     x.sec += l.secondi || 0; if (l.circuito != null) x.andate.add(l.circuito + '|' + l.andata); x.n++;
     if (l.rep1_pulita != null) { x.pulN++; if (l.rep1_pulita) x.pul++; }   // solo dati fino alla 3.1
     if (l.test && typeof l.voto === 'number') x.voto = l.voto;
-    if (l.tempo_rep4 != null) x.tempo = l.tempo_rep4;
+    if (bpmDi(l) != null) x.tempo = bpmDi(l); else if (l.tempo_rep4 != null) x.tempo = l.tempo_rep4;
     if (l.drop_out) x.drop = true;
     if (l.controllo) { x.ctrl++; if (l.senza_errori != null) { x.ctrlN++; if (l.senza_errori) x.ctrlOk++; } } else if (l.frammento) x.slot4++;
     if (l.cucitura) { x.giu++; if (l.giuntura_pulita != null) { x.giuN++; if (l.giuntura_pulita) x.giuOk++; } }
@@ -32,8 +32,8 @@ function statName(x) {
 function statDetails(x) {
   const d = [];
   if (x.andate.size) d.push(`${x.andate.size} andat${x.andate.size === 1 ? 'a' : 'e'}`);
-  if (x.fid && (x.slot4 || !x.ctrl)) { d.push(x.voto != null ? `voto del test ${fmtV(x.voto)}` : x.pulN ? `Rep 1 pulite ${x.pul}/${x.pulN}` : 'nessun voto'); d.push(`Rep 4 ${x.tempo != null ? x.tempo + ' bpm' : '—'}`); }
-  if (x.ctrl) d.push(`controllo senza errori ${x.ctrlN ? x.ctrlOk + '/' + x.ctrlN : '—'}`);
+  if (x.fid && (x.slot4 || !x.ctrl)) { d.push(x.voto != null ? `voto del test ${fmtV(x.voto)}` : x.pulN ? `Rep 1 pulite ${x.pul}/${x.pulN}` : 'nessun voto'); if (x.tempo != null) d.push(x.tempo + ' bpm'); }
+  if (x.ctrl) { d.push(x.ctrlN ? `controllo senza errori ${x.ctrlOk}/${x.ctrlN}` : 'controllo'); if (!x.slot4 && x.tempo != null) d.push(x.tempo + ' bpm'); }   // l'esito si registrava fino alla 3.4
   if (x.drop) d.push('drop-out');
   if (x.cuc) d.push(`${x.giu} ${x.giu === 1 ? 'giuntura' : 'giunture'}`, `pulite ${x.giuN ? x.giuOk + '/' + x.giuN : '—'}`);
   return d.join(' · ');
@@ -76,13 +76,15 @@ function logWhat(l) {
 function logItem(l, si, li) {
   const f = l.frammento ? fr(l.frammento) : null;
   const parts = [fmtMin(l.secondi)];
-  if (l.controllo) parts.push(`controllo · ${l.rep_completate || 0} ripetizioni`, l.senza_errori === true ? 'senza errori' : l.senza_errori === false ? 'con errori' : 'esito —');
-  else if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`); if (l.rep1_pulita != null) parts.push(`Rep 1 ${l.rep1_pulita ? 'pulita' : 'non pulita'}`); if (l.tempo_rep4 != null) parts.push(l.tempo_rep4 + ' bpm'); }
+  if (l.controllo) { parts.push(`controllo · ${l.rep_completate || 0} ripetizioni`); if (l.senza_errori != null) parts.push(l.senza_errori ? 'senza errori' : 'con errori'); }
+  else if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`); if (l.rep1_pulita != null) parts.push(`Rep 1 ${l.rep1_pulita ? 'pulita' : 'non pulita'}`); if (l.tempo_rep4 != null) parts.push('Rep 4 a ' + l.tempo_rep4 + ' bpm'); }
+  if (l.bpm_rep2 != null) parts.push(`${l.vincolo_rep2 || 'Rep 2'} a ${l.bpm_rep2} bpm`); if (l.bpm_rep3 != null) parts.push(`${l.vincolo_rep3 || 'Rep 3'} a ${l.bpm_rep3} bpm`);
   if (l.arresto) parts.push('arresto'); if (l.drop_out) parts.push('drop-out');
   if (l.cucitura) parts.push(`passi ${l.passi || 0}/2`, `giuntura ${l.giuntura_pulita === true ? 'pulita' : l.giuntura_pulita === false ? 'non pulita' : '—'}`);
   if (l.prova && Array.isArray(l.sporchi)) parts.push(l.sporchi.length ? 'punti sporchi: ' + l.sporchi.map(id => 'bb. ' + frLabel(id)).join(', ') : 'nessun punto sporco');
-  const v3 = [vincLogTesto(l), testTesto(l)].filter(Boolean).join(' · ');
-  return `<div class="logi"><b>${esc(logPos(l))}</b> — ${esc(logWhat(l))} ${f ? '<span class="muted">' + esc(f.titolo) + '</span>' : ''}<br>${esc(parts.join(' · '))}${v3 ? `<br><span class="muted">Vincoli:</span> ${esc(v3)}` : ''}
+  if (testTesto(l)) parts.push(testTesto(l));
+  const v3 = vincLogTesto(l);
+  return `<div class="logi"><b>${esc(logPos(l))}</b> — ${esc(logWhat(l))} ${f ? '<span class="muted">' + esc(f.titolo) + '</span>' : ''}<br>${esc(parts.join(' · '))}${v3 ? `<br><span class="muted">Varianti:</span> ${esc(v3)}` : ''}
     ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}
     ${si != null ? `<br><button class="link small" data-act="editlog" data-s="${esc(si)}" data-i="${li}">Correggi</button>` : ''}</div>`;
 }
@@ -106,21 +108,27 @@ function editLog(sid, i) {
   openSheet(`<h2>Correggi ${esc(logPos(l))}</h2><p class="muted" style="margin-top:-6px">${esc(logWhat(l))}</p>
     <div class="row"><div class="field"><label for="em">Minuti</label><input type="number" id="em" inputmode="numeric" min="0" value="${Math.floor((l.secondi || 0) / 60)}"></div>
     <div class="field"><label for="es">Secondi</label><input type="number" id="es" inputmode="numeric" min="0" max="59" value="${(l.secondi || 0) % 60}"></div></div>
-    ${l.controllo ? `<div class="field"><label for="ec">Controllo senza errori</label><select class="sel" id="ec" style="width:100%"><option value="">—</option><option value="1" ${l.senza_errori === true ? 'selected' : ''}>Sì</option><option value="0" ${l.senza_errori === false ? 'selected' : ''}>No</option></select></div>` : ''}
-    <div ${l.frammento && !l.controllo ? '' : 'hidden'}><div class="field"><label for="eb">Rep 4 (bpm)</label><input type="number" id="eb" inputmode="numeric" value="${l.tempo_rep4 != null ? l.tempo_rep4 : ''}"></div>
+    ${l.controllo && l.senza_errori != null ? `<div class="field"><label for="ec">Controllo senza errori (dato fino alla 3.4)</label><select class="sel" id="ec" style="width:100%"><option value="">—</option><option value="1" ${l.senza_errori === true ? 'selected' : ''}>Sì</option><option value="0" ${l.senza_errori === false ? 'selected' : ''}>No</option></select></div>` : ''}
+    <div ${l.frammento ? '' : 'hidden'}>${l.tempo_rep4 != null ? `<div class="field"><label for="eb">Rep 4 (bpm, dato fino alla 3.4)</label><input type="number" id="eb" inputmode="numeric" value="${l.tempo_rep4}"></div>` : ''}
+    ${l.bpm_rep2 != null || usaMetronomo(l.vincolo_rep2) ? `<div class="field"><label for="eb2">${esc(l.vincolo_rep2 || 'Rep 2')}: bpm</label><input type="number" id="eb2" inputmode="numeric" value="${l.bpm_rep2 != null ? l.bpm_rep2 : ''}"></div>` : ''}
+    ${l.bpm_rep3 != null || usaMetronomo(l.vincolo_rep3) ? `<div class="field"><label for="eb3">${esc(l.vincolo_rep3 || 'Rep 3')}: bpm</label><input type="number" id="eb3" inputmode="numeric" value="${l.bpm_rep3 != null ? l.bpm_rep3 : ''}"></div>` : ''}
     ${l.test ? `<div class="field"><label for="ev">Voto del test (0-${VOTO.massimo})</label><input type="text" id="ev" class="vin" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${typeof l.voto === 'number' ? fmtV(l.voto) : ''}" placeholder="—"></div>` : ''}
     ${l.rep1_pulita != null ? `<div class="field"><label for="ep">Rep 1 pulita (dato della versione 3.1)</label><select class="sel" id="ep" style="width:100%"><option value="">—</option><option value="1" ${l.rep1_pulita === true ? 'selected' : ''}>Sì</option><option value="0" ${l.rep1_pulita === false ? 'selected' : ''}>No</option></select></div>` : ''}
-    <div class="field"><label for="ed">Diagnosi</label><input type="text" id="ed" value="${esc(l.diagnosi || '')}"></div></div>
+    ${l.diagnosi ? `<div class="field"><label for="ed">Diagnosi (dato fino alla 3.4)</label><input type="text" id="ed" value="${esc(l.diagnosi)}"></div>` : ''}</div>
     <div class="field"><label for="en">Note</label><textarea id="en">${esc(l.note || '')}</textarea></div>
     <button class="btn primary" id="esave">Salva</button><button class="btn danger" id="edel">Elimina questa voce</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     $('#esave', sh).addEventListener('click', () => {
       l.secondi = Math.max(0, (Number($('#em', sh).value) || 0) * 60 + (Number($('#es', sh).value) || 0));
-      if (l.controllo) { const c = $('#ec', sh).value; l.senza_errori = c === '' ? null : c === '1'; }
+      if (l.controllo && $('#ec', sh)) { const c = $('#ec', sh).value; l.senza_errori = c === '' ? null : c === '1'; }
       else if (l.frammento) {
-        const b = $('#eb', sh).value; l.tempo_rep4 = b === '' ? null : Math.round(Number(b));
+        const num = id => { const el = $(id, sh); if (!el) return undefined; return el.value === '' ? null : Math.round(Number(el.value)); };
+        const b = num('#eb'), b2 = num('#eb2'), b3 = num('#eb3');
+        if (b !== undefined) l.tempo_rep4 = b;
+        if (b2 !== undefined) { if (b2 == null) delete l.bpm_rep2; else l.bpm_rep2 = b2; }
+        if (b3 !== undefined) { if (b3 == null) delete l.bpm_rep3; else l.bpm_rep3 = b3; }
         if ($('#ep', sh)) { const p = $('#ep', sh).value; l.rep1_pulita = p === '' ? null : p === '1'; }
         if ($('#ev', sh)) l.voto = leggiVoto($('#ev', sh).value);
-        l.diagnosi = $('#ed', sh).value;
+        if ($('#ed', sh)) l.diagnosi = $('#ed', sh).value;
       }
       l.note = $('#en', sh).value; save(); render(); toast('Corretto');
     });
@@ -183,12 +191,12 @@ function fragHistory(fid) {
 }
 SCREENS.frammenti = () => {
   const m = new Map();
-  allSessions().forEach(s => (s.log || []).forEach(l => { if (!l.frammento || l.live) return; const x = m.get(l.frammento) || { sec: 0, last: '', bpm: null }; x.sec += l.secondi || 0; if (s.data >= x.last) x.last = s.data; if (l.tempo_rep4 != null) x.bpm = l.tempo_rep4; m.set(l.frammento, x); }));
+  allSessions().forEach(s => (s.log || []).forEach(l => { if (!l.frammento || l.live) return; const x = m.get(l.frammento) || { sec: 0, last: '', bpm: null }; x.sec += l.secondi || 0; if (s.data >= x.last) x.last = s.data; if (bpmDi(l) != null) x.bpm = bpmDi(l); else if (l.tempo_rep4 != null) x.bpm = l.tempo_rep4; m.set(l.frammento, x); }));
   const list = [...m.entries()].sort((a, b) => b[1].last.localeCompare(a[1].last)), VM = mappaVoti();
   app.innerHTML = topbar('Storico', 'Andamento di ogni frammento, dal più recente') + `<main class="wrap tabbed">
     ${histSeg('frammenti')}
-    ${list.map(([id, x]) => { const f = fr(id); return `<button class="dayrow" data-act="go" data-h="#frag/${encodeURIComponent(id)}"><div class="d"><span><span class="bat">${esc(f ? f.battute : id)}</span>${esc(f ? f.titolo : '')}</span><span>${fmtMinRound(x.sec)}</span></div><div class="small muted">Ultimo studio: ${esc(fmtAgo(x.last))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}${D.target[id] ? ' · target ' + esc(D.target[id]) : ''}${VM.has(id) ? ' · ' + esc(votoTesto(id, VM)) : ''}</div></button>`; }).join('')
-      || '<div class="empty"><b>Ancora nessun dato</b><span>Qui compaiono i frammenti studiati nei circuiti con passaggi scritti, con i minuti e il tempo di Rep 4.</span></div>'}
+    ${list.map(([id, x]) => { const f = fr(id); return `<button class="dayrow" data-act="go" data-h="#frag/${encodeURIComponent(id)}"><div class="d"><span><span class="bat">${esc(f ? f.battute : id)}</span>${esc(f ? f.titolo : '')}</span><span>${fmtMinRound(x.sec)}</span></div><div class="small muted">Ultimo studio: ${esc(fmtAgo(x.last))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}${VM.has(id) ? ' · ' + esc(votoTesto(id, VM)) : ''}</div></button>`; }).join('')
+      || '<div class="empty"><b>Ancora nessun dato</b><span>Qui compaiono i frammenti studiati nei circuiti con passaggi scritti, con i minuti, il voto e i bpm di MET o CLIC.</span></div>'}
   </main>` + tabs('history');
 };
 function chartSvg(points, target, label, tlab) {
@@ -218,17 +226,19 @@ function twoWeekCheck(points) {
 }
 SCREENS.frag = fid => {
   const f = fr(fid); const h = fragHistory(fid);
-  const perDay = new Map(); h.forEach(l => { if (l.tempo_rep4 != null) perDay.set(l.data, l.tempo_rep4); });
+  /* 3.5: i bpm vengono da MET e CLIC (facoltativi); il tempo di Rep 4 resta solo nei dati fino alla 3.4. */
+  const perDay = new Map(); h.forEach(l => { if (bpmDi(l) != null) perDay.set(l.data, bpmDi(l)); });
   const points = [...perDay.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([d, v]) => ({ d, v }));
-  const tot = h.reduce((a, l) => a + (l.secondi || 0), 0), tg = D.target[fid];
+  const r4 = h.filter(l => l.tempo_rep4 != null), ultimoR4 = r4.length ? r4[r4.length - 1] : null;
+  const tot = h.reduce((a, l) => a + (l.secondi || 0), 0);
   const suono = !!f && metricaDi(f.brano) === 'suono', iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [], tpoints = iv ? iv.storia.filter(x => x.fonte === 'test').map(x => ({ d: x.d, v: x.v })) : [];
   const nuovo = !!f && statoDi(f.brano) === 'nuovo';
-  /* Verifica a 2 settimane: per i brani a metrica suono guarda il voto del test a freddo (se non sale), per gli altri il tempo di Rep 4. */
-  const fermo = suono ? (twoWeekCheck(tpoints) && tpoints[tpoints.length - 1].v < VOTO.massimo) : twoWeekCheck(points);
+  /* Verifica a 2 settimane (3.5): per tutti i brani sul voto del test a freddo; avviso solo se non sale e resta sotto 8,5. */
+  const fermo = twoWeekCheck(tpoints) && tpoints[tpoints.length - 1].v < (VOTO.verifica_sotto || 8.5);
   const vst = vincoliStats(h);
   const FONTI = { test: 'test', riascolto: 'riascolto', mano: 'a mano', prova: 'prova' };
-  const tempoCard = `<section class="card"><div class="label">Tempo di Rep 4 (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, tg) : '<p class="muted" style="margin:8px 0 0">Nessun tempo registrato: compare dopo la prima Rep 4 con i bpm.</p>'}
-      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:8px"><span><b>Tempo target</b><br><span class="small muted">${tg ? tg + ' bpm' : 'non impostato'}</span></span><button class="btn inline" style="margin:0" data-act="target" data-id="${esc(fid)}">${tg ? 'Cambia' : 'Imposta'}</button></div>` : ''}</section>`;
+  const tempoCard = `<section class="card"><div class="label">Bpm con MET o CLIC (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, null, 'Andamento dei bpm') : '<p class="muted" style="margin:8px 0 0">Nessun bpm: compaiono quando li segni dopo una Rep con MET o CLIC.</p>'}
+      ${ultimoR4 ? `<p class="small muted" style="margin:6px 0 0">Fino alla 3.4: ultimo tempo di Rep 4 ${esc(ultimoR4.tempo_rep4)} bpm (${esc(fmtDateShort(ultimoR4.data))}).</p>` : ''}</section>`;
   const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto (0-${VOTO.massimo})</span><span class="pill">${suono ? 'metrica: suono' : 'metrica: tempo'}</span></div>
       ${vpoints.length > 1 ? chartSvg(vpoints, VOTO.soglia, 'Andamento del voto', 'soglia') : ''}
       ${iv ? `<p class="small muted" style="margin:6px 0 0">Ultimi voti: ${esc(iv.storia.slice(-5).reverse().map(x => fmtV(x.v) + ' ' + fmtDayMonth(x.d) + (x.fonte !== 'test' ? ' (' + FONTI[x.fonte] + ')' : '')).join(' · '))}</p>` : ''}
@@ -236,16 +246,16 @@ SCREENS.frag = fid => {
   app.innerHTML = header(f ? 'bb. ' + f.battute : fid, f ? f.titolo : '', '#frammenti') + `<main class="wrap">
     <section class="card"><div class="row stat3"><div><div class="label">Minuti totali</div><div class="statv">${fmtMinRound(tot)}</div></div>
       <div><div class="label">Voto attuale</div><div class="statv">${iv ? fmtV(iv.a) : '—'}</div></div>
-      <div><div class="label">Ultimo Rep 4</div><div class="statv">${points.length ? points[points.length - 1].v + ' bpm' : '—'}</div></div></div>
+      <div><div class="label">Ultimi bpm</div><div class="statv">${points.length ? points[points.length - 1].v : '—'}</div></div></div>
       ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:10px;padding-bottom:0"><span><b>${nuovo ? 'Brano nuovo: niente voto' : iv ? esc(votoTesto(fid)) : 'Ancora nessun voto'}</b><br><span class="small muted">${nuovo ? 'il voto parte quando il brano diventa consolidato' : iv ? `cala di ${fmtN(VOTO.decadimento)} al giorno${isResistenza(f) ? ' · frammento di resistenza' : ''}` : 'arriva con il test della prima Rep 1 del giorno'}</span></span><button class="btn inline" style="margin:0" data-act="votomano" data-id="${esc(fid)}">Voto a mano</button></div>` : ''}</section>
-    ${fermo ? `<div class="hint">${fmtText(CATALOGO.regole_slot.verifica_2_settimane)}</div>` : ''}
-    ${suono ? votoCard + tempoCard : tempoCard + votoCard}
-    ${vst.length ? `<section class="card"><div class="label">Vincoli usati</div><p class="small muted" style="margin:4px 0 6px">Per ogni vincolo: in quanti giorni l'hai usato e di quanto è cambiato, in media, il voto del test al giorno di studio successivo.</p>
+    ${fermo ? `<div class="hint">${fmtText(AVV.due_settimane || CATALOGO.regole_slot.verifica_2_settimane)}</div>` : ''}
+    ${votoCard + tempoCard}
+    ${vst.length ? `<section class="card"><div class="label">Varianti usate</div><p class="small muted" style="margin:4px 0 6px">Per ogni variante: in quanti giorni l'hai usata e di quanto è cambiato, in media, il voto del test al giorno di studio successivo.</p>
       ${vst.map(([lab, x]) => `<div class="logi">${esc(lab)}<br><span class="muted">${x.n} ${x.n === 1 ? 'giorno' : 'giorni'} · voto al test successivo ${x.tot ? (x.delta >= 0 ? '+' : '−') + fmtV(Math.abs(x.delta / x.tot)) + ' in media (' + x.tot + ')' : '—'}</span></div>`).join('')}</section>` : ''}
     <section class="card"><div class="label">Cronologia</div>
       ${[...h].reverse().map(l => `<div class="logi"><b style="text-transform:capitalize">${esc(fmtDateShort(l.data))}</b> · circuito ${l.circuito}, andata ${l.andata}, slot ${esc(l.etichetta)} · ${fmtMin(l.secondi)}<br>
-        ${l.controllo ? `Controllo · ${l.rep_completate || 0} ripetizioni · ${l.senza_errori === true ? 'senza errori' : l.senza_errori === false ? 'con errori' : 'esito —'}` : `${l.rep1_pulita != null ? 'Rep 1 ' + (l.rep1_pulita ? 'pulita' : 'non pulita') + ' · ' : ''}Rep 4 ${l.tempo_rep4 != null ? l.tempo_rep4 + ' bpm' : '—'}`}${l.arresto ? ' · arresto' : ''}${l.drop_out ? ' · drop-out' : ''}
-        ${vincLogTesto(l) || l.test ? `<br><span class="muted">Vincoli:</span> ${esc([vincLogTesto(l), testTesto(l)].filter(Boolean).join(' · '))}` : ''}
+        ${[l.controllo ? `Controllo · ${l.rep_completate || 0} ripetizioni${l.senza_errori != null ? ' · ' + (l.senza_errori ? 'senza errori' : 'con errori') : ''}` : `Rep ${l.rep_completate || 0}/4`, l.rep1_pulita != null ? 'Rep 1 ' + (l.rep1_pulita ? 'pulita' : 'non pulita') : '', l.tempo_rep4 != null ? 'Rep 4 a ' + l.tempo_rep4 + ' bpm' : '', l.bpm_rep2 != null ? (l.vincolo_rep2 || 'Rep 2') + ' a ' + l.bpm_rep2 + ' bpm' : '', l.bpm_rep3 != null ? (l.vincolo_rep3 || 'Rep 3') + ' a ' + l.bpm_rep3 + ' bpm' : '', l.arresto ? 'arresto' : '', l.drop_out ? 'drop-out' : ''].filter(Boolean).map(esc).join(' · ')}
+        ${testTesto(l) ? `<br>${esc(testTesto(l))}` : ''}${vincLogTesto(l) ? `<br><span class="muted">Varianti:</span> ${esc(vincLogTesto(l))}` : ''}
         ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}</div>`).join('') || '<p class="muted" style="margin:8px 0 0">Ancora nessun dato.</p>'}
     </section>
     ${f ? `<details class="sub2"><summary>Scheda del frammento</summary><div>${previewHtml(f)}</div></details>` : ''}

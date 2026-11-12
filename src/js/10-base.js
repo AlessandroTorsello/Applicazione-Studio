@@ -1,6 +1,6 @@
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '3.4.0';
+const APP_VERSION = '3.5.0';
 /* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
 const SANS = "system-ui,sans-serif";
 const STILI = [
@@ -329,20 +329,15 @@ function logsByDay() {
   allSessions().forEach(s => { if (!days.has(s.data)) days.set(s.data, []); (s.log || []).forEach(l => days.get(s.data).push(l)); });
   return days;
 }
-function lastTempo(fid) {
-  const S = D.sessione_aperta;
-  if (S) for (let i = S.log.length - 1; i >= 0; i--) if (S.log[i].frammento === fid && S.log[i].tempo_rep4 != null) return S.log[i].tempo_rep4;
-  for (let j = D.sessioni.length - 1; j >= 0; j--) { const L = D.sessioni[j].log || []; for (let i = L.length - 1; i >= 0; i--) if (L[i].frammento === fid && L[i].tempo_rep4 != null) return L[i].tempo_rep4; }
-  return null;
-}
-/* Per ogni frammento: ultimo giorno di studio e ultimo tempo di Rep 4. */
+/* Per ogni frammento: ultimo giorno di studio e ultimi bpm (dalla 3.5 quelli di MET o CLIC; prima il tempo di Rep 4). */
 function lastStudied() {
   const m = new Map();
   D.sessioni.forEach(s => (s.log || []).forEach(l => {
     if (!l.frammento) return;
     const x = m.get(l.frammento) || { data: '', bpm: null, bpmData: '' };
     if (s.data >= x.data) x.data = s.data;
-    if (l.tempo_rep4 != null && s.data >= x.bpmData) { x.bpm = l.tempo_rep4; x.bpmData = s.data; }
+    const b = l.bpm_rep3 != null ? l.bpm_rep3 : l.bpm_rep2 != null ? l.bpm_rep2 : l.tempo_rep4;
+    if (b != null && s.data >= x.bpmData) { x.bpm = b; x.bpmData = s.data; }
     m.set(l.frammento, x);
   }));
   return m;
