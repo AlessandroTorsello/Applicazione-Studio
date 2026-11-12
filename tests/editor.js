@@ -167,7 +167,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on .news')).includes('3.1'), 'chi arriva dalla 3.0 vede le novità della 3.1');
   await shot('novita-31');
   d = await D();
-  ok(d.impostazioni.visto_versione === '3.2.0' && d.sessioni.length === 2 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio');
+  ok(d.impostazioni.visto_versione === '3.3.0' && d.sessioni.length === 2 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio');
   await p.reload(); await w(900);
   ok(!(await p.locator('.sheet.on').count()), 'al secondo avvio le novità non tornano');
 

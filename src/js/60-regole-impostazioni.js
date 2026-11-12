@@ -90,7 +90,7 @@ function branoSheet(id) {
   openSheet(`<h2>${esc(b.nome)}</h2>
     <p class="small muted" style="margin-top:-6px">${u.fr} ${u.fr === 1 ? 'frammento' : 'frammenti'} in catalogo · ${fmtMinRound(u.sec)} registrati${mine ? '' : ' · brano del catalogo'}</p>
     ${mine ? `<div class="field"><label for="brn">Nome</label><input type="text" id="brn" value="${esc(b.nome)}"></div><button class="btn primary" id="brsave">Salva il nome</button>` : ''}
-    ${u.fr ? `<div class="optrow" style="border-top:0"><span><b>Metrica</b><br><span class="small muted">${met === 'suono' ? 'conta il voto di riascolto' : 'conta il tempo di Rep 4'}</span></span><div class="seg">${['tempo', 'suono'].map(m => `<button data-met="${m}" class="${met === m ? 'on' : ''}" aria-pressed="${met === m}">${m}</button>`).join('')}</div></div>` : ''}
+    ${u.fr ? `<div class="optrow" style="border-top:0"><span><b>Metrica</b><br><span class="small muted">${met === 'suono' ? 'il voto del test riguarda il suono' : 'conta il tempo di Rep 4'}</span></span><div class="seg">${['tempo', 'suono'].map(m => `<button data-met="${m}" class="${met === m ? 'on' : ''}" aria-pressed="${met === m}">${m}</button>`).join('')}</div></div>` : ''}
     <button class="btn" id="brhide">${hid ? 'Mostra di nuovo negli elenchi' : 'Nascondi dagli elenchi'}</button>
     <p class="small muted">${hid ? 'Ora non compare quando scegli brani e passaggi.' : 'Un brano nascosto non compare quando scegli brani e passaggi; minuti e storico restano.'}</p>
     ${mine && !u.n && !u.fr ? '<button class="btn danger" id="brdel">Elimina il brano</button>' : ''}
@@ -192,18 +192,19 @@ function resetSheet() {
 }
 function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
-    <p class="small muted" style="margin-top:-6px">Il metodo cambia in quattro punti, più la revisione della 3.2; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
+    <p class="small muted" style="margin-top:-6px">Il metodo cambia in quattro punti, più le revisioni della 3.2 e della 3.3; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.3 · Niente riascolto settimanale</b>: basta il voto che dai al test a freddo. Per i brani «suono» la verifica a due settimane guarda il voto del test. I voti di riascolto già dati restano e contano.</li>
       <li><b>3.2 · Voto in decimi</b>: al posto dei livelli e di «Rep 1 pulita sì/no», dopo la prima Rep 1 del giorno dai un voto da 0 a 10 sulla metrica del brano (pulizia al tempo o suono). Il voto cala da solo di 0,25 al giorno: un 10 torna da ripassare dopo 12 giorni.</li>
       <li><b>3.2 · Da ripassare oggi</b>: niente più date fisse. In cima alla scelta dei passaggi trovi i frammenti col voto sceso a 7 o meno, dal più basso; quelli di una famiglia studiata negli ultimi 2 giorni vanno in fondo.</li>
-      <li><b>3.2 · Riascolto da 0 a 10</b>: il voto del riascolto settimanale sostituisce quello del giorno. I voti da 1 a 3 già dati sono stati convertiti (1 = 3, 2 = 7, 3 = 10); i vecchi livelli restano nel backup ma non si usano più.</li>
+      <li><b>3.2 · Dati di prima</b>: i voti di riascolto da 1 a 3 già dati sono stati convertiti (1 = 3, 2 = 7, 3 = 10) e contano ancora; i vecchi livelli restano nel backup ma non si usano più.</li>
       <li><b>3.1 · Nuovo nome</b>: l'app ora si chiama Summum Studium. È la stessa app: dati e backup precedenti restano validi.</li>
       <li><b>3.1 · Brani nuovi e consolidati</b>: un brano nuovo lavora a ripetizioni di controllo al 50-65%, senza test a freddo e senza Rep 4; quando lo passi a consolidato usa lo slot da 4 Rep. Il Nabucco entra nel catalogo come brano nuovo.</li>
       <li><b>3.1 · Editor</b>: da Impostazioni, toccando un brano, lo dividi in frammenti per battute, cambi battute e testi di qualsiasi frammento, ne dividi uno in due o lo unisci al seguente. Gli originali del catalogo si possono sempre ripristinare.</li>
       <li><b>Una coppia di vincoli per sessione</b>: ogni frammento usa gli stessi vincoli di Rep 2 e Rep 3 in tutte le andate, e la coppia cambia da un giorno all'altro. Dopo la Rep 1 puoi sceglierne altri partendo dall'errore trovato. Il vincolo usato resta nello storico.</li>
       <li><b>Condizioni reali più spesso</b>: con voto del test di oggi da 7 in su la Rep 3 è con dinamica e pedale reali. I frammenti di resistenza del Mephisto lavorano nella dinamica scritta fin dall'inizio.</li>
       <li><b>Cucitura e Prova</b>: due nuovi tipi di sessione. La prima lavora le giunture tra frammenti consecutivi, la seconda è un'esecuzione unica; al riascolto segni i punti sporchi e quei frammenti finiscono in «Da ripassare».</li>
-      <li><b>Tempo o suono</b>: ogni brano ha la sua metrica. Una volta a settimana dai un voto da 0 a 10 riascoltando le registrazioni di Rep 4 (Storico, «Riascolto settimanale»). L'app non registra l'audio.</li>
+      <li><b>Tempo o suono</b>: ogni brano ha la sua metrica. Il voto del test riguarda quella metrica. L'app non registra l'audio.</li>
     </ul>
     <button class="link" data-act="go" data-h="#rules/metodo" style="display:block;margin:0 0 10px">Leggi le regole complete</button>
     <details class="sub2" style="margin-bottom:12px"><summary>Novità della versione 2</summary><div><ul class="news">

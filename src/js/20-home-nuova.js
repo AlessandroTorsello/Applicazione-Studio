@@ -44,7 +44,6 @@ SCREENS.home = () => {
     ${due.length ? `<section class="card"><div class="cardh"><span class="label">Da ripassare oggi</span><b>${due.length} ${due.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
       <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))}. Voto attuale sceso a ${fmtV(VOTO.soglia)} o meno: cala da solo di ${fmtN(VOTO.decadimento)} al giorno dall'ultimo test.</p>
       <button class="btn" style="margin:0" data-act="ripasso">Scegli i passaggi da ripassare</button></section>` : ''}
-    ${riascoltoDovuto() ? `<div class="hint">Riascolto settimanale: è il momento di riascoltare le Rep 4 registrate e dare i voti. <button class="link" data-act="go" data-h="#riascolto">Dai i voti</button></div>` : ''}
     <button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">+ Aggiungi sessione</button>
     ${last && !S ? `<button class="btn two" data-act="repeat" data-id="${esc(last.id)}"><b>Ripeti l'ultima sessione</b><span>${esc(sesDescr(last))}</span></button>` : ''}
     <section class="card" style="margin-top:4px"><div class="cardh"><span class="label">Ultimi 7 giorni</span><b>${fmtMinRound(ch.tot)}</b></div>${ch.html}

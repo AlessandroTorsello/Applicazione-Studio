@@ -1,7 +1,7 @@
 
 /* ================= METODO, VERSIONE 3 =================
    Regole in data/metodo_v3.json (CATALOGO.metodo). Qui: vincolo unico per sessione, livelli tra i giorni,
-   condizioni reali, cucitura, prova, voto di riascolto. Le regole di composizione dei circuiti non cambiano. */
+   condizioni reali, cucitura, prova. Le regole di composizione dei circuiti non cambiano. */
 const M3 = CATALOGO.metodo || {};
 const AVV = M3.avvisi || {};
 const giorniTra = (a, b) => Math.round((dparse(b).getTime() - dparse(a).getTime()) / 864e5);
@@ -47,10 +47,10 @@ function giunturaTesto(a, b) {
 /* ---- voto in decimi (revisione del 12/11/2026, al posto dei livelli 0-4) ----
    Dopo la prima Rep 1 del giorno si dà un voto da 0 a 10 sulla metrica del brano. Il voto cala da solo
    (VOTO.decadimento punti al giorno); sotto VOTO.soglia il frammento è da ripassare. Il voto si ricava ogni volta
-   dal registro (voci con «test» e «voto») e da D.riascolti (riascolto, voto a mano, prova): eliminare una voce
+   dal registro (voci con «test» e «voto») e da D.riascolti (voto a mano, prova; «riascolto» solo nei dati della 3.2): eliminare una voce
    o una sessione toglie anche il suo voto, senza altri conti. */
 const VOTO = Object.assign({ massimo: 10, decadimento: 0.25, soglia: 7, pausa_famiglia: 2, passo: 0.5, prova_sporco: 5 }, M3.voto || {});
-const ORD_FONTE = { test: 1, prova: 2, riascolto: 3, mano: 4 };   // nello stesso giorno: il voto a mano, poi il riascolto, poi gli altri
+const ORD_FONTE = { test: 1, prova: 2, riascolto: 3, mano: 4 };   // nello stesso giorno: il voto a mano, poi il riascolto (dati della 3.2), poi la prova, poi il test
 const fmtV = v => v == null ? '—' : (Math.round(v * 10) / 10).toLocaleString('it-IT', { maximumFractionDigits: 1 });
 const fmtN = v => Number(v).toLocaleString('it-IT', { maximumFractionDigits: 2 });   // numeri delle regole (0,25)
 const leggiVoto = s => { const v = Number(String(s ?? '').replace(',', '.')); return String(s ?? '').trim() === '' || !isFinite(v) ? null : Math.min(VOTO.massimo, Math.max(0, Math.round(v * 2) / 2)); };
@@ -123,17 +123,12 @@ function setVoto(fid, voto, fonte, extra) {
   save();
 }
 const votoDiOggi = (fid, fonte) => (D.riascolti.find(v => v.frammento === fid && v.data === todayStr() && (v.fonte || 'riascolto') === fonte) || {}).voto;
-/* Campo del voto (0-10): salva da solo quando cambia (vedi 70-azioni). */
-function votoInput(fid, fonte, label) {
-  const v = votoDiOggi(fid, fonte);
-  return `<input type="text" class="vin" data-vin="${esc(fid)}" data-fonte="${esc(fonte)}" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${v != null ? esc(fmtV(v)) : ''}" placeholder="0-${VOTO.massimo}" aria-label="${esc(label || 'Voto da 0 a ' + VOTO.massimo)}">`;
-}
 const riferimentiHtml = () => `<details class="sub2 rif"><summary>Punti di riferimento per il voto</summary><div><ul class="news">${(VOTO.riferimenti || []).map(([v, t]) => `<li><b>${esc(v)}</b> ${esc(t)}</li>`).join('')}</ul></div></details>`;
 function testTesto(l) { return !l.test ? '' : typeof l.voto === 'number' ? 'test del giorno: voto ' + fmtV(l.voto) : 'test del giorno senza voto'; }
 function votoSheet(fid) {
   const f = fr(fid), i = infoVoto(fid), m = votoDiOggi(fid, 'mano');
   openSheet(`<h2>Voto a mano</h2><p class="muted small" style="margin-top:-6px">${f ? 'bb. ' + esc(f.battute) + (f.titolo ? ' · ' + esc(f.titolo) : '') : ''}</p>
-    <p class="small">${i ? esc(votoTesto(fid)) + '.' : 'Ancora nessun voto.'} Di norma il voto viene dal test del giorno o dal riascolto. Un voto dato qui vale come voto di oggi e prevale sugli altri della giornata.</p>
+    <p class="small">${i ? esc(votoTesto(fid)) + '.' : 'Ancora nessun voto.'} Di norma il voto viene dal test del giorno. Un voto dato qui vale come voto di oggi e prevale sugli altri della giornata.</p>
     <div class="field"><label for="vm">Voto di oggi (0-${VOTO.massimo})</label><input type="text" id="vm" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${m != null ? esc(fmtV(m)) : ''}" class="bignum"></div>
     ${riferimentiHtml()}
     <button class="btn primary xl" id="vmok">Salva il voto</button>
@@ -248,30 +243,6 @@ function vincoliStats(h) {
   });
   return [...m.entries()];
 }
-
-/* ---- riascolto settimanale: voto da 0 a 10, dato riascoltando; sostituisce il voto di quel giorno ---- */
-/* Frammenti studiati negli ultimi 7 giorni: sono quelli da riascoltare. */
-function studiatiInSettimana() {
-  const from = dayAdd(todayStr(), -6), ids = new Set();
-  D.sessioni.forEach(s => { if (s.data >= from) (s.log || []).forEach(l => { if (l.frammento && fr(l.frammento) && !l.controllo) ids.add(l.frammento); }); });
-  return [...ids].map(fr);
-}
-function riascoltoDovuto() {
-  const st = studiatiInSettimana(); if (!st.length) return false;
-  const last = D.riascolti.filter(v => (v.fonte || 'riascolto') === 'riascolto').reduce((a, v) => v.data > a ? v.data : a, '');
-  return !last || giorniTra(last, todayStr()) >= 7;
-}
-SCREENS.riascolto = () => {
-  const st = studiatiInSettimana(), ord = new Map(C.brani.map((b, i) => [b.id, i])), M = mappaVoti();
-  const brani = [...new Set(st.map(f => f.brano))].sort((a, b) => (metricaDi(a) === 'suono' ? 0 : 1) - (metricaDi(b) === 'suono' ? 0 : 1) || ord.get(a) - ord.get(b));
-  app.innerHTML = header('Riascolto settimanale', `Un voto da 0 a ${VOTO.massimo}, dato riascoltando`, '#history') + `<main class="wrap">
-    <p class="lead">Riascolta le registrazioni di Rep 4 e scrivi un voto per ogni frammento. Vale come voto di oggi e prende il posto di quello del test, perché è più affidabile. Per toglierlo, cancella il numero.</p>
-    ${riferimentiHtml()}
-    ${brani.map(b => `<section class="card"><div class="cardh"><span class="label">${esc(branoNome(b))}</span><span class="pill">${metricaDi(b) === 'suono' ? 'metrica: suono' : 'metrica: tempo'}</span></div>
-      ${st.filter(f => f.brano === b).sort((x, y) => primaBattuta(x) - primaBattuta(y)).map(f => `<div class="rrow"><div class="m"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<div class="small muted">${esc(votoTesto(f.id, M) || 'nessun voto finora')}</div></div>${votoInput(f.id, 'riascolto', 'Voto di riascolto di ' + f.battute)}</div>`).join('')}</section>`).join('')
-      || '<div class="empty"><b>Niente da riascoltare</b><span>Qui compaiono i frammenti studiati negli ultimi 7 giorni.</span></div>'}
-  </main>`;
-};
 
 /* ================= CUCITURA E PROVA ================= */
 /* Scelta di brano e tratto (dal frammento… al frammento…) per la cucitura e la prova. */

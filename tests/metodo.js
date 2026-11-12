@@ -1,5 +1,5 @@
 /* Controlli sul metodo, versione 3 (3.2): coppia unica di vincoli, voto in decimi e «Da ripassare oggi», condizioni reali,
-   frammenti di resistenza, cucitura, prova, voto di riascolto, passaggio dalla 2.x.
+   frammenti di resistenza, cucitura, prova, niente riascolto, passaggio dalla 2.x.
    Uso: node tests/metodo.js [cartella-screenshot] */
 const { chromium } = require('playwright');
 const path = require('path');
@@ -30,11 +30,12 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   };
   /* Rep 1 con esito, poi Rep 2, 3 e 4 fino allo slot successivo. */
   const rep1 = async voto => { await fatto(); if (voto != null) await p.fill('.sheet.on #r1voto', String(voto)); };
+  const hash = () => p.evaluate(() => location.hash);
   const iv = fid => p.evaluate(fid => { const i = infoVoto(fid); return i ? { a: i.a, v: i.u.v, d: i.u.d, fonte: i.u.fonte } : null; }, fid);
   const finoAllaFine = async () => { await fatto(); await fatto(); await fatto(); await p.click('#r4no'); await w(); };
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '3.2.0', 'versione 3.2.0');
+  ok(await p.evaluate(() => APP_VERSION) === '3.3.0', 'versione 3.3.0');
   ok(!(await p.locator('.sheet.on').count()), 'nessun foglio novità su installazione nuova');
   ok(!(await p.locator('[data-act="ripasso"]').count()), 'home: niente «Da ripassare oggi» senza voti');
 
@@ -204,37 +205,25 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.goto(U + '#home'); await w();
   ok((await txt('.card:has([data-act="ripasso"])')).includes('2 passaggi'), 'home: ora 2 passaggi da ripassare');
 
-  /* --- 6. metrica e voto di riascolto --- */
+  /* --- 6. metrica, niente riascolto --- */
   ok(await p.evaluate(() => metricaDi('op111') === 'tempo' && metricaDi('op111-2') === 'suono' && metricaDi('mephisto') === 'tempo' && metricaDi('scriabin28') === 'suono'), 'metrica predefinita dei quattro brani');
   await p.goto(U + '#history'); await w();
-  await p.click('[data-h="#riascolto"]'); await w();
-  ok(await p.locator('.rrow').count() === 2, 'riascolto: i frammenti studiati negli ultimi 7 giorni');
-  const vin = `input[data-vin="${A}"]`;
-  ok(await p.locator(vin).count() === 1 && await p.locator('.rif').count() === 1, 'riascolto: campo del voto da 0 a 10 e punti di riferimento');
-  await p.fill(vin, '6'); await p.locator(vin).dispatchEvent('change'); await w();
-  await shot('riascolto');
-  d = await D();
-  let ra = d.riascolti.filter(r => r.fonte === 'riascolto');
-  ok(ra.length === 1 && ra[0].voto === 6 && ra[0].frammento === A && (await iv(A)).v === 6, 'voto di riascolto salvato: sostituisce il 7,5 del test di oggi');
-  await p.fill(vin, ''); await p.locator(vin).dispatchEvent('change'); await w();
-  ok(!(await D()).riascolti.some(r => r.fonte === 'riascolto') && (await iv(A)).v === 7.5, 'cancellando il numero il voto si toglie');
-  await p.fill(vin, '8,5'); await p.locator(vin).dispatchEvent('change'); await w();
-  ok((await iv(A)).v === 8.5, 'voto con la virgola: 8,5');
-  await p.fill(`input[data-vin="${B}"]`, '3'); await p.locator(`input[data-vin="${B}"]`).dispatchEvent('change'); await w();
-  await p.reload(); await w();
-  ok((await iv(B)).v === 3 && (await iv(B)).fonte === 'riascolto', 'un 3 in decimi resta 3 dopo il riavvio (non viene preso per un voto della scala 1-3)');
-  await p.fill(`input[data-vin="${B}"]`, ''); await p.locator(`input[data-vin="${B}"]`).dispatchEvent('change'); await w();
+  ok(!(await p.locator('[data-h="#riascolto"]').count()) && !/riascolto settimanale/i.test(await txt('main')), 'storico: niente più riascolto settimanale');
+  await p.goto(U + '#home'); await w();
+  ok(!/riascolt/i.test(await txt('main')), 'home: nessun promemoria di riascolto');
+  ok(!(await p.locator('[data-h="#lezione"]').count()) && !/dopo la lezione/i.test(await txt('main')), 'home: nessuna azione «Dopo la lezione»');
   await p.goto(U + '#frag/' + encodeURIComponent(A)); await w();
   const fp = await p.locator('main').innerText();
-  ok(/Voto attuale/i.test(fp) && /Vincoli usati/i.test(fp) && /Voto di riascolto/i.test(fp) && /Ultimo Rep 4/i.test(fp) && /voto al test successivo/i.test(fp), 'pagina del frammento: voto, vincoli usati, riascolto');
+  ok(/Voto attuale/i.test(fp) && /Vincoli usati/i.test(fp) && !/riascolto/i.test(fp) && /Ultimo Rep 4/i.test(fp) && /voto al test successivo/i.test(fp), 'pagina del frammento: voto e vincoli usati; niente riascolto');
   await shot('frammento');
   await p.click('[data-act="votomano"]'); await w(); await p.fill('.sheet.on #vm', '10'); await shot('voto-a-mano'); await p.click('#vmok'); await w();
   ok((await iv(A)).v === 10 && (await iv(A)).fonte === 'mano' && (await p.evaluate(a => votoTesto(a), A)).includes('tra 12 giorni'), 'voto a mano: 10, da ripassare tra 12 giorni');
   // verifica a due settimane per un brano «suono»: il voto non sale
-  await p.evaluate(() => { const f = 'scriabin fantasie-1-4'; D.riascolti.push({ frammento: f, data: dayAdd(todayStr(), -15), voto: 6, fonte: 'riascolto', scala: 10 }, { frammento: f, data: todayStr(), voto: 6, fonte: 'riascolto', scala: 10 }); save(); });
+  await p.evaluate(() => { const f = 'scriabin fantasie-1-4', t = todayStr(), e = g => ({ circuito: 1, andata: 1, etichetta: 'A1', frammento: f, brano: 'scriabin28', secondi: 300, rep_completate: 4, test: { g }, voto: 6 });
+    D.sessioni.push({ id: 'sc1', data: dayAdd(t, -15), inizio: dayAdd(t, -15) + 'T09:00:00', tipo: 'circuito', log: [e(dayAdd(t, -15))] }, { id: 'sc2', data: t, inizio: t + 'T07:00:00', tipo: 'circuito', log: [e(t)] }); save(); });
   await p.goto(U + '#frag/' + encodeURIComponent('scriabin fantasie-1-4')); await w();
   const fs = await p.locator('main').innerText();
-  ok(/Voto attuale/i.test(fs) && fs.includes('il voto non sale'), 'brano «suono»: verifica a due settimane sul voto');
+  ok(/Voto attuale/i.test(fs) && fs.includes('il voto del test a freddo non sale'), 'brano «suono»: verifica a due settimane sul voto del test a freddo');
   await shot('frammento-suono');
   // la metrica di un brano si cambia dalle Impostazioni
   await p.goto(U + '#brano/op111'); await w();
@@ -245,7 +234,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   /* --- 7. regole --- */
   await p.evaluate(() => { D.sessione_aperta = null; save(); }); await p.goto(U + '#rules/metodo'); await w();
   const rg = await txt('#metodo');
-  ok(await p.locator('#metodo[open]').count() === 1 && rg.includes('La diagnosi sceglie il vincolo') && rg.includes('Cucitura') && rg.includes('Le mani non vanno insieme') && rg.includes('Voto in decimi') && rg.includes('famiglia studiata di recente') && !/livell/i.test(rg), 'regole: metodo con il voto in decimi e tabella degli errori');
+  ok(await p.locator('#metodo[open]').count() === 1 && rg.includes('La diagnosi sceglie il vincolo') && rg.includes('Cucitura') && rg.includes('Le mani non vanno insieme') && rg.includes('Voto in decimi') && rg.includes('famiglia studiata di recente') && !/dopo la lezione/i.test(rg) && !/livell/i.test(rg) && !/Riascolto settimanale:/.test(rg), 'regole: metodo con il voto in decimi e tabella degli errori');
   await shot('regole-metodo');
 
   /* --- 8. chi arriva dalla 2.2 --- */
@@ -256,9 +245,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on h2')).includes('versione 3'), 'chi arriva dalla 2.2 vede le novità della versione 3');
   await shot('novita');
   d = await D();
-  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.2.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
+  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.3.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
   ok(d.riascolti.length === 1 && d.riascolti[0].voto === 10 && d.riascolti[0].da3 === 3 && d.riascolti[0].scala === 10, 'voto di riascolto 1-3 convertito in decimi (3 → 10)');
-  ok((await txt('.sheet.on')).includes('3.2 · Voto in decimi'), 'novità: voce della 3.2');
+  ok((await txt('.sheet.on')).includes('3.2 · Voto in decimi') && (await txt('.sheet.on')).includes('3.3 · Niente riascolto settimanale'), 'novità: voci della 3.2 e della 3.3');
   await p.click('.sheet.on [data-act="closesheet"]'); await w();
   await avvia([A]);
   await rep1(7); ok((await txt('.sheet.on .vbox')).includes('andata 1'), 'storico senza coppie registrate: si parte dalla coppia 1'); await p.click('#r1ok'); await w();

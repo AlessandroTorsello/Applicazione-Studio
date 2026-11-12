@@ -116,15 +116,6 @@ document.addEventListener('click', e => {
   const el = e.target.closest('[data-act]'); if (!el || el.disabled) return;
   const fn = ACT[el.dataset.act]; if (fn) { e.preventDefault(); fn(el); }
 });
-/* Campi del voto (riascolto ecc.): si salvano da soli quando cambiano. */
-document.addEventListener('change', e => {
-  const i = e.target.closest && e.target.closest('input[data-vin]'); if (!i) return;
-  const v = leggiVoto(i.value);
-  if (i.value.trim() !== '' && v == null) { toast(`Scrivi un voto da 0 a ${VOTO.massimo}`); return; }
-  setVoto(i.dataset.vin, v, i.dataset.fonte || 'riascolto');
-  if (v != null) i.value = fmtV(v);
-  toast(v == null ? 'Voto tolto' : 'Voto ' + fmtV(v) + ' salvato');
-});
 $('#ov').addEventListener('click', () => closeOverlays());
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#ov').classList.contains('on')) closeOverlays(); });
 

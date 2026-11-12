@@ -368,8 +368,8 @@
   "andate": "In una sessione ogni frammento usa una sola coppia di vincoli (Rep 2 e Rep 3) per tutte le andate, così ogni vincolo si ripete 3-4 volte. La coppia cambia tra i giorni: un giorno quella dell'andata 1 del catalogo, la volta dopo quella dell'andata 2 (poi 3 e 4, se esistono). Andata 4 solo se non in drop-out.",
   "drop_out": "Se alla terza andata Rep 1 è pulita e fluida, il frammento non fa la quarta. Il drop-out serve solo a risparmiare tempo dentro la sessione: non cambia il voto.",
   "arresto": "Due errori nello stesso punto con lo stesso vincolo: scendi di 8-10 clic o accorcia il frammento.",
-  "da_annotare": "Il voto del test (prima Rep 1 del giorno), il tempo di Rep 4 e il vincolo usato. Una volta a settimana registra Rep 4, riascoltala a metà velocità e dai un voto da 0 a 10 riascoltando, non mentre suoni: sostituisce il voto di quel giorno.",
-  "verifica_2_settimane": "Brani con metrica «tempo»: se dopo due settimane il tempo di Rep 4 non sale, torna a Rep 2-3 al 70-80% uniforme. Brani con metrica «suono»: la verifica scatta se in due settimane il voto non sale."
+  "da_annotare": "Il voto del test (prima Rep 1 del giorno), il tempo di Rep 4 e il vincolo usato.",
+  "verifica_2_settimane": "Brani con metrica «tempo»: se dopo due settimane il tempo di Rep 4 non sale, torna a Rep 2-3 al 70-80% uniforme. Brani con metrica «suono»: la verifica scatta se in due settimane il voto del test a freddo non sale."
  },
  "regole_circuito": {
   "struttura": "3-5 slot per circuito, 3-4 andate.",
@@ -7315,7 +7315,7 @@
    "pausa_famiglia": 2,
    "passo": 0.5,
    "prova_sporco": 5,
-   "nota": "Revisione del 12/11/2026, chiesta da Alessandro: voto in decimi al posto dei livelli 0-4 e di «Rep 1 pulita sì/no». Calo di 0,25 al giorno (un 10 torna da ripassare dopo 12 giorni), soglia 7, pausa di famiglia di 2 giorni: scelte di lavoro da correggere con l'uso.",
+   "nota": "Revisione del 12/11/2026, chiesta da Alessandro: voto in decimi al posto dei livelli 0-4 e di «Rep 1 pulita sì/no». Calo di 0,25 al giorno (un 10 torna da ripassare dopo 12 giorni), soglia 7, pausa di famiglia di 2 giorni: scelte di lavoro da correggere con l'uso. Dal 12/11/2026 (3.3) niente riascolto settimanale: basta il voto del test.",
    "riferimenti": [
     [
      "10",
@@ -7350,7 +7350,7 @@
    "prova": "Una sola volta, senza fermarti, registrandoti. L'app non registra l'audio: usa un registratore o un'altra app.",
    "cucitura_giuntura": "Solo la giuntura: le ultime 2 battute del primo frammento e le prime 2 del secondo.",
    "cucitura_fila": "I due frammenti di fila, una volta, all'85-90%.",
-   "metrica_suono": "Per questo brano la metrica è il suono: il tempo è facoltativo, il voto del test e del riascolto riguarda il suono."
+   "metrica_suono": "Per questo brano la metrica è il suono: il tempo è facoltativo, il voto del test riguarda il suono."
   },
   "regole": [
    {
@@ -7375,7 +7375,7 @@
    },
    {
     "titolo": "Metrica adatta al brano",
-    "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto, Nabucco) o suono (op. 111 Arietta, Fantasia op. 28). Il voto del test riguarda quella metrica.\nRiascolto settimanale: per ogni frammento registrato, un voto da 0 a 10 dato riascoltando, non mentre si suona. Sostituisce il voto di quel giorno.\nVerifica a due settimane: per i brani «tempo» resta sui bpm di Rep 4; per i brani «suono» scatta se il voto non sale."
+    "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto, Nabucco) o suono (op. 111 Arietta, Fantasia op. 28). Il voto del test riguarda quella metrica.\nVerifica a due settimane: per i brani «tempo» resta sui bpm di Rep 4; per i brani «suono» scatta se il voto del test a freddo non sale."
    },
    {
     "titolo": "Brani nuovi e consolidati",

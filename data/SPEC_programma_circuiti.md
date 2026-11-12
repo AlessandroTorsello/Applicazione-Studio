@@ -267,7 +267,7 @@ Chiesta da Alessandro nel confronto sul metodo: niente intervalli fissi, si stud
 
 - **Rep 3 reale** (dinamica e pedale reali, mantenendo il vincolo) se il voto di oggi è almeno 7. I frammenti di resistenza restano sempre nella dinamica scritta.
 - **Prova**: i frammenti con punti sporchi prendono 5 come voto del giorno (`fonte: "prova"`, con `sid` della sessione), se il loro voto attuale non è già più basso.
-- **Riascolto settimanale**: voto da 0 a 10 per ogni frammento studiato negli ultimi 7 giorni; sostituisce il voto di quel giorno. Cancellare il numero lo toglie.
+- **Riascolto settimanale**: voto da 0 a 10 per ogni frammento studiato negli ultimi 7 giorni; sostituisce il voto di quel giorno. Tolto nella 3.3 (§ 12).
 - **Voto a mano** dalla pagina del frammento: vale come voto di oggi e prevale sugli altri.
 - **Verifica a due settimane** per i brani «suono»: scatta se in due settimane il voto non sale (e non è 10).
 - **Vincoli usati**: per ogni vincolo, di quanto cambia in media il voto del test al giorno di studio successivo.
@@ -279,3 +279,10 @@ Chiesta da Alessandro nel confronto sul metodo: niente intervalli fissi, si stud
 - `riascolti[]`: `{ frammento, data, voto, scala: 10, fonte, t, sid? }`. Al primo avvio della 3.2 i voti 1-3 senza `scala` diventano 3, 7, 10 (il valore originale resta in `da3`).
 - `livelli` resta nei dati e nel backup ma non si usa più. Le regole di composizione dei circuiti non cambiano.
 
+## 12. Niente riascolto settimanale (app 3.3.0)
+
+Chiesto da Alessandro il 12/11/2026: «basta il voto che do io».
+
+- Il **riascolto settimanale** non c'è più: niente schermata, niente pulsante nello Storico, niente promemoria in home, niente campo nella pagina del frammento. I voti di riascolto già dati restano nei dati e contano ancora.
+- **Verifica a due settimane** per i brani «suono»: usa solo i voti del test a freddo.
+- Una proposta di sostituirlo con un'azione «Dopo la lezione» (passaggi segnalati dall'insegnante a voto 5) è stata scartata da Alessandro.

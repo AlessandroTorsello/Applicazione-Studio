@@ -157,10 +157,9 @@ SCREENS.history = () => {
   const maxW = Math.max(1, ...wk.map(x => x[1]));
   const from = histPeriod === 'all' ? '' : dayAdd(today, -(Number(histPeriod) - 1));
   const inP = keys.filter(d => d >= from), pLogs = inP.flatMap(d => days.get(d)), pt = totals(pLogs), nDays = inP.filter(d => totals(days.get(d)).tot > 0).length;
-  const shown = histAll ? keys : keys.slice(0, 30), rias = studiatiInSettimana();
+  const shown = histAll ? keys : keys.slice(0, 30);
   app.innerHTML = topbar('Storico', 'Minuti di studio, dal giorno più recente') + `<main class="wrap tabbed">
     ${histSeg('history')}
-    ${rias.length ? `<button class="btn two" data-act="go" data-h="#riascolto"><b>Riascolto settimanale${riascoltoDovuto() ? ' · da fare' : ''}</b><span>Voto da 0 a ${VOTO.massimo} per i ${rias.length} frammenti studiati negli ultimi 7 giorni</span></button>` : ''}
     ${keys.length ? `<section class="card"><div class="cardh"><span class="label">Totali</span>
         <div class="seg small">${[['7', '7 giorni'], ['30', '30 giorni'], ['all', 'Sempre']].map(([v, l]) => `<button data-act="period" data-v="${v}" class="${histPeriod === v ? 'on' : ''}" aria-pressed="${histPeriod === v}">${l}</button>`).join('')}</div></div>
       <div class="big">${fmtMinRound(pt.tot)}</div>
@@ -222,10 +221,10 @@ SCREENS.frag = fid => {
   const perDay = new Map(); h.forEach(l => { if (l.tempo_rep4 != null) perDay.set(l.data, l.tempo_rep4); });
   const points = [...perDay.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([d, v]) => ({ d, v }));
   const tot = h.reduce((a, l) => a + (l.secondi || 0), 0), tg = D.target[fid];
-  const suono = !!f && metricaDi(f.brano) === 'suono', iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [];
+  const suono = !!f && metricaDi(f.brano) === 'suono', iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [], tpoints = iv ? iv.storia.filter(x => x.fonte === 'test').map(x => ({ d: x.d, v: x.v })) : [];
   const nuovo = !!f && statoDi(f.brano) === 'nuovo';
-  /* Verifica a 2 settimane: per i brani a metrica suono guarda il voto (se non sale), per gli altri il tempo di Rep 4. */
-  const fermo = suono ? (twoWeekCheck(vpoints) && vpoints[vpoints.length - 1].v < VOTO.massimo) : twoWeekCheck(points);
+  /* Verifica a 2 settimane: per i brani a metrica suono guarda il voto del test a freddo (se non sale), per gli altri il tempo di Rep 4. */
+  const fermo = suono ? (twoWeekCheck(tpoints) && tpoints[tpoints.length - 1].v < VOTO.massimo) : twoWeekCheck(points);
   const vst = vincoliStats(h);
   const FONTI = { test: 'test', riascolto: 'riascolto', mano: 'a mano', prova: 'prova' };
   const tempoCard = `<section class="card"><div class="label">Tempo di Rep 4 (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, tg) : '<p class="muted" style="margin:8px 0 0">Nessun tempo registrato: compare dopo la prima Rep 4 con i bpm.</p>'}
@@ -233,7 +232,7 @@ SCREENS.frag = fid => {
   const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto (0-${VOTO.massimo})</span><span class="pill">${suono ? 'metrica: suono' : 'metrica: tempo'}</span></div>
       ${vpoints.length > 1 ? chartSvg(vpoints, VOTO.soglia, 'Andamento del voto', 'soglia') : ''}
       ${iv ? `<p class="small muted" style="margin:6px 0 0">Ultimi voti: ${esc(iv.storia.slice(-5).reverse().map(x => fmtV(x.v) + ' ' + fmtDayMonth(x.d) + (x.fonte !== 'test' ? ' (' + FONTI[x.fonte] + ')' : '')).join(' · '))}</p>` : ''}
-      <div class="optrow"><span><b>Voto di riascolto di oggi</b><br><span class="small muted">dato riascoltando la registrazione, non mentre suoni</span></span>${votoInput(fid, 'riascolto', 'Voto di riascolto di oggi')}</div></section>` : '';
+    </section>` : '';
   app.innerHTML = header(f ? 'bb. ' + f.battute : fid, f ? f.titolo : '', '#frammenti') + `<main class="wrap">
     <section class="card"><div class="row stat3"><div><div class="label">Minuti totali</div><div class="statv">${fmtMinRound(tot)}</div></div>
       <div><div class="label">Voto attuale</div><div class="statv">${iv ? fmtV(iv.a) : '—'}</div></div>
