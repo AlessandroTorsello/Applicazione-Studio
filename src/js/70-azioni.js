@@ -68,10 +68,9 @@ const ACT = {
   cucback: () => cucBack(),
   cucskip: () => cucSkip(),
   vincolo: () => { const S = D.sessione_aperta; if (!S || !S.circuiti[S.pos.c]) return; vincoloSheet(S, S.circuiti[S.pos.c].slot[S.pos.s].frammento); },
-  livello: el => livelloSheet(el.dataset.id),
-  voto: el => { const y = window.scrollY; setVoto(el.dataset.id, Number(el.dataset.v)); render(); window.scrollTo(0, y); },
+  votomano: el => votoSheet(el.dataset.id),
   ripasso: () => { const B = D.bozza; B.cfg.tipo = 'circuito'; B.cfg.modo = 'scritti'; B.circuiti = []; save(); go('#select'); },
-  seldue: () => { const B = D.bozza, s = new Set(B.selezionati); daRipassare().forEach(f => s.add(f.id)); B.selezionati = [...s]; B.circuiti = []; save(); render(); },
+  seldue: () => { const B = D.bozza, s = new Set(B.selezionati); daRipassare().filter(f => !RIP.get(f.id).rec).forEach(f => s.add(f.id)); B.selezionati = [...s]; B.circuiti = []; save(); render(); },
   skipslot: async () => {
     const S = D.sessione_aperta; if (!S) return;
     if (!(await ask({ title: 'Saltare questo slot?', text: 'Passi subito allo slot successivo. Il tempo fatto finora su questo slot resta registrato.', ok: 'Salta lo slot' }))) return;
@@ -87,7 +86,7 @@ const ACT = {
   discard: async () => {
     const S = D.sessione_aperta; if (!S) return;
     if (await ask({ title: 'Scartare la sessione?', text: `Minuti, tempi e note di questa sessione (${fmtMinRound(S.timer.sess + tRun(S.timer))} finora) non vengono salvati. Non si può annullare.`, ok: 'Scarta senza salvare', danger: true }) && D.sessione_aperta === S) {
-      [...S.log].reverse().concat(S.cur && S.cur.test ? [{ frammento: (S.circuiti[S.pos.c] || { slot: [] }).slot[S.pos.s] && S.circuiti[S.pos.c].slot[S.pos.s].frammento, test: S.cur.test }] : []).forEach(l => annullaTest(l, S.data));
+      D.riascolti = D.riascolti.filter(v => v.sid !== S.id);   // i voti di una prova scartata spariscono con lei
       D.sessione_aperta = null; save(); navDepth = 0; toast('Sessione scartata'); replaceTo('#home');
     }
   },
@@ -95,7 +94,7 @@ const ACT = {
   delsess: async el => {
     const s = D.sessioni.find(x => x.id === el.dataset.id); if (!s) return;
     if (!(await ask({ title: 'Eliminare questa sessione?', text: `${sesTipo(s)} del ${fmtDateShort(s.data)}, ${fmtMin(totals(s.log).tot)}. I suoi minuti escono dallo storico. Non si può annullare.`, ok: 'Elimina la sessione', danger: true }))) return;
-    [...(s.log || [])].reverse().forEach(l => annullaTest(l, s.data));
+    D.riascolti = D.riascolti.filter(v => v.sid !== s.id);
     D.sessioni = D.sessioni.filter(x => x.id !== s.id); save(); navDepth = 0; toast('Sessione eliminata'); replaceTo('#day/' + s.data);
   },
   editlog: el => editLog(el.dataset.s, +el.dataset.i),
@@ -116,6 +115,15 @@ document.addEventListener('click', e => {
   const sig = e.target.closest('.sig'); if (sig) { e.preventDefault(); openPanel(sig.dataset.sigla); return; }
   const el = e.target.closest('[data-act]'); if (!el || el.disabled) return;
   const fn = ACT[el.dataset.act]; if (fn) { e.preventDefault(); fn(el); }
+});
+/* Campi del voto (riascolto ecc.): si salvano da soli quando cambiano. */
+document.addEventListener('change', e => {
+  const i = e.target.closest && e.target.closest('input[data-vin]'); if (!i) return;
+  const v = leggiVoto(i.value);
+  if (i.value.trim() !== '' && v == null) { toast(`Scrivi un voto da 0 a ${VOTO.massimo}`); return; }
+  setVoto(i.dataset.vin, v, i.dataset.fonte || 'riascolto');
+  if (v != null) i.value = fmtV(v);
+  toast(v == null ? 'Voto tolto' : 'Voto ' + fmtV(v) + ' salvato');
 });
 $('#ov').addEventListener('click', () => closeOverlays());
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#ov').classList.contains('on')) closeOverlays(); });

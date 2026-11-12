@@ -49,7 +49,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok((await txt('.fatto')).includes('poi'), 'Fatto dice cosa viene dopo');
   // doppio tocco: il secondo non deve saltare
   await p.click('[data-act="fatto"]'); await w(); await shot('rep1-esito');
-  await p.click('[data-yn="1"]'); await p.fill('#diag', 'b. 26 sporca');
+  await p.fill('#r1voto', '8'); await p.fill('#diag', 'b. 26 sporca');
   await p.click('#r1ok'); await w();
   ok((await txt('.repnum')).startsWith('Rep 2'), 'Rep 2');
   await p.click('[data-act="pause"]'); await w(); await shot('pausa');
@@ -84,8 +84,8 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok((await hash()).startsWith('#summary/'), 'riepilogo dopo «termina»');
   await shot('riepilogo');
   let d = await D();
-  ok(d.sessioni.length === 1 && d.sessioni[0].log[0].tempo_rep4 === 96 && d.sessioni[0].log[0].rep1_pulita === true && d.target && Object.values(d.target)[0] === 120, 'dati salvati (bpm, Rep 1, target)');
-  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.1.0', 'versione dei dati');
+  ok(d.sessioni.length === 1 && d.sessioni[0].log[0].tempo_rep4 === 96 && d.sessioni[0].log[0].voto === 8 && d.sessioni[0].log[0].test && d.target && Object.values(d.target)[0] === 120, 'dati salvati (bpm, voto del test, target)');
+  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.2.0', 'versione dei dati');
 
   /* --- ripeti la sessione --- */
   await p.click('[data-act="repeat"]'); await w(700);

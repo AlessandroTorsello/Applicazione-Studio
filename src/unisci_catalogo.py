@@ -49,12 +49,12 @@ assert all(i in noti for g in famiglie for i in g['frammenti']), 'frammento scon
 resto = [b for b in base['brani'][1:] if b['id'] not in {x['id'] for x in brani}]
 out['brani'] = brani + resto; out['frammenti'] = frammenti; out['famiglie'] = famiglie
 # Metodo, versione 3: le regole dello slot riscritte sostituiscono quelle del file base (le altre restano);
-# metrica e priorità di resistenza entrano in ogni brano; il resto (errori, voti, avvisi, regole) sta in «metodo».
+# metrica e priorità di resistenza entrano in ogni brano; il resto (errori, voto, avvisi, regole) sta in «metodo».
 metodo = leggi('metodo_v3.json')
 out['regole_slot'] = dict(base['regole_slot'], **metodo['regole_slot'])
 for b in out['brani']:
     b.update(metodo['brani'].get(b['id'], {}))
 assert all(s in {x['sigla'] for x in base['sigle']} for e in metodo['errori'] for s in e['sigle']), 'sigla sconosciuta nella tabella degli errori'
-out['metodo'] = {k: metodo[k] for k in ('versione', 'fonte', 'intervalli', 'errori', 'voti', 'avvisi', 'regole', 'nuovi')}
+out['metodo'] = {k: metodo[k] for k in ('versione', 'fonte', 'errori', 'voto', 'avvisi', 'regole', 'nuovi')}
 json.dump(out, open(os.path.join(data, 'catalogo.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('catalogo:', ', '.join(f"{b['nome']} ({sum(1 for x in frammenti if x['brano'] == b['id'])})" for b in out['brani']), '· famiglie', len(famiglie))

@@ -181,7 +181,7 @@ function importCatalog(obj) {
 }
 function resetSheet() {
   openSheet(`<h2>Azzerare tutti i dati?</h2>
-    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti o modificati, tempi target, livelli, voti di riascolto e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
+    <p class="asktext">Vengono cancellati sessioni, frammenti e brani aggiunti o modificati, tempi target, voti e impostazioni. Non si può annullare. Prima salva un backup, se non l'hai fatto.</p>
     <div class="field"><label for="rz">Per confermare scrivi AZZERA</label><input type="text" id="rz" autocomplete="off" autocapitalize="characters"></div>
     <button class="btn dangerfill xl" id="rzok">Azzera tutto</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     $('#rzok', sh).addEventListener('click', () => {
@@ -192,16 +192,18 @@ function resetSheet() {
 }
 function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
-    <p class="small muted" style="margin-top:-6px">Il metodo cambia in cinque punti; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
+    <p class="small muted" style="margin-top:-6px">Il metodo cambia in quattro punti, più la revisione della 3.2; le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.2 · Voto in decimi</b>: al posto dei livelli e di «Rep 1 pulita sì/no», dopo la prima Rep 1 del giorno dai un voto da 0 a 10 sulla metrica del brano (pulizia al tempo o suono). Il voto cala da solo di 0,25 al giorno: un 10 torna da ripassare dopo 12 giorni.</li>
+      <li><b>3.2 · Da ripassare oggi</b>: niente più date fisse. In cima alla scelta dei passaggi trovi i frammenti col voto sceso a 7 o meno, dal più basso; quelli di una famiglia studiata negli ultimi 2 giorni vanno in fondo.</li>
+      <li><b>3.2 · Riascolto da 0 a 10</b>: il voto del riascolto settimanale sostituisce quello del giorno. I voti da 1 a 3 già dati sono stati convertiti (1 = 3, 2 = 7, 3 = 10); i vecchi livelli restano nel backup ma non si usano più.</li>
       <li><b>3.1 · Nuovo nome</b>: l'app ora si chiama Summum Studium. È la stessa app: dati e backup precedenti restano validi.</li>
       <li><b>3.1 · Brani nuovi e consolidati</b>: un brano nuovo lavora a ripetizioni di controllo al 50-65%, senza test a freddo e senza Rep 4; quando lo passi a consolidato usa lo slot da 4 Rep. Il Nabucco entra nel catalogo come brano nuovo.</li>
       <li><b>3.1 · Editor</b>: da Impostazioni, toccando un brano, lo dividi in frammenti per battute, cambi battute e testi di qualsiasi frammento, ne dividi uno in due o lo unisci al seguente. Gli originali del catalogo si possono sempre ripristinare.</li>
       <li><b>Una coppia di vincoli per sessione</b>: ogni frammento usa gli stessi vincoli di Rep 2 e Rep 3 in tutte le andate, e la coppia cambia da un giorno all'altro. Dopo la Rep 1 puoi sceglierne altri partendo dall'errore trovato. Il vincolo usato resta nello storico.</li>
-      <li><b>Livelli da 0 a 4</b>: la prima Rep 1 del giorno è il test. Pulita, il frammento sale di livello e torna dopo 2, 4, 8, 16 giorni; sporca, scende di uno. In cima alla scelta dei passaggi trovi «Da ripassare oggi».</li>
-      <li><b>Condizioni reali più spesso</b>: dal livello 2 la Rep 3 è con dinamica e pedale reali. I frammenti di resistenza del Mephisto lavorano nella dinamica scritta fin dall'inizio.</li>
-      <li><b>Cucitura e Prova</b>: due nuovi tipi di sessione. La prima lavora le giunture tra frammenti consecutivi, la seconda è un'esecuzione unica; al riascolto segni i punti sporchi e quei frammenti tornano al livello 0.</li>
-      <li><b>Tempo o suono</b>: ogni brano ha la sua metrica. Una volta a settimana dai un voto da 1 a 3 riascoltando le registrazioni di Rep 4 (Storico, «Riascolto settimanale»). L'app non registra l'audio.</li>
+      <li><b>Condizioni reali più spesso</b>: con voto del test di oggi da 7 in su la Rep 3 è con dinamica e pedale reali. I frammenti di resistenza del Mephisto lavorano nella dinamica scritta fin dall'inizio.</li>
+      <li><b>Cucitura e Prova</b>: due nuovi tipi di sessione. La prima lavora le giunture tra frammenti consecutivi, la seconda è un'esecuzione unica; al riascolto segni i punti sporchi e quei frammenti finiscono in «Da ripassare».</li>
+      <li><b>Tempo o suono</b>: ogni brano ha la sua metrica. Una volta a settimana dai un voto da 0 a 10 riascoltando le registrazioni di Rep 4 (Storico, «Riascolto settimanale»). L'app non registra l'audio.</li>
     </ul>
     <button class="link" data-act="go" data-h="#rules/metodo" style="display:block;margin:0 0 10px">Leggi le regole complete</button>
     <details class="sub2" style="margin-bottom:12px"><summary>Novità della versione 2</summary><div><ul class="news">

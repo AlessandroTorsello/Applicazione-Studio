@@ -175,7 +175,7 @@ Il catalogo ora ha quattro brani (`op111`, `op111-2`, `mephisto`, `scriabin28`),
 - Nel foglio di Rep 1, alla prima andata del frammento, si vedono i vincoli di oggi e il pulsante «Cambia». Si sceglie l'errore trovato da una tabella (9 voci: mani non insieme, dita diseguali, salto, cambio di posizione, suono duro, voci, trillo, pulsazione, memoria) e l'app propone le sigle adatte per Rep 2 e Rep 3; in alternativa si sceglie un'altra coppia del catalogo. «Cambia vincolo» resta disponibile anche nelle schermate di Rep 2 e Rep 3.
 - Nel registro ogni voce porta `coppia`, e se scelti a mano `vincolo_rep2`, `vincolo_rep3`, `errore`. La pagina del frammento ha la sezione «Vincoli usati»: per ogni vincolo, in quanti giorni è stato usato e com'era il test del giorno di studio successivo.
 
-### 9.2 Livelli da 0 a 4
+### 9.2 Livelli da 0 a 4 (fino alla 3.1; dalla 3.2 vedi § 11)
 
 - `livelli[id frammento] = { l, data, prossimo, visto }`. Intervalli: livello 0 = 1 giorno, 1 = 2, 2 = 4, 3 = 8, 4 = 16 (mantenimento).
 - Il **test** è la prima Rep 1 del giorno per quel frammento (una sola al giorno, qualunque sessione). Pulita: sale di un livello. Sporca: scende di un livello, non torna a 0. Senza risposta: il livello non cambia.
@@ -184,7 +184,7 @@ Il catalogo ora ha quattro brani (`op111`, `op111-2`, `mephisto`, `scriabin28`),
 - Home: scheda «Da ripassare oggi» con il numero di frammenti il cui intervallo è scaduto. Selezione: in cima gli stessi frammenti, divisi per brano e in ordine di priorità (le priorità sono proprie di ogni brano, quindi non si mescolano tra brani), con «Seleziona tutti».
 - Il livello si vede nella riga del frammento e nella sua pagina, dove si può correggere a mano o togliere il frammento dalla rotazione.
 
-### 9.3 Condizioni reali più spesso
+### 9.3 Condizioni reali più spesso (dalla 3.2 la soglia è il voto, § 11)
 
 - Livelli 0-1: Rep 2-3 a mp e senza pedale, come prima.
 - Dal livello 2 (contato dopo il test del giorno): avviso in Rep 3 «con dinamica e pedale reali, mantenendo il vincolo».
@@ -243,3 +243,39 @@ Dalla 3.1.0 l'app si chiama **Summum Studium**: titolo, manifest della web app, 
 ### 10.5 Dati
 
 Due campi nuovi: `stato` e `frammenti_nascosti`. I dati delle versioni precedenti restano così come sono.
+
+## 11. Revisione del 12/11/2026: voto in decimi (app 3.2.0)
+
+Chiesta da Alessandro nel confronto sul metodo: niente intervalli fissi, si studia sempre ciò che sta peggio, con qualche giorno di pausa tra frammenti simili; «Rep 1 pulita sì/no» non dice nulla su tempo e suono. Sostituisce i livelli del § 9.2. I numeri stanno in `data/metodo_v3.json`, voce `voto`, e sono scelte di lavoro.
+
+### 11.1 Il voto
+
+- Dopo la **prima Rep 1 del giorno** (il test a freddo) il foglio di Rep 1 chiede un voto da 0 a 10, a passi di 0,5, sulla metrica del brano: pulizia al tempo per i brani «tempo», suono per i brani «suono». Le altre Rep 1 dello stesso giorno chiedono solo la diagnosi. Il voto è facoltativo.
+- Punti di riferimento (nel foglio, nel riascolto e nelle regole): 10 = al tempo target, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.
+- **Voto attuale** = ultimo voto − 0,25 per ogni giorno da allora, mai sotto 0. Un 10 torna a 7 in 12 giorni.
+- Il voto non si salva per frammento: si ricava ogni volta dal registro (voci con `test` e `voto`, più il voto appena dato nello slot aperto) e da `riascolti` (`fonte`: `riascolto`, `mano`, `prova`). Così eliminare o scartare una sessione, o una voce, toglie anche il suo voto.
+- Nello stesso giorno prevale il voto a mano, poi il riascolto, poi la prova, poi il test.
+
+### 11.2 Da ripassare oggi
+
+- Entra un frammento di un brano consolidato e visibile, già votato almeno una volta, con il voto attuale **sotto 7**, oppure **arrivato a 7 in un giorno successivo** al voto (così un 10 torna dopo 12 giorni esatti e un 7 dato oggi torna domani). I frammenti mai votati e i brani nuovi restano fuori: altrimenti la lista conterrebbe tutto il catalogo.
+- Ordine: per brano; dentro il brano dal voto attuale più basso, a parità la priorità, poi la battuta.
+- **Pausa tra frammenti simili**: se un altro frammento della stessa famiglia è stato studiato negli ultimi 2 giorni (oggi compreso), il frammento va in fondo al suo brano, sotto il titolo «Famiglia studiata di recente». «Seleziona tutti» spunta solo gli altri.
+- Home: scheda «Da ripassare oggi» con il numero. La riga del frammento mostra il voto attuale e fra quanti giorni torna da ripassare.
+
+### 11.3 Effetti del voto
+
+- **Rep 3 reale** (dinamica e pedale reali, mantenendo il vincolo) se il voto di oggi è almeno 7. I frammenti di resistenza restano sempre nella dinamica scritta.
+- **Prova**: i frammenti con punti sporchi prendono 5 come voto del giorno (`fonte: "prova"`, con `sid` della sessione), se il loro voto attuale non è già più basso.
+- **Riascolto settimanale**: voto da 0 a 10 per ogni frammento studiato negli ultimi 7 giorni; sostituisce il voto di quel giorno. Cancellare il numero lo toglie.
+- **Voto a mano** dalla pagina del frammento: vale come voto di oggi e prevale sugli altri.
+- **Verifica a due settimane** per i brani «suono»: scatta se in due settimane il voto non sale (e non è 10).
+- **Vincoli usati**: per ogni vincolo, di quanto cambia in media il voto del test al giorno di studio successivo.
+- **Drop-out**: invariato. Alla terza andata di un circuito con più di tre andate è una casella nel foglio di Rep 1 (prima era un secondo foglio).
+
+### 11.4 Dati e aggiornamento
+
+- Voci del registro: `voto` (numero o `null`) accanto a `test: { g }`. `rep1_pulita` non si scrive più; le voci vecchie la conservano e la mostrano.
+- `riascolti[]`: `{ frammento, data, voto, scala: 10, fonte, t, sid? }`. Al primo avvio della 3.2 i voti 1-3 senza `scala` diventano 3, 7, 10 (il valore originale resta in `da3`).
+- `livelli` resta nei dati e nel backup ma non si usa più. Le regole di composizione dei circuiti non cambiano.
+

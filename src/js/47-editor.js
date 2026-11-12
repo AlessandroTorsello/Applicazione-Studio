@@ -110,7 +110,7 @@ function dividiFrammento(id) {
   openSheet(`<h2>Dividi in due</h2><p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)}${f.titolo ? ' · ' + esc(f.titolo) : ''}</p>
     <div class="field"><label for="dvn">La seconda parte inizia alla battuta</label><input type="number" id="dvn" inputmode="numeric" min="${a + 1}" max="${b}" value="${Math.ceil((a + b + 1) / 2)}"></div>
     <p class="small muted" id="dvp"></p>
-    <p class="small">La prima parte conserva storico, livello e tempo target. I testi vengono copiati in entrambe: poi li ritocchi.</p>
+    <p class="small">La prima parte conserva storico, voti e tempo target. I testi vengono copiati in entrambe: poi li ritocchi.</p>
     <button class="btn primary xl" id="dvok">Dividi</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     const inp = $('#dvn', sh), prev = () => { const n = Math.round(Number(inp.value)); $('#dvp', sh).textContent = n > a && n <= b ? `Diventano bb. ${batt(a, n - 1)} e bb. ${batt(n, b)}.` : `Scrivi una battuta tra ${a + 1} e ${b}.`; return n; };
     inp.addEventListener('input', prev); prev();

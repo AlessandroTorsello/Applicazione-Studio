@@ -42,7 +42,7 @@ SCREENS.home = () => {
       <p class="nowpos">${esc(posDescr(S))}</p><p class="small muted" style="margin:0 0 10px">${esc(sesDescr(S))}</p>
       <button class="btn primary xl" data-act="go" data-h="#run" style="margin:0">Riprendi la sessione</button></section>` : ''}
     ${due.length ? `<section class="card"><div class="cardh"><span class="label">Da ripassare oggi</span><b>${due.length} ${due.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
-      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))}. L'intervallo del loro livello è scaduto.</p>
+      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))}. Voto attuale sceso a ${fmtV(VOTO.soglia)} o meno: cala da solo di ${fmtN(VOTO.decadimento)} al giorno dall'ultimo test.</p>
       <button class="btn" style="margin:0" data-act="ripasso">Scegli i passaggi da ripassare</button></section>` : ''}
     ${riascoltoDovuto() ? `<div class="hint">Riascolto settimanale: è il momento di riascoltare le Rep 4 registrate e dare i voti. <button class="link" data-act="go" data-h="#riascolto">Dai i voti</button></div>` : ''}
     <button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">+ Aggiungi sessione</button>
@@ -65,7 +65,7 @@ async function closeOpenFirst() {
 function cfgRecap(cfg) {
   if (cfg.tipo === 'libera') return 'Sessione libera: un cronometro per brano, cambi brano con un tasto.';
   if (cfg.tipo === 'cucitura') return 'Cucitura: per ogni giuntura le ultime 2 battute di un frammento e le prime 2 del successivo, poi i due frammenti di fila una volta all\'85-90%.';
-  if (cfg.tipo === 'prova') return 'Prova: una sola volta, senza fermarti, registrandoti. Al riascolto segni i punti sporchi: quei frammenti tornano al livello 0.';
+  if (cfg.tipo === 'prova') return `Prova: una sola volta, senza fermarti, registrandoti. Al riascolto segni i punti sporchi: quei frammenti prendono ${fmtV(VOTO.prova_sporco)} e finiscono in «Da ripassare».`;
   return `Circuito a ${cfg.slot} slot · ${cfg.andate} andate · ${cfg.modo === 'scritti' ? 'passaggi scritti (Rep 1-4 guidate)' : 'libero (solo tempi)'}`;
 }
 const stepsFor = cfg => cfg.modo === 'scritti' ? ['Tipo', 'Passaggi', 'Circuiti'] : ['Tipo', 'Circuiti'];

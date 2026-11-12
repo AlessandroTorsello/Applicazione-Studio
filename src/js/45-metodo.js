@@ -3,10 +3,8 @@
    Regole in data/metodo_v3.json (CATALOGO.metodo). Qui: vincolo unico per sessione, livelli tra i giorni,
    condizioni reali, cucitura, prova, voto di riascolto. Le regole di composizione dei circuiti non cambiano. */
 const M3 = CATALOGO.metodo || {};
-const INTERV = Array.isArray(M3.intervalli) && M3.intervalli.length === 5 ? M3.intervalli : [1, 2, 4, 8, 16];
 const AVV = M3.avvisi || {};
 const giorniTra = (a, b) => Math.round((dparse(b).getTime() - dparse(a).getTime()) / 864e5);
-const quando = d => { const n = giorniTra(todayStr(), d); return n <= 0 ? 'oggi' : n === 1 ? 'domani' : 'tra ' + n + ' giorni'; };
 
 /* ---- metrica del brano e frammenti di resistenza ---- */
 const metricaDi = bid => D.metrica[bid] || (C.B.get(bid) || {}).metrica || 'tempo';
@@ -46,64 +44,103 @@ function giunturaTesto(a, b) {
   return y0 === x1 + 1 ? r(x0, x1) + ' + ' + r(y0, y1) : r(Math.min(x0, y0), Math.max(x1, y1));
 }
 
-/* ---- livelli: 0 = ogni giorno … 4 = mantenimento ---- */
-const livDi = fid => { const x = D.livelli[fid]; return x && Number.isInteger(x.l) ? x.l : 0; };
-function setLivello(fid, l, data, pross) {
-  l = Math.min(4, Math.max(0, l));
-  D.livelli[fid] = Object.assign(D.livelli[fid] || {}, { l, data, prossimo: pross || dayAdd(data, INTERV[l]) });
+/* ---- voto in decimi (revisione del 12/11/2026, al posto dei livelli 0-4) ----
+   Dopo la prima Rep 1 del giorno si dà un voto da 0 a 10 sulla metrica del brano. Il voto cala da solo
+   (VOTO.decadimento punti al giorno); sotto VOTO.soglia il frammento è da ripassare. Il voto si ricava ogni volta
+   dal registro (voci con «test» e «voto») e da D.riascolti (riascolto, voto a mano, prova): eliminare una voce
+   o una sessione toglie anche il suo voto, senza altri conti. */
+const VOTO = Object.assign({ massimo: 10, decadimento: 0.25, soglia: 7, pausa_famiglia: 2, passo: 0.5, prova_sporco: 5 }, M3.voto || {});
+const ORD_FONTE = { test: 1, prova: 2, riascolto: 3, mano: 4 };   // nello stesso giorno: il voto a mano, poi il riascolto, poi gli altri
+const fmtV = v => v == null ? '—' : (Math.round(v * 10) / 10).toLocaleString('it-IT', { maximumFractionDigits: 1 });
+const fmtN = v => Number(v).toLocaleString('it-IT', { maximumFractionDigits: 2 });   // numeri delle regole (0,25)
+const leggiVoto = s => { const v = Number(String(s ?? '').replace(',', '.')); return String(s ?? '').trim() === '' || !isFinite(v) ? null : Math.min(VOTO.massimo, Math.max(0, Math.round(v * 2) / 2)); };
+/* Per ogni frammento: voto di ogni giorno (storia) e ultimo voto. */
+function mappaVoti() {
+  const m = new Map(), add = (fid, data, v, fonte, t) => {
+    if (!fid || typeof v !== 'number' || !data) return;
+    const x = m.get(fid) || new Map(), cur = x.get(data), o = ORD_FONTE[fonte] || 0;
+    if (!cur || o > cur.o || (o === cur.o && (t || '') >= (cur.t || ''))) x.set(data, { d: data, v, fonte, o, t });
+    m.set(fid, x);
+  };
+  const ses = [...D.sessioni]; if (D.sessione_aperta) ses.push(D.sessione_aperta);
+  ses.forEach(s => (s.log || []).forEach(l => { if (l.test && l.frammento) add(l.frammento, (l.test && l.test.g) || s.data, l.voto, 'test', s.inizio); }));
+  const A = D.sessione_aperta, sl = A && A.cur && A.cur.test && A.circuiti && A.circuiti[A.pos.c] && A.circuiti[A.pos.c].slot[A.pos.s];
+  if (sl) add(sl.frammento, A.cur.test.g || A.data, A.cur.voto, 'test', new Date().toISOString());   // voto appena dato, slot non ancora chiuso
+  D.riascolti.forEach(r => add(r.frammento, r.data, r.voto, r.fonte || 'riascolto', r.t));
+  const out = new Map();
+  m.forEach((x, fid) => { const storia = [...x.values()].sort((a, b) => a.d.localeCompare(b.d)); out.set(fid, { storia, ultimo: storia[storia.length - 1] }); });
+  return out;
 }
-function livTesto(fid) {
-  const x = D.livelli[fid]; if (!x || !x.prossimo) return '';
-  return `Livello ${x.l} · ripasso ${quando(x.prossimo)}`;
+const votoAttuale = u => u ? Math.max(0, u.v - VOTO.decadimento * Math.max(0, giorniTra(u.d, todayStr()))) : 0;
+function infoVoto(fid, M) { const x = (M || mappaVoti()).get(fid); return x ? { u: x.ultimo, a: votoAttuale(x.ultimo), storia: x.storia } : null; }
+/* Da ripassare: voto attuale sotto la soglia, oppure arrivato alla soglia in un giorno successivo al voto
+   (così un 10 torna dopo 12 giorni esatti: 10 − 12 × 0,25 = 7). */
+const daRivedere = u => { if (!u) return true; const a = votoAttuale(u); return a < VOTO.soglia - 1e-9 || (a <= VOTO.soglia + 1e-9 && giorniTra(u.d, todayStr()) > 0); };
+/* Fra quanti giorni il frammento torna da ripassare (0 = lo è già). */
+const giorniAllaSoglia = u => { if (daRivedere(u)) return 0; return Math.max(1, Math.ceil((votoAttuale(u) - VOTO.soglia) / VOTO.decadimento - 1e-9)); };
+function votoTesto(fid, M) {
+  const i = infoVoto(fid, M); if (!i) return '';
+  const g = giorniTra(i.u.d, todayStr()), n = giorniAllaSoglia(i.u);
+  return `Voto ${fmtV(i.a)}${g > 0 ? ` (${fmtV(i.u.v)} dato ${g === 1 ? 'ieri' : g + ' giorni fa'})` : ' oggi'} · ${n ? 'da ripassare ' + (n === 1 ? 'domani' : 'tra ' + n + ' giorni') : 'da ripassare'}`;
+}
+/* Il frammento ha già fatto il test oggi (in questa sessione o in un'altra)? */
+function testatoOggi(S, fid) {
+  const t = todayStr();
+  if (S && S.cur && S.cur.test && S.circuiti && S.circuiti[S.pos.c] && (S.circuiti[S.pos.c].slot[S.pos.s] || {}).frammento === fid) return true;
+  return [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])].some(s => (s.log || []).some(l => l.frammento === fid && l.test && ((l.test.g || s.data) === t)));
+}
+/* Voto di oggi per un frammento: quello appena dato nello slot in corso, altrimenti quello registrato oggi. */
+function votoOggi(S, fid) {
+  if (S && S.cur && S.cur.test && S.cur.voto != null) return S.cur.voto;
+  const i = infoVoto(fid); return i && i.u.d === todayStr() ? i.u.v : null;
+}
+/* Da ripassare oggi: frammenti già votati con voto attuale sotto la soglia, nei brani consolidati.
+   Ordine: voto più basso, poi priorità; in fondo quelli la cui famiglia è stata studiata da poco. */
+let RIP = new Map();
+function famiglieRecenti() {
+  const t = todayStr(), rec = new Set(), studiato = new Set();
+  [...D.sessioni, ...(D.sessione_aperta ? [D.sessione_aperta] : [])].forEach(s => { if (giorniTra(s.data, t) <= VOTO.pausa_famiglia) (s.log || []).forEach(l => { if (l.frammento) studiato.add(l.frammento); }); });
+  C.famiglie.forEach(g => (g.frammenti || []).forEach(id => { if (studiato.has(id)) rec.add(g.id); }));
+  C.frammenti.forEach(f => { if (f.famiglia && studiato.has(f.id)) rec.add(f.famiglia); });
+  return { rec, studiato };
 }
 function daRipassare() {
-  const t = todayStr(), ord = new Map(C.brani.map((b, i) => [b.id, i]));
-  return C.frammenti.filter(f => { const x = D.livelli[f.id]; return x && x.prossimo && x.prossimo <= t && !C.hidden.has(f.brano); })
-    .sort((a, b) => a.priorita - b.priorita || ord.get(a.brano) - ord.get(b.brano) || primaBattuta(a) - primaBattuta(b));
+  const M = mappaVoti(), { rec, studiato } = famiglieRecenti(), ord = new Map(C.brani.map((b, i) => [b.id, i]));
+  RIP = new Map();
+  const famDi = f => f.famiglia || (C.famiglie.find(g => (g.frammenti || []).includes(f.id)) || {}).id || null;
+  C.frammenti.forEach(f => {
+    if (C.hidden.has(f.brano) || statoDi(f.brano) === 'nuovo') return;
+    const i = infoVoto(f.id, M); if (!i || !daRivedere(i.u)) return;
+    const fam = famDi(f), r = !!(fam && rec.has(fam) && [...C.frammenti].some(g => g.id !== f.id && famDi(g) === fam && studiato.has(g.id)));
+    RIP.set(f.id, { a: i.a, rec: r });
+  });
+  return C.frammenti.filter(f => RIP.has(f.id)).sort((a, b) => ord.get(a.brano) - ord.get(b.brano) || RIP.get(a.id).rec - RIP.get(b.id).rec || RIP.get(a.id).a - RIP.get(b.id).a || a.priorita - b.priorita || primaBattuta(a) - primaBattuta(b));
 }
-/* La prima Rep 1 del giorno per un frammento è il test: pulita sale di un livello, sporca scende.
-   Finché lo slot è aperto la risposta si può cambiare: il livello si ricalcola da quello di partenza. */
-function applicaTest(S, fid) {
-  if (!fid || !fr(fid)) return null;
-  const t = todayStr(); let L = D.livelli[fid];
-  if (!S.cur.test) {
-    if (L && L.visto === t) return null;
-    S.cur.test = { g: t, da: L && Number.isInteger(L.l) ? L.l : 0, daData: (L && L.data) || null, daPross: (L && L.prossimo) || null, a: null };
-    L = D.livelli[fid] = Object.assign(L || { l: 0 }, { visto: t });
-  }
-  const T = S.cur.test, p = S.cur.rep1_pulita; if (!L) L = D.livelli[fid] = { l: T.da };
-  if (p == null) { Object.assign(D.livelli[fid], { l: T.da, data: T.daData, prossimo: T.daPross }); T.a = null; }
-  else { setLivello(fid, T.da + (p ? 1 : -1), T.g); T.a = D.livelli[fid].l; }
-  D.livelli[fid].visto = T.g;
-  return T;
+function setVoto(fid, voto, fonte, extra) {
+  const t = todayStr(); fonte = fonte || 'riascolto';
+  D.riascolti = D.riascolti.filter(v => !(v.frammento === fid && v.data === t && (v.fonte || 'riascolto') === fonte));
+  if (voto != null) D.riascolti.push(Object.assign({ frammento: fid, data: t, voto, scala: 10, fonte, t: new Date().toISOString() }, extra || {}));
+  save();
 }
-/* Toglie l'effetto di un test (voce eliminata, sessione scartata o eliminata), se il livello attuale viene da lì. */
-function annullaTest(e, data) {
-  if (!e || !e.test || !e.frammento) return;
-  const L = D.livelli[e.frammento]; if (!L) return;
-  data = e.test.g || data;
-  if (e.test.a != null && L.data === data) Object.assign(L, { l: e.test.da, data: e.test.daData, prossimo: e.test.daPross });
-  if (L.visto === data) L.visto = null;
-  if (!L.prossimo && !L.visto) delete D.livelli[e.frammento];
+const votoDiOggi = (fid, fonte) => (D.riascolti.find(v => v.frammento === fid && v.data === todayStr() && (v.fonte || 'riascolto') === fonte) || {}).voto;
+/* Campo del voto (0-10): salva da solo quando cambia (vedi 70-azioni). */
+function votoInput(fid, fonte, label) {
+  const v = votoDiOggi(fid, fonte);
+  return `<input type="text" class="vin" data-vin="${esc(fid)}" data-fonte="${esc(fonte)}" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${v != null ? esc(fmtV(v)) : ''}" placeholder="0-${VOTO.massimo}" aria-label="${esc(label || 'Voto da 0 a ' + VOTO.massimo)}">`;
 }
-/* Correzione a mano di «Rep 1 pulita» in una voce che era il test del giorno: il livello si ricalcola,
-   ma solo se da allora non è cambiato per altri motivi. */
-function ricalcolaTest(l) {
-  const T = l && l.test, L = T && D.livelli[l.frammento]; if (!T || !L || !T.g) return;
-  if (!(L.data === T.g || (T.a == null && L.visto === T.g))) return;
-  if (l.rep1_pulita == null) { Object.assign(L, { l: T.da, data: T.daData, prossimo: T.daPross }); T.a = null; }
-  else { setLivello(l.frammento, T.da + (l.rep1_pulita ? 1 : -1), T.g); T.a = L.l; }
-}
-function testTesto(l) { const T = l.test; return !T ? '' : T.a == null ? 'test del giorno senza esito' : `test del giorno: livello ${T.da} › ${T.a}`; }
-function livelloSheet(fid) {
-  const f = fr(fid), x = D.livelli[fid];
-  openSheet(`<h2>Livello del frammento</h2><p class="muted small" style="margin-top:-6px">${f ? 'bb. ' + esc(f.battute) + ' · ' + esc(f.titolo) : ''}</p>
-    <p class="small">Di norma il livello cambia da solo con la prima Rep 1 del giorno. Qui lo correggi a mano: il prossimo ripasso si conta da oggi.</p>
-    <div class="livs">${[0, 1, 2, 3, 4].map(l => `<button data-l="${l}" class="${x && x.prossimo && x.l === l ? 'on' : ''}"><b>${l}</b><small>${l === 4 ? 'mantenimento · ' : ''}dopo ${INTERV[l]} ${INTERV[l] === 1 ? 'giorno' : 'giorni'}</small></button>`).join('')}</div>
-    ${x ? '<button class="btn danger" id="lvdel">Togli dalla rotazione</button>' : ''}
+const riferimentiHtml = () => `<details class="sub2 rif"><summary>Punti di riferimento per il voto</summary><div><ul class="news">${(VOTO.riferimenti || []).map(([v, t]) => `<li><b>${esc(v)}</b> ${esc(t)}</li>`).join('')}</ul></div></details>`;
+function testTesto(l) { return !l.test ? '' : typeof l.voto === 'number' ? 'test del giorno: voto ' + fmtV(l.voto) : 'test del giorno senza voto'; }
+function votoSheet(fid) {
+  const f = fr(fid), i = infoVoto(fid), m = votoDiOggi(fid, 'mano');
+  openSheet(`<h2>Voto a mano</h2><p class="muted small" style="margin-top:-6px">${f ? 'bb. ' + esc(f.battute) + (f.titolo ? ' · ' + esc(f.titolo) : '') : ''}</p>
+    <p class="small">${i ? esc(votoTesto(fid)) + '.' : 'Ancora nessun voto.'} Di norma il voto viene dal test del giorno o dal riascolto. Un voto dato qui vale come voto di oggi e prevale sugli altri della giornata.</p>
+    <div class="field"><label for="vm">Voto di oggi (0-${VOTO.massimo})</label><input type="text" id="vm" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${m != null ? esc(fmtV(m)) : ''}" class="bignum"></div>
+    ${riferimentiHtml()}
+    <button class="btn primary xl" id="vmok">Salva il voto</button>
+    ${m != null ? '<button class="btn danger" id="vmdel">Togli il voto a mano di oggi</button>' : ''}
     <button class="btn" data-act="closesheet">Annulla</button>`, sh => {
-    $$('[data-l]', sh).forEach(b => b.addEventListener('click', () => { setLivello(fid, Number(b.dataset.l), todayStr()); save(); closeSheet(); render(); toast(`Livello ${b.dataset.l} · ripasso ${quando(D.livelli[fid].prossimo)}`); }));
-    if (x) $('#lvdel', sh).addEventListener('click', () => { delete D.livelli[fid]; save(); closeSheet(); render(); });
+    $('#vmok', sh).addEventListener('click', () => { const v = leggiVoto($('#vm', sh).value); if (v == null) { toast(`Scrivi un voto da 0 a ${VOTO.massimo}`); return; } setVoto(fid, v, 'mano'); closeSheet(); render(); toast('Voto ' + fmtV(v) + ' salvato'); });
+    const d = $('#vmdel', sh); if (d) d.addEventListener('click', () => { setVoto(fid, null, 'mano'); closeSheet(); render(); });
   });
 }
 
@@ -196,53 +233,42 @@ function vincoloSheet(S, fid, after) {
   });
 }
 /* Per ogni vincolo usato: in quanti giorni, e com'era la prima Rep 1 del giorno di studio successivo. */
+/* Per ogni vincolo: in quanti giorni è stato usato e, quando c'è, di quanto è cambiato il voto del test
+   dal giorno in cui l'hai usato al giorno di studio successivo. */
 function vincoliStats(h) {
   const giorni = new Map();
-  h.forEach(l => { const g = giorni.get(l.data) || { lab: '', test: null }; if (!g.lab) g.lab = vincLogTesto(l); if (l.test && l.rep1_pulita != null) g.test = l.rep1_pulita; giorni.set(l.data, g); });
+  h.forEach(l => { const g = giorni.get(l.data) || { lab: '', voto: null }; if (!g.lab) g.lab = vincLogTesto(l); if (l.test && typeof l.voto === 'number') g.voto = l.voto; giorni.set(l.data, g); });
   const ds = [...giorni.keys()].sort(), m = new Map();
   ds.forEach((d, i) => {
     const g = giorni.get(d); if (!g.lab) return;
-    const x = m.get(g.lab) || { n: 0, tot: 0, pul: 0 }; x.n++;
+    const x = m.get(g.lab) || { n: 0, tot: 0, delta: 0 }; x.n++;
     const next = i + 1 < ds.length ? giorni.get(ds[i + 1]) : null;
-    if (next && next.test != null) { x.tot++; if (next.test) x.pul++; }
+    if (g.voto != null && next && next.voto != null) { x.tot++; x.delta += next.voto - g.voto; }
     m.set(g.lab, x);
   });
   return [...m.entries()];
 }
 
-/* ---- voto di riascolto (1-3), dato riascoltando ---- */
-const votiDi = fid => D.riascolti.filter(v => v.frammento === fid).sort((a, b) => a.data.localeCompare(b.data));
-const ultimoVoto = fid => { const v = votiDi(fid); return v.length ? v[v.length - 1] : null; };
-function setVoto(fid, voto) {
-  const t = todayStr(), cur = D.riascolti.find(v => v.frammento === fid && v.data === t);
-  D.riascolti = D.riascolti.filter(v => !(v.frammento === fid && v.data === t));
-  if (!cur || cur.voto !== voto) D.riascolti.push({ frammento: fid, data: t, voto });
-  save();
-}
-function votoSeg(fid) {
-  const t = todayStr(), cur = D.riascolti.find(v => v.frammento === fid && v.data === t);
-  return `<div class="seg voti">${[1, 2, 3].map(n => `<button data-act="voto" data-id="${esc(fid)}" data-v="${n}" class="${cur && cur.voto === n ? 'on' : ''}" aria-pressed="${!!(cur && cur.voto === n)}" aria-label="Voto ${n}: ${esc((M3.voti || {})[n] || '')}">${n}</button>`).join('')}</div>`;
-}
+/* ---- riascolto settimanale: voto da 0 a 10, dato riascoltando; sostituisce il voto di quel giorno ---- */
 /* Frammenti studiati negli ultimi 7 giorni: sono quelli da riascoltare. */
 function studiatiInSettimana() {
   const from = dayAdd(todayStr(), -6), ids = new Set();
-  D.sessioni.forEach(s => { if (s.data >= from) (s.log || []).forEach(l => { if (l.frammento && fr(l.frammento)) ids.add(l.frammento); }); });
+  D.sessioni.forEach(s => { if (s.data >= from) (s.log || []).forEach(l => { if (l.frammento && fr(l.frammento) && !l.controllo) ids.add(l.frammento); }); });
   return [...ids].map(fr);
 }
 function riascoltoDovuto() {
   const st = studiatiInSettimana(); if (!st.length) return false;
-  const last = D.riascolti.reduce((a, v) => v.data > a ? v.data : a, '');
+  const last = D.riascolti.filter(v => (v.fonte || 'riascolto') === 'riascolto').reduce((a, v) => v.data > a ? v.data : a, '');
   return !last || giorniTra(last, todayStr()) >= 7;
 }
 SCREENS.riascolto = () => {
-  const st = studiatiInSettimana(), ord = new Map(C.brani.map((b, i) => [b.id, i]));
+  const st = studiatiInSettimana(), ord = new Map(C.brani.map((b, i) => [b.id, i])), M = mappaVoti();
   const brani = [...new Set(st.map(f => f.brano))].sort((a, b) => (metricaDi(a) === 'suono' ? 0 : 1) - (metricaDi(b) === 'suono' ? 0 : 1) || ord.get(a) - ord.get(b));
-  const V = M3.voti || {};
-  app.innerHTML = header('Riascolto settimanale', 'Un voto da 1 a 3, dato riascoltando', '#history') + `<main class="wrap">
-    <p class="lead">Riascolta le registrazioni di Rep 4 e dai un voto a ogni frammento: 1 = ${esc(V[1] || '')}, 2 = ${esc(V[2] || '')}, 3 = ${esc(V[3] || '')}. Il voto vale per oggi; toccandolo di nuovo lo togli.</p>
+  app.innerHTML = header('Riascolto settimanale', `Un voto da 0 a ${VOTO.massimo}, dato riascoltando`, '#history') + `<main class="wrap">
+    <p class="lead">Riascolta le registrazioni di Rep 4 e scrivi un voto per ogni frammento. Vale come voto di oggi e prende il posto di quello del test, perché è più affidabile. Per toglierlo, cancella il numero.</p>
+    ${riferimentiHtml()}
     ${brani.map(b => `<section class="card"><div class="cardh"><span class="label">${esc(branoNome(b))}</span><span class="pill">${metricaDi(b) === 'suono' ? 'metrica: suono' : 'metrica: tempo'}</span></div>
-      ${st.filter(f => f.brano === b).sort((x, y) => primaBattuta(x) - primaBattuta(y)).map(f => { const u = ultimoVoto(f.id);
-        return `<div class="rrow"><div class="m"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<div class="small muted">${u ? `ultimo voto: ${u.voto} · ${esc(fmtDateShort(u.data))}` : 'nessun voto finora'}</div></div>${votoSeg(f.id)}</div>`; }).join('')}</section>`).join('')
+      ${st.filter(f => f.brano === b).sort((x, y) => primaBattuta(x) - primaBattuta(y)).map(f => `<div class="rrow"><div class="m"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<div class="small muted">${esc(votoTesto(f.id, M) || 'nessun voto finora')}</div></div>${votoInput(f.id, 'riascolto', 'Voto di riascolto di ' + f.battute)}</div>`).join('')}</section>`).join('')
       || '<div class="empty"><b>Niente da riascoltare</b><span>Qui compaiono i frammenti studiati negli ultimi 7 giorni.</span></div>'}
   </main>`;
 };
@@ -395,20 +421,22 @@ function provaCard(ses) {
   const e = provaVoce(ses); if (!e) return '';
   const fatto = Array.isArray(e.sporchi);
   return `<section class="card"><div class="label">Riascolto della prova</div>
-    <p class="small" style="margin:6px 0 10px">${fatto ? (e.sporchi.length ? `Punti sporchi in ${e.sporchi.length} ${e.sporchi.length === 1 ? 'frammento' : 'frammenti'}: ${e.sporchi.map(id => 'bb. ' + esc(frLabel(id))).join(', ')}. Sono tornati al livello 0.` : 'Riascolto fatto: nessun punto sporco.')
-      : 'Riascolta la registrazione e segna i frammenti con punti sporchi: tornano al livello 0 e compaiono in «Da ripassare oggi».'}</p>
+    <p class="small" style="margin:6px 0 10px">${fatto ? (e.sporchi.length ? `Punti sporchi in ${e.sporchi.length} ${e.sporchi.length === 1 ? 'frammento' : 'frammenti'}: ${e.sporchi.map(id => 'bb. ' + esc(frLabel(id))).join(', ')}. Sono da ripassare.` : 'Riascolto fatto: nessun punto sporco.')
+      : 'Riascolta la registrazione e segna i frammenti con punti sporchi: compaiono in «Da ripassare oggi».'}</p>
     <button class="btn ${fatto ? '' : 'primary'}" style="margin:0" data-act="go" data-h="#prova/${esc(ses.id)}">${fatto ? 'Modifica il riascolto' : 'Segna i punti sporchi'}</button></section>`;
 }
 SCREENS.prova = sid => {
   const ses = D.sessioni.find(s => s.id === sid), e = provaVoce(ses); if (!e) { replaceTo('#history'); return; }
   const cur = new Set(e.sporchi || []);
   app.innerHTML = header('Riascolto della prova', `${branoNome(e.brano)} · ${tratto(e.frammenti || [])}`, '#summary/' + sid) + `<main class="wrap" style="padding-bottom:calc(120px + env(safe-area-inset-bottom))">
-    <p class="lead">Riascoltando la registrazione, spunta i frammenti in cui senti un punto sporco.</p>
-    <section class="card">${(e.frammenti || []).map(id => { const f = fr(id); return f ? `<div class="frow"><label class="chk"><input type="checkbox" data-sp="${esc(id)}" ${cur.has(id) ? 'checked' : ''} aria-label="Punto sporco in ${esc(f.battute)}"></label><div class="fbody"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<span class="fmeta">${esc(livTesto(id) || 'non ancora in rotazione')}</span></div></div>` : ''; }).join('')}</section>
+    <p class="lead">Riascoltando la registrazione, spunta i frammenti in cui senti un punto sporco. Ricevono voto ${fmtV(VOTO.prova_sporco)} per oggi (se il loro voto attuale è più alto) e compaiono in «Da ripassare oggi».</p>
+    <section class="card">${(e.frammenti || []).map(id => { const f = fr(id); return f ? `<div class="frow"><label class="chk"><input type="checkbox" data-sp="${esc(id)}" ${cur.has(id) ? 'checked' : ''} aria-label="Punto sporco in ${esc(f.battute)}"></label><div class="fbody"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<span class="fmeta">${esc(votoTesto(id) || 'ancora nessun voto')}</span></div></div>` : ''; }).join('')}</section>
   </main><div class="bar"><div class="inner"><button class="btn primary xl" id="spok">Conferma il riascolto</button></div></div>`;
   $('#spok').addEventListener('click', () => {
     const sp = $$('input[data-sp]').filter(i => i.checked).map(i => i.dataset.sp), t = todayStr();
-    e.sporchi = sp; sp.forEach(id => setLivello(id, 0, t, t));
-    save(); toast(sp.length ? `${sp.length} ${sp.length === 1 ? 'frammento riportato' : 'frammenti riportati'} al livello 0` : 'Nessun punto sporco'); goBack('#summary/' + sid);
+    // una prova si può rivedere: prima si tolgono i voti che questa prova aveva già dato
+    D.riascolti = D.riascolti.filter(v => !(v.fonte === 'prova' && v.sid === sid));
+    e.sporchi = sp; sp.forEach(id => { const a = votoAttuale((infoVoto(id) || {}).u); if (!infoVoto(id) || a > VOTO.prova_sporco) setVoto(id, VOTO.prova_sporco, 'prova', { sid }); });
+    save(); toast(sp.length ? `${sp.length} ${sp.length === 1 ? 'frammento' : 'frammenti'} da ripassare` : 'Nessun punto sporco'); goBack('#summary/' + sid);
   });
 };

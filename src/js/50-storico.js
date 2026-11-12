@@ -5,10 +5,11 @@ function fragStats(logs) {
   const m = new Map();
   logs.forEach(l => {
     const k = logKey(l);
-    if (!m.has(k)) m.set(k, { fid: l.frammento || null, brano: l.brano, battute: l.battute || '', libera: l.circuito == null, manuale: !!l.manuale, cuc: !!l.cucitura, prova: !!l.prova, giu: 0, giuN: 0, giuOk: 0, ctrl: 0, ctrlN: 0, ctrlOk: 0, slot4: 0, sec: 0, andate: new Set(), pul: 0, pulN: 0, tempo: null, drop: false, n: 0 });
+    if (!m.has(k)) m.set(k, { fid: l.frammento || null, brano: l.brano, battute: l.battute || '', libera: l.circuito == null, manuale: !!l.manuale, cuc: !!l.cucitura, prova: !!l.prova, giu: 0, giuN: 0, giuOk: 0, ctrl: 0, ctrlN: 0, ctrlOk: 0, slot4: 0, sec: 0, andate: new Set(), pul: 0, pulN: 0, voto: null, tempo: null, drop: false, n: 0 });
     const x = m.get(k);
     x.sec += l.secondi || 0; if (l.circuito != null) x.andate.add(l.circuito + '|' + l.andata); x.n++;
-    if (l.rep1_pulita != null) { x.pulN++; if (l.rep1_pulita) x.pul++; }
+    if (l.rep1_pulita != null) { x.pulN++; if (l.rep1_pulita) x.pul++; }   // solo dati fino alla 3.1
+    if (l.test && typeof l.voto === 'number') x.voto = l.voto;
     if (l.tempo_rep4 != null) x.tempo = l.tempo_rep4;
     if (l.drop_out) x.drop = true;
     if (l.controllo) { x.ctrl++; if (l.senza_errori != null) { x.ctrlN++; if (l.senza_errori) x.ctrlOk++; } } else if (l.frammento) x.slot4++;
@@ -31,7 +32,7 @@ function statName(x) {
 function statDetails(x) {
   const d = [];
   if (x.andate.size) d.push(`${x.andate.size} andat${x.andate.size === 1 ? 'a' : 'e'}`);
-  if (x.fid && (x.slot4 || !x.ctrl)) { d.push(`Rep 1 pulite ${x.pulN ? x.pul + '/' + x.pulN : '—'}`); d.push(`Rep 4 ${x.tempo != null ? x.tempo + ' bpm' : '—'}`); }
+  if (x.fid && (x.slot4 || !x.ctrl)) { d.push(x.voto != null ? `voto del test ${fmtV(x.voto)}` : x.pulN ? `Rep 1 pulite ${x.pul}/${x.pulN}` : 'nessun voto'); d.push(`Rep 4 ${x.tempo != null ? x.tempo + ' bpm' : '—'}`); }
   if (x.ctrl) d.push(`controllo senza errori ${x.ctrlN ? x.ctrlOk + '/' + x.ctrlN : '—'}`);
   if (x.drop) d.push('drop-out');
   if (x.cuc) d.push(`${x.giu} ${x.giu === 1 ? 'giuntura' : 'giunture'}`, `pulite ${x.giuN ? x.giuOk + '/' + x.giuN : '—'}`);
@@ -76,7 +77,7 @@ function logItem(l, si, li) {
   const f = l.frammento ? fr(l.frammento) : null;
   const parts = [fmtMin(l.secondi)];
   if (l.controllo) parts.push(`controllo · ${l.rep_completate || 0} ripetizioni`, l.senza_errori === true ? 'senza errori' : l.senza_errori === false ? 'con errori' : 'esito —');
-  else if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`, `Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'}`); if (l.tempo_rep4 != null) parts.push(l.tempo_rep4 + ' bpm'); }
+  else if (l.frammento) { parts.push(`Rep ${l.rep_completate}/4`); if (l.rep1_pulita != null) parts.push(`Rep 1 ${l.rep1_pulita ? 'pulita' : 'non pulita'}`); if (l.tempo_rep4 != null) parts.push(l.tempo_rep4 + ' bpm'); }
   if (l.arresto) parts.push('arresto'); if (l.drop_out) parts.push('drop-out');
   if (l.cucitura) parts.push(`passi ${l.passi || 0}/2`, `giuntura ${l.giuntura_pulita === true ? 'pulita' : l.giuntura_pulita === false ? 'non pulita' : '—'}`);
   if (l.prova && Array.isArray(l.sporchi)) parts.push(l.sporchi.length ? 'punti sporchi: ' + l.sporchi.map(id => 'bb. ' + frLabel(id)).join(', ') : 'nessun punto sporco');
@@ -107,7 +108,8 @@ function editLog(sid, i) {
     <div class="field"><label for="es">Secondi</label><input type="number" id="es" inputmode="numeric" min="0" max="59" value="${(l.secondi || 0) % 60}"></div></div>
     ${l.controllo ? `<div class="field"><label for="ec">Controllo senza errori</label><select class="sel" id="ec" style="width:100%"><option value="">—</option><option value="1" ${l.senza_errori === true ? 'selected' : ''}>Sì</option><option value="0" ${l.senza_errori === false ? 'selected' : ''}>No</option></select></div>` : ''}
     <div ${l.frammento && !l.controllo ? '' : 'hidden'}><div class="field"><label for="eb">Rep 4 (bpm)</label><input type="number" id="eb" inputmode="numeric" value="${l.tempo_rep4 != null ? l.tempo_rep4 : ''}"></div>
-    <div class="field"><label for="ep">Rep 1 pulita</label><select class="sel" id="ep" style="width:100%"><option value="">—</option><option value="1" ${l.rep1_pulita === true ? 'selected' : ''}>Sì</option><option value="0" ${l.rep1_pulita === false ? 'selected' : ''}>No</option></select></div>
+    ${l.test ? `<div class="field"><label for="ev">Voto del test (0-${VOTO.massimo})</label><input type="text" id="ev" class="vin" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${typeof l.voto === 'number' ? fmtV(l.voto) : ''}" placeholder="—"></div>` : ''}
+    ${l.rep1_pulita != null ? `<div class="field"><label for="ep">Rep 1 pulita (dato della versione 3.1)</label><select class="sel" id="ep" style="width:100%"><option value="">—</option><option value="1" ${l.rep1_pulita === true ? 'selected' : ''}>Sì</option><option value="0" ${l.rep1_pulita === false ? 'selected' : ''}>No</option></select></div>` : ''}
     <div class="field"><label for="ed">Diagnosi</label><input type="text" id="ed" value="${esc(l.diagnosi || '')}"></div></div>
     <div class="field"><label for="en">Note</label><textarea id="en">${esc(l.note || '')}</textarea></div>
     <button class="btn primary" id="esave">Salva</button><button class="btn danger" id="edel">Elimina questa voce</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
@@ -116,14 +118,14 @@ function editLog(sid, i) {
       if (l.controllo) { const c = $('#ec', sh).value; l.senza_errori = c === '' ? null : c === '1'; }
       else if (l.frammento) {
         const b = $('#eb', sh).value; l.tempo_rep4 = b === '' ? null : Math.round(Number(b));
-        const p = $('#ep', sh).value, prima = l.rep1_pulita; l.rep1_pulita = p === '' ? null : p === '1';
-        if (l.rep1_pulita !== prima) ricalcolaTest(l);
+        if ($('#ep', sh)) { const p = $('#ep', sh).value; l.rep1_pulita = p === '' ? null : p === '1'; }
+        if ($('#ev', sh)) l.voto = leggiVoto($('#ev', sh).value);
         l.diagnosi = $('#ed', sh).value;
       }
       l.note = $('#en', sh).value; save(); render(); toast('Corretto');
     });
     $('#edel', sh).addEventListener('click', async () => {
-      if (await ask({ title: 'Eliminare questa voce?', text: `${logPos(l)} · ${logWhat(l)} · ${fmtMin(l.secondi)}. I suoi minuti escono dai totali.`, ok: 'Elimina', danger: true })) { annullaTest(l, ses.data); ses.log.splice(ses.log.indexOf(l), 1); save(); render(); toast('Voce eliminata'); }
+      if (await ask({ title: 'Eliminare questa voce?', text: `${logPos(l)} · ${logWhat(l)} · ${fmtMin(l.secondi)}. I suoi minuti escono dai totali${l.test ? ' e il suo voto dal calcolo di «Da ripassare»' : ''}.`, ok: 'Elimina', danger: true })) { ses.log.splice(ses.log.indexOf(l), 1); save(); render(); toast('Voce eliminata'); }
     });
   });
 }
@@ -158,7 +160,7 @@ SCREENS.history = () => {
   const shown = histAll ? keys : keys.slice(0, 30), rias = studiatiInSettimana();
   app.innerHTML = topbar('Storico', 'Minuti di studio, dal giorno più recente') + `<main class="wrap tabbed">
     ${histSeg('history')}
-    ${rias.length ? `<button class="btn two" data-act="go" data-h="#riascolto"><b>Riascolto settimanale${riascoltoDovuto() ? ' · da fare' : ''}</b><span>Voto da 1 a 3 per i ${rias.length} frammenti studiati negli ultimi 7 giorni</span></button>` : ''}
+    ${rias.length ? `<button class="btn two" data-act="go" data-h="#riascolto"><b>Riascolto settimanale${riascoltoDovuto() ? ' · da fare' : ''}</b><span>Voto da 0 a ${VOTO.massimo} per i ${rias.length} frammenti studiati negli ultimi 7 giorni</span></button>` : ''}
     ${keys.length ? `<section class="card"><div class="cardh"><span class="label">Totali</span>
         <div class="seg small">${[['7', '7 giorni'], ['30', '30 giorni'], ['all', 'Sempre']].map(([v, l]) => `<button data-act="period" data-v="${v}" class="${histPeriod === v ? 'on' : ''}" aria-pressed="${histPeriod === v}">${l}</button>`).join('')}</div></div>
       <div class="big">${fmtMinRound(pt.tot)}</div>
@@ -183,14 +185,14 @@ function fragHistory(fid) {
 SCREENS.frammenti = () => {
   const m = new Map();
   allSessions().forEach(s => (s.log || []).forEach(l => { if (!l.frammento || l.live) return; const x = m.get(l.frammento) || { sec: 0, last: '', bpm: null }; x.sec += l.secondi || 0; if (s.data >= x.last) x.last = s.data; if (l.tempo_rep4 != null) x.bpm = l.tempo_rep4; m.set(l.frammento, x); }));
-  const list = [...m.entries()].sort((a, b) => b[1].last.localeCompare(a[1].last));
+  const list = [...m.entries()].sort((a, b) => b[1].last.localeCompare(a[1].last)), VM = mappaVoti();
   app.innerHTML = topbar('Storico', 'Andamento di ogni frammento, dal più recente') + `<main class="wrap tabbed">
     ${histSeg('frammenti')}
-    ${list.map(([id, x]) => { const f = fr(id); return `<button class="dayrow" data-act="go" data-h="#frag/${encodeURIComponent(id)}"><div class="d"><span><span class="bat">${esc(f ? f.battute : id)}</span>${esc(f ? f.titolo : '')}</span><span>${fmtMinRound(x.sec)}</span></div><div class="small muted">Ultimo studio: ${esc(fmtAgo(x.last))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}${D.target[id] ? ' · target ' + esc(D.target[id]) : ''}${livTesto(id) ? ' · ' + esc(livTesto(id)) : ''}</div></button>`; }).join('')
+    ${list.map(([id, x]) => { const f = fr(id); return `<button class="dayrow" data-act="go" data-h="#frag/${encodeURIComponent(id)}"><div class="d"><span><span class="bat">${esc(f ? f.battute : id)}</span>${esc(f ? f.titolo : '')}</span><span>${fmtMinRound(x.sec)}</span></div><div class="small muted">Ultimo studio: ${esc(fmtAgo(x.last))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}${D.target[id] ? ' · target ' + esc(D.target[id]) : ''}${VM.has(id) ? ' · ' + esc(votoTesto(id, VM)) : ''}</div></button>`; }).join('')
       || '<div class="empty"><b>Ancora nessun dato</b><span>Qui compaiono i frammenti studiati nei circuiti con passaggi scritti, con i minuti e il tempo di Rep 4.</span></div>'}
   </main>` + tabs('history');
 };
-function chartSvg(points, target, label) {
+function chartSvg(points, target, label, tlab) {
   if (!points.length) return '';
   const W = 340, H = 150, L = 34, R = 10, T = 12, Bm = 24;
   const xs = points.map(p => dparse(p.d).getTime()), ys = points.map(p => p.v);
@@ -201,7 +203,7 @@ function chartSvg(points, target, label) {
   const hi = Math.max(...ys), lo = Math.min(...ys);
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label || 'Andamento del tempo di Rep 4')}">
     <line class="ax" x1="${L}" y1="${H - Bm}" x2="${W - R}" y2="${H - Bm}"/><line class="ax" x1="${L}" y1="${T}" x2="${L}" y2="${H - Bm}"/>
-    ${target ? `<line class="tg" x1="${L}" y1="${Y(target).toFixed(1)}" x2="${W - R}" y2="${Y(target).toFixed(1)}"/><text class="tglab" x="${W - R}" y="${(Y(target) - 4).toFixed(1)}" text-anchor="end">target ${target}</text>` : ''}
+    ${target ? `<line class="tg" x1="${L}" y1="${Y(target).toFixed(1)}" x2="${W - R}" y2="${Y(target).toFixed(1)}"/><text class="tglab" x="${W - R}" y="${(Y(target) - 4).toFixed(1)}" text-anchor="end">${esc(tlab || "target")} ${target}</text>` : ''}
     <text x="${L - 4}" y="${Y(hi) + 4}" text-anchor="end">${hi}</text>${lo !== hi ? `<text x="${L - 4}" y="${Y(lo) + 4}" text-anchor="end">${lo}</text>` : ''}
     <text x="${L}" y="${H - 6}">${esc(fmtDayMonth(points[0].d))}</text>
     ${points.length > 1 ? `<text x="${W - R}" y="${H - 6}" text-anchor="end">${esc(fmtDayMonth(points[points.length - 1].d))}</text>` : ''}
@@ -219,28 +221,31 @@ SCREENS.frag = fid => {
   const f = fr(fid); const h = fragHistory(fid);
   const perDay = new Map(); h.forEach(l => { if (l.tempo_rep4 != null) perDay.set(l.data, l.tempo_rep4); });
   const points = [...perDay.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([d, v]) => ({ d, v }));
-  const pulN = h.filter(l => l.rep1_pulita != null).length, pul = h.filter(l => l.rep1_pulita === true).length;
   const tot = h.reduce((a, l) => a + (l.secondi || 0), 0), tg = D.target[fid];
-  const suono = !!f && metricaDi(f.brano) === 'suono', voti = votiDi(fid), vpoints = voti.map(v => ({ d: v.data, v: v.voto })), uv = voti[voti.length - 1];
-  const fermo = suono ? (twoWeekCheck(vpoints) && uv.voto < 3) : twoWeekCheck(points);
-  const L = D.livelli[fid], inRot = !!(L && L.prossimo), vst = vincoliStats(h);
+  const suono = !!f && metricaDi(f.brano) === 'suono', iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [];
+  const nuovo = !!f && statoDi(f.brano) === 'nuovo';
+  /* Verifica a 2 settimane: per i brani a metrica suono guarda il voto (se non sale), per gli altri il tempo di Rep 4. */
+  const fermo = suono ? (twoWeekCheck(vpoints) && vpoints[vpoints.length - 1].v < VOTO.massimo) : twoWeekCheck(points);
+  const vst = vincoliStats(h);
+  const FONTI = { test: 'test', riascolto: 'riascolto', mano: 'a mano', prova: 'prova' };
   const tempoCard = `<section class="card"><div class="label">Tempo di Rep 4 (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, tg) : '<p class="muted" style="margin:8px 0 0">Nessun tempo registrato: compare dopo la prima Rep 4 con i bpm.</p>'}
       ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:8px"><span><b>Tempo target</b><br><span class="small muted">${tg ? tg + ' bpm' : 'non impostato'}</span></span><button class="btn inline" style="margin:0" data-act="target" data-id="${esc(fid)}">${tg ? 'Cambia' : 'Imposta'}</button></div>` : ''}</section>`;
-  const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto di riascolto</span><span class="pill">${suono ? 'metrica del brano: suono' : 'metrica del brano: tempo'}</span></div>
-      ${vpoints.length > 1 ? chartSvg(vpoints, null, 'Andamento del voto di riascolto') : ''}
-      <div class="optrow"><span><b>Voto di oggi</b><br><span class="small muted">${uv ? `ultimo: ${uv.voto} (${esc((M3.voti || {})[uv.voto] || '')}) · ${esc(fmtDateShort(uv.data))}` : 'dato riascoltando, non mentre suoni'}</span></span>${votoSeg(fid)}</div></section>` : '';
+  const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto (0-${VOTO.massimo})</span><span class="pill">${suono ? 'metrica: suono' : 'metrica: tempo'}</span></div>
+      ${vpoints.length > 1 ? chartSvg(vpoints, VOTO.soglia, 'Andamento del voto', 'soglia') : ''}
+      ${iv ? `<p class="small muted" style="margin:6px 0 0">Ultimi voti: ${esc(iv.storia.slice(-5).reverse().map(x => fmtV(x.v) + ' ' + fmtDayMonth(x.d) + (x.fonte !== 'test' ? ' (' + FONTI[x.fonte] + ')' : '')).join(' · '))}</p>` : ''}
+      <div class="optrow"><span><b>Voto di riascolto di oggi</b><br><span class="small muted">dato riascoltando la registrazione, non mentre suoni</span></span>${votoInput(fid, 'riascolto', 'Voto di riascolto di oggi')}</div></section>` : '';
   app.innerHTML = header(f ? 'bb. ' + f.battute : fid, f ? f.titolo : '', '#frammenti') + `<main class="wrap">
     <section class="card"><div class="row stat3"><div><div class="label">Minuti totali</div><div class="statv">${fmtMinRound(tot)}</div></div>
-      <div><div class="label">Rep 1 pulite</div><div class="statv">${pulN ? pul + '/' + pulN : '—'}</div></div>
-      ${suono ? `<div><div class="label">Ultimo voto</div><div class="statv">${uv ? uv.voto + ' su 3' : '—'}</div></div>` : `<div><div class="label">Ultimo Rep 4</div><div class="statv">${points.length ? points[points.length - 1].v + ' bpm' : '—'}</div></div>`}</div>
-      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:10px;padding-bottom:0"><span><b>${inRot ? 'Livello ' + L.l : 'Non ancora in rotazione'}</b><br><span class="small muted">${inRot ? 'ripasso ' + esc(quando(L.prossimo)) + (isResistenza(f) ? ' · frammento di resistenza' : '') : 'entra con la prima Rep 1 del giorno'}</span></span><button class="btn inline" style="margin:0" data-act="livello" data-id="${esc(fid)}">${inRot ? 'Cambia' : 'Imposta'}</button></div>` : ''}</section>
+      <div><div class="label">Voto attuale</div><div class="statv">${iv ? fmtV(iv.a) : '—'}</div></div>
+      <div><div class="label">Ultimo Rep 4</div><div class="statv">${points.length ? points[points.length - 1].v + ' bpm' : '—'}</div></div></div>
+      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:10px;padding-bottom:0"><span><b>${nuovo ? 'Brano nuovo: niente voto' : iv ? esc(votoTesto(fid)) : 'Ancora nessun voto'}</b><br><span class="small muted">${nuovo ? 'il voto parte quando il brano diventa consolidato' : iv ? `cala di ${fmtN(VOTO.decadimento)} al giorno${isResistenza(f) ? ' · frammento di resistenza' : ''}` : 'arriva con il test della prima Rep 1 del giorno'}</span></span><button class="btn inline" style="margin:0" data-act="votomano" data-id="${esc(fid)}">Voto a mano</button></div>` : ''}</section>
     ${fermo ? `<div class="hint">${fmtText(CATALOGO.regole_slot.verifica_2_settimane)}</div>` : ''}
     ${suono ? votoCard + tempoCard : tempoCard + votoCard}
-    ${vst.length ? `<section class="card"><div class="label">Vincoli usati</div><p class="small muted" style="margin:4px 0 6px">Per ogni vincolo: in quanti giorni l'hai usato e com'era il test del giorno di studio successivo.</p>
-      ${vst.map(([lab, x]) => `<div class="logi">${esc(lab)}<br><span class="muted">${x.n} ${x.n === 1 ? 'giorno' : 'giorni'} · test successivo pulito ${x.tot ? x.pul + '/' + x.tot : '—'}</span></div>`).join('')}</section>` : ''}
+    ${vst.length ? `<section class="card"><div class="label">Vincoli usati</div><p class="small muted" style="margin:4px 0 6px">Per ogni vincolo: in quanti giorni l'hai usato e di quanto è cambiato, in media, il voto del test al giorno di studio successivo.</p>
+      ${vst.map(([lab, x]) => `<div class="logi">${esc(lab)}<br><span class="muted">${x.n} ${x.n === 1 ? 'giorno' : 'giorni'} · voto al test successivo ${x.tot ? (x.delta >= 0 ? '+' : '−') + fmtV(Math.abs(x.delta / x.tot)) + ' in media (' + x.tot + ')' : '—'}</span></div>`).join('')}</section>` : ''}
     <section class="card"><div class="label">Cronologia</div>
       ${[...h].reverse().map(l => `<div class="logi"><b style="text-transform:capitalize">${esc(fmtDateShort(l.data))}</b> · circuito ${l.circuito}, andata ${l.andata}, slot ${esc(l.etichetta)} · ${fmtMin(l.secondi)}<br>
-        ${l.controllo ? `Controllo · ${l.rep_completate || 0} ripetizioni · ${l.senza_errori === true ? 'senza errori' : l.senza_errori === false ? 'con errori' : 'esito —'}` : `Rep 1 ${l.rep1_pulita === true ? 'pulita' : l.rep1_pulita === false ? 'non pulita' : '—'} · Rep 4 ${l.tempo_rep4 != null ? l.tempo_rep4 + ' bpm' : '—'}`}${l.arresto ? ' · arresto' : ''}${l.drop_out ? ' · drop-out' : ''}
+        ${l.controllo ? `Controllo · ${l.rep_completate || 0} ripetizioni · ${l.senza_errori === true ? 'senza errori' : l.senza_errori === false ? 'con errori' : 'esito —'}` : `${l.rep1_pulita != null ? 'Rep 1 ' + (l.rep1_pulita ? 'pulita' : 'non pulita') + ' · ' : ''}Rep 4 ${l.tempo_rep4 != null ? l.tempo_rep4 + ' bpm' : '—'}`}${l.arresto ? ' · arresto' : ''}${l.drop_out ? ' · drop-out' : ''}
         ${vincLogTesto(l) || l.test ? `<br><span class="muted">Vincoli:</span> ${esc([vincLogTesto(l), testTesto(l)].filter(Boolean).join(' · '))}` : ''}
         ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}</div>`).join('') || '<p class="muted" style="margin:8px 0 0">Ancora nessun dato.</p>'}
     </section>

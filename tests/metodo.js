@@ -1,4 +1,4 @@
-/* Controlli sul metodo, versione 3: coppia unica di vincoli, livelli e «Da ripassare oggi», condizioni reali,
+/* Controlli sul metodo, versione 3 (3.2): coppia unica di vincoli, voto in decimi e «Da ripassare oggi», condizioni reali,
    frammenti di resistenza, cucitura, prova, voto di riascolto, passaggio dalla 2.x.
    Uso: node tests/metodo.js [cartella-screenshot] */
 const { chromium } = require('playwright');
@@ -29,53 +29,56 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
     await w(700);
   };
   /* Rep 1 con esito, poi Rep 2, 3 e 4 fino allo slot successivo. */
-  const rep1 = async pulita => { await fatto(); if (pulita != null) await p.click(`.sheet.on [data-yn="${pulita ? 1 : 0}"]`); };
+  const rep1 = async voto => { await fatto(); if (voto != null) await p.fill('.sheet.on #r1voto', String(voto)); };
+  const iv = fid => p.evaluate(fid => { const i = infoVoto(fid); return i ? { a: i.a, v: i.u.v, d: i.u.d, fonte: i.u.fonte } : null; }, fid);
   const finoAllaFine = async () => { await fatto(); await fatto(); await fatto(); await p.click('#r4no'); await w(); };
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '3.1.0', 'versione 3.1.0');
+  ok(await p.evaluate(() => APP_VERSION) === '3.2.0', 'versione 3.2.0');
   ok(!(await p.locator('.sheet.on').count()), 'nessun foglio novità su installazione nuova');
-  ok(!(await p.locator('[data-act="ripasso"]').count()), 'home: niente «Da ripassare oggi» senza livelli');
+  ok(!(await p.locator('[data-act="ripasso"]').count()), 'home: niente «Da ripassare oggi» senza voti');
 
   /* --- 1. coppia unica di vincoli e test del giorno --- */
   await avvia([A, B]);
   ok((await txt('.diag')).includes('è il test'), 'Rep 1: avviso che è il test del giorno');
   await shot('rep1-test');
-  await rep1(true); await shot('rep1-foglio');
+  await rep1(9); await shot('rep1-foglio');
+  ok(await p.locator('.sheet.on .rif').count() === 1 && !(await p.locator('.sheet.on [data-yn]').count()), 'foglio di Rep 1: campo del voto con i punti di riferimento, niente più «pulita sì/no»');
   const vb = await txt('.sheet.on .vbox');
   ok(/Vincoli di oggi/i.test(vb) && vb.includes('Rep 3: DIN') && vb.includes('andata 1'), 'foglio di Rep 1: vincoli di oggi dalla coppia 1 («' + vb.replace(/\s+/g, ' ') + '»)');
   await p.click('#r1ok'); await w();
   let d = await D();
-  ok(d.livelli[A].l === 1 && d.livelli[A].prossimo === await day(2), 'Rep 1 pulita: livello 1, ripasso tra 2 giorni');
-  ok((await txt('.vrow')).includes('coppia 1') && (await txt('.instr')).includes('Ribatti la biscroma'), 'Rep 2: testo della coppia 1');
+  ok(d.sessione_aperta.cur.voto === 9 && d.sessione_aperta.cur.test && (await iv(A)).v === 9, 'voto del test: 9');
+  ok(await p.evaluate(a => votoTesto(a), A) === 'Voto 9 oggi · da ripassare tra 8 giorni', 'un 9 torna da ripassare tra 8 giorni');
+  ok((await txt('.diag')).includes('voto 9') && (await txt('.vrow')).includes('coppia 1') && (await txt('.instr')).includes('Ribatti la biscroma'), 'Rep 2: voto di Rep 1 e testo della coppia 1');
   await shot('rep2-coppia');
   await fatto();
-  ok((await txt('.instr')).includes('DIN dentro la mano') && !(await p.locator('.avv').count()), 'Rep 3: testo della coppia 1, nessun avviso sotto il livello 2');
+  ok((await txt('.instr')).includes('DIN dentro la mano') && (await txt('.avv')).includes('dinamica e pedale reali'), 'Rep 3 con voto 9: dinamica e pedale reali');
+  await shot('rep3-reale');
   await fatto(); await fatto(); await p.click('#r4no'); await w();
-  // secondo frammento: Rep 1 sporca, vincolo scelto dalla tabella degli errori
-  await rep1(false);
+  // secondo frammento: voto 4, vincolo scelto dalla tabella degli errori
+  await rep1(4);
   await p.click('#r1v'); await w(); await shot('cambia-vincolo');
   ok(await p.locator('.sheet.on [data-err]').count() === 9, 'tabella degli errori: 9 voci');
   await p.click('.sheet.on [data-err="mani"]'); await w(300);
   ok((await p.locator('.sheet.on [data-w="r2"].on').innerText()) === 'NODO' && (await p.locator('.sheet.on [data-w="r3"].on').innerText()) === 'MUTA', 'errore «mani»: propone NODO e MUTA');
   await p.click('.sheet.on [data-w="r3"][data-s="ALT"]'); await w(200); await shot('cambia-vincolo-sigle');
   await p.click('#vok'); await w();
-  ok((await txt('.sheet.on .vbox')).includes('Rep 2: NODO · Rep 3: ALT'), 'il foglio di Rep 1 mostra i vincoli scelti');
+  ok((await txt('.sheet.on .vbox')).includes('Rep 2: NODO · Rep 3: ALT') && (await p.inputValue('.sheet.on #r1voto')) === '4', 'il foglio di Rep 1 mostra i vincoli scelti e conserva il voto');
   await p.click('#r1ok'); await w();
-  d = await D();
-  ok(d.livelli[B].l === 0 && d.livelli[B].prossimo === await day(1), 'Rep 1 sporca dal livello 0: resta 0, ripasso domani');
+  ok((await iv(B)).v === 4, 'voto del test: 4');
   ok((await txt('.instr')).includes('Vincolo scelto dopo la diagnosi'.toUpperCase()) || /scelto dopo la diagnosi/i.test(await txt('.instr')), 'Rep 2: vincolo scelto dopo la diagnosi');
   ok((await txt('.instr')).includes('NODO') && await p.locator('.instr details.sub2').count() === 1, 'Rep 2: sigla NODO e testo del catalogo a portata di mano');
   await shot('rep2-scelto');
-  await fatto(); ok((await txt('.vrow')).includes('ALT'), 'Rep 3: ALT'); await fatto(); await fatto(); await p.click('#r4no'); await w();
+  await fatto(); ok((await txt('.vrow')).includes('ALT') && !(await p.locator('.avv').count()), 'Rep 3 con voto 4: ALT, niente condizioni reali'); await fatto(); await fatto(); await p.click('#r4no'); await w();
   // andata 2: stessi vincoli, nessun nuovo test
   ok((await txt('.l1')).includes('Andata 2/3'), 'andata 2');
   ok(!(await p.locator('.diag').count()), 'andata 2: la Rep 1 non è più il test');
-  await rep1(false);
+  await fatto();
   ok(!(await p.locator('#r1v').count()) && /questa sessione/i.test(await txt('.sheet.on .vbox')), 'andata 2: il vincolo non si cambia più dal foglio di Rep 1');
+  ok(!(await p.locator('.sheet.on #r1voto').count()), 'andata 2: nessun voto, il test di oggi è già fatto');
   await p.click('#r1ok'); await w();
-  d = await D();
-  ok(d.livelli[A].l === 1, 'una Rep 1 sporca dopo il test non cambia il livello');
+  ok((await iv(A)).v === 9, 'le Rep 1 dopo il test non cambiano il voto');
   ok((await txt('.instr')).includes('Ribatti la biscroma') && (await txt('.vrow')).includes('coppia 1'), 'andata 2: Rep 2 con la stessa coppia dell\'andata 1');
   await finoAllaFine();
   await fatto(); await p.click('#r1ok'); await w();
@@ -83,55 +86,75 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.evaluate(() => closeSession()); await w(700);
   d = await D();
   const lg = d.sessioni[0].log;
-  ok(lg[0].coppia === '1' && lg[0].test && lg[0].test.da === 0 && lg[0].test.a === 1 && !lg[2].test, 'registro: coppia usata e test solo nella prima voce del giorno');
+  ok(lg[0].coppia === '1' && lg[0].test && lg[0].voto === 9 && lg[1].voto === 4 && !lg[2].test && lg[2].voto === undefined, 'registro: coppia usata, test e voto solo nella prima voce del giorno');
   ok(lg[1].vincolo_rep2 === 'NODO' && lg[1].vincolo_rep3 === 'ALT' && lg[1].errore === 'mani', 'registro: vincolo scelto ed errore');
   await p.click('details.sub2 summary >> text=Dettaglio'); await w(300);
-  ok((await txt('details.sub2[open]')).includes('scelto dopo la diagnosi: NODO / ALT'), 'riepilogo: il vincolo usato si legge voce per voce');
+  const det = await txt('details.sub2[open]');
+  ok(det.includes('scelto dopo la diagnosi: NODO / ALT') && det.includes('test del giorno: voto 4'), 'riepilogo: vincolo e voto si leggono voce per voce');
   await shot('riepilogo-vincoli');
 
   /* --- 2. il giorno dopo: da ripassare, coppia successiva --- */
-  await p.evaluate(() => { const g = x => x ? dayAdd(x, -1) : x; D.sessioni.forEach(s => { s.data = g(s.data); (s.log || []).forEach(l => { if (l.test) l.test.g = g(l.test.g); }); });
-    Object.values(D.livelli).forEach(L => { L.data = g(L.data); L.prossimo = g(L.prossimo); L.visto = g(L.visto); }); save(); });
+  await p.evaluate(() => { const g = x => x ? dayAdd(x, -1) : x; D.sessioni.forEach(s => { s.data = g(s.data); (s.log || []).forEach(l => { if (l.test) l.test.g = g(l.test.g); }); }); save(); });
   await p.evaluate(() => { D.bozza.selezionati = []; save(); });
   await p.goto(U + '#home'); await p.reload(); await w();
+  ok((await iv(A)).a === 8.75 && (await iv(B)).a === 3.75, 'il giorno dopo il voto è calato di 0,25: 8,75 e 3,75');
   ok((await txt('.card:has([data-act="ripasso"])')).includes('1 passaggio'), 'home: «Da ripassare oggi», 1 passaggio');
   await shot('home-da-ripassare');
   await p.click('[data-act="ripasso"]'); await w();
-  ok(await p.locator('.card.due .frow').count() === 1 && (await txt('.card.due')).includes('16-19'), 'selezione: in cima il frammento scaduto');
-  ok((await txt('.card.due .fmeta')).includes('Livello 0 · ripasso oggi'), 'selezione: livello e ripasso sulla riga');
+  ok(await p.locator('.card.due .frow').count() === 1 && (await txt('.card.due')).includes('16-19'), 'selezione: in cima il frammento col voto sotto 7');
+  ok((await txt('.card.due .fmeta')).includes('Voto 3,8 (4 dato ieri) · da ripassare'), 'selezione: voto attuale sulla riga');
   await p.click('[data-act="seldue"]'); await w();
-  ok((await D()).bozza.selezionati.includes(B), '«Seleziona tutti» spunta i frammenti scaduti');
+  ok((await D()).bozza.selezionati.includes(B), '«Seleziona tutti» spunta i frammenti da ripassare');
   await shot('selezione-da-ripassare');
+  // decadimento: un 10 torna dopo 12 giorni esatti, un frammento mai votato non entra
+  ok(await p.evaluate(() => { const t = todayStr(), u = k => ({ d: dayAdd(t, -k), v: 10 });
+    return !daRivedere(u(11)) && daRivedere(u(12)) && giorniAllaSoglia({ d: t, v: 10 }) === 12 && !daRivedere({ d: t, v: 7 }) && daRivedere({ d: dayAdd(t, -1), v: 7 }) && votoAttuale({ d: dayAdd(t, -40), v: 10 }) === 0; }), 'un 10 torna da ripassare dopo 12 giorni; il voto non scende sotto 0');
+  ok(await p.evaluate(() => !daRipassare().some(f => f.id === 'op111-11-15') && !daRipassare().some(f => f.brano === 'nabucco')), 'mai votati e brani nuovi restano fuori');
+  // pausa tra frammenti simili: X da ripassare, Y della stessa famiglia studiato ieri → X in fondo
+  await p.evaluate(() => { const t = todayStr(), e = (fid, extra) => Object.assign({ circuito: 1, andata: 1, etichetta: 'A1', frammento: fid, brano: 'op111', secondi: 600, rep_completate: 4 }, extra);
+    D.sessioni.push({ id: 'fam1', data: dayAdd(t, -5), inizio: dayAdd(t, -5) + 'T10:00:00', tipo: 'circuito', log: [e('op111-35-39', { test: { g: dayAdd(t, -5) }, voto: 5 })] },
+                    { id: 'fam2', data: dayAdd(t, -1), inizio: dayAdd(t, -1) + 'T11:00:00', tipo: 'circuito', log: [e('op111-106-107', {})] }); save(); });
+  await p.goto(U + '#select'); await p.reload(); await w();
+  const due = await p.evaluate(() => daRipassare().map(f => f.id));
+  ok(due.join() === 'op111-16-19,op111-35-39' && await p.evaluate(() => RIP.get('op111-35-39').rec && !RIP.get('op111-16-19').rec), 'famiglia studiata negli ultimi 2 giorni: il frammento scende in fondo');
+  ok((await txt('.card.due')).includes('Famiglia studiata di recente'.toUpperCase()) || /famiglia studiata di recente/i.test(await txt('.card.due')), 'selezione: sotto-titolo «famiglia studiata di recente»');
+  await shot('selezione-famiglia-recente');
+  await p.evaluate(() => { D.sessioni = D.sessioni.filter(s => !s.id.startsWith('fam')); D.bozza.selezionati = []; save(); });
   await avvia([B, A]);
-  await rep1(true);
+  await rep1(8);
   ok((await txt('.sheet.on .vbox')).includes('andata 2'), 'il giorno dopo la coppia predefinita è la 2');
   await p.click('#r1ok'); await w();
-  d = await D();
-  ok(d.livelli[B].l === 1 && d.livelli[B].prossimo === await day(2), 'test pulito: da 0 a 1');
+  ok((await iv(B)).v === 8 && (await iv(B)).a === 8, 'nuovo test: 8, conta il voto di oggi');
   const i2 = await txt('.instr');
   ok(i2.includes('come in andata 1') && /richiamata dal testo/i.test(i2) && i2.includes('due quarti di sola rotazione'), 'coppia 2 che rimanda alla 1: il testo richiamato è mostrato');
   await shot('rep2-richiamo');
   await finoAllaFine();
-  // A non era scaduto (ripasso domani) ma viene studiato: test sporco, da 1 a 0
-  await rep1(false); await p.click('#r1ok'); await w();
-  d = await D();
-  ok(d.livelli[A].l === 0, 'test sporco: da 1 a 0');
-  // scartare la sessione annulla i test
+  await rep1(5); await p.click('#r1ok'); await w();
+  ok((await iv(A)).v === 5, 'A ritestato: voto 5');
+  await p.click('[data-act="repback"]'); await w();
+  ok((await D()).sessione_aperta.cur.voto === 5 && (await txt('.repnum')).startsWith('Rep 1'), 'tornando indietro il voto resta');
+  // scartare la sessione toglie i voti dati in quella sessione
   await p.click('[data-act="runmenu"]'); await w(); await p.click('[data-act="discard"]'); await w(); await p.click('#ask-ok'); await w(700);
-  d = await D();
-  ok(d.livelli[A].l === 1 && d.livelli[B].l === 0 && d.livelli[B].prossimo === await day(0), 'sessione scartata: i livelli tornano com\'erano');
+  ok((await iv(A)).v === 9 && (await iv(B)).v === 4, 'sessione scartata: i voti tornano com\'erano');
 
-  /* --- 3. condizioni reali e resistenza --- */
-  await p.evaluate(a => { setLivello(a, 2, todayStr()); D.livelli[a].visto = todayStr(); save(); }, A);
+  /* --- 3. condizioni reali, resistenza, drop-out --- */
+  await p.evaluate(a => { const t = todayStr(); D.sessioni.push({ id: 'oggi1', data: t, inizio: t + 'T08:00:00', tipo: 'circuito', log: [{ circuito: 1, andata: 1, etichetta: 'A1', frammento: a, brano: 'op111', secondi: 300, rep_completate: 4, test: { g: t }, voto: 7.5 }] }); save(); }, A);
   await avvia([A, 'mephisto-202-206']);
   ok(!(await p.locator('.diag').count()), 'frammento già provato oggi: nessun test');
   await fatto(); await p.click('#r1ok'); await w(); await fatto();
-  ok((await txt('.avv')).includes('dinamica e pedale reali'), 'livello 2, Rep 3: dinamica e pedale reali');
-  await shot('rep3-reale');
+  ok((await txt('.avv')).includes('dinamica e pedale reali'), 'voto di oggi 7,5, Rep 3: dinamica e pedale reali');
   await fatto(); await fatto(); await p.click('#r4no'); await w();
-  await fatto(); await p.click('#r1ok'); await w();
+  await rep1(6); await p.click('#r1ok'); await w();
   ok((await txt('.avv')).includes('Frammento di resistenza'), 'Mephisto priorità 2, Rep 2: dinamica scritta e test di PESO');
   await shot('rep2-resistenza');
+  // drop-out: alla terza andata di quattro, una casella nel foglio di Rep 1
+  await avvia(['op111-11-15'], 4);
+  for (let a = 1; a <= 2; a++) { await rep1(a === 1 ? 8 : null); await p.click('#r1ok'); await w(); await finoAllaFine(); }
+  ok((await txt('.l1')).includes('Andata 3/4'), 'andata 3 di 4');
+  await fatto();
+  ok(await p.locator('.sheet.on #r1drop').count() === 1, 'andata 3: casella del drop-out nel foglio di Rep 1');
+  await p.check('.sheet.on #r1drop'); await shot('rep1-dropout'); await p.click('#r1ok'); await w();
+  ok(Object.values((await D()).sessione_aperta.dropout).includes(3), 'drop-out registrato');
   await p.evaluate(() => { D.sessione_aperta = null; save(); });
 
   /* --- 4. cucitura --- */
@@ -175,7 +198,8 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.check('input[data-sp="scriabin fantasie-5-12"]'); await shot('prova-riascolto');
   await p.click('#spok'); await w(700);
   d = await D();
-  ok(d.livelli['scriabin fantasie-5-12'].l === 0 && d.livelli['scriabin fantasie-5-12'].prossimo === await day(0) && !d.livelli['scriabin fantasie-1-4'], 'punto sporco: il frammento va al livello 0, da ripassare oggi');
+  const sp = await iv('scriabin fantasie-5-12');
+  ok(sp && sp.v === 5 && sp.fonte === 'prova' && !(await iv('scriabin fantasie-1-4')), 'punto sporco: il frammento prende 5, da ripassare oggi');
   ok((await txt('.card:has([data-h^="#prova/"])')).includes('5-12'), 'riepilogo: punti sporchi segnati');
   await p.goto(U + '#home'); await w();
   ok((await txt('.card:has([data-act="ripasso"])')).includes('2 passaggi'), 'home: ora 2 passaggi da ripassare');
@@ -185,24 +209,32 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.goto(U + '#history'); await w();
   await p.click('[data-h="#riascolto"]'); await w();
   ok(await p.locator('.rrow').count() === 2, 'riascolto: i frammenti studiati negli ultimi 7 giorni');
-  await p.click(`[data-act="voto"][data-id="${A}"][data-v="2"]`); await w();
+  const vin = `input[data-vin="${A}"]`;
+  ok(await p.locator(vin).count() === 1 && await p.locator('.rif').count() === 1, 'riascolto: campo del voto da 0 a 10 e punti di riferimento');
+  await p.fill(vin, '6'); await p.locator(vin).dispatchEvent('change'); await w();
   await shot('riascolto');
   d = await D();
-  ok(d.riascolti.length === 1 && d.riascolti[0].voto === 2 && d.riascolti[0].frammento === A, 'voto di riascolto salvato');
-  await p.click(`[data-act="voto"][data-id="${A}"][data-v="2"]`); await w();
-  ok((await D()).riascolti.length === 0, 'toccando di nuovo il voto lo si toglie');
-  await p.click(`[data-act="voto"][data-id="${A}"][data-v="3"]`); await w();
+  let ra = d.riascolti.filter(r => r.fonte === 'riascolto');
+  ok(ra.length === 1 && ra[0].voto === 6 && ra[0].frammento === A && (await iv(A)).v === 6, 'voto di riascolto salvato: sostituisce il 7,5 del test di oggi');
+  await p.fill(vin, ''); await p.locator(vin).dispatchEvent('change'); await w();
+  ok(!(await D()).riascolti.some(r => r.fonte === 'riascolto') && (await iv(A)).v === 7.5, 'cancellando il numero il voto si toglie');
+  await p.fill(vin, '8,5'); await p.locator(vin).dispatchEvent('change'); await w();
+  ok((await iv(A)).v === 8.5, 'voto con la virgola: 8,5');
+  await p.fill(`input[data-vin="${B}"]`, '3'); await p.locator(`input[data-vin="${B}"]`).dispatchEvent('change'); await w();
+  await p.reload(); await w();
+  ok((await iv(B)).v === 3 && (await iv(B)).fonte === 'riascolto', 'un 3 in decimi resta 3 dopo il riavvio (non viene preso per un voto della scala 1-3)');
+  await p.fill(`input[data-vin="${B}"]`, ''); await p.locator(`input[data-vin="${B}"]`).dispatchEvent('change'); await w();
   await p.goto(U + '#frag/' + encodeURIComponent(A)); await w();
   const fp = await p.locator('main').innerText();
-  ok(/Livello 2/.test(fp) && /Vincoli usati/i.test(fp) && /Voto di riascolto/i.test(fp) && /Ultimo Rep 4/i.test(fp), 'pagina del frammento: livello, vincoli usati, voto');
+  ok(/Voto attuale/i.test(fp) && /Vincoli usati/i.test(fp) && /Voto di riascolto/i.test(fp) && /Ultimo Rep 4/i.test(fp) && /voto al test successivo/i.test(fp), 'pagina del frammento: voto, vincoli usati, riascolto');
   await shot('frammento');
-  await p.click('[data-act="livello"]'); await w(); await shot('livello'); await p.click('.sheet.on [data-l="4"]'); await w();
-  ok((await D()).livelli[A].l === 4 && (await D()).livelli[A].prossimo === await day(16), 'livello corretto a mano: 4, ripasso tra 16 giorni');
+  await p.click('[data-act="votomano"]'); await w(); await p.fill('.sheet.on #vm', '10'); await shot('voto-a-mano'); await p.click('#vmok'); await w();
+  ok((await iv(A)).v === 10 && (await iv(A)).fonte === 'mano' && (await p.evaluate(a => votoTesto(a), A)).includes('tra 12 giorni'), 'voto a mano: 10, da ripassare tra 12 giorni');
   // verifica a due settimane per un brano «suono»: il voto non sale
-  await p.evaluate(() => { const f = 'scriabin fantasie-1-4'; D.riascolti.push({ frammento: f, data: dayAdd(todayStr(), -15), voto: 2 }, { frammento: f, data: todayStr(), voto: 2 }); save(); });
+  await p.evaluate(() => { const f = 'scriabin fantasie-1-4'; D.riascolti.push({ frammento: f, data: dayAdd(todayStr(), -15), voto: 6, fonte: 'riascolto', scala: 10 }, { frammento: f, data: todayStr(), voto: 6, fonte: 'riascolto', scala: 10 }); save(); });
   await p.goto(U + '#frag/' + encodeURIComponent('scriabin fantasie-1-4')); await w();
   const fs = await p.locator('main').innerText();
-  ok(/Ultimo voto/i.test(fs) && fs.includes('2 su 3') && fs.includes('il voto di riascolto non sale'), 'brano «suono»: ultimo voto e verifica a due settimane sul voto');
+  ok(/Voto attuale/i.test(fs) && fs.includes('il voto non sale'), 'brano «suono»: verifica a due settimane sul voto');
   await shot('frammento-suono');
   // la metrica di un brano si cambia dalle Impostazioni
   await p.goto(U + '#brano/op111'); await w();
@@ -213,22 +245,30 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   /* --- 7. regole --- */
   await p.evaluate(() => { D.sessione_aperta = null; save(); }); await p.goto(U + '#rules/metodo'); await w();
   const rg = await txt('#metodo');
-  ok(await p.locator('#metodo[open]').count() === 1 && rg.includes('La diagnosi sceglie il vincolo') && rg.includes('Cucitura') && rg.includes('Le mani non vanno insieme'), 'regole: metodo versione 3 e tabella degli errori');
+  ok(await p.locator('#metodo[open]').count() === 1 && rg.includes('La diagnosi sceglie il vincolo') && rg.includes('Cucitura') && rg.includes('Le mani non vanno insieme') && rg.includes('Voto in decimi') && rg.includes('famiglia studiata di recente') && !/livell/i.test(rg), 'regole: metodo con il voto in decimi e tabella degli errori');
   await shot('regole-metodo');
 
   /* --- 8. chi arriva dalla 2.2 --- */
   // (si cambia D in memoria: alla chiusura della pagina l'app salva di nuovo i suoi dati)
-  await p.evaluate(() => { const x = D; x.impostazioni.visto_versione = '2.2.0'; x.livelli = {}; x.riascolti = []; x.metrica = {}; x.sessioni.forEach(s => s.log.forEach(l => { delete l.coppia; delete l.test; delete l.vincolo_rep2; delete l.vincolo_rep3; delete l.errore; })); localStorage.setItem('circuiti_studio_v2', JSON.stringify(x)); });
+  await p.evaluate(() => { const x = D; x.impostazioni.visto_versione = '2.2.0'; x.livelli = {}; x.riascolti = [{ frammento: 'scriabin fantasie-13-16', data: dayAdd(todayStr(), -3), voto: 3 }]; x.metrica = {}; x.sessioni.forEach(s => s.log.forEach(l => { delete l.coppia; delete l.test; delete l.vincolo_rep2; delete l.vincolo_rep3; delete l.errore; })); localStorage.setItem('circuiti_studio_v2', JSON.stringify(x)); });
   const nPrima = (await D()).sessioni.length;
   await p.goto(U + '#home'); await p.reload(); await w(900);
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on h2')).includes('versione 3'), 'chi arriva dalla 2.2 vede le novità della versione 3');
   await shot('novita');
   d = await D();
-  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.1.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
+  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.2.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
+  ok(d.riascolti.length === 1 && d.riascolti[0].voto === 10 && d.riascolti[0].da3 === 3 && d.riascolti[0].scala === 10, 'voto di riascolto 1-3 convertito in decimi (3 → 10)');
+  ok((await txt('.sheet.on')).includes('3.2 · Voto in decimi'), 'novità: voce della 3.2');
   await p.click('.sheet.on [data-act="closesheet"]'); await w();
   await avvia([A]);
-  await rep1(true); ok((await txt('.sheet.on .vbox')).includes('andata 1'), 'storico senza coppie registrate: si parte dalla coppia 1'); await p.click('#r1ok'); await w();
-  ok((await D()).livelli[A].l === 1, 'primo test dopo l\'aggiornamento: livello 1');
+  await rep1(7); ok((await txt('.sheet.on .vbox')).includes('andata 1'), 'storico senza coppie registrate: si parte dalla coppia 1'); await p.click('#r1ok'); await w();
+  ok((await iv(A)).v === 7, 'primo test dopo l\'aggiornamento: voto 7');
+  await p.evaluate(() => { D.sessione_aperta = null; save(); });
+  // chi arriva dalla 3.1 con dei livelli: restano nei dati, non si usano
+  await p.evaluate(() => { const x = D; x.impostazioni.visto_versione = '3.1.0'; x.livelli = { 'op111-40-43': { l: 3, data: todayStr(), prossimo: todayStr(), visto: todayStr() } }; localStorage.setItem('circuiti_studio_v2', JSON.stringify(x)); });
+  await p.goto(U + '#home'); await p.reload(); await w(900);
+  ok((await D()).livelli['op111-40-43'].l === 3 && !(await p.evaluate(() => daRipassare().some(f => f.id === 'op111-40-43'))) && await p.locator('.sheet.on').count() === 1, 'dati della 3.1: livelli conservati ma ignorati, novità mostrate');
+  await p.click('.sheet.on [data-act="closesheet"]'); await w();
   await p.evaluate(() => { D.sessione_aperta = null; save(); });
 
   console.log(errs.length ? 'ERRORI:\n' + errs.join('\n') : 'nessun errore in console');

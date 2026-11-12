@@ -1,6 +1,6 @@
 
 /* ================= SESSIONE ================= */
-const newCur = () => ({ rep1_pulita: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false, note: '', senza_errori: null });
+const newCur = () => ({ rep1_pulita: null, voto: null, diagnosi: '', tempo_rep4: null, arresto: false, drop_out: false, note: '', senza_errori: null });
 function startSession(modo) {
   modo = modo === 'libero' ? 'libero' : 'scritti';
   const circ = modo === 'libero'
@@ -66,7 +66,7 @@ function finalizeSlot(S, rc) {
     tempo_rep4: S.cur.tempo_rep4, arresto: S.cur.arresto, drop_out: S.cur.drop_out, note: S.cur.note };
   if (S.modo === 'libero') { e.battute = sl.battute || ''; e.rep_completate = null; }
   else if (sl.ctrl) { e.controllo = true; e.senza_errori = S.cur.senza_errori == null ? null : !!S.cur.senza_errori; e.rep1_pulita = null; e.tempo_rep4 = null; if (f && rc >= 1) vincLog(e, f, S.vincoli && S.vincoli[sl.frammento]); }
-  else if (f) { if (rc >= 2) vincLog(e, f, S.vincoli && S.vincoli[sl.frammento]); if (S.cur.test) e.test = S.cur.test; }
+  else if (f) { if (rc >= 2) vincLog(e, f, S.vincoli && S.vincoli[sl.frammento]); if (S.cur.test) { e.test = S.cur.test; e.voto = S.cur.voto == null ? null : S.cur.voto; } }
   if ((rc != null && rc > 0) || e.test || e.secondi >= (S.modo === 'libero' ? 1 : 5)) S.log.push(e);
   S.timer.slot = 0; S.cur = newCur();
 }
@@ -181,26 +181,26 @@ SCREENS.run = () => {
   if (ctrlSlot(S)) return renderCtrl(S);
   const { c, a, s, r } = S.pos, circ = S.circuiti[c], sl = circ.slot[s], f = fr(sl.frammento) || { battute: sl.frammento, titolo: '(frammento non trovato)', andate: {} };
   /* Metodo v3: una sola coppia di vincoli per frammento in tutta la sessione (non più una per andata). */
-  const fid = sl.frammento, v = vinc(S, fid), vb = vincBreve(f, v), liv = livDi(fid), res = isResistenza(f);
-  const L = D.livelli[fid], eTest = r === 1 && fr(fid) && (S.cur.test || !(L && L.visto === todayStr()));
+  const fid = sl.frammento, v = vinc(S, fid), vb = vincBreve(f, v), res = isResistenza(f);
+  const eTest = r === 1 && fr(fid) && (S.cur.test || !testatoOggi(S, fid)), vOggi = r === 3 ? votoOggi(S, fid) : null;
   let body, avvisi = '';
   if (r === 1) body = fmtText(CATALOGO.regole_slot.rep1);
   else if (r === 2 || r === 3) {
     body = vincBody(f, v, r);
     if (res) avvisi += `<div class="hint avv">${fmtText(AVV.resistenza)}</div>`;
-    else if (r === 3 && liv >= 2) avvisi += `<div class="hint avv">${fmtText(AVV.reali)}</div>`;
+    else if (r === 3 && vOggi != null && vOggi >= VOTO.soglia) avvisi += `<div class="hint avv">${fmtText(AVV.reali)}</div>`;
   }
   else body = fmtText(CATALOGO.regole_slot.rep4) + `<span class="vlabel">Verifica</span>` + fmtText(f.rep4_verifica);
   const dots = `<span class="dots" aria-label="Rep ${r} di 4">${[1, 2, 3, 4].map(i => `<span class="dot ${i < r ? 'done' : i === r ? 'cur' : ''}"></span>`).join('')}</span>`;
   const canBack = r > 1 || !!retreat(S, S.pos);
-  const poi = r === 1 ? 'poi: esito di Rep 1, quindi Rep 2' : r === 2 ? 'poi: Rep 3' : r === 3 ? 'poi: Rep 4' : 'poi: tempo di Rep 4 · ' + nextInfo(S).replace(/^poi: /, '');
+  const poi = r === 1 ? (eTest ? 'poi: voto del test, quindi Rep 2' : 'poi: diagnosi, quindi Rep 2') : r === 2 ? 'poi: Rep 3' : r === 3 ? 'poi: Rep 4' : 'poi: tempo di Rep 4 · ' + nextInfo(S).replace(/^poi: /, '');
   app.innerHTML = runHead(S, { dots, lines: `<div class="l2">${esc(branoNome(f.brano))}</div>
     <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</div>` }) + `
   <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
     ${pausedBanner(S)}
     <div class="repnum">Rep ${r}<small>di 4</small></div>
-    ${r > 1 && (S.cur.rep1_pulita != null || S.cur.diagnosi) ? `<p class="diag">Rep 1: ${S.cur.rep1_pulita === true ? 'pulita' : S.cur.rep1_pulita === false ? 'non pulita' : '—'}${S.cur.diagnosi ? ' · ' + esc(S.cur.diagnosi) : ''}</p>` : ''}
-    ${eTest ? `<p class="diag">${esc(AVV.test || '')} Livello attuale: ${S.cur.test ? S.cur.test.da : liv}.</p>` : ''}
+    ${r > 1 && (S.cur.voto != null || S.cur.diagnosi) ? `<p class="diag">Rep 1: ${S.cur.voto != null ? 'voto ' + fmtV(S.cur.voto) : '—'}${S.cur.diagnosi ? ' · ' + esc(S.cur.diagnosi) : ''}</p>` : ''}
+    ${eTest ? `<p class="diag">${esc(AVV.test || '')} ${esc(votoTesto(fid))}.</p>` : ''}
     ${tempoLine(sl.frammento, r)}
     ${r === 2 || r === 3 ? `<div class="vrow"><span>${vb.mio ? 'Vincolo scelto dopo la diagnosi' : v.k ? 'Vincoli di oggi: coppia ' + esc(v.k) : 'Vincolo'} · <b>${esc(r === 2 ? vb.r2 : vb.r3)}</b></span><button class="link" data-act="vincolo">Cambia vincolo</button></div>` : ''}
     ${avvisi}
@@ -265,33 +265,42 @@ function onFatto() {
 }
 function rep1Sheet(S) {
   const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento, f = fr(fid), v = f ? vinc(S, fid) : null, vb = f ? vincBreve(f, v) : null;
-  const L = D.livelli[fid], eTest = !!f && (S.cur.test || !(L && L.visto === todayStr()));
+  const circ = S.circuiti[S.pos.c], eTest = !!f && (S.cur.test || !testatoOggi(S, fid));
   const prima = !S.log.some(l => l.frammento === fid && l.rep_completate >= 2);   // il vincolo si sceglie alla prima andata del frammento
+  const suono = f && metricaDi(f.brano) === 'suono', puoDrop = S.pos.a === 3 && circ.andate_previste > 3;
+  const pre = S.cur.voto != null ? fmtV(S.cur.voto) : '';
   openSheet(`<h2>Com'è andata Rep 1?</h2>
-    <div class="label">Rep 1 pulita?</div>
-    <div class="yn"><button class="si ${S.cur.rep1_pulita === true ? 'on' : ''}" data-yn="1" aria-pressed="${S.cur.rep1_pulita === true}">Sì</button><button class="no ${S.cur.rep1_pulita === false ? 'on' : ''}" data-yn="0" aria-pressed="${S.cur.rep1_pulita === false}">No</button></div>
+    ${eTest ? `<div class="field"><label for="r1voto">Voto del test, da 0 a 10 · ${suono ? 'suono' : 'pulizia al tempo'}</label>
+      <div class="row" style="align-items:center"><button class="ib stepb" data-vstep="-${VOTO.passo}" aria-label="Meno">−</button>
+      <input type="text" id="r1voto" class="vin" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${esc(pre)}" placeholder="—">
+      <button class="ib stepb" data-vstep="${VOTO.passo}" aria-label="Più">+</button></div>
+      <p class="small muted" style="margin:6px 0 0">${votoTesto(fid) ? esc(votoTesto(fid)) + '.' : 'Primo voto di questo frammento.'} Lascialo vuoto se non vuoi votare.</p></div>
+    ${riferimentiHtml()}` : ''}
     <div class="field"><label for="diag">Diagnosi (una riga)</label><input type="text" id="diag" value="${esc(S.cur.diagnosi)}" placeholder="es. b. 26 q3, sx anticipa" enterkeyhint="done"></div>
     ${vb ? `<div class="vbox"><div><span class="label">${prima ? 'Vincoli di oggi' : 'Vincoli di questa sessione'}</span><b>Rep 2: ${esc(vb.r2)} · Rep 3: ${esc(vb.r3)}</b><small>${vb.mio ? 'scelti dopo la diagnosi' : 'coppia dell\'andata ' + esc(v.k || '—') + ' del catalogo'}</small></div>${prima ? '<button class="btn inline" id="r1v">Cambia</button>' : ''}</div>` : ''}
+    ${puoDrop ? `<div class="toggles"><label class="tg"><input type="checkbox" id="r1drop" ${S.cur.drop_out ? 'checked' : ''}> <span>Drop-out<small>${esc(String(CATALOGO.regole_slot.drop_out || '').split('\n')[0])}</small></span></label></div>` : ''}
     <button class="btn primary xl" id="r1ok">Avanti a Rep 2</button>
-    <p class="small muted" style="margin:0;text-align:center">${eTest ? 'Questa è la prima Rep 1 di oggi: la risposta «pulita» decide il livello.' : 'Le risposte sono facoltative.'}</p>`, sh => {
-    if ($('#r1v', sh)) $('#r1v', sh).addEventListener('click', () => vincoloSheet(S, fid, () => rep1Sheet(S)));
-    $$('[data-yn]', sh).forEach(b => b.addEventListener('click', () => {
-      const v = b.dataset.yn === '1'; S.cur.rep1_pulita = S.cur.rep1_pulita === v ? null : v; save();
-      $$('[data-yn]', sh).forEach(x => { const on = S.cur.rep1_pulita === (x.dataset.yn === '1'); x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
+    <p class="small muted" style="margin:0;text-align:center">${eTest ? 'Prima Rep 1 di oggi: il voto conta per «Da ripassare». Le altre Rep 1 di oggi non contano.' : 'Il test di oggi è già fatto: qui solo la diagnosi, facoltativa.'}</p>`, sh => {
+    if ($('#r1v', sh)) $('#r1v', sh).addEventListener('click', () => { if ($('#r1voto', sh)) S.cur.voto = leggiVoto($('#r1voto', sh).value); save(); vincoloSheet(S, fid, () => rep1Sheet(S)); });
+    const inp = $('#r1voto', sh);
+    $$('[data-vstep]', sh).forEach(b => b.addEventListener('click', () => {
+      const cur = leggiVoto(inp.value), st = Number(b.dataset.vstep);
+      inp.value = fmtV(cur == null ? VOTO.soglia : Math.min(VOTO.massimo, Math.max(0, cur + st)));
     }));
     $('#diag', sh).addEventListener('input', e => { S.cur.diagnosi = e.target.value; save(); });
     $('#diag', sh).addEventListener('keydown', e => { if (e.key === 'Enter') $('#r1ok', sh).click(); });
     $('#r1ok', sh).addEventListener('click', () => {
-      const circ = S.circuiti[S.pos.c];
-      const T = eTest ? applicaTest(S, fid) : null;
-      if (T && T.a != null) setTimeout(() => toast(`Test di oggi: livello ${T.a} · ripasso ${quando(D.livelli[fid].prossimo)}`), 60);
-      if (S.pos.a === 3 && circ.andate_previste > 3 && S.cur.rep1_pulita === true && !S.cur.drop_out) {
-        openSheet(`<h2>Drop-out: saltare ${circ.andate_previste > 4 ? 'le andate successive' : 'l\'andata 4'}?</h2><p class="asktext">${fmtText(CATALOGO.regole_slot.drop_out)}</p>
-          <div class="yn"><button class="si on" id="dy">Sì, drop-out</button><button class="no" id="dn">No, continua</button></div>`, sh2 => {
-          $('#dy', sh2).addEventListener('click', () => { setDropout(S, true); S.pos.r = 2; save(); render(); });
-          $('#dn', sh2).addEventListener('click', () => { S.pos.r = 2; save(); render(); });
-        });
-      } else { S.pos.r = 2; save(); render(); }
+      if (eTest) {
+        S.cur.test = S.cur.test || { g: todayStr() };
+        S.cur.voto = inp ? leggiVoto(inp.value) : null;
+        if (S.cur.voto != null) {
+          const g = giorniAllaSoglia({ d: todayStr(), v: S.cur.voto });
+          setTimeout(() => toast(`Voto ${fmtV(S.cur.voto)} · ${g ? 'da ripassare tra ' + g + (g === 1 ? ' giorno' : ' giorni') : 'da ripassare'}`), 60);
+        }
+      }
+      const d = $('#r1drop', sh);
+      if (d && d.checked !== !!S.cur.drop_out) setDropout(S, d.checked);
+      S.pos.r = 2; save(); render();
     });
   });
 }
@@ -327,7 +336,7 @@ function repBack() {
   const cur = S.timer.slot;
   if (last && last.circuito === circ.n && last.andata === p.a && last.etichetta === sl.etichetta) {
     S.log.pop();
-    S.cur = { rep1_pulita: last.rep1_pulita, diagnosi: last.diagnosi || '', tempo_rep4: last.tempo_rep4, arresto: !!last.arresto, drop_out: !!last.drop_out, note: last.note || '', senza_errori: last.senza_errori == null ? null : last.senza_errori };
+    S.cur = { rep1_pulita: last.rep1_pulita, voto: last.voto == null ? null : last.voto, diagnosi: last.diagnosi || '', tempo_rep4: last.tempo_rep4, arresto: !!last.arresto, drop_out: !!last.drop_out, note: last.note || '', senza_errori: last.senza_errori == null ? null : last.senza_errori };
     if (last.test) S.cur.test = last.test;
     S.timer.slot = (last.secondi || 0) + cur;
     S.pos = { c: p.c, a: p.a, s: p.s, r: S.modo === 'libero' ? 1 : sl.ctrl ? Math.min(CTRL_MAX, Math.max(1, last.rep_completate || 1)) : last.rep_completate >= 4 ? 4 : Math.max(1, (last.rep_completate || 0) + 1) };

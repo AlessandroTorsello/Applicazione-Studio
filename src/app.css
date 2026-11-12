@@ -344,3 +344,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .dots .dot.opt{opacity:.45}
 .dots .dot.opt.done,.dots .dot.opt.cur{opacity:1}
 .accbody .todo .row .btn{margin-bottom:0}
+/* 3.2: voto in decimi */
+input.vin{width:5.5em;flex:0 0 auto;font-size:var(--t-lg);text-align:center;font-weight:700;padding:8px 6px}
+.row input.vin{flex:1 1 0;min-width:0;width:0;font-size:var(--t-2xl);height:56px}
+.famrec{font-size:var(--t-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.04em;border-top:1px dashed var(--line);margin:6px 0 2px;padding:6px 2px 2px}
+.rif{margin:4px 0 12px}

@@ -54,7 +54,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.click('[data-act="start"]'); await w(900);
   const l2 = await p.locator('.runh .l2').innerText();
   ok(/II movimento/.test(l2), 'in sessione: brano del primo slot «' + l2 + '»');
-  await p.click('[data-act="fatto"]'); await w(); await p.click('[data-yn="1"]'); await p.click('#r1ok'); await w();
+  await p.click('[data-act="fatto"]'); await w(); await p.fill('#r1voto', '7'); await p.click('#r1ok'); await w();
   const instr = await p.locator('.instr').first().innerText();
   ok(instr.includes('DIN dentro la mano'), 'Rep 2 mostra il vincolo del catalogo dell\'Arietta');
   await shot('rep2-arietta');

@@ -1,8 +1,9 @@
 /* ================= SELEZIONE ================= */
 const openBrani = new Set(['op111']);
 let LAST = new Map(); // ultimo studio per frammento, ricalcolato quando si apre la selezione
+let VMAP = null;      // voti per frammento, ricalcolati insieme
 function fragMeta(f) {
-  const x = LAST.get(f.id), liv = livTesto(f.id), p = [];
+  const x = LAST.get(f.id), liv = votoTesto(f.id, VMAP), p = [];
   if (x && x.data) p.push(`Ultimo studio: ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · Rep 4 a ' + esc(x.bpm) + ' bpm' : ''}`);
   if (liv) p.push(esc(liv));
   return p.length ? `<span class="fmeta">${p.join(' · ')}</span>` : '';
@@ -37,11 +38,13 @@ function prioritaHtml(list, sel, bid) {
 SCREENS.select = () => {
   D.bozza.selezionati = D.bozza.selezionati.filter(id => fr(id));
   const sel = new Set(D.bozza.selezionati);
-  LAST = lastStudied();
-  /* Metodo v3: in cima i frammenti il cui intervallo è scaduto, divisi per brano e in ordine di priorità. */
-  const due = daRipassare(), dueB = [...new Set(due.map(f => f.brano))];
-  const dueHtml = due.length ? `<section class="card due"><div class="cardh"><span class="label">Da ripassare oggi · ${due.length}</span>${due.every(f => sel.has(f.id)) ? '' : '<button class="link" data-act="seldue">Seleziona tutti</button>'}</div>
-    ${dueB.map(b => `<div class="fam"><div class="famh">${esc(branoNome(b))}</div>${due.filter(f => f.brano === b).map(f => fragRow(f, sel)).join('')}</div>`).join('')}</section>` : '';
+  LAST = lastStudied(); VMAP = mappaVoti();
+  /* In cima i frammenti con voto attuale sotto la soglia, divisi per brano, dal voto più basso;
+     in fondo a ogni brano quelli la cui famiglia è stata studiata negli ultimi giorni. */
+  const due = daRipassare(), dueB = [...new Set(due.map(f => f.brano))], dueN = due.filter(f => !RIP.get(f.id).rec);
+  const dueHtml = due.length ? `<section class="card due"><div class="cardh"><span class="label">Da ripassare oggi · ${due.length}</span>${dueN.every(f => sel.has(f.id)) ? '' : '<button class="link" data-act="seldue">Seleziona tutti</button>'}</div>
+    ${dueB.map(b => { const n = due.filter(f => f.brano === b && !RIP.get(f.id).rec), r = due.filter(f => f.brano === b && RIP.get(f.id).rec);
+      return `<div class="fam"><div class="famh">${esc(branoNome(b))}</div>${n.map(f => fragRow(f, sel)).join('')}${r.length ? `<div class="famrec">Famiglia studiata di recente</div>${r.map(f => fragRow(f, sel)).join('')}` : ''}</div>`; }).join('')}</section>` : '';
   const body = C.braniVis.map(b => {
     const list = C.frammenti.filter(f => f.brano === b.id);
     const nSel = list.filter(f => sel.has(f.id)).length;

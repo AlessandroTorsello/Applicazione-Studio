@@ -60,7 +60,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'slot seguente di un brano consolidato: Rep 1 con il test');
   let d = await D();
   let e = d.sessione_aperta.log[0];
-  ok(e.controllo === true && e.rep_completate === 7 && e.senza_errori === true && e.coppia === '1' && !e.test && e.rep1_pulita === null && !d.livelli[N1], 'registro: controllo, 7 ripetizioni, senza errori; nessun livello');
+  ok(e.controllo === true && e.rep_completate === 7 && e.senza_errori === true && e.coppia === '1' && !e.test && e.rep1_pulita === null && e.voto === undefined && !(await p.evaluate(id => mappaVoti().has(id), N1)), 'registro: controllo, 7 ripetizioni, senza errori; nessun voto');
   await p.click('[data-act="repback"]'); await w();
   ok(/Ripetizione 7/i.test(await txt('.repnum')) && (await D()).sessione_aperta.cur.senza_errori === true, 'tornando indietro si riapre lo slot di controllo com\'era');
   await fatto(); await p.click('#cok'); await w();
@@ -80,8 +80,8 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await shot('brano-consolidato');
   await avvia([N1]);
   ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'consolidato: slot da 4 Rep con il test del giorno');
-  await fatto(); await p.click('.sheet.on [data-yn="1"]'); await p.click('#r1ok'); await w();
-  ok((await D()).livelli[N1].l === 1 && (await txt('.vrow')).includes('coppia 1'), 'consolidato: entra nei livelli; nello stesso giorno resta la coppia già usata');
+  await fatto(); await p.fill('#r1voto', '6'); await p.click('#r1ok'); await w();
+  ok((await D()).sessione_aperta.cur.voto === 6 && (await p.evaluate(id => daRipassare().some(f => f.id === id), N1)) && (await txt('.vrow')).includes('coppia 1'), 'consolidato: il voto 6 lo mette in «Da ripassare»; nello stesso giorno resta la coppia già usata');
   await p.evaluate(() => { D.sessione_aperta = null; setStato('nabucco', 'nuovo'); });
 
   /* --- 3. editor: brano nuovo, divisione in frammenti --- */
@@ -167,7 +167,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on .news')).includes('3.1'), 'chi arriva dalla 3.0 vede le novità della 3.1');
   await shot('novita-31');
   d = await D();
-  ok(d.impostazioni.visto_versione === '3.1.0' && d.sessioni.length === 2 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio');
+  ok(d.impostazioni.visto_versione === '3.2.0' && d.sessioni.length === 2 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio');
   await p.reload(); await w(900);
   ok(!(await p.locator('.sheet.on').count()), 'al secondo avvio le novità non tornano');
 

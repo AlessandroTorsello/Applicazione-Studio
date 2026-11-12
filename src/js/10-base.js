@@ -1,6 +1,6 @@
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '3.1.0';
+const APP_VERSION = '3.2.0';
 /* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
 const SANS = "system-ui,sans-serif";
 const STILI = [
@@ -35,7 +35,7 @@ function defaultData() {
     impostazioni: { tema: 'scuro', testo: 'normale', stile: STILE_PREDEFINITO, ultimo_export: null, visto_versione: null },
     target: {},
     stato: {}, frammenti_nascosti: [],         // brano nuovo o consolidato; frammenti tolti dagli elenchi
-    livelli: {}, riascolti: [], metrica: {},   // metodo v3: livello di ogni frammento, voti di riascolto, metrica scelta per brano
+    livelli: {}, riascolti: [], metrica: {},   // livelli: dati della 3.0-3.1, conservati ma non più usati (dalla 3.2 il voto in decimi si calcola dal registro e da riascolti)
     sessione_aperta: null, sessioni: [],
     bozza: { selezionati: [], circuiti: [], circuiti_lib: [], brani_liberi: [], cfg: { tipo: 'circuito', slot: 3, andate: 3, modo: 'scritti' } }
   };
@@ -53,6 +53,7 @@ function normalize(d) {
   ['target', 'livelli', 'metrica', 'stato'].forEach(k => { if (!out[k] || typeof out[k] !== 'object' || Array.isArray(out[k])) out[k] = {}; });
   if (!Array.isArray(out.riascolti)) out.riascolti = [];
   out.riascolti = out.riascolti.filter(v => v && v.frammento && v.data);
+  out.riascolti.forEach(v => { if (v.scala !== 10) { if ([1, 2, 3].includes(v.voto)) { v.da3 = v.voto; v.voto = { 1: 3, 2: 7, 3: 10 }[v.voto]; } v.scala = 10; v.fonte = v.fonte || 'riascolto'; } });   // 3.2: voti di riascolto 1-3 in decimi
   out.sessioni = out.sessioni.filter(s => s && typeof s === 'object');
   out.sessioni.forEach(s => { if (!Array.isArray(s.log)) s.log = []; if (!Array.isArray(s.circuiti)) s.circuiti = []; });
   const S = out.sessione_aperta;
