@@ -104,7 +104,7 @@
   "pausa_famiglia": 2,
   "passo": 0.5,
   "prova_sporco": 5,
-  "nota": "Revisione del 12/11/2026, chiesta da Alessandro: voto in decimi al posto dei livelli 0-4 e di «Rep 1 pulita sì/no». Calo di 0,25 al giorno (un 10 torna da ripassare dopo 12 giorni), soglia 7, pausa di famiglia di 2 giorni: scelte di lavoro da correggere con l'uso. Dal 12/11/2026 (3.3) niente riascolto settimanale: basta il voto del test. Dalla 3.5 la verifica a due settimane avvisa solo se il voto del test a freddo non sale e resta sotto 8,5.",
+  "nota": "Revisione del 12/11/2026, chiesta da Alessandro: voto in decimi al posto dei livelli 0-4 e di «Rep 1 pulita sì/no». Calo di 0,25 al giorno (un 10 torna da ripassare dopo 12 giorni), soglia 7, pausa di famiglia di 2 giorni: scelte di lavoro da correggere con l'uso. Dal 12/11/2026 (3.3) niente riascolto settimanale: basta il voto del test. Dalla 3.5 la verifica a due settimane avvisa solo se il voto del test a freddo non sale e resta sotto 8,5. Dalla 3.6 (18/11/2026, chiesto da Alessandro) «Da ripassare» solo sotto 6, in ordine di voto crescente; la soglia 7 resta per la Rep 3 reale.",
   "riferimenti": [
    [
     "10",
@@ -131,7 +131,8 @@
     "non si riesce a suonare"
    ]
   ],
-  "verifica_sotto": 8.5
+  "verifica_sotto": 8.5,
+  "ripasso": 6
  },
  "avvisi": {
   "test": "Prima Rep 1 di oggi: è il test. Dopo, un voto da 0 a 10.",
@@ -170,7 +171,7 @@
   },
   {
    "titolo": "Voto in decimi",
-   "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 sulla metrica del brano: pulizia al tempo per i brani «tempo», suono per i brani «suono». Le altre Rep 1 dello stesso giorno non contano. Se il test resta senza voto non conta: al ripasso successivo il voto viene chiesto di nuovo.\nPunti di riferimento: 10 = al tempo giusto, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 torna a 7 in 12 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sceso a 7 o meno, divisi per brano, dal voto più basso (a parità, la priorità). Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
+   "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 sulla metrica del brano: pulizia al tempo per i brani «tempo», suono per i brani «suono». Le altre Rep 1 dello stesso giorno non contano. Se il test resta senza voto non conta: al ripasso successivo il voto viene chiesto di nuovo.\nPunti di riferimento: 10 = al tempo giusto, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 scende sotto 6 in 17 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso (a parità, la priorità). Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
   },
   {
    "titolo": "Condizioni reali più spesso",

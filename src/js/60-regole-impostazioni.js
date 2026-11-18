@@ -194,8 +194,12 @@ function resetSheet() {
 }
 function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
-    <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
+    <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.6 · Slot e andate a scelta</b>: oltre ai pulsanti, con «Altro…» scrivi tu il numero di slot (fino a 20) e di andate (da 2 a 12). Durante un circuito, dal menu ⋯, puoi aggiungere un'andata.</li>
+      <li><b>3.6 · Da ripassare sotto 6</b>: entrano solo i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso. Accanto agli altri voti non compare più «da ripassare tra…».</li>
+      <li><b>3.6 · Nuovo circuito da zero</b>: dopo l'avvio di un circuito la scelta dei passaggi si azzera; per rifarlo uguale c'è «Ripeti la sessione».</li>
+      <li><b>3.6 · Lezione pratica</b>: dalla home o dallo storico aggiungi una lezione col solo tempo. Entra nei totali come «Lezione pratica».</li>
       <li><b>3.5 · Varianti scelte da te</b>: per Rep 2 e Rep 3 scegli tu la variante, una per una (sigla, tecnica tua o nessuna). Il catalogo non prescrive più varianti: i suoi testi e la tabella degli errori restano come suggerimenti.</li>
       <li><b>3.5 · Rep di contesto</b>: il test a freddo solo alla prima andata del frammento; nelle andate dopo, il frammento con 2 battute prima e 2 dopo, all'85-90%.</li>
       <li><b>3.5 · Metronomo solo in MET e CLIC</b>: nuova sigla MET. I bpm si segnano solo dopo MET o CLIC e si possono lasciare vuoti. Rep 4 è un'esecuzione, senza metronomo e senza domande. Il tempo target non c'è più.</li>

@@ -360,3 +360,10 @@ input.vin{width:5.5em;flex:0 0 auto;font-size:var(--t-lg);text-align:center;font
 .errsug>span{font-size:var(--t-sm)}
 .btn.dropb{font-weight:600}
 .btn.dropb small{display:block;font-size:var(--t-sm);font-weight:500;color:var(--muted);margin-top:2px}
+/* 3.6: istruzioni chiuse, avvisi in una riga */
+details.instrd{margin:6px 0 12px}
+details.instrd>div.instr{font-size:var(--t-md);line-height:1.5;font-weight:400;margin:0}
+details.avv>summary{color:var(--accent);font-weight:600}
+.circh{flex-wrap:wrap}
+.circh h3{flex:1 1 100%}
+.circh .seg button{padding:8px 12px}

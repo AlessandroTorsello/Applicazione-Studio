@@ -7,6 +7,14 @@ const AVV = M3.avvisi || {};
 /* 3.5: testi fissi dello slot superati (il testo del catalogo resta, in Sigle e regole, segnato come superato). */
 const SUP = M3.superate || {};
 const slotTesto = k => SUP[k] || CATALOGO.regole_slot[k] || '';
+/* 3.6: meno testo a vista. Le istruzioni delle Rep stanno chiuse: si aprono con un tocco e restano aperte
+   (anche nelle Rep successive) finché non le richiudi. Gli avvisi mostrano una riga, il resto con un tocco. */
+function istruzioni(titolo, body) {
+  return `<details class="sub2 instrd" ${D.impostazioni.istruzioni_aperte ? 'open' : ''}><summary>${esc(titolo)}</summary><div class="instr">${body}</div></details>`;
+}
+function bindIstruzioni() { $$('details.instrd').forEach(d => d.addEventListener('toggle', () => { if (!!D.impostazioni.istruzioni_aperte !== d.open) { D.impostazioni.istruzioni_aperte = d.open; save(); } })); }
+const avviso = (breve, testo) => `<details class="sub2 avv"><summary>${esc(breve)}</summary><div>${fmtText(testo)}</div></details>`;
+const titoloIstr = (rep, x) => x && x !== LIBERO ? 'Come si fa: ' + varianteNome(x) : 'Istruzioni di ' + rep;
 const giorniTra = (a, b) => Math.round((dparse(b).getTime() - dparse(a).getTime()) / 864e5);
 
 /* ---- metrica del brano e frammenti di resistenza ---- */
@@ -52,7 +60,7 @@ function giunturaTesto(a, b) {
    (VOTO.decadimento punti al giorno); sotto VOTO.soglia il frammento è da ripassare. Il voto si ricava ogni volta
    dal registro (voci con «test» e «voto») e da D.riascolti (voto a mano, prova; «riascolto» solo nei dati della 3.2): eliminare una voce
    o una sessione toglie anche il suo voto, senza altri conti. */
-const VOTO = Object.assign({ massimo: 10, decadimento: 0.25, soglia: 7, pausa_famiglia: 2, passo: 0.5, prova_sporco: 5 }, M3.voto || {});
+const VOTO = Object.assign({ massimo: 10, decadimento: 0.25, soglia: 7, ripasso: 6, pausa_famiglia: 2, passo: 0.5, prova_sporco: 5 }, M3.voto || {});   // soglia: Rep 3 reale; ripasso: «Da ripassare» (3.6)
 const ORD_FONTE = { test: 1, prova: 2, riascolto: 3, mano: 4 };   // nello stesso giorno: il voto a mano, poi il riascolto (dati della 3.2), poi la prova, poi il test
 const fmtV = v => v == null ? '—' : (Math.round(v * 10) / 10).toLocaleString('it-IT', { maximumFractionDigits: 1 });
 const fmtN = v => Number(v).toLocaleString('it-IT', { maximumFractionDigits: 2 });   // numeri delle regole (0,25)
@@ -76,15 +84,15 @@ function mappaVoti() {
 }
 const votoAttuale = u => u ? Math.max(0, u.v - VOTO.decadimento * Math.max(0, giorniTra(u.d, todayStr()))) : 0;
 function infoVoto(fid, M) { const x = (M || mappaVoti()).get(fid); return x ? { u: x.ultimo, a: votoAttuale(x.ultimo), storia: x.storia } : null; }
-/* Da ripassare: voto attuale sotto la soglia, oppure arrivato alla soglia in un giorno successivo al voto
-   (così un 10 torna dopo 12 giorni esatti: 10 − 12 × 0,25 = 7). */
-const daRivedere = u => { if (!u) return true; const a = votoAttuale(u); return a < VOTO.soglia - 1e-9 || (a <= VOTO.soglia + 1e-9 && giorniTra(u.d, todayStr()) > 0); };
-/* Fra quanti giorni il frammento torna da ripassare (0 = lo è già). */
-const giorniAllaSoglia = u => { if (daRivedere(u)) return 0; return Math.max(1, Math.ceil((votoAttuale(u) - VOTO.soglia) / VOTO.decadimento - 1e-9)); };
+/* Da ripassare (3.6): voto attuale sotto VOTO.ripasso (6). Un 10 ci arriva dopo 17 giorni (10 − 17 × 0,25 = 5,75). */
+const daRivedere = u => { if (!u) return true; return votoAttuale(u) < VOTO.ripasso - 1e-9; };
+/* Fra quanti giorni il frammento scende sotto VOTO.ripasso (0 = c'è già). */
+const giorniAllaSoglia = u => { if (daRivedere(u)) return 0; return Math.max(1, Math.floor((votoAttuale(u) - VOTO.ripasso) / VOTO.decadimento + 1e-9) + 1); };
 function votoTesto(fid, M) {
   const i = infoVoto(fid, M); if (!i) return '';
-  const g = giorniTra(i.u.d, todayStr()), n = giorniAllaSoglia(i.u);
-  return `Voto ${fmtV(i.a)}${g > 0 ? ` (${fmtV(i.u.v)} dato ${g === 1 ? 'ieri' : g + ' giorni fa'})` : ' oggi'} · ${n ? 'da ripassare ' + (n === 1 ? 'domani' : 'tra ' + n + ' giorni') : 'da ripassare'}`;
+  const g = giorniTra(i.u.d, todayStr());
+  /* 3.6: «da ripassare» solo per chi lo è davvero (sotto 6). */
+  return `Voto ${fmtV(i.a)}${g > 0 ? ` (${fmtV(i.u.v)} dato ${g === 1 ? 'ieri' : g + ' giorni fa'})` : ' oggi'}${daRivedere(i.u) ? ' · da ripassare' : ''}`;
 }
 /* Il frammento ha già fatto il test oggi (in questa sessione o in un'altra)? */
 /* Conta solo un test con il voto: fino alla 3.4 un test lasciato senza voto «consumava» il test del giorno e nei
@@ -99,8 +107,8 @@ function votoOggi(S, fid) {
   if (S && S.cur && S.cur.test && S.cur.voto != null) return S.cur.voto;
   const i = infoVoto(fid); return i && i.u.d === todayStr() ? i.u.v : null;
 }
-/* Da ripassare oggi: frammenti già votati con voto attuale sotto la soglia, nei brani consolidati.
-   Ordine: voto più basso, poi priorità; in fondo quelli la cui famiglia è stata studiata da poco. */
+/* Da ripassare oggi: frammenti già votati con voto attuale sotto 6, nei brani consolidati.
+   Ordine (3.6): voto crescente su tutti i brani, poi priorità; in fondo quelli la cui famiglia è stata studiata da poco. */
 let RIP = new Map();
 function famiglieRecenti() {
   const t = todayStr(), rec = new Set(), studiato = new Set();
@@ -119,7 +127,7 @@ function daRipassare() {
     const fam = famDi(f), r = !!(fam && rec.has(fam) && [...C.frammenti].some(g => g.id !== f.id && famDi(g) === fam && studiato.has(g.id)));
     RIP.set(f.id, { a: i.a, rec: r });
   });
-  return C.frammenti.filter(f => RIP.has(f.id)).sort((a, b) => ord.get(a.brano) - ord.get(b.brano) || RIP.get(a.id).rec - RIP.get(b.id).rec || RIP.get(a.id).a - RIP.get(b.id).a || a.priorita - b.priorita || primaBattuta(a) - primaBattuta(b));
+  return C.frammenti.filter(f => RIP.has(f.id)).sort((a, b) => RIP.get(a.id).rec - RIP.get(b.id).rec || RIP.get(a.id).a - RIP.get(b.id).a || ord.get(a.brano) - ord.get(b.brano) || a.priorita - b.priorita || primaBattuta(a) - primaBattuta(b));
 }
 function setVoto(fid, voto, fonte, extra) {
   const t = todayStr(); fonte = fonte || 'riascolto';
@@ -210,7 +218,7 @@ function varianteSheet(S, fid, rep, after) {
   const done = x => { v['r' + rep] = x; save(); if (after) after(); else { closeSheet(); render(); } };
   const sigBtn = s => `<button class="sigpick ${s === cur ? 'on' : ''}" data-pick="${esc(s)}"><b>${esc(s)}</b><span>${esc((C.S.get(s) || {}).nome || '')}</span></button>`;
   openSheet(`<h2>Variante di Rep ${rep}</h2>
-    <p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)} · resta per le andate successive finché non la cambi.</p>
+    <p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)} · vale anche per le andate dopo</p>
     <button class="btn two ${cur === LIBERO ? 'on' : ''}" data-pick="${LIBERO}"><b>Nessuna variante${cur === LIBERO ? ' (in uso)' : ''}</b><span>Rep ${rep} senza una tecnica particolare</span></button>
     <details class="sub2"><summary>Suggerimenti dall'errore trovato</summary><div>${errs.map(e => `<div class="errsug"><span>${esc(e.errore)}</span><div class="sigrow">${e.sigle.map(sigBtn).join('')}</div></div>`).join('')}</div></details>
     <div class="label" style="margin-top:12px">Tutte le sigle</div>

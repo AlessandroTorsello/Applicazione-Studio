@@ -30,13 +30,13 @@ function renderCtrl(S) {
   <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
     ${pausedBanner(S)}
     <div class="repnum">Ripetizione ${r}<small>di ${CTRL_MIN}-${CTRL_MAX}</small></div>
-    <p class="diag">Brano nuovo · controllo al ${CTRL_PCT[0]}-${CTRL_PCT[1]}%, senza test a freddo e senza Rep 4.</p>
+    <p class="diag">Brano nuovo · controllo al ${CTRL_PCT[0]}-${CTRL_PCT[1]}%</p>
     <div class="vrow"><span>Variante ${rep === 2 ? 'A' : 'B'} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>
-    <div class="instr">${varianteBody(f, x, rep)}</div>
+    ${istruzioni(titoloIstr('variante ' + (rep === 2 ? 'A' : 'B'), x), `<p>Controllo al ${CTRL_PCT[0]}-${CTRL_PCT[1]}%, senza test a freddo e senza Rep 4.</p>` + varianteBody(f, x, rep))}
     <div class="toggles">
       <label class="tg"><input type="checkbox" id="arresto" ${S.cur.arresto ? 'checked' : ''}> <span>Regola di arresto applicata</span></label>
     </div>
-    <button class="btn dropb" data-act="dropnow">Drop-out: togli il frammento dal circuito<small>esce subito, già da questa andata</small></button>
+    <button class="btn dropb" data-act="dropnow">Drop-out: esce subito dal circuito</button>
     <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note${S.cur.note ? ' ✎' : ''}</summary><div><textarea id="note" placeholder="Annotazioni su questo slot">${esc(S.cur.note)}</textarea></div></details>
     <details class="sub2"><summary>Nodo motorio</summary><div>${fmtText(f.nodo_motorio)}</div></details>
     ${f.note ? `<details class="sub2"><summary>Note del frammento</summary><div>${fmtText(f.note)}</div></details>` : ''}
@@ -49,6 +49,7 @@ function renderCtrl(S) {
   </div></div>`;
   $('#arresto').addEventListener('change', e => { S.cur.arresto = e.target.checked; save(); });
   $('#note').addEventListener('input', e => { S.cur.note = e.target.value; save(); });
+  bindIstruzioni();
   runTicker(S);
 }
 /* Fine dello slot di controllo: nessuna domanda sull'esito (3.5); i bpm solo se c'era MET o CLIC, e facoltativi. */

@@ -1,6 +1,9 @@
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '3.5.0';
+const APP_VERSION = '3.6.0';
+/* 3.6: slot e andate oltre i pulsanti (2-5) si scrivono a mano entro questi limiti; le andate partono da 2. */
+const LIM = { slot: [2, 20], andate: [2, 12] };
+const LEZIONE = 'lezione-pratica';   // «brano» delle lezioni pratiche: solo tempo
 /* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
 const SANS = "system-ui,sans-serif";
 const STILI = [
@@ -110,7 +113,7 @@ function buildCat() {
   C.sigRe = new RegExp('(?<![\\p{L}\\p{N}_])(' + names.join('|') + ')(?![\\p{L}\\p{N}_])', 'gu');
 }
 buildCat();
-const branoNome = id => (C.B.get(id) || {}).nome || id || '—';
+const branoNome = id => id === LEZIONE ? 'Lezione pratica' : (C.B.get(id) || {}).nome || id || '—';
 const branoCorto = id => branoNome(id).split(',')[0];
 const fr = id => C.F.get(id);
 // Le priorità sono proprie di ogni brano: il n. 1 dell'op. 111 non è il n. 1 del Mephisto.

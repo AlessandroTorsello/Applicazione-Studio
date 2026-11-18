@@ -3,6 +3,7 @@ let installEvt = null;
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; if (!location.hash || location.hash === '#home') render(); });
 /* Descrizione breve di una sessione (aperta o salvata). */
 function sesDescr(s) {
+  if (s.tipo === 'lezione') return ((s.log || [])[0] || {}).note || 'Solo tempo';
   if (s.tipo === 'manuale') return [...new Set((s.log || []).map(l => branoCorto(l.brano)))].join(', ') || 'Registrata a mano';
   if (s.tipo === 'libera') return 'Sessione libera · ' + ((s.brani || []).map(branoCorto).join(', ') || '—');
   if (s.tipo === 'cucitura' || s.tipo === 'prova') { const ids = s.frammenti || [], g = ids.length - 1;
@@ -23,7 +24,7 @@ function lastRepeatable() {
   return null;
 }
 function canRepeat(s) {
-  if (!s || s.tipo === 'manuale') return false;
+  if (!s || s.tipo === 'manuale' || s.tipo === 'lezione') return false;
   if (s.tipo === 'libera') return (s.brani || []).some(id => C.B.has(id));
   return (s.circuiti || []).some(c => (c.slot || []).some(x => s.modo === 'libero' ? C.B.has(x.brano) : !!fr(x.frammento)));
 }
@@ -42,12 +43,13 @@ SCREENS.home = () => {
       <p class="nowpos">${esc(posDescr(S))}</p><p class="small muted" style="margin:0 0 10px">${esc(sesDescr(S))}</p>
       <button class="btn primary xl" data-act="go" data-h="#run" style="margin:0">Riprendi la sessione</button></section>` : ''}
     ${due.length ? `<section class="card"><div class="cardh"><span class="label">Da ripassare oggi</span><b>${due.length} ${due.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
-      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))}. Voto attuale sceso a ${fmtV(VOTO.soglia)} o meno: cala da solo di ${fmtN(VOTO.decadimento)} al giorno dall'ultimo test.</p>
+      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))} · voto sotto ${fmtV(VOTO.ripasso)}</p>
       <button class="btn" style="margin:0" data-act="ripasso">Scegli i passaggi da ripassare</button></section>` : ''}
     <button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">+ Aggiungi sessione</button>
     ${last && !S ? `<button class="btn two" data-act="repeat" data-id="${esc(last.id)}"><b>Ripeti l'ultima sessione</b><span>${esc(sesDescr(last))}</span></button>` : ''}
     <section class="card" style="margin-top:4px"><div class="cardh"><span class="label">Ultimi 7 giorni</span><b>${fmtMinRound(ch.tot)}</b></div>${ch.html}
       <p class="small muted" style="margin:6px 0 0">Minuti per giorno. Tocca una barra per aprire la giornata.</p></section>
+    <button class="btn" data-act="lezione">Aggiungi lezione pratica</button>
     <button class="btn" data-act="manual">Registra a mano uno studio già fatto</button>
     ${installEvt ? `<button class="btn" data-act="install">Installa l'app sul telefono</button>` : ''}
   </main>` + tabs('home', true);
@@ -73,7 +75,7 @@ SCREENS.new = () => {
   if (!['libera', 'circuito', 'prova'].includes(cfg.tipo)) cfg.tipo = 'circuito';   // 3.5: la Cucitura non c'è più
   const lib = cfg.tipo === 'libera', sez = cfg.tipo === 'prova';
   const tipoBtn = (v, nome, descr) => `<button data-act="cfg" data-k="tipo" data-v="${v}" class="${cfg.tipo === v ? 'on' : ''}" aria-pressed="${cfg.tipo === v}"><b>${nome}</b><span>${descr}</span></button>`;
-  const seg = (k, vals) => `<div class="seg">${vals.map(v => `<button data-act="cfg" data-k="${k}" data-v="${v}" class="${cfg[k] === v ? 'on' : ''}" aria-pressed="${cfg[k] === v}">${v}</button>`).join('')}</div>`;
+  const seg = (k, vals) => numSeg(vals, cfg[k], v => `data-act="cfg" data-k="${k}" data-v="${v}"`, `data-act="cfgnum" data-k="${k}"`);
   D.bozza.brani_liberi = D.bozza.brani_liberi.filter(id => C.B.has(id) && !C.hidden.has(id));
   const selB = new Set(D.bozza.brani_liberi);
   app.innerHTML = header('Nuova sessione', '', '#home') + `<main class="wrap">
@@ -90,7 +92,7 @@ SCREENS.new = () => {
         <p class="small muted" style="margin:2px 0 0">Durante la sessione puoi aggiungerne altri.</p></section>`
     : `<section class="card">
         <div class="optrow"><span><b>Slot per circuito</b><br><span class="small muted">quanti passaggi ruotano</span></span>${seg('slot', [2, 3, 4, 5])}</div>
-        <div class="optrow"><span><b>Andate</b><br><span class="small muted">quanti giri del circuito</span></span>${seg('andate', [3, 4, 5])}</div>
+        <div class="optrow"><span><b>Andate</b><br><span class="small muted">quanti giri del circuito</span></span>${seg('andate', [2, 3, 4, 5])}</div>
         <div class="optrow" style="display:block"><b>Contenuto degli slot</b>
           <div class="choice" style="margin:8px 0 0">
             <button data-act="cfg" data-k="modo" data-v="scritti" class="${cfg.modo === 'scritti' ? 'on' : ''}" aria-pressed="${cfg.modo === 'scritti'}"><b>Passaggi scritti</b><span>Frammenti del catalogo, Rep 1-4 guidate.</span></button>
@@ -139,13 +141,13 @@ async function repeatSession(ses) {
   B.cfg.tipo = 'circuito'; B.cfg.modo = ses.modo === 'libero' ? 'libero' : 'scritti';
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   if (ses.modo === 'libero') {
-    B.circuiti_lib = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, 3, 5), slot: c.slot.filter(x => C.B.has(x.brano)).map(x => ({ brano: x.brano, battute: x.battute || '' })) })).filter(c => c.slot.length);
-    B.cfg.slot = clamp(B.circuiti_lib[0].slot.length, 2, 5); B.cfg.andate = B.circuiti_lib[0].andate;
+    B.circuiti_lib = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, ...LIM.andate), slot: c.slot.filter(x => C.B.has(x.brano)).map(x => ({ brano: x.brano, battute: x.battute || '' })) })).filter(c => c.slot.length);
+    B.cfg.slot = clamp(B.circuiti_lib[0].slot.length, ...LIM.slot); B.cfg.andate = B.circuiti_lib[0].andate;
     save(); go('#composelib'); return;
   }
-  B.circuiti = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, 3, 5), slot: c.slot.map(x => x.frammento).filter(id => fr(id)) })).filter(c => c.slot.length);
+  B.circuiti = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, ...LIM.andate), slot: c.slot.map(x => x.frammento).filter(id => fr(id)) })).filter(c => c.slot.length);
   B.selezionati = [...new Set(B.circuiti.flatMap(c => c.slot))];
-  B.cfg.slot = clamp(B.circuiti[0].slot.length, 2, 5); B.cfg.andate = B.circuiti[0].andate;
+  B.cfg.slot = clamp(B.circuiti[0].slot.length, ...LIM.slot); B.cfg.andate = B.circuiti[0].andate;
   save(); go('#compose');
 }
 
@@ -208,7 +210,7 @@ SCREENS.composelib = () => {
   app.innerHTML = header('Circuito libero', 'Ogni slot: un brano e, se vuoi, le battute', '#new') + `<main class="wrap">
     ${steps(['Tipo', 'Circuiti'], 1)}
     ${B.circuiti_lib.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3><span class="small muted">Andate</span>
-      <div class="seg">${[3, 4, 5].map(n => `<button data-act="libandate" data-ci="${ci}" data-n="${n}" class="${c.andate === n ? 'on' : ''}">${n}</button>`).join('')}</div></div>
+      ${numSeg([2, 3, 4, 5], c.andate, n => `data-act="libandate" data-ci="${ci}" data-n="${n}"`, `data-act="libandatenum" data-ci="${ci}"`)}</div>
       ${c.slot.map((s, i) => `<div class="lslot"><div class="row"><span class="lab" style="flex:0 0 2.6em;font-weight:800;color:var(--accent)">${slotLab(i, ci)}</span>
           <select class="sel" data-lb="${ci}|${i}" style="flex:1;min-width:0" aria-label="Brano dello slot ${slotLab(i, ci)}">${bOpts(s.brano)}</select>
           <button class="ib" style="flex:0 0 38px" data-act="librm" data-ci="${ci}" data-i="${i}" aria-label="Togli lo slot ${slotLab(i, ci)}">✕</button></div>
@@ -281,4 +283,51 @@ function freeAddSheet() {
   const altri = C.braniVis.filter(b => !S.brani.includes(b.id));
   openSheet(`<h2>Aggiungi un brano</h2>${altri.map(b => `<button class="btn" data-act="fswitch" data-id="${esc(b.id)}">${esc(b.nome)}</button>`).join('') || '<p class="muted">Tutti i brani sono già nella sessione.</p>'}
     <button class="btn" data-act="newbrano" data-then="free">+ Nuovo brano</button><button class="btn" data-act="closesheet">Chiudi</button>`);
+}
+
+/* ---- 3.6: numeri oltre i pulsanti (slot e andate) ---- */
+/* Pulsanti fissi, più il valore scritto a mano se non è tra quelli, più «Altro…». */
+function numSeg(vals, cur, attrs, altroAttrs) {
+  const extra = cur != null && !vals.includes(cur) ? [cur] : [];
+  return `<div class="seg">${[...vals, ...extra].map(v => `<button ${attrs(v)} class="${cur === v ? 'on' : ''}" aria-pressed="${cur === v}">${v}</button>`).join('')}<button ${altroAttrs} aria-label="Scrivi un altro numero">Altro…</button></div>`;
+}
+function numSheet(o) {
+  openSheet(`<h2>${esc(o.title)}</h2>
+    <div class="field"><label for="nsv">${esc(o.label)} (da ${o.min} a ${o.max})</label><input type="number" id="nsv" inputmode="numeric" min="${o.min}" max="${o.max}" value="${o.val != null ? esc(o.val) : ''}" class="bignum"></div>
+    <button class="btn primary xl" id="nsok">Usa questo numero</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
+    const inp = $('#nsv', sh), ok = () => {
+      const v = Math.round(Number(inp.value));
+      if (!(v >= o.min && v <= o.max)) { toast(`Scrivi un numero da ${o.min} a ${o.max}`); return; }
+      closeSheet(); o.ok(v);
+    };
+    $('#nsok', sh).addEventListener('click', ok);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') ok(); });
+    setTimeout(() => { try { inp.focus(); inp.select(); } catch (e) { } }, 60);
+  });
+}
+const NUM_TESTI = { slot: ['Slot per circuito', 'Quanti passaggi ruotano'], andate: ['Andate', 'Quanti giri del circuito'] };
+function cfgNumSheet(k, cur, set) {
+  numSheet({ title: NUM_TESTI[k][0], label: NUM_TESTI[k][1], min: LIM[k][0], max: LIM[k][1], val: cur, ok: v => { set(v); save(); render(); } });
+}
+
+/* ---- 3.6: lezione pratica, solo il tempo ---- */
+function lezioneSheet(o) {
+  o = o || {};
+  openSheet(`<h2>Lezione pratica</h2>
+    <p class="muted small" style="margin-top:-6px">Solo il tempo: entra nello storico e nei totali, senza brani né voti.</p>
+    <div class="field"><label for="ld">Giorno</label><input type="date" id="ld" value="${esc(o.date || todayStr())}" max="${todayStr()}"></div>
+    <div class="field"><label for="lm">Minuti</label><input type="number" id="lm" inputmode="numeric" min="1" max="1440" placeholder="es. 60"></div>
+    <div class="field"><label for="ln">Note (facoltative)</label><textarea id="ln"></textarea></div>
+    <button class="btn primary xl" id="lsave">Salva la lezione</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
+    $('#lsave', sh).addEventListener('click', () => {
+      const data = $('#ld', sh).value, min = Number($('#lm', sh).value), note = $('#ln', sh).value.trim();
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(data) || data > todayStr()) { toast('Scegli un giorno valido (non nel futuro)'); return; }
+      if (!(min > 0) || min > 1440) { toast('Scrivi i minuti (da 1 a 1440)'); return; }
+      const now = Date.now(), iso = data === todayStr() ? new Date(now).toISOString() : new Date(data + 'T12:00:00').toISOString();
+      D.sessioni.push({ id: 'l' + now.toString(36), tipo: 'lezione', modo: null, data, inizio: iso, fine: iso, secondi_cronometro: 0, circuiti: [],
+        log: [{ circuito: null, andata: null, etichetta: null, frammento: null, brano: LEZIONE, secondi: Math.round(min * 60), rep_completate: null, arresto: false, drop_out: false, note, lezione: true }] });
+      D.sessioni.sort((a, b) => (a.data + (a.inizio || '')).localeCompare(b.data + (b.inizio || '')));
+      save(); closeSheet(); toast(`Lezione pratica: ${Math.round(min)} min · ${fmtDateShort(data)}`); render();
+    });
+  });
 }

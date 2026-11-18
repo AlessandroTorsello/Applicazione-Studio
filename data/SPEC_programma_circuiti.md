@@ -333,3 +333,14 @@ Deciso da Alessandro il 12/11/2026 (elenco completo in `DA_FARE_metodo_e_app.md`
 - Per tutti i brani: avviso nella pagina del frammento se in due settimane il voto del test a freddo non sale e resta sotto 8,5 (`voto.verifica_sotto`).
 - I testi fissi del catalogo superati (`regole_slot` rep1, rep4, andate, drop_out, da_annotare, verifica_2_settimane) non si riscrivono: in Sigle e regole compare la regola valida, con il testo del catalogo sotto «superato dalla 3.5» (mappa `superate` di `metodo_v3.json`). La regola di arresto resta com'è.
 - Escluse da Alessandro: diagnosi per categorie, regole sulla memoria.
+
+## 15. Slot e andate a scelta, ripasso sotto 6, lezione pratica, meno testo (app 3.6.0)
+
+Chiesto da Alessandro il 18/11/2026.
+
+- **Slot e andate**: nella nuova sessione i pulsanti sono 2-5 per gli slot e 2-5 per le andate (prima 3-5), più «Altro…», che apre un campo numerico (slot da 2 a 20, andate da 2 a 12, costante `LIM` in `10-base.js`). Il numero scritto compare accanto ai pulsanti. Lo stesso vale per le andate di ogni circuito nella composizione e nel circuito libero.
+- **Andata in più** durante il circuito: «Aggiungi un'andata» nel menu della sessione aumenta `andate_previste` del circuito in corso. Le andate non si tolgono: per un frammento c'è il drop-out.
+- **Nuovo circuito da zero**: all'avvio di un circuito `bozza.selezionati`, `bozza.circuiti` e `bozza.circuiti_lib` si svuotano (`azzeraBozza`). Restano le preferenze (`bozza.cfg`). Per rifare un circuito uguale c'è «Ripeti la sessione».
+- **Da ripassare**: solo i frammenti col voto attuale sotto 6 (`voto.ripasso` in `metodo_v3.json`; un 10 ci arriva dopo 17 giorni). Un solo elenco in ordine di voto crescente, con il brano su ogni riga; i frammenti di una famiglia studiata negli ultimi 2 giorni restano in fondo. Accanto ai voti sopra 6 non compare più «da ripassare tra…». La soglia 7 resta per la Rep 3 con dinamica e pedale reali.
+- **Lezione pratica**: dalla home, dallo storico o dalla pagina di un giorno (anche passato). Si registrano solo giorno, minuti e note facoltative: sessione `tipo: "lezione"` con una voce `{ brano: "lezione-pratica", lezione: true, secondi }`. Conta nei totali come «Lezione pratica».
+- **Meno testo a vista** (nessun testo tolto): le istruzioni di ogni Rep e degli slot di controllo sono chiuse sotto «Istruzioni di Rep N» o «Come si fa: SIGLA». Si aprono con un tocco e restano aperte nelle Rep successive finché non le richiudi (`impostazioni.istruzioni_aperte`). Gli avvisi (Rep 3 reale, resistenza) mostrano una riga e il testo intero con un tocco. Le battute della Rep di contesto stanno accanto al titolo. Alcune frasi di aiuto sono state accorciate.

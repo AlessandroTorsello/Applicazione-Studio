@@ -21,6 +21,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const shot = async name => { if (!out) return; await w(300); await p.screenshot({ path: `${out}/m${String(++n).padStart(2, '0')}-${name}.png` }); };
   const D = () => p.evaluate(() => JSON.parse(localStorage.getItem('circuiti_studio_v2')));
   const txt = sel => p.locator(sel).first().innerText();
+  const tc = sel => p.locator(sel).first().evaluate(e => e.textContent);   // anche il testo chiuso (3.6: istruzioni chiuse)
   const fatto = async () => { await p.click('[data-act="fatto"]'); await w(); };
   const day = k => p.evaluate(k => dayAdd(todayStr(), k), k);
   const A = 'op111-6-10', B = 'op111-16-19';
@@ -37,7 +38,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const scegli = async sigla => { await p.click('[data-act="vincolo"]'); await w(); await p.locator(`.sheet.on .sigpick[data-pick="${sigla}"]`).last().click(); await w(); };
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '3.5.0', 'versione 3.5.0');
+  ok(await p.evaluate(() => APP_VERSION) === '3.6.0', 'versione 3.6.0');
   ok(!(await p.locator('.sheet.on').count()), 'nessun foglio novità su installazione nuova');
   ok(!(await p.locator('[data-act="ripasso"]').count()), 'home: niente «Da ripassare oggi» senza voti');
 
@@ -50,21 +51,21 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.click('#r1ok'); await w();
   let d = await D();
   ok(d.sessione_aperta.cur.voto === 9 && d.sessione_aperta.cur.test && (await iv(A)).v === 9, 'voto del test: 9');
-  ok(await p.evaluate(a => votoTesto(a), A) === 'Voto 9 oggi · da ripassare tra 8 giorni', 'un 9 torna da ripassare tra 8 giorni');
+  ok(await p.evaluate(a => votoTesto(a), A) === 'Voto 9 oggi' && await p.evaluate(a => giorniAllaSoglia(infoVoto(a).u), A) === 13, '3.6: un 9 non dice «da ripassare» (sotto 6 tra 13 giorni)');
   const i2a = await p.locator('.instr').evaluate(e => e.textContent);
   ok((await txt('.diag')).includes('voto 9') && /nessuna/i.test(await txt('.vrow')) && i2a.includes('Ribatti la biscroma') && i2a.includes('Suggerimenti del catalogo'), 'Rep 2: si parte senza variante, il testo del catalogo è solo un suggerimento');
   await shot('rep2-nessuna');
   await p.click('[data-act="vincolo"]'); await w(); await shot('scegli-variante');
   ok(await p.locator('.sheet.on .errsug').count() === 9 && await p.locator('.sheet.on .sigrow').last().locator('.sigpick').count() === 17, 'scelta: 9 errori come suggerimento e tutte le 17 sigle (con MET)');
   await p.locator('.sheet.on .sigpick[data-pick="NODO"]').last().click(); await w();
-  ok((await txt('.vrow')).includes('NODO') && (await txt('.instr')).includes('NODO'), 'Rep 2 con NODO, scelta da te');
+  ok((await txt('.vrow')).includes('NODO') && (await tc('.instr')).includes('NODO'), 'Rep 2 con NODO, scelta da te');
   await fatto();
   ok(/nessuna/i.test(await txt('.vrow')) && (await txt('.avv')).includes('dinamica e pedale reali'), 'Rep 3: variante propria (nessuna), con voto 9 dinamica e pedale reali');
   await p.click('[data-act="vincolo"]'); await w(); await p.fill('.sheet.on #vtx', 'ritmi puntati'); await p.click('#vtok'); await w();
-  ok((await txt('.vrow')).includes('ritmi puntati') && /tecnica tua/i.test(await txt('.instr')), 'Rep 3: tecnica scritta a mano');
+  ok((await txt('.vrow')).includes('ritmi puntati') && /tecnica tua/i.test(await tc('.instr')), 'Rep 3: tecnica scritta a mano');
   await shot('rep3-tecnica-mia');
   await fatto();
-  ok((await txt('.repnum')).startsWith('Rep 4') && /niente metronomo/i.test(await txt('.instr')) && !(await p.locator('.vrow').count()), 'Rep 4: esecuzione, senza metronomo né variante');
+  ok((await txt('.repnum')).startsWith('Rep 4') && /niente metronomo/i.test(await tc('.instr')) && !(await p.locator('.vrow').count()), 'Rep 4: esecuzione, senza metronomo né variante');
   await fatto();
   ok(!(await p.locator('.sheet.on').count()) && (await txt('.l1')).includes('Slot B1'), 'Rep 4 senza domande: si passa a B1');
   // secondo frammento: voto 4, MET in Rep 2, bpm lasciati vuoti
@@ -79,14 +80,16 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await fatto(); await fatto();
   // andata 2: Rep di contesto, stesse varianti, nessun nuovo test
   ok((await txt('.l1')).includes('Andata 2/3'), 'andata 2');
-  ok((await txt('.repnum')).startsWith('Rep di contesto') && (await txt('.instr')).includes('85-90%') && (await txt('.instr')).includes('bb. 4-12') && !(await p.locator('.diag').count()), 'andata 2: Rep di contesto bb. 4-12 all\'85-90%, nessun test');
+  ok((await txt('.repnum')).startsWith('Contesto') && (await txt('.repnum')).includes('bb. 4-12 · 85-90%') && !(await p.locator('.instrd[open]').count()) && (await tc('.instr')).includes('2 battute prima') && !(await p.locator('.diag').count()), 'andata 2: Rep di contesto bb. 4-12 all\'85-90% a vista, istruzioni chiuse, nessun test');
+  await p.click('.instrd summary'); await w(200); ok(await p.locator('.instrd[open]').count() === 1 && (await D()).impostazioni.istruzioni_aperte === true, '3.6: le istruzioni si aprono con un tocco'); await shot('istruzioni-aperte');
   await shot('rep-contesto');
   await fatto();
   ok(!(await p.locator('.sheet.on').count()) && (await txt('.repnum')).startsWith('Rep 2') && (await txt('.vrow')).includes('NODO'), 'dopo la Rep di contesto nessuna domanda; Rep 2 ancora con NODO');
+  ok(await p.locator('.instrd[open]').count() === 1, 'le istruzioni aperte restano aperte nella Rep successiva'); await p.click('.instrd summary'); await w(200);
   ok((await iv(A)).v === 9, 'la Rep di contesto non cambia il voto');
   await fatto(); ok((await txt('.vrow')).includes('ritmi puntati'), 'Rep 3 ancora con la tecnica tua');
   await fatto(); await fatto();
-  ok((await txt('.instr')).includes('bb. 14-21'), 'contesto del secondo frammento: bb. 14-21');
+  ok((await tc('.instr')).includes('bb. 14-21'), 'contesto del secondo frammento: bb. 14-21');
   await fatto(); ok((await txt('.vrow')).includes('MET'), 'Rep 2 ancora con MET');
   await fatto(); await p.fill('.sheet.on #bpm', '88'); await p.click('#bpok'); await w();
   await fatto(); await fatto();
@@ -122,13 +125,13 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await shot('home-da-ripassare');
   await p.click('[data-act="ripasso"]'); await w();
   ok(await p.locator('.card.due .frow').count() === 1 && (await txt('.card.due')).includes('16-19'), 'selezione: in cima il frammento col voto sotto 7');
-  ok((await txt('.card.due .fmeta')).includes('Voto 3,8 (4 dato ieri) · da ripassare'), 'selezione: voto attuale sulla riga');
+  ok((await txt('.card.due')).includes('Voto 3,8 (4 dato ieri) · da ripassare') && (await txt('.card.due .frow')).includes('I movimento'), 'selezione: voto attuale e brano sulla riga');
   await p.click('[data-act="seldue"]'); await w();
   ok((await D()).bozza.selezionati.includes(B), '«Seleziona tutti» spunta i frammenti da ripassare');
   await shot('selezione-da-ripassare');
   // decadimento: un 10 torna dopo 12 giorni esatti, un frammento mai votato non entra
   ok(await p.evaluate(() => { const t = todayStr(), u = k => ({ d: dayAdd(t, -k), v: 10 });
-    return !daRivedere(u(11)) && daRivedere(u(12)) && giorniAllaSoglia({ d: t, v: 10 }) === 12 && !daRivedere({ d: t, v: 7 }) && daRivedere({ d: dayAdd(t, -1), v: 7 }) && votoAttuale({ d: dayAdd(t, -40), v: 10 }) === 0; }), 'un 10 torna da ripassare dopo 12 giorni; il voto non scende sotto 0');
+    return !daRivedere(u(16)) && daRivedere(u(17)) && giorniAllaSoglia({ d: t, v: 10 }) === 17 && !daRivedere({ d: t, v: 6 }) && daRivedere({ d: t, v: 5.5 }) && !daRivedere({ d: dayAdd(t, -1), v: 6.5 }) && votoAttuale({ d: dayAdd(t, -40), v: 10 }) === 0; }), '3.6: da ripassare solo sotto 6 (un 10 dopo 17 giorni); il voto non scende sotto 0');
   ok(await p.evaluate(() => !daRipassare().some(f => f.id === 'op111-11-15') && !daRipassare().some(f => f.brano === 'nabucco')), 'mai votati e brani nuovi restano fuori');
   // pausa tra frammenti simili: X da ripassare, Y della stessa famiglia studiato ieri → X in fondo
   await p.evaluate(() => { const t = todayStr(), e = (fid, extra) => Object.assign({ circuito: 1, andata: 1, etichetta: 'A1', frammento: fid, brano: 'op111', secondi: 600, rep_completate: 4 }, extra);
@@ -237,7 +240,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(/Voto attuale/i.test(fp) && /Varianti usate/i.test(fp) && !/riascolto/i.test(fp) && /Ultimi bpm/i.test(fp) && !/Rep 4 a|Ultimo Rep 4/i.test(fp) && /voto al test successivo/i.test(fp), 'pagina del frammento: voto, varianti usate e bpm; niente riascolto né Rep 4: ' + fp.replace(/\n/g, ' | '));
   await shot('frammento');
   await p.click('[data-act="votomano"]'); await w(); await p.fill('.sheet.on #vm', '10'); await shot('voto-a-mano'); await p.click('#vmok'); await w();
-  ok((await iv(A)).v === 10 && (await iv(A)).fonte === 'mano' && (await p.evaluate(a => votoTesto(a), A)).includes('tra 12 giorni'), 'voto a mano: 10, da ripassare tra 12 giorni');
+  ok((await iv(A)).v === 10 && (await iv(A)).fonte === 'mano' && (await p.evaluate(a => votoTesto(a), A)) === 'Voto 10 oggi', 'voto a mano: 10');
   // verifica a due settimane per un brano «suono»: il voto non sale
   await p.evaluate(() => { const f = 'scriabin fantasie-1-4', t = todayStr(), e = g => ({ circuito: 1, andata: 1, etichetta: 'A1', frammento: f, brano: 'scriabin28', secondi: 300, rep_completate: 4, test: { g }, voto: 6 });
     D.sessioni.push({ id: 'sc1', data: dayAdd(t, -15), inizio: dayAdd(t, -15) + 'T09:00:00', tipo: 'circuito', log: [e(dayAdd(t, -15))] }, { id: 'sc2', data: t, inizio: t + 'T07:00:00', tipo: 'circuito', log: [e(t)] }); save(); });
@@ -278,7 +281,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on h2')).includes('versione 3'), 'chi arriva dalla 2.2 vede le novità della versione 3');
   await shot('novita');
   d = await D();
-  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.5.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
+  ok(d.sessioni.length === nPrima && d.impostazioni.visto_versione === '3.6.0' && d.livelli && Array.isArray(d.riascolti), 'dati della 2.2 mantenuti e completati');
   ok(d.riascolti.length === 1 && d.riascolti[0].voto === 10 && d.riascolti[0].da3 === 3 && d.riascolti[0].scala === 10, 'voto di riascolto 1-3 convertito in decimi (3 → 10)');
   ok((await txt('.sheet.on')).includes('3.2 · Voto in decimi') && (await txt('.sheet.on')).includes('3.3 · Niente riascolto settimanale') && (await txt('.sheet.on')).includes('3.5 · Varianti scelte da te'), 'novità: voci della 3.2, 3.3 e 3.5');
   await p.click('.sheet.on [data-act="closesheet"]'); await w();

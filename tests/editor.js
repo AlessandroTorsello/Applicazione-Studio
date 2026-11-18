@@ -81,8 +81,8 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await shot('brano-consolidato');
   await avvia([N1]);
   ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'consolidato: slot da 4 Rep con il test del giorno');
-  await fatto(); await p.fill('#r1voto', '6'); await p.click('#r1ok'); await w();
-  ok((await D()).sessione_aperta.cur.voto === 6 && (await p.evaluate(id => daRipassare().some(f => f.id === id), N1)) && /nessuna/i.test(await txt('.vrow')), 'consolidato: il voto 6 lo mette in «Da ripassare»; Rep 2 parte senza variante');
+  await fatto(); await p.fill('#r1voto', '5,5'); await p.click('#r1ok'); await w();
+  ok((await D()).sessione_aperta.cur.voto === 5.5 && (await p.evaluate(id => daRipassare().some(f => f.id === id), N1)) && /nessuna/i.test(await txt('.vrow')), 'consolidato: il voto 5,5 (sotto 6) lo mette in «Da ripassare»; Rep 2 parte senza variante');
   await p.evaluate(() => { D.sessione_aperta = null; setStato('nabucco', 'nuovo'); });
 
   /* --- 3. editor: brano nuovo, divisione in frammenti --- */
@@ -168,7 +168,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on .news')).includes('3.1'), 'chi arriva dalla 3.0 vede le novità della 3.1');
   await shot('novita-31');
   d = await D();
-  ok(d.impostazioni.visto_versione === '3.5.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
+  ok(d.impostazioni.visto_versione === '3.6.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
   await p.reload(); await w(900);
   ok(!(await p.locator('.sheet.on').count()), 'al secondo avvio le novità non tornano');
 

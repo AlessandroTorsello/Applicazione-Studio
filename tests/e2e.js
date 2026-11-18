@@ -93,7 +93,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   let d = await D();
   { const l0 = d.sessioni[0].log[0];
     ok(d.sessioni.length === 1 && l0.bpm_rep2 === 96 && l0.vincolo_rep2 === 'MET' && l0.tempo_rep4 == null && l0.voto === 8 && l0.test && !l0.diagnosi, 'dati salvati (bpm di MET, voto del test, niente Rep 4): ' + JSON.stringify(l0)); }
-  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.5.0', 'versione dei dati');
+  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.6.0', 'versione dei dati');
 
   /* --- ripeti la sessione --- */
   await p.click('[data-act="repeat"]'); await w(700);

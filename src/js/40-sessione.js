@@ -11,7 +11,18 @@ function startSession(modo) {
   D.sessione_aperta = { tipo: 'circuito', modo, id: 's' + now.toString(36), data: todayStr(), inizio: new Date(now).toISOString(), circuiti: circ,
     pos: { c: 0, a: 1, s: 0, r: 1 }, cur: newCur(), dropout: {}, vincoli: {}, log: [],
     timer: { sess: 0, slot: 0, since: now, seen: now } };
+  azzeraBozza();
   save(); replaceTo('#run');
+}
+/* 3.6: il circuito appena partito non resta nella composizione: il prossimo «nuovo circuito» parte da zero
+   (per rifarlo uguale c'è «Ripeti la sessione»). Restano solo le preferenze (tipo, slot, andate). */
+function azzeraBozza() { const B = D.bozza; B.selezionati = []; B.circuiti = []; B.circuiti_lib = []; }
+/* 3.6: un'andata in più al circuito in corso (toglierne non serve: c'è il drop-out). */
+function addAndata() {
+  const S = D.sessione_aperta; if (!S || S.tipo !== 'circuito') return;
+  const circ = S.circuiti[S.pos.c];
+  if (circ.andate_previste >= LIM.andate[1]) { toast(`Al massimo ${LIM.andate[1]} andate`); return; }
+  circ.andate_previste++; save(); toast(`Circuito ${circ.n}: ora ${circ.andate_previste} andate`); render(); runMenu();
 }
 function fold(T) { if (T.since) { const n = Date.now(), d = (n - T.since) / 1000; T.slot += d; T.sess += d; T.since = n; } }
 const tRun = T => T.since ? (Date.now() - T.since) / 1000 : 0;
@@ -156,12 +167,12 @@ SCREENS.run = () => {
   const eTest = r === 1 && chiedeTest(S, fid), vOggi = r === 3 ? votoOggi(S, fid) : null;
   const x = r === 2 || r === 3 ? varianteDi(S, fid, r) : null;
   let body, avvisi = '';
-  if (r === 1 && prima) body = fmtText(slotTesto('rep1'));
+  if (r === 1 && prima) body = fmtText(slotTesto('rep1')) + (eTest && AVV.test ? `<p>${fmtText(AVV.test)}</p>` : '');
   else if (r === 1) body = `<p>${fmtText(AVV.contesto || '')}</p>${contestoBatt(f) ? `<p><b class="bat">${esc(contestoBatt(f))}</b></p>` : ''}`;
   else if (x) {
     body = varianteBody(f, x, r);
-    if (res) avvisi += `<div class="hint avv">${fmtText(AVV.resistenza)}</div>`;
-    else if (r === 3 && vOggi != null && vOggi >= VOTO.soglia) avvisi += `<div class="hint avv">${fmtText(AVV.reali)}</div>`;
+    if (res) avvisi += avviso('Frammento di resistenza: dinamica scritta, test di PESO', AVV.resistenza);
+    else if (r === 3 && vOggi != null && vOggi >= VOTO.soglia) avvisi += avviso('Rep 3 con dinamica e pedale reali', AVV.reali);
   }
   else body = fmtText(slotTesto('rep4')) + (f.rep4_verifica ? `<span class="vlabel">Verifica</span>` + fmtText(f.rep4_verifica) : '');
   const nome = r === 1 ? (prima ? 'Rep 1' : 'Contesto') : 'Rep ' + r;
@@ -172,16 +183,16 @@ SCREENS.run = () => {
     <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</div>` }) + `
   <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
     ${pausedBanner(S)}
-    <div class="repnum">${r === 1 && !prima ? 'Rep di contesto' : 'Rep ' + r}<small>${r === 1 && !prima ? '±2 battute' : 'di 4'}</small></div>
+    <div class="repnum">${r === 1 && !prima ? 'Contesto' : 'Rep ' + r}<small>${r === 1 && !prima ? esc(contestoBatt(f) || '±2 battute') + ' · 85-90%' : 'di 4'}</small></div>
     ${r > 1 && S.cur.voto != null ? `<p class="diag">Test di oggi: voto ${fmtV(S.cur.voto)}</p>` : ''}
-    ${eTest ? `<p class="diag">${esc(AVV.test || '')} ${esc(votoTesto(fid) || 'Primo voto di questo frammento')}.</p>` : ''}
+    ${eTest ? `<p class="diag">Rep 1 è il test del giorno · ${esc(votoTesto(fid) || 'primo voto')}</p>` : ''}
     ${x ? `<div class="vrow"><span>Variante di Rep ${r} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>` : ''}
     ${avvisi}
-    <div class="instr">${body}</div>
+    ${istruzioni(r === 1 ? (prima ? 'Istruzioni di Rep 1' : 'Istruzioni della Rep di contesto') : x ? titoloIstr('Rep ' + r, x) : 'Istruzioni di Rep 4', body)}
     <div class="toggles">
       <label class="tg"><input type="checkbox" id="arresto" ${S.cur.arresto ? 'checked' : ''}> <span>Regola di arresto applicata</span></label>
     </div>
-    <button class="btn dropb" data-act="dropnow">Drop-out: togli il frammento dal circuito<small>esce subito, già da questa andata</small></button>
+    <button class="btn dropb" data-act="dropnow">Drop-out: esce subito dal circuito</button>
     <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note${S.cur.note ? ' ✎' : ''}</summary><div><textarea id="note" placeholder="Annotazioni su questo slot">${esc(S.cur.note)}</textarea></div></details>
     <details class="sub2"><summary>Nodo motorio</summary><div>${fmtText(f.nodo_motorio)}</div></details>
     ${f.note ? `<details class="sub2"><summary>Note del frammento</summary><div>${fmtText(f.note)}</div></details>` : ''}
@@ -193,6 +204,7 @@ SCREENS.run = () => {
   </div></div>`;
   $('#arresto').addEventListener('change', e => { S.cur.arresto = e.target.checked; save(); });
   $('#note').addEventListener('input', e => { S.cur.note = e.target.value; save(); });
+  bindIstruzioni();
   runTicker(S);
 };
 /* Prima volta del frammento in questa sessione (vale anche per un frammento aggiunto a sessione in corso). */
@@ -216,7 +228,7 @@ function renderLib(S) {
     ${sl.battute ? `<div style="font-size:var(--t-lg);font-weight:700" class="bat">bb. ${esc(sl.battute)}</div>` : ''}
     <div class="bigclock" id="t-big" style="margin-top:10px">${fmtClock(T.slot + tRun(T))}</div>
     <div class="small muted" style="margin-bottom:16px">tempo di questo slot</div>
-    <button class="btn dropb" data-act="dropnow">Drop-out: togli lo slot dal circuito<small>esce subito, già da questa andata</small></button>
+    <button class="btn dropb" data-act="dropnow">Drop-out: esce subito dal circuito</button>
     <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note${S.cur.note ? ' ✎' : ''}</summary><div><textarea id="note" placeholder="Annotazioni su questo slot">${esc(S.cur.note)}</textarea></div></details>
   </main>
   <div class="bar"><div class="inner">
@@ -269,7 +281,7 @@ function rep1Sheet(S) {
       <div class="row" style="align-items:center"><button class="ib stepb" data-vstep="-${VOTO.passo}" aria-label="Meno">−</button>
       <input type="text" id="r1voto" class="vin" inputmode="decimal" value="${esc(pre)}" placeholder="—" enterkeyhint="done">
       <button class="ib stepb" data-vstep="${VOTO.passo}" aria-label="Più">+</button></div>
-      <p class="small muted" style="margin:6px 0 0">${votoTesto(fid) ? esc(votoTesto(fid)) + '.' : 'Primo voto di questo frammento.'} Se lo lasci vuoto il test non conta e te lo richiede la prossima volta di oggi.</p></div>
+      <p class="small muted" style="margin:6px 0 0">${votoTesto(fid) ? esc(votoTesto(fid)) + '.' : 'Primo voto di questo frammento.'} Vuoto: il test non conta e te lo richiede la prossima volta.</p></div>
     ${riferimentiHtml()}
     <button class="btn primary xl" id="r1ok">Avanti a Rep 2</button>`, sh => {
     const inp = $('#r1voto', sh);
@@ -282,8 +294,7 @@ function rep1Sheet(S) {
       S.cur.voto = leggiVoto(inp.value);
       if (S.cur.voto != null) {
         S.cur.test = { g: todayStr() };
-        const g = giorniAllaSoglia({ d: todayStr(), v: S.cur.voto });
-        setTimeout(() => toast(`Voto ${fmtV(S.cur.voto)} · ${g ? 'da ripassare tra ' + g + (g === 1 ? ' giorno' : ' giorni') : 'da ripassare'}`), 60);
+        setTimeout(() => toast(`Voto ${fmtV(S.cur.voto)}${daRivedere({ d: todayStr(), v: S.cur.voto }) ? ' · da ripassare' : ''}`), 60);
       } else delete S.cur.test;
       S.pos.r = 2; save(); render();
     });
@@ -313,6 +324,7 @@ function runMenu() {
   openSheet(`<h2>Sessione</h2>
     <p class="small muted" style="margin-top:-6px">${esc(sesDescr(S))}</p>
     <button class="btn" data-act="pause">${S.timer.since ? 'Metti in pausa il cronometro' : 'Riprendi il cronometro'}</button>
+    ${S.tipo === 'circuito' ? `<button class="btn dropb" data-act="addandata">Aggiungi un'andata<small>circuito ${S.circuiti[S.pos.c].n}: ora ${S.circuiti[S.pos.c].andate_previste} andate</small></button>` : ''}
     ${S.tipo === 'circuito' && S.modo !== 'libero' ? '<button class="btn" data-act="circedit">Modifica il circuito: aggiungi o togli frammenti</button>' : ''}
     ${S.tipo !== 'libera' && S.modo !== 'libero' ? '<button class="btn" data-act="go" data-h="#rules">Sigle e regole</button>' : ''}
     <button class="btn" data-act="go" data-h="#home">Vai alla home (la sessione resta aperta)</button>

@@ -10,6 +10,11 @@ const ACT = {
   nuova: () => go('#new'),
   repeat: el => { const s = D.sessioni.find(x => x.id === el.dataset.id); if (s) repeatSession(s); },
   manual: el => manualSheet({ date: el.dataset.date }),
+  lezione: el => lezioneSheet({ date: el.dataset.date }),
+  cfgnum: el => { const k = el.dataset.k; cfgNumSheet(k, D.bozza.cfg[k], v => { D.bozza.cfg[k] = v; }); },
+  andatenum: el => { const c = D.bozza.circuiti[+el.dataset.ci]; cfgNumSheet('andate', c.andate, v => { c.andate = v; }); },
+  libandatenum: el => { const c = D.bozza.circuiti_lib[+el.dataset.ci]; cfgNumSheet('andate', c.andate, v => { c.andate = v; }); },
+  addandata: () => addAndata(),
   newbrano: el => {
     const then = el.dataset.then;
     newBranoSheet(id => {

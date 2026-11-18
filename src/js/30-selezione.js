@@ -4,13 +4,13 @@ let LAST = new Map(); // ultimo studio per frammento, ricalcolato quando si apre
 let VMAP = null;      // voti per frammento, ricalcolati insieme
 function fragMeta(f) {
   const x = LAST.get(f.id), liv = votoTesto(f.id, VMAP), p = [];
-  if (x && x.data) p.push(`Ultimo studio: ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}`);
+  if (x && x.data) p.push(`Studiato ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}`);
   if (liv) p.push(esc(liv));
   return p.length ? `<span class="fmeta">${p.join(' · ')}</span>` : '';
 }
-function fragRow(f, sel) {
+function fragRow(f, sel, conBrano) {
   return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
-  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${fragMeta(f)}</button></div>`;
+  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button></div>`;
 }
 /* 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano (per estratto, se il brano ne ha più d'uno);
    priorità e famiglia restano nella scheda del frammento e in Sigle e regole. */
@@ -28,12 +28,11 @@ SCREENS.select = () => {
   D.bozza.selezionati = D.bozza.selezionati.filter(id => fr(id));
   const sel = new Set(D.bozza.selezionati);
   LAST = lastStudied(); VMAP = mappaVoti();
-  /* In cima i frammenti con voto attuale sotto la soglia, divisi per brano, dal voto più basso;
-     in fondo a ogni brano quelli la cui famiglia è stata studiata negli ultimi giorni. */
-  const due = daRipassare(), dueB = [...new Set(due.map(f => f.brano))], dueN = due.filter(f => !RIP.get(f.id).rec);
+  /* In cima i frammenti con voto attuale sotto 6, dal voto più basso (3.6: un solo elenco, col brano su ogni riga);
+     in fondo quelli la cui famiglia è stata studiata negli ultimi giorni. */
+  const due = daRipassare(), dueN = due.filter(f => !RIP.get(f.id).rec), dueR = due.filter(f => RIP.get(f.id).rec);
   const dueHtml = due.length ? `<section class="card due"><div class="cardh"><span class="label">Da ripassare oggi · ${due.length}</span>${dueN.every(f => sel.has(f.id)) ? '' : '<button class="link" data-act="seldue">Seleziona tutti</button>'}</div>
-    ${dueB.map(b => { const n = due.filter(f => f.brano === b && !RIP.get(f.id).rec), r = due.filter(f => f.brano === b && RIP.get(f.id).rec);
-      return `<div class="fam"><div class="famh">${esc(branoNome(b))}</div>${n.map(f => fragRow(f, sel)).join('')}${r.length ? `<div class="famrec">Famiglia studiata di recente</div>${r.map(f => fragRow(f, sel)).join('')}` : ''}</div>`; }).join('')}</section>` : '';
+    <div class="fam">${dueN.map(f => fragRow(f, sel, true)).join('')}${dueR.length ? `<div class="famrec">Famiglia studiata di recente</div>${dueR.map(f => fragRow(f, sel, true)).join('')}` : ''}</div></section>` : '';
   const body = C.braniVis.map(b => {
     const list = C.frammenti.filter(f => f.brano === b.id);
     const nSel = list.filter(f => sel.has(f.id)).length;
@@ -45,7 +44,7 @@ SCREENS.select = () => {
   }).join('');
   app.innerHTML = header('Scegli i passaggi', `Circuito a ${D.bozza.cfg.slot} slot`, '#new') +
     `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">${steps(['Tipo', 'Passaggi', 'Circuiti'], 1)}
-    <p class="lead">Spunta la casella per scegliere un passaggio. Tocca il titolo per leggere la scheda completa.</p>${dueHtml}${body}
+    <p class="lead">Spunta per scegliere, tocca il titolo per la scheda.</p>${dueHtml}${body}
     <button class="btn" data-act="newbrano" data-then="brano">+ Nuovo brano</button></main>
     <div class="bar"><div class="inner"><p class="barnote" id="selnote">${esc(selNote(sel.size))}</p><div class="row"><button class="btn" data-act="deselall" style="flex:0 0 auto;width:auto">Azzera</button><button class="btn primary" data-act="go" data-h="#compose" id="gocompose" ${sel.size ? '' : 'disabled'}>Avanti: componi i circuiti</button></div></div></div>`;
   $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); }));
@@ -153,14 +152,15 @@ const slotLab = (i, ci) => (i < 26 ? String.fromCharCode(65 + i) : 'Z' + (i - 25
 SCREENS.compose = () => {
   const B = D.bozza, sel = B.selezionati.filter(id => fr(id));
   if (!sel.length) { replaceTo('#select'); return; }
-  B.circuiti = (B.circuiti || []).map(c => ({ andate: [3, 4, 5].includes(c.andate) ? c.andate : 3, slot: (c.slot || []).filter(id => sel.includes(id)) }));
+  const okA = n => Number.isInteger(n) && n >= LIM.andate[0] && n <= LIM.andate[1];
+  B.circuiti = (B.circuiti || []).map(c => ({ andate: okA(c.andate) ? c.andate : 3, slot: (c.slot || []).filter(id => sel.includes(id)) }));
   if (!B.circuiti.some(c => c.slot.length)) B.circuiti = chunk(sel, B.cfg.slot || 3).map(s => ({ andate: B.cfg.andate || 3, slot: s }));
   save();
   const placed = new Set(B.circuiti.flatMap(c => c.slot));
   const tray = sel.filter(id => !placed.has(id));
   const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])}${f.titolo ? ' · ' + esc(f.titolo) : ''}${eNuovo(id) ? ' <span class="tag">controllo</span>' : ''}</span>` : esc(id); };
   const circs = B.circuiti.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3>
-      <span class="small muted">Andate</span><div class="seg">${[3, 4, 5].map(n => `<button data-act="andate" data-ci="${ci}" data-n="${n}" class="${c.andate === n ? 'on' : ''}">${n}</button>`).join('')}</div></div>
+      <span class="small muted">Andate</span>${numSeg([2, 3, 4, 5], c.andate, n => `data-act="andate" data-ci="${ci}" data-n="${n}"`, `data-act="andatenum" data-ci="${ci}"`)}</div>
       ${c.slot.map((id, i) => `<div class="slot"><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>
         <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="-1" aria-label="Sposta su"${i === 0 ? 'disabled' : ''}>↑</button>
         <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="1" aria-label="Sposta giù"${i === c.slot.length - 1 ? 'disabled' : ''}>↓</button>
@@ -170,7 +170,7 @@ SCREENS.compose = () => {
   const nCirc = B.circuiti.filter(c => c.slot.length).length, nSlot = B.circuiti.reduce((a, c) => a + c.slot.length, 0);
   app.innerHTML = header('Componi i circuiti', 'Ordine degli slot e numero di andate', '#select') + `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">
     ${steps(['Tipo', 'Passaggi', 'Circuiti'], 2)}
-    <p class="lead">Le frecce cambiano l'ordine. Il tasto ⋯ sposta lo slot in un altro circuito o lo toglie. Nessun vincolo: le <button class="link" data-act="go" data-h="#rules/fable">Regole di Fable</button> sono solo da consultare.</p>
+    <p class="lead">Frecce: ordine. ⋯: sposta o togli. <button class="link" data-act="go" data-h="#rules/fable">Regole di Fable</button> (solo da consultare)</p>
     ${tray.length ? `<section class="card"><div class="label">Da collocare</div>${tray.map(id => `<div class="slot"><span class="nm">${fname(id)}</span>${B.circuiti.map((c, ci) => `<button class="ib" data-act="place" data-id="${esc(id)}" data-ci="${ci}">C${ci + 1}</button>`).join('')}</div>`).join('')}</section>` : ''}
     ${circs}
     <button class="btn" data-act="addcirc">+ Nuovo circuito</button>
