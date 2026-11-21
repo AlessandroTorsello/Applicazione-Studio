@@ -197,6 +197,7 @@ function newsSheet() {
     <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
       <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano, 19 frammenti divisi da te, tutti nuovi, con l'analisi (nodo motorio, suggerimenti, priorità, famiglie).</li>
+      <li><b>3.7.1 · Rachmaninov, Preludio op. 23 n. 6</b>: nuovo brano, 7 frammenti divisi da te, tutti nuovi, con l'analisi.</li>
       <li><b>3.7.1 · Suggerimenti in vista</b>: in Rep 2 e Rep 3 compare il suggerimento del catalogo per l'andata in corso; tocca una sigla per usarla. La variante resta una tua scelta.</li>
       <li><b>3.7.1 · Brano «Altro»</b>: per il tempo di tutto il resto, in sessione libera, nel circuito libero e nella registrazione a mano.</li>
       <li><b>3.7 · Frammenti nuovi e consolidati</b>: lo stato vale per ogni frammento. Nei circuiti vanno solo i consolidati; i nuovi (oggi il Nabucco) si studiano in sessione libera.</li>

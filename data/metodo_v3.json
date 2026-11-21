@@ -24,6 +24,10 @@
   "rach39-6": {
    "metrica": "tempo",
    "stato": "nuovo"
+  },
+  "rach23-6": {
+   "metrica": "suono",
+   "stato": "nuovo"
   }
  },
  "errori": [

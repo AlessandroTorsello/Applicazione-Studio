@@ -27,6 +27,7 @@ AGGIUNTE = [
     ('dati_nabucco.json', 'nabucco', 'nabucco', "Verdi, Nabucco: Sinfonia e concertato «S'appressan gl'istanti»", None),
     # 3.7.1: solo la divisione in frammenti di Alessandro, senza testi; brano nuovo.
     ('dati_rach39_6.json', 'rach39-6', 'rach39-6', 'Rachmaninov, Études-tableaux op. 39 n. 6', None),
+    ('dati_rach23_6.json', 'rach23-6', 'rach23-6', 'Rachmaninov, Preludio op. 23 n. 6', None),
 ]
 leggi = lambda f: json.load(open(os.path.join(data, f), encoding='utf-8'))
 base = leggi(BASE)
