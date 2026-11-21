@@ -367,3 +367,9 @@ details.avv>summary{color:var(--accent);font-weight:600}
 .circh{flex-wrap:wrap}
 .circh h3{flex:1 1 100%}
 .circh .seg button{padding:8px 12px}
+/* 3.7: frammenti nuovi e consolidati */
+.frow .btn.cons{align-self:center;margin:0;padding:6px 12px;font-size:var(--t-sm);flex:0 0 auto}
+.card.nt .fbody{padding:0;width:100%}
+.card.nt .fmeta{margin:0 0 2px}
+.tg.st{margin-bottom:6px;font-weight:500}
+.tg.st input{flex:0 0 auto}

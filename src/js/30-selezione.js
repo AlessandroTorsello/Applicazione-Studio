@@ -18,6 +18,7 @@ function prioritaHtml(list, sel, bid) {
   const sez = sezioniDi(bid);
   let h = '', ultima = null;
   tuttiDi(bid).forEach(f => {
+    if (eNuovo(f.id)) return;   // 3.7: nei circuiti solo frammenti consolidati
     const z = sez.length ? sezioneDi(f) : '';
     if (z && z !== ultima) { h += `<div class="famh" style="margin-top:8px">${esc(z)}</div>`; ultima = z; }
     h += fragRow(f, sel);
@@ -25,7 +26,7 @@ function prioritaHtml(list, sel, bid) {
   return h;
 }
 SCREENS.select = () => {
-  D.bozza.selezionati = D.bozza.selezionati.filter(id => fr(id));
+  D.bozza.selezionati = D.bozza.selezionati.filter(id => fr(id) && !eNuovo(id));
   const sel = new Set(D.bozza.selezionati);
   LAST = lastStudied(); VMAP = mappaVoti();
   /* In cima i frammenti con voto attuale sotto 6, dal voto più basso (3.6: un solo elenco, col brano su ogni riga);
@@ -34,10 +35,10 @@ SCREENS.select = () => {
   const dueHtml = due.length ? `<section class="card due"><div class="cardh"><span class="label">Da ripassare oggi · ${due.length}</span>${dueN.every(f => sel.has(f.id)) ? '' : '<button class="link" data-act="seldue">Seleziona tutti</button>'}</div>
     <div class="fam">${dueN.map(f => fragRow(f, sel, true)).join('')}${dueR.length ? `<div class="famrec">Famiglia studiata di recente</div>${dueR.map(f => fragRow(f, sel, true)).join('')}` : ''}</div></section>` : '';
   const body = C.braniVis.map(b => {
-    const list = C.frammenti.filter(f => f.brano === b.id);
+    const tutti = C.frammenti.filter(f => f.brano === b.id), list = tutti.filter(f => !eNuovo(f.id)), nN = tutti.length - list.length;
     const nSel = list.filter(f => sel.has(f.id)).length;
-    return `<details class="acc" data-brano="${esc(b.id)}" ${openBrani.has(b.id) ? 'open' : ''}><summary><span class="grow">${esc(b.nome)}${statoDi(b.id) === 'nuovo' ? ' <span class="tag">nuovo</span>' : ''}</span><span class="pill" data-count="${esc(b.id)}">${nSel}/${list.length}</span></summary>
-    <div class="accbody">${prioritaHtml(list, sel, b.id)}
+    return `<details class="acc" data-brano="${esc(b.id)}" ${openBrani.has(b.id) ? 'open' : ''}><summary><span class="grow">${esc(b.nome)}${nN ? ` <span class="tag">${nN} ${nN === 1 ? 'nuovo' : 'nuovi'}</span>` : ''}</span><span class="pill" data-count="${esc(b.id)}">${nSel}/${list.length}</span></summary>
+    <div class="accbody">${prioritaHtml(list, sel, b.id)}${nN ? `<p class="small muted" style="margin:8px 0 0">${nN} ${nN === 1 ? 'frammento nuovo' : 'frammenti nuovi'}: si studiano in sessione libera.</p>` : ''}
       ${!b.completo && !list.length ? `<div class="todo"><h4>Frammenti da inserire</h4><p class="muted small">Questo brano non ha ancora frammenti. Puoi dividerlo in frammenti per battute, inserirli a mano uno per uno, o importare un'analisi da Impostazioni.</p><button class="btn primary" data-act="go" data-h="#dividi/${encodeURIComponent(b.id)}">Dividi il brano in frammenti</button><button class="btn" data-act="go" data-h="#form/${encodeURIComponent(b.id)}">Aggiungi frammento</button></div>`
       : `<div class="todo"><div class="row"><button class="btn" data-act="go" data-h="#form/${encodeURIComponent(b.id)}">Aggiungi frammento</button><button class="btn" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}">Gestisci i frammenti</button></div></div>`}
     </div></details>`;
@@ -60,7 +61,7 @@ function toggleSel(id, on) {
   const s = D.bozza.selezionati.filter(x => x !== id); if (on) s.push(id);
   D.bozza.selezionati = s; save();
   $$(`input[data-sel="${CSS.escape(id)}"]`).forEach(i => i.checked = on);
-  const f = fr(id); if (f) { const list = C.frammenti.filter(x => x.brano === f.brano); const c = $(`[data-count="${CSS.escape(f.brano)}"]`); if (c) c.textContent = `${list.filter(x => s.includes(x.id)).length}/${list.length}`; }
+  const f = fr(id); if (f) { const list = C.frammenti.filter(x => x.brano === f.brano && !eNuovo(x.id)); const c = $(`[data-count="${CSS.escape(f.brano)}"]`); if (c) c.textContent = `${list.filter(x => s.includes(x.id)).length}/${list.length}`; }
   const g = $('#gocompose'); if (g) g.disabled = !s.length;
   const sn = $('#selnote'); if (sn) sn.textContent = selNote(s.length);
 }
@@ -99,6 +100,7 @@ SCREENS.form = (brano, fid) => {
   const andataFields = n => `<div class="field"><label>Andata ${n} · Rep 2</label><textarea data-f="a${n}r2">${esc(A(n).rep2)}</textarea></div><div class="field"><label>Andata ${n} · Rep 3</label><textarea data-f="a${n}r3">${esc(A(n).rep3)}</textarea></div>`;
   app.innerHTML = header(f ? 'Modifica frammento' : 'Aggiungi frammento', branoNome(brano), '#select') + `<main class="wrap">
     ${cat ? `<div class="hint">${eModificato(fid) ? 'Frammento del catalogo già modificato da te.' : 'Frammento del catalogo: salvando ne tieni una versione tua.'} L'originale resta e si può ripristinare.</div>` : ''}
+    ${f ? statoRiga(fid) : ''}
     <p class="muted small">Per i frammenti uniti scrivi una riga per parte con il prefisso, es. «bb. 16-18: …» e a capo «bb. 18-19: …».</p>
     <div class="field"><label>Battute *</label><input type="text" data-f="battute" value="${esc(v.battute)}" placeholder="es. 24-28"></div>
     <div class="field"><label>Titolo</label><input type="text" data-f="titolo" value="${esc(v.titolo)}"></div>
@@ -141,6 +143,7 @@ function saveFrag(brano, fid) {
   });
   if (g('note')) obj.note = g('note'); else delete obj.note;
   if (g('trillo')) obj.trillo_3_5 = true; else delete obj.trillo_3_5;
+  if (!fid) D.stato_frammenti[obj.id] = 'nuovo';   // 3.7: un frammento aggiunto a mano parte nuovo
   const i = D.frammenti_utente.findIndex(x => x.id === obj.id);
   if (i >= 0) D.frammenti_utente[i] = obj; else D.frammenti_utente.push(obj);
   D.famiglie_utente.forEach(x => { x.frammenti = (x.frammenti || []).filter(id => id !== obj.id); if (x.id === fam) x.frammenti.push(obj.id); });
@@ -150,7 +153,7 @@ function saveFrag(brano, fid) {
 /* ================= COMPOSIZIONE ================= */
 const slotLab = (i, ci) => (i < 26 ? String.fromCharCode(65 + i) : 'Z' + (i - 25)) + (ci + 1);
 SCREENS.compose = () => {
-  const B = D.bozza, sel = B.selezionati.filter(id => fr(id));
+  const B = D.bozza, sel = B.selezionati.filter(id => fr(id) && !eNuovo(id));
   if (!sel.length) { replaceTo('#select'); return; }
   const okA = n => Number.isInteger(n) && n >= LIM.andate[0] && n <= LIM.andate[1];
   B.circuiti = (B.circuiti || []).map(c => ({ andate: okA(c.andate) ? c.andate : 3, slot: (c.slot || []).filter(id => sel.includes(id)) }));
@@ -158,7 +161,7 @@ SCREENS.compose = () => {
   save();
   const placed = new Set(B.circuiti.flatMap(c => c.slot));
   const tray = sel.filter(id => !placed.has(id));
-  const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])}${f.titolo ? ' · ' + esc(f.titolo) : ''}${eNuovo(id) ? ' <span class="tag">controllo</span>' : ''}</span>` : esc(id); };
+  const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])}${f.titolo ? ' · ' + esc(f.titolo) : ''}</span>` : esc(id); };
   const circs = B.circuiti.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3>
       <span class="small muted">Andate</span>${numSeg([2, 3, 4, 5], c.andate, n => `data-act="andate" data-ci="${ci}" data-n="${n}"`, `data-act="andatenum" data-ci="${ci}"`)}</div>
       ${c.slot.map((id, i) => `<div class="slot"><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>

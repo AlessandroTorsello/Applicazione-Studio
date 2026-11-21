@@ -32,7 +32,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.goto(U + '#select'); await w();
   ok(await p.locator('details.acc').count() === 5, 'la selezione mostra cinque brani');
   const pills = await p.locator('details.acc .pill').allInnerTexts();
-  ok(pills.join(' ') === '0/50 0/49 0/76 0/29 0/84', 'contatori: ' + pills.join(' '));
+  ok(pills.join(' ') === '0/50 0/49 0/76 0/29 0/0', 'contatori (3.7: i frammenti nuovi del Nabucco non si scelgono per i circuiti): ' + pills.join(' '));
   await p.click('details.acc[data-brano="op111-2"] summary'); await w();
   // 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano
   const bats = await p.locator('details.acc[data-brano="op111-2"] .frow .bat').allInnerTexts();
@@ -52,7 +52,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.check('input[data-sel="scriabin fantasie-1-4"]');
   await p.click('details.acc[data-brano="mephisto"] summary'); await w();
   await p.check('input[data-sel="mephisto-137-144"]'); await w();
-  ok((await p.locator('details.acc .pill').allInnerTexts()).join(' ') === '0/50 1/49 1/76 1/29 0/84', 'selezione con identificativi che contengono spazi');
+  ok((await p.locator('details.acc .pill').allInnerTexts()).join(' ') === '0/50 1/49 1/76 1/29 0/0', 'selezione con identificativi che contengono spazi');
   await p.click('#gocompose'); await w(); await shot('composizione-tre-brani');
   await p.click('[data-act="start"]'); await w(900);
   const l2 = await p.locator('.runh .l2').innerText();

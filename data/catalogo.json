@@ -7398,8 +7398,12 @@
     "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto, Nabucco) o suono (op. 111 Arietta, Fantasia op. 28). Il voto del test riguarda quella metrica.\nVerifica a due settimane, per tutti i brani: se il voto del test a freddo non sale in due settimane e resta sotto 8,5, la pagina del frammento lo segnala."
    },
    {
-    "titolo": "Brani nuovi e consolidati",
-    "testo": "Ogni brano è «nuovo» o «consolidato»; si cambia in Impostazioni, toccando il brano.\nBrano nuovo: in ogni slot 5-7 ripetizioni di puro controllo al 50-65%, alternando le due varianti che scegli tu (A e B), oppure nessuna. Niente Rep 1 a freddo, niente Rep 4, nessun test e nessun voto: il frammento non entra in «Da ripassare». Meglio in circuiti di soli frammenti dello stesso brano (l'app non lo impone).\nBrano consolidato: lo slot da 4 Rep, con test del giorno e voto in decimi."
+    "titolo": "Frammenti nuovi e consolidati",
+    "testo": "Ogni frammento è «nuovo» o «consolidato». Un brano entra con un aggiornamento dell'app e i suoi frammenti partono nuovi (oggi il Nabucco).\nNei circuiti vanno solo i consolidati. I nuovi si studiano in sessione libera: lì segni, se vuoi, quelli studiati.\nDal giorno dopo compaiono in home, in «Nuovi da testare»: una volta a freddo, al tempo di lavoro. «Regge» lo passa ai consolidati (basta una volta, decidi tu); «Non regge» lo lascia nuovo e lo toglie dalla coda.\nUn frammento appena consolidato non ha voto: lo scegli tu per un circuito e il primo test del giorno gli dà il voto. Si passa ai consolidati anche a mano, dalla scheda del brano o dalla pagina del frammento."
+   },
+   {
+    "titolo": "Studiare un passaggio nuovo (sessione libera)",
+    "testo": "Indicazioni, non regole dell'app.\nPrima: leggi tutta la sezione, trova la struttura, decidi diteggiatura e pedale.\nPoi, frammento per frammento: mani unite presto; tempo che cambia (lento, poi a scatti più veloci), non fisso; suono vero da subito; varianti di mappa (BLOC, NODO, MUTA, CIECO, DIN, MENT). Fine quando lo suoni giusto 3 volte di fila, al massimo 8 tentativi.\nAlla fine: la sezione intera, lenta, senza fermarti."
    },
    {
     "titolo": "Scelta dei passaggi",
@@ -7417,7 +7421,8 @@
    ],
    "slot": "Brano nuovo: 5-7 ripetizioni di puro controllo al 50-65%, alternando le due varianti che scegli tu (A e B), oppure nessuna. Niente Rep 1 a freddo, niente Rep 4, nessun test e nessun voto.",
    "soglia": "Proposta dell'analisi del Nabucco, non una regola: un frammento è pronto per lo slot da 4 Rep quando regge note e diteggiatura al 65% senza errori per due sessioni.",
-   "fonte": "«Come usare il documento» dell'analisi del Nabucco (12/11/2026), che riporta il metodo di Alessandro per i passaggi nuovi."
+   "fonte": "«Come usare il documento» dell'analisi del Nabucco (12/11/2026), che riporta il metodo di Alessandro per i passaggi nuovi.",
+   "nota_3_7": "Dalla 3.7 lo slot di controllo non si crea più (i nuovi non entrano nei circuiti): questi numeri servono solo alle sessioni aperte prima dell'aggiornamento e allo storico."
   },
   "superate": {
    "rep1": "Test a freddo all'85-95%, solo alla prima andata del frammento nella sessione, poi un voto da 0 a 10. Niente riga di diagnosi. Nelle andate dopo, al posto di Rep 1 c'è la Rep di contesto: il frammento con 2 battute prima e 2 dopo, all'85-90%.",

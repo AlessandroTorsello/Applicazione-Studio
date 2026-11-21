@@ -11,8 +11,8 @@ SCREENS.rules = anchor => {
     <details class="acc" id="metodo" ${anchor === 'metodo' ? 'open' : ''}><summary><span class="grow">Metodo, versione 3</span></summary><div class="accbody">
       ${(M3.regole || []).map(x => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(x.titolo)}</div><p style="margin:4px 0 0">${fmtText(x.testo)}</p></div>`).join('')}
       <div class="sigcard"><div class="label">Dall'errore alla variante (suggerimenti)</div>${(M3.errori || []).map(e => `<p style="margin:8px 0">${esc(e.errore)}<br>${linkSigle(esc(e.sigle.join(' · ')))}</p>`).join('')}</div>
-      <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${statoDi(x.id)} · metrica: ${metricaDi(x.id)}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · frammenti di resistenza: priorità ' + x.resistenza.join(', ') : ''}</span></p>`).join('')}
-        <p class="small muted" style="margin:8px 0 0">Stato e metrica di un brano si cambiano in Impostazioni, toccando il brano.</p></div>
+      <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${(c => c.nuovi ? `${c.nuovi} nuovi, ${c.consolidati} consolidati` : 'consolidato')(contaStati(x.id))} · metrica: ${metricaDi(x.id)}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · frammenti di resistenza: priorità ' + x.resistenza.join(', ') : ''}</span></p>`).join('')}
+        <p class="small muted" style="margin:8px 0 0">Frammenti e metrica di un brano si cambiano in Impostazioni, toccando il brano.</p></div>
       ${M3.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(M3.fonte)}</p>` : ''}</div></details>
     <details class="acc"><summary><span class="grow">Regole dello slot</span></summary><div class="accbody">
       ${Object.keys(RS).map(k => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(SLOT_LABELS[k] || k)}</div>${SUP[k]
@@ -65,8 +65,8 @@ SCREENS.settings = () => {
       ${stored(KEY_PREIMP) ? '<button class="btn" data-act="undoimport">Annulla l\'ultimo ripristino</button>' : ''}
     </section>
     <section class="card"><div class="label">Brani</div>
-      <p class="small muted">Tocca un brano per dividerlo in frammenti, cambiare i frammenti, passarlo da nuovo a consolidato, rinominarlo o nasconderlo. Lo storico non cambia.</p>
-      ${C.brani.map(b => `<button class="brow" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}"><span class="grow">${esc(b.nome)}</span>${statoDi(b.id) === 'nuovo' ? '<span class="tag">nuovo</span>' : ''}${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`).join('')}
+      <p class="small muted">Tocca un brano per dividerlo in frammenti, cambiare i frammenti, passarli ai consolidati, rinominarlo o nasconderlo. Lo storico non cambia.</p>
+      ${C.brani.map(b => `<button class="brow" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}"><span class="grow">${esc(b.nome)}</span>${(n => n ? `<span class="tag">${n} ${n === 1 ? 'nuovo' : 'nuovi'}</span>` : '')(contaStati(b.id).nuovi)}${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`).join('')}
       <button class="btn" style="margin-top:10px" data-act="newbrano" data-then="settings">+ Aggiungi un brano</button>
     </section>
     <section class="card"><div class="label">Catalogo dei passaggi</div>
@@ -194,8 +194,11 @@ function resetSheet() {
 }
 function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
-    <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
+    <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.7 · Frammenti nuovi e consolidati</b>: lo stato vale per ogni frammento. Nei circuiti vanno solo i consolidati; i nuovi (oggi il Nabucco) si studiano in sessione libera.</li>
+      <li><b>3.7 · Nuovi da testare</b>: in sessione libera segni, se vuoi, i passaggi nuovi studiati. Dal giorno dopo li trovi in home: «Regge» li passa ai consolidati, «Non regge» li lascia nuovi. Il primo voto arriva al primo circuito.</li>
+      <li><b>3.7 · Passa ai consolidati</b>: anche a mano, dalla scheda del brano o dalla pagina del frammento. Per un tocco sbagliato c'è «Riporta tra i nuovi».</li>
       <li><b>3.6 · Slot e andate a scelta</b>: oltre ai pulsanti, con «Altro…» scrivi tu il numero di slot (fino a 20) e di andate (da 2 a 12). Durante un circuito, dal menu ⋯, puoi aggiungere un'andata.</li>
       <li><b>3.6 · Da ripassare sotto 6</b>: entrano solo i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso. Accanto agli altri voti non compare più «da ripassare tra…».</li>
       <li><b>3.6 · Nuovo circuito da zero</b>: dopo l'avvio di un circuito la scelta dei passaggi si azzera; per rifarlo uguale c'è «Ripeti la sessione».</li>
