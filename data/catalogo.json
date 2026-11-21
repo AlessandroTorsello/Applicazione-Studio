@@ -245,6 +245,22 @@
    },
    "metrica": "tempo",
    "stato": "nuovo"
+  },
+  {
+   "id": "rach39-6",
+   "nome": "Rachmaninov, Études-tableaux op. 39 n. 6",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026) sulla partitura Henle (Études-tableaux op. 39, pp. 64-69). Nessuna analisi motoria: testi dei frammenti da scrivere.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Da definire",
+     "perche": "Priorità non ancora assegnate."
+    }
+   ],
+   "definizioni": {},
+   "metrica": "tempo",
+   "stato": "nuovo"
   }
  ],
  "sigle": [
@@ -6492,6 +6508,386 @@
    },
    "rep4_verifica": "Crescendo di 61 di peso; ff senza durezza; nota lunga della voce tenuta fino alla corona.",
    "note": "Ricordi p. 151, sistema 1 batt. 1 – sistema 1 batt. 3."
+  },
+  {
+   "id": "rach39-6-1-5",
+   "brano": "rach39-6",
+   "battute": "1-5",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-6-10",
+   "brano": "rach39-6",
+   "battute": "6-10",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-11-18",
+   "brano": "rach39-6",
+   "battute": "11-18",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-19-21",
+   "brano": "rach39-6",
+   "battute": "19-21",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-22-23",
+   "brano": "rach39-6",
+   "battute": "22-23",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-24-27",
+   "brano": "rach39-6",
+   "battute": "24-27",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-28-35",
+   "brano": "rach39-6",
+   "battute": "28-35",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-36-43",
+   "brano": "rach39-6",
+   "battute": "36-43",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-44-51",
+   "brano": "rach39-6",
+   "battute": "44-51",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-52-58",
+   "brano": "rach39-6",
+   "battute": "52-58",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-59-64",
+   "brano": "rach39-6",
+   "battute": "59-64",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-65-70",
+   "brano": "rach39-6",
+   "battute": "65-70",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-71-76",
+   "brano": "rach39-6",
+   "battute": "71-76",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-77-80",
+   "brano": "rach39-6",
+   "battute": "77-80",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-81-87",
+   "brano": "rach39-6",
+   "battute": "81-87",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-88-93",
+   "brano": "rach39-6",
+   "battute": "88-93",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-94-102",
+   "brano": "rach39-6",
+   "battute": "94-102",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-103-110",
+   "brano": "rach39-6",
+   "battute": "103-110",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
+  },
+  {
+   "id": "rach39-6-111-121",
+   "brano": "rach39-6",
+   "battute": "111-121",
+   "titolo": "",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "",
+   "andate": {
+    "1": {
+     "rep2": "",
+     "rep3": ""
+    },
+    "2": {
+     "rep2": "",
+     "rep3": ""
+    }
+   },
+   "rep4_verifica": ""
   }
  ],
  "priorita": [

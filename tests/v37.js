@@ -30,12 +30,12 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
       log: [{ circuito: 1, andata: 1, etichetta: 'A1', frammento: N1, brano: 'nabucco', secondi: 200, rep_completate: 5, controllo: true }] });
     localStorage.setItem('circuiti_studio_v2', JSON.stringify(D)); }, [N1, A]);
   await p.reload(); await w(900);
-  ok(await p.evaluate(() => APP_VERSION) === '3.7.0', 'versione 3.7.0');
+  ok(await p.evaluate(() => APP_VERSION) === '3.7.1', 'versione 3.7.1');
   ok((await txt('.sheet.on .news')).includes('3.7 · Frammenti nuovi e consolidati'), 'chi arriva dalla 3.6 vede le novità della 3.7');
   await shot('novita');
   await p.click('.sheet.on [data-act="closesheet"]').catch(() => p.evaluate(() => closeSheet())); await w();
-  const st = await p.evaluate(() => ({ nab: C.frammenti.filter(f => f.brano === 'nabucco').every(f => eNuovo(f.id)), altri: C.frammenti.filter(f => f.brano !== 'nabucco').every(f => !eNuovo(f.id)), sf: Object.keys(D.stato_frammenti).length }));
-  ok(st.nab && st.altri && st.sf === 0, 'migrazione: gli 84 frammenti del Nabucco nuovi, gli altri consolidati, senza scrivere nulla nei dati');
+  const st = await p.evaluate(() => ({ nab: C.frammenti.filter(f => f.brano === 'nabucco').every(f => eNuovo(f.id)), altri: C.frammenti.filter(f => !['nabucco', 'rach39-6'].includes(f.brano)).every(f => !eNuovo(f.id)) && C.frammenti.filter(f => f.brano === 'rach39-6').length === 19 && C.frammenti.filter(f => f.brano === 'rach39-6').every(f => eNuovo(f.id)), sf: Object.keys(D.stato_frammenti).length }));
+  ok(st.nab && st.altri && st.sf === 0, 'migrazione: gli 84 frammenti del Nabucco e i 19 del Rachmaninov nuovi, gli altri consolidati, senza scrivere nulla nei dati');
   ok((await D()).sessioni.length === 1, 'storico intatto (sessione con slot di controllo della 3.6)');
 
   /* --- 1. circuiti: solo consolidati --- */

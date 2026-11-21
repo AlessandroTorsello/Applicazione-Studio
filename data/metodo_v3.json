@@ -20,6 +20,10 @@
   "nabucco": {
    "metrica": "tempo",
    "stato": "nuovo"
+  },
+  "rach39-6": {
+   "metrica": "tempo",
+   "stato": "nuovo"
   }
  },
  "errori": [

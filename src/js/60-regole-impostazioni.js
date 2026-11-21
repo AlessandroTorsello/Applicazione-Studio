@@ -196,6 +196,7 @@ function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
     <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano nel catalogo, 19 frammenti divisi da te, tutti nuovi. I testi dei frammenti sono vuoti: li scrivi dalla modifica del frammento.</li>
       <li><b>3.7 · Frammenti nuovi e consolidati</b>: lo stato vale per ogni frammento. Nei circuiti vanno solo i consolidati; i nuovi (oggi il Nabucco) si studiano in sessione libera.</li>
       <li><b>3.7 · Nuovi da testare</b>: in sessione libera segni, se vuoi, i passaggi nuovi studiati. Dal giorno dopo li trovi in home: «Regge» li passa ai consolidati, «Non regge» li lascia nuovi. Il primo voto arriva al primo circuito.</li>
       <li><b>3.7 · Passa ai consolidati</b>: anche a mano, dalla scheda del brano o dalla pagina del frammento. Per un tocco sbagliato c'è «Riporta tra i nuovi».</li>
