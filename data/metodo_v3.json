@@ -28,6 +28,9 @@
   "rach23-6": {
    "metrica": "suono",
    "stato": "nuovo"
+  },
+  "chopin25-7": {
+   "stato": "nuovo"
   }
  },
  "errori": [
@@ -158,7 +161,7 @@
   "andate": "In una sessione ogni frammento usa una sola coppia di vincoli (Rep 2 e Rep 3) per tutte le andate, così ogni vincolo si ripete 3-4 volte. La coppia cambia tra i giorni: un giorno quella dell'andata 1 del catalogo, la volta dopo quella dell'andata 2 (poi 3 e 4, se esistono). Andata 4 solo se non in drop-out.",
   "drop_out": "Se alla terza andata Rep 1 è pulita e fluida, il frammento non fa la quarta. Il drop-out serve solo a risparmiare tempo dentro la sessione: non cambia il voto.",
   "da_annotare": "Il voto del test (prima Rep 1 del giorno), il tempo di Rep 4 e il vincolo usato.",
-  "verifica_2_settimane": "Brani con metrica «tempo»: se dopo due settimane il tempo di Rep 4 non sale, torna a Rep 2-3 al 70-80% uniforme. Brani con metrica «suono»: la verifica scatta se in due settimane il voto del test a freddo non sale."
+  "verifica_2_settimane": "Se dopo due settimane il voto del test a freddo non sale e resta sotto 8,5, torna a Rep 2-3 al 70-80% uniforme."
  },
  "regole": [
   {
@@ -179,19 +182,19 @@
   },
   {
    "titolo": "Voto in decimi",
-   "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 sulla metrica del brano: pulizia al tempo per i brani «tempo», suono per i brani «suono». Le altre Rep 1 dello stesso giorno non contano. Se il test resta senza voto non conta: al ripasso successivo il voto viene chiesto di nuovo.\nPunti di riferimento: 10 = al tempo giusto, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 scende sotto 6 in 17 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso (a parità, la priorità). Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
+   "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 che tiene insieme pulizia al tempo e suono, per tutti i brani. Le altre Rep 1 dello stesso giorno non contano. Se il test resta senza voto non conta: al ripasso successivo il voto viene chiesto di nuovo.\nPunti di riferimento: 10 = al tempo giusto, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 scende sotto 6 in 17 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso. Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
   },
   {
    "titolo": "Condizioni reali più spesso",
-   "testo": "Voto del test di oggi sotto 7: Rep 2-3 a mp e senza pedale.\nVoto del test di oggi da 7 in su: Rep 3 con dinamica e pedale reali, mantenendo la variante. Due Rep su quattro sono in condizioni reali.\nFrammenti di resistenza (priorità 2 del Mephisto): Rep 2-3 sempre nella dinamica scritta, con il test di PESO (polso mobile durante lo stop). Se l'avambraccio si indurisce, ci si ferma."
+   "testo": "Voto del test di oggi sotto 7: Rep 2-3 a mp e senza pedale.\nVoto del test di oggi da 7 in su: Rep 3 con dinamica e pedale reali, mantenendo la variante. Due Rep su quattro sono in condizioni reali.\nFrammenti di resistenza del Mephisto (ottave e accordi ribattuti in f e ff): Rep 2-3 sempre nella dinamica scritta, con il test di PESO (polso mobile durante lo stop). Se l'avambraccio si indurisce, ci si ferma."
   },
   {
    "titolo": "Prova",
    "testo": "Una sezione o il brano intero, una sola volta, senza fermarsi, registrata. Dopo, al riascolto, si segnano i punti sporchi: i frammenti che li contengono prendono 5 come voto del giorno (se non avevano già un voto più basso) e finiscono in «Da ripassare»."
   },
   {
-   "titolo": "Metrica adatta al brano",
-   "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto, Nabucco) o suono (op. 111 Arietta, Fantasia op. 28). Il voto del test riguarda quella metrica.\nVerifica a due settimane, per tutti i brani: se il voto del test a freddo non sale in due settimane e resta sotto 8,5, la pagina del frammento lo segnala."
+   "titolo": "Verifica a due settimane",
+   "testo": "Per tutti i brani: se il voto del test a freddo non sale in due settimane e resta sotto 8,5, la pagina del frammento lo segnala. Il voto tiene insieme pulizia al tempo e suono (dalla 3.7.1 non c'è più una metrica per brano)."
   },
   {
    "titolo": "Frammenti nuovi e consolidati",

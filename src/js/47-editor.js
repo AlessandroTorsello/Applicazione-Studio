@@ -222,7 +222,7 @@ SCREENS.brano = bid => {
     ${nasc.length || mod.length ? `<section class="card"><div class="label" style="margin-bottom:6px">Frammenti del catalogo cambiati</div>
       ${mod.length ? `<p class="small muted" style="margin:0 0 8px">${mod.length} ${mod.length === 1 ? 'modificato' : 'modificati'}: l'originale si ripristina dalla scheda del frammento.</p>` : ''}
       ${nasc.map(f => `<div class="optrow"><span><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<br><span class="small muted">nascosto</span></span><button class="btn inline" style="margin:0" data-act="frrestore" data-id="${esc(f.id)}">Ripristina</button></div>`).join('')}</section>` : ''}
-    <button class="btn" data-act="brano" data-id="${esc(bid)}">Nome, metrica e altre opzioni del brano</button>
+    <button class="btn" data-act="brano" data-id="${esc(bid)}">Nome e altre opzioni del brano</button>
   </main>`;
 };
 

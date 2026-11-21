@@ -234,7 +234,7 @@ SCREENS.frag = fid => {
   const points = [...perDay.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([d, v]) => ({ d, v }));
   const r4 = h.filter(l => l.tempo_rep4 != null), ultimoR4 = r4.length ? r4[r4.length - 1] : null;
   const tot = h.reduce((a, l) => a + (l.secondi || 0), 0);
-  const suono = !!f && metricaDi(f.brano) === 'suono', iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [], tpoints = iv ? iv.storia.filter(x => x.fonte === 'test').map(x => ({ d: x.d, v: x.v })) : [];
+  const iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [], tpoints = iv ? iv.storia.filter(x => x.fonte === 'test').map(x => ({ d: x.d, v: x.v })) : [];
   const nuovo = !!f && eNuovo(fid);
   /* Verifica a 2 settimane (3.5): per tutti i brani sul voto del test a freddo; avviso solo se non sale e resta sotto 8,5. */
   const fermo = twoWeekCheck(tpoints) && tpoints[tpoints.length - 1].v < (VOTO.verifica_sotto || 8.5);
@@ -242,7 +242,7 @@ SCREENS.frag = fid => {
   const FONTI = { test: 'test', riascolto: 'riascolto', mano: 'a mano', prova: 'prova' };
   const tempoCard = `<section class="card"><div class="label">Bpm con MET o CLIC (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, null, 'Andamento dei bpm') : '<p class="muted" style="margin:8px 0 0">Nessun bpm: compaiono quando li segni dopo una Rep con MET o CLIC.</p>'}
       ${ultimoR4 ? `<p class="small muted" style="margin:6px 0 0">Fino alla 3.4: ultimo tempo di Rep 4 ${esc(ultimoR4.tempo_rep4)} bpm (${esc(fmtDateShort(ultimoR4.data))}).</p>` : ''}</section>`;
-  const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto (0-${VOTO.massimo})</span><span class="pill">${suono ? 'metrica: suono' : 'metrica: tempo'}</span></div>
+  const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto (0-${VOTO.massimo})</span></div>
       ${vpoints.length > 1 ? chartSvg(vpoints, VOTO.ripasso, 'Andamento del voto', 'da ripassare') : ''}
       ${iv ? `<p class="small muted" style="margin:6px 0 0">Ultimi voti: ${esc(iv.storia.slice(-5).reverse().map(x => fmtV(x.v) + ' ' + fmtDayMonth(x.d) + (x.fonte !== 'test' ? ' (' + FONTI[x.fonte] + ')' : '')).join(' · '))}</p>` : ''}
     </section>` : '';

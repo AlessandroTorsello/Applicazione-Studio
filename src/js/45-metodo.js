@@ -56,7 +56,7 @@ function giunturaTesto(a, b) {
 }
 
 /* ---- voto in decimi (revisione del 12/11/2026, al posto dei livelli 0-4) ----
-   Dopo la prima Rep 1 del giorno si dà un voto da 0 a 10 sulla metrica del brano. Il voto cala da solo
+   Dopo la prima Rep 1 del giorno si dà un voto da 0 a 10 (pulizia al tempo e suono). Il voto cala da solo
    (VOTO.decadimento punti al giorno); sotto VOTO.soglia il frammento è da ripassare. Il voto si ricava ogni volta
    dal registro (voci con «test» e «voto») e da D.riascolti (voto a mano, prova; «riascolto» solo nei dati della 3.2): eliminare una voce
    o una sessione toglie anche il suo voto, senza altri conti. */
@@ -108,7 +108,7 @@ function votoOggi(S, fid) {
   const i = infoVoto(fid); return i && i.u.d === todayStr() ? i.u.v : null;
 }
 /* Da ripassare oggi: frammenti consolidati già votati con voto attuale sotto 6.
-   Ordine (3.6): voto crescente su tutti i brani, poi priorità; in fondo quelli la cui famiglia è stata studiata da poco. */
+   Ordine (3.6): voto crescente su tutti i brani, poi brano e battuta (3.7.1: niente priorità); in fondo quelli la cui famiglia è stata studiata da poco. */
 let RIP = new Map();
 function famiglieRecenti() {
   const t = todayStr(), rec = new Set(), studiato = new Set();
@@ -127,7 +127,7 @@ function daRipassare() {
     const fam = famDi(f), r = !!(fam && rec.has(fam) && [...C.frammenti].some(g => g.id !== f.id && famDi(g) === fam && studiato.has(g.id)));
     RIP.set(f.id, { a: i.a, rec: r });
   });
-  return C.frammenti.filter(f => RIP.has(f.id)).sort((a, b) => RIP.get(a.id).rec - RIP.get(b.id).rec || RIP.get(a.id).a - RIP.get(b.id).a || ord.get(a.brano) - ord.get(b.brano) || a.priorita - b.priorita || primaBattuta(a) - primaBattuta(b));
+  return C.frammenti.filter(f => RIP.has(f.id)).sort((a, b) => RIP.get(a.id).rec - RIP.get(b.id).rec || RIP.get(a.id).a - RIP.get(b.id).a || ord.get(a.brano) - ord.get(b.brano) || primaBattuta(a) - primaBattuta(b));   // 3.7.1: senza priorità
 }
 function setVoto(fid, voto, fonte, extra) {
   const t = todayStr(); fonte = fonte || 'riascolto';

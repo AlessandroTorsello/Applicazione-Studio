@@ -274,10 +274,9 @@ function onFatto() {
 /* Dopo la Rep 1 della prima andata: solo il voto del test (3.5: niente diagnosi né altre domande). */
 function rep1Sheet(S) {
   const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento, f = fr(fid);
-  const suono = f && metricaDi(f.brano) === 'suono';
   const pre = S.cur.voto != null ? fmtV(S.cur.voto) : '';
   openSheet(`<h2>Voto del test</h2>
-    <div class="field"><label for="r1voto">Da 0 a 10 · ${suono ? 'suono' : 'pulizia al tempo'}</label>
+    <div class="field"><label for="r1voto">Da 0 a 10 · pulizia al tempo e suono</label>
       <div class="row" style="align-items:center"><button class="ib stepb" data-vstep="-${VOTO.passo}" aria-label="Meno">−</button>
       <input type="text" id="r1voto" class="vin" inputmode="decimal" value="${esc(pre)}" placeholder="—" enterkeyhint="done">
       <button class="ib stepb" data-vstep="${VOTO.passo}" aria-label="Più">+</button></div>

@@ -13,7 +13,7 @@ function fragRow(f, sel, conBrano) {
   <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button></div>`;
 }
 /* 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano (per estratto, se il brano ne ha più d'uno);
-   priorità e famiglia restano nella scheda del frammento e in Sigle e regole. */
+   la famiglia resta nella scheda del frammento e in Sigle e regole (3.7.1: niente più priorità). */
 function prioritaHtml(list, sel, bid) {
   const sez = sezioniDi(bid);
   let h = '', ultima = null;
@@ -68,10 +68,9 @@ function toggleSel(id, on) {
 function previewHtml(f) {
   const keys = Object.keys(f.andate || {}).sort();
   const famN = f.famiglia ? ((C.FAM.get(f.famiglia) || {}).nome || f.famiglia) : 'Nessuna';
-  const p = prioDi(f.brano).find(x => x.n === f.priorita);
   return `<div class="label">${esc(branoNome(f.brano))}</div>
   <h2><span class="bat">${esc(f.battute)}</span> ${esc(f.titolo)}</h2>
-  <p class="small muted" style="margin:-6px 0 12px">Priorità ${esc(f.priorita)}${p ? ' · ' + esc(p.nome) : ''} · Famiglia: ${esc(famN)}${f.parti ? ' · Parti: ' + f.parti.map(esc).join(' + ') : ''}${f.trillo_3_5 ? ' · trillo 3-5' : ''}</p>
+  <p class="small muted" style="margin:-6px 0 12px">Famiglia: ${esc(famN)}${f.parti ? ' · Parti: ' + f.parti.map(esc).join(' + ') : ''}${f.trillo_3_5 ? ' · trillo 3-5' : ''}</p>
   <div class="label">Nodo motorio</div><p>${fmtText(f.nodo_motorio)}</p>
   ${isResistenza(f) ? `<div class="hint">${fmtText(AVV.resistenza)}</div>` : ''}
   ${keys.map(k => `<div class="card" style="margin-bottom:10px"><div class="label">Suggerimenti del catalogo · andata ${esc(k)}</div><p style="margin:6px 0"><b>Rep 2.</b> ${fmtText(f.andate[k].rep2)}</p><p style="margin:6px 0"><b>Rep 3.</b> ${fmtText(f.andate[k].rep3)}</p></div>`).join('')}
@@ -104,7 +103,6 @@ SCREENS.form = (brano, fid) => {
     <p class="muted small">Per i frammenti uniti scrivi una riga per parte con il prefisso, es. «bb. 16-18: …» e a capo «bb. 18-19: …».</p>
     <div class="field"><label>Battute *</label><input type="text" data-f="battute" value="${esc(v.battute)}" placeholder="es. 24-28"></div>
     <div class="field"><label>Titolo</label><input type="text" data-f="titolo" value="${esc(v.titolo)}"></div>
-    <div class="field"><label>Priorità</label><select class="sel" data-f="priorita" style="width:100%">${prioDi(brano).map(p => `<option value="${p.n}" ${v.priorita === p.n ? 'selected' : ''}>${p.n} · ${esc(p.nome)}</option>`).join('')}</select></div>
     <div class="field"><label>Famiglia</label><select class="sel" data-f="famiglia" style="width:100%"><option value="">Nessuna</option>${famOpts}<option value="__nuova">Nuova famiglia…</option></select>
       <input type="text" data-f="famnuova" placeholder="Nome della nuova famiglia" style="margin-top:8px;display:none"></div>
     <div class="field"><label>Nodo motorio</label><textarea data-f="nodo">${esc(v.nodo_motorio)}</textarea></div>
@@ -138,7 +136,7 @@ function saveFrag(brano, fid) {
   // modificando un frammento esistente si conservano i campi che il modulo non mostra (es. «parti»)
   const obj = Object.assign(fid && fr(fid) ? JSON.parse(JSON.stringify(fr(fid))) : {}, {
     id: fid || `${brano}-${slug(g('battute'))}-u${Date.now().toString(36)}`,
-    brano, battute: g('battute'), titolo: g('titolo'), priorita: Number(g('priorita')) || 1, famiglia: fam,
+    brano, battute: g('battute'), titolo: g('titolo'), priorita: (fid && fr(fid) && fr(fid).priorita) || 1, famiglia: fam,   // 3.7.1: la priorità non si mostra più; resta nei dati
     nodo_motorio: g('nodo'), andate, rep4_verifica: g('rep4')
   });
   if (g('note')) obj.note = g('note'); else delete obj.note;
