@@ -29,6 +29,9 @@ AGGIUNTE = [
     ('dati_rach39_6.json', 'rach39-6', 'rach39-6', 'Rachmaninov, Études-tableaux op. 39 n. 6', None),
     ('dati_rach23_6.json', 'rach23-6', 'rach23-6', 'Rachmaninov, Preludio op. 23 n. 6', None),
     ('dati_chopin25_7.json', 'chopin25-7', 'chopin25-7', 'Chopin, Studio op. 25 n. 7', None),
+    # 3.7.1: due brani sotto un gruppo («gruppo» in metodo_v3.json)
+    ('dati_scriabin9_1.json', 'scriabin9-1', 'scriabin9-1', 'Scriabin, Preludio op. 9 n. 1', None),
+    ('dati_scriabin9_2.json', 'scriabin9-2', 'scriabin9-2', 'Scriabin, Notturno op. 9 n. 2', None),
 ]
 leggi = lambda f: json.load(open(os.path.join(data, f), encoding='utf-8'))
 base = leggi(BASE)

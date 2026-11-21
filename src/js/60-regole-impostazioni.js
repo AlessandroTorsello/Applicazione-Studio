@@ -64,7 +64,7 @@ SCREENS.settings = () => {
     </section>
     <section class="card"><div class="label">Brani</div>
       <p class="small muted">Tocca un brano per dividerlo in frammenti, cambiare i frammenti, passarli ai consolidati, rinominarlo o nasconderlo. Lo storico non cambia.</p>
-      ${C.brani.map(b => `<button class="brow" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}"><span class="grow">${esc(b.nome)}</span>${(n => n ? `<span class="tag">${n} ${n === 1 ? 'nuovo' : 'nuovi'}</span>` : '')(contaStati(b.id).nuovi)}${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`).join('')}
+      ${perGruppo(C.brani, b => `<button class="brow" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}"><span class="grow">${esc(b.nome)}</span>${(n => n ? `<span class="tag">${n} ${n === 1 ? 'nuovo' : 'nuovi'}</span>` : '')(contaStati(b.id).nuovi)}${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`)}
       <button class="btn" style="margin-top:10px" data-act="newbrano" data-then="settings">+ Aggiungi un brano</button>
     </section>
     <section class="card"><div class="label">Catalogo dei passaggi</div>
@@ -193,6 +193,7 @@ function newsSheet() {
     <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
       <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano, 19 frammenti divisi da te, tutti nuovi, con l'analisi (nodo motorio, suggerimenti, famiglie).</li>
+      <li><b>3.7.1 · Scriabin op. 9</b>: Preludio (8 frammenti) e Notturno per la mano sinistra (28 frammenti: gruppi di due battute, la cadenza da sola, l'ultimo gruppo di quattro), nuovi, con l'analisi. I due brani stanno sotto «Scriabin op. 9».</li>
       <li><b>3.7.1 · Chopin, Studio op. 25 n. 7</b>: nuovo brano, 9 frammenti divisi da te (il recitativo iniziale è dentro 1-8), tutti nuovi, con l'analisi.</li>
       <li><b>3.7.1 · Rachmaninov, Preludio op. 23 n. 6</b>: nuovo brano, 7 frammenti divisi da te, tutti nuovi, con l'analisi.</li>
       <li><b>3.7.1 · Niente metrica e niente priorità</b>: il voto del test tiene insieme pulizia al tempo e suono, per tutti i brani. Le priorità non compaiono più (i dati restano).</li>

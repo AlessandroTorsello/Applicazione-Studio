@@ -34,7 +34,7 @@ SCREENS.select = () => {
   const due = daRipassare(), dueN = due.filter(f => !RIP.get(f.id).rec), dueR = due.filter(f => RIP.get(f.id).rec);
   const dueHtml = due.length ? `<section class="card due"><div class="cardh"><span class="label">Da ripassare oggi · ${due.length}</span>${dueN.every(f => sel.has(f.id)) ? '' : '<button class="link" data-act="seldue">Seleziona tutti</button>'}</div>
     <div class="fam">${dueN.map(f => fragRow(f, sel, true)).join('')}${dueR.length ? `<div class="famrec">Famiglia studiata di recente</div>${dueR.map(f => fragRow(f, sel, true)).join('')}` : ''}</div></section>` : '';
-  const body = C.braniVis.filter(b => !b.solo_tempo).map(b => {   // «Altro» non ha frammenti: serve solo per il tempo
+  const body = perGruppo(C.braniVis.filter(b => !b.solo_tempo), b => {   // «Altro» non ha frammenti: serve solo per il tempo
     const tutti = C.frammenti.filter(f => f.brano === b.id), list = tutti.filter(f => !eNuovo(f.id)), nN = tutti.length - list.length;
     const nSel = list.filter(f => sel.has(f.id)).length;
     return `<details class="acc" data-brano="${esc(b.id)}" ${openBrani.has(b.id) ? 'open' : ''}><summary><span class="grow">${esc(b.nome)}${nN ? ` <span class="tag">${nN} ${nN === 1 ? 'nuovo' : 'nuovi'}</span>` : ''}</span><span class="pill" data-count="${esc(b.id)}">${nSel}/${list.length}</span></summary>
@@ -42,13 +42,13 @@ SCREENS.select = () => {
       ${!b.completo && !list.length ? `<div class="todo"><h4>Frammenti da inserire</h4><p class="muted small">Questo brano non ha ancora frammenti. Puoi dividerlo in frammenti per battute, inserirli a mano uno per uno, o importare un'analisi da Impostazioni.</p><button class="btn primary" data-act="go" data-h="#dividi/${encodeURIComponent(b.id)}">Dividi il brano in frammenti</button><button class="btn" data-act="go" data-h="#form/${encodeURIComponent(b.id)}">Aggiungi frammento</button></div>`
       : `<div class="todo"><div class="row"><button class="btn" data-act="go" data-h="#form/${encodeURIComponent(b.id)}">Aggiungi frammento</button><button class="btn" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}">Gestisci i frammenti</button></div></div>`}
     </div></details>`;
-  }).join('');
+  });
   app.innerHTML = header('Scegli i passaggi', `Circuito a ${D.bozza.cfg.slot} slot`, '#new') +
     `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">${steps(['Tipo', 'Passaggi', 'Circuiti'], 1)}
     <p class="lead">Spunta per scegliere, tocca il titolo per la scheda.</p>${dueHtml}${body}
     <button class="btn" data-act="newbrano" data-then="brano">+ Nuovo brano</button></main>
     <div class="bar"><div class="inner"><p class="barnote" id="selnote">${esc(selNote(sel.size))}</p><div class="row"><button class="btn" data-act="deselall" style="flex:0 0 auto;width:auto">Azzera</button><button class="btn primary" data-act="go" data-h="#compose" id="gocompose" ${sel.size ? '' : 'disabled'}>Avanti: componi i circuiti</button></div></div></div>`;
-  $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); }));
+  $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); })); gruppiToggle();
   $$('input[data-sel]').forEach(inp => inp.addEventListener('change', () => toggleSel(inp.dataset.sel, inp.checked)));
 };
 function selNote(n) {

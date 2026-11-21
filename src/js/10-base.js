@@ -117,6 +117,16 @@ function buildCat() {
 buildCat();
 const branoNome = id => id === LEZIONE ? 'Lezione pratica' : (C.B.get(id) || {}).nome || id || '—';
 const branoCorto = id => branoNome(id).split(',')[0];
+/* 3.7.1: brani raggruppati (es. «Scriabin op. 9»: Preludio e Notturno). I brani vicini con lo stesso «gruppo»
+   finiscono dentro un solo elenco che si apre; gli altri restano come sono. */
+const openGruppi = new Set();
+const perGruppo = (brani, riga) => { let out = '', i = 0;
+  while (i < brani.length) { const g = brani[i].gruppo; if (!g) { out += riga(brani[i]); i++; continue; }
+    let j = i; while (j < brani.length && brani[j].gruppo === g) j++;
+    out += `<details class="grp" data-gruppo="${esc(g)}" ${openGruppi.has(g) ? 'open' : ''}><summary><span class="grow">${esc(g)}</span><span class="small muted">${j - i} brani</span></summary><div class="grpbody">${brani.slice(i, j).map(riga).join('')}</div></details>`;
+    i = j; }
+  return out; };
+const gruppiToggle = () => $$('details.grp').forEach(d => d.addEventListener('toggle', () => { d.open ? openGruppi.add(d.dataset.gruppo) : openGruppi.delete(d.dataset.gruppo); }));
 const fr = id => C.F.get(id);
 // Le priorità sono proprie di ogni brano: il n. 1 dell'op. 111 non è il n. 1 del Mephisto.
 const PRIO_GENERICHE = [1, 2, 3, 4, 5, 6, 7].map(n => ({ n, nome: 'Priorità ' + n, perche: '' }));

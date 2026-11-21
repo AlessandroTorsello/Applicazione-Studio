@@ -55,6 +55,13 @@ details.acc>summary::-webkit-details-marker{display:none}
 details.acc>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
 details.acc[open]>summary::after{transform:rotate(180deg)}
 details.acc>summary .grow{flex:1}
+details.grp{margin:0 0 14px}
+details.grp>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 4px;font-weight:700;font-size:var(--t-md);cursor:pointer}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
+details.grp[open]>summary::after{transform:rotate(180deg)}
+details.grp>summary .grow{flex:1}
+.grpbody{padding-left:12px;border-left:2px solid var(--line);margin-left:4px}
 .accbody{padding:0 12px 12px}
 .prio{border-top:1px solid var(--line);padding:12px 4px 4px}
 .prio h3{font-size:var(--t-md);display:flex;gap:10px;align-items:baseline}

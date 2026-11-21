@@ -348,6 +348,44 @@
    "stato": "nuovo"
   },
   {
+   "id": "scriabin9-1",
+   "nome": "Scriabin, Preludio op. 9 n. 1",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Belaieff 1895 (pp. 2-3), da verificare al pianoforte.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Senza priorità",
+     "perche": "Dalla 3.7.1 le priorità non si usano più."
+    }
+   ],
+   "definizioni": {
+    "priorita": "Non usata.",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+   },
+   "stato": "nuovo",
+   "gruppo": "Scriabin op. 9"
+  },
+  {
+   "id": "scriabin9-2",
+   "nome": "Scriabin, Notturno op. 9 n. 2",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026: gruppi di due battute, cadenza a parte, ultimo gruppo di quattro); analisi di Claude dalla partitura Belaieff 1895 (pp. 4-7), da verificare al pianoforte.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Senza priorità",
+     "perche": "Dalla 3.7.1 le priorità non si usano più."
+    }
+   ],
+   "definizioni": {
+    "priorita": "Non usata.",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+   },
+   "stato": "nuovo",
+   "gruppo": "Scriabin op. 9"
+  },
+  {
    "id": "altro",
    "nome": "Altro",
    "completo": false,
@@ -7334,6 +7372,762 @@
    },
    "rep4_verifica": "Basso legato sotto gli accordi della sinistra; smorzando graduale; accordi finali insieme e pp.",
    "note": "Henle p. 96, sistemi 4-5."
+  },
+  {
+   "id": "scriabin9-1-1-4",
+   "brano": "scriabin9-1",
+   "battute": "1-4",
+   "titolo": "Il tema: canto sopra le crome ribattute",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-canto",
+   "nodo_motorio": "Andante, 3/4, p. Tutto il brano è per la sola mano sinistra: canto, accordi e basso sono della stessa mano. Il canto in alto (crome puntate, semicrome) va al pollice e al 2, le crome ribattute degli accordi interni alle dita lunghe, sotto; da b. 2 il basso entra con un arpeggio di semicrome e tiene la minima legata. cresc. a 4.",
+   "andate": {
+    "1": {
+     "rep2": "ALT: solo il canto, con la diteggiatura che userai nel brano.",
+     "rep3": "DIN: crome interne pp, canto p che esce."
+    },
+    "2": {
+     "rep2": "PESO sul pollice per il canto, polso sciolto sulle crome.",
+     "rep3": "BLOC sugli accordi interni: posizione pronta prima del canto."
+    }
+   },
+   "rep4_verifica": "Canto legato e sopra; crome interne uguali e piano; basso tenuto col pedale senza sporcare.",
+   "note": "Belaieff p. 2, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-1-5-8",
+   "brano": "scriabin9-1",
+   "battute": "5-8",
+   "titolo": "Crescendo e arpeggio largo del basso (f)",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "5-6: canto con accordi a crome e basso a semiminime, semicrome in terzina a 6. 7 f: il basso sale per arpeggio di semicrome dal registro grave fino all'acuto, poi torna giù; il canto tiene accordi in alto. 8 dim.: la mano scende di nuovo al basso con un arpeggio corto.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio di 7 diviso in due gesti, fermi sulla nota d'arrivo.",
+     "rep3": "DIN: cresc. da 5 al f di 7, dim. a 8."
+    },
+    "2": {
+     "rep2": "ROT: apertura dell'arpeggio di 7 dal gomito, senza allungare le dita.",
+     "rep3": "CIECO: salto di ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggio di 7 continuo e senza accenti; il canto non si interrompe sul salto.",
+   "note": "Belaieff p. 2, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-1-9-12",
+   "brano": "scriabin9-1",
+   "battute": "9-12",
+   "titolo": "Basso grave e accordi in levare",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-salti",
+   "nodo_motorio": "9 p: il canto scende, il basso tiene una minima grave e gli accordi entrano in levare dopo le pause (accordo di tre suoni dopo la croma di pausa). 10-12 cresc.: basso a semicrome che sale e accordi in levare; ottave legate nel basso grave alla fine di ogni battuta.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi in levare: la mano arriva già in posizione.",
+     "rep3": "CIECO: salto dal basso all'accordo senza guardare."
+    },
+    "2": {
+     "rep2": "RIT: salto basso-accordo prima lento, poi in tempo.",
+     "rep3": "DIN: cresc. da 10 a 12 senza indurire gli accordi."
+    }
+   },
+   "rep4_verifica": "Accordi in levare insieme e leggeri; basso tenuto col pedale; nessun buco nel tempo dopo i salti.",
+   "note": "Belaieff p. 2, sistemi 3-5."
+  },
+  {
+   "id": "scriabin9-1-13-16",
+   "brano": "scriabin9-1",
+   "battute": "13-16",
+   "titolo": "f: accordi in alto, basso grave legato",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-salti",
+   "nodo_motorio": "13-15 f: il canto va a ottave e accordi nel registro alto (crome puntate), gli accordi interni rispondono in levare, il basso tiene quinte e ottave gravi legate da una battuta all'altra: la mano copre tutta la tastiera in ogni battuta. 16 dim., p a 17.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una battuta alla volta, basso e accordo come un solo gesto.",
+     "rep3": "BLOC sugli accordi in alto."
+    },
+    "2": {
+     "rep2": "CIECO: salti tra registro grave e acuto senza guardare.",
+     "rep3": "DIN: f pieno a 13, dim. vero a 16."
+    }
+   },
+   "rep4_verifica": "f di braccio e non di dita; accordi alti tutti insieme; il basso arriva in tempo senza accento.",
+   "note": "Belaieff p. 2 sistema 5 – p. 3 sistema 1."
+  },
+  {
+   "id": "scriabin9-1-17-22",
+   "brano": "scriabin9-1",
+   "battute": "17-22",
+   "titolo": "p, attesa e ritorno del tema pp",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-canto",
+   "nodo_motorio": "17 p: accordo con La legato, 18 la nota tenuta e il basso fermo. 19 pp: torna il tema come a 1, poi 20-22 come 2-4 (basso con arpeggio di semicrome e minima legata, crome interne ribattute).",
+   "andate": {
+    "1": {
+     "rep2": "ALT: solo il canto di 19-22.",
+     "rep3": "DIN: pp di 19 più piano dell'inizio."
+    },
+    "2": {
+     "rep2": "PESO sul pollice per il canto.",
+     "rep3": "MENT: 17-18 contando le pause, poi l'attacco di 19."
+    }
+   },
+   "rep4_verifica": "Il silenzio di 18 dura il giusto; pp di 19 senza perdere il canto.",
+   "note": "Belaieff p. 3, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-1-23-26",
+   "brano": "scriabin9-1",
+   "battute": "23-26",
+   "titolo": "Canto con le terzine del basso e arpeggi larghi",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "23: canto con accordi, il basso in terzina di semicrome. 24: accordi e basso cantabile. 25-26: accordi tenuti in alto mentre il basso apre arpeggi di semicrome dal grave all'acuto (fino al Fa doppio diesis), con salti da una battuta all'altra.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggi di 25 e 26 divisi in due, poi interi.",
+     "rep3": "DIN: accordi in alto p, arpeggio sotto più piano."
+    },
+    "2": {
+     "rep2": "ROT sugli arpeggi di 25-26.",
+     "rep3": "CIECO: ritorno al grave senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi continui; l'accordo in alto resta tenuto e non si sporca col pedale.",
+   "note": "Belaieff p. 3, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-1-27-30",
+   "brano": "scriabin9-1",
+   "battute": "27-30",
+   "titolo": "Accenti sul canto e arpeggio di tre ottave",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "27: canto con accordi a crome e basso a semicrome che salta. 28-29: canto con accento, legato sopra accordi tenuti; il basso fa figure di semicrome dal grave e note singole in levare. 30: accordo e arpeggio di semicrome che sale per tre ottave fino all'acuto.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio di 30 in tre gruppi.",
+     "rep3": "DIN: accento di 28 e 29 sul canto, non sugli accordi."
+    },
+    "2": {
+     "rep2": "ACC: arpeggio di 30 come un solo gesto.",
+     "rep3": "BLOC sugli accordi tenuti di 28-29."
+    }
+   },
+   "rep4_verifica": "Accento del canto chiaro ma legato; arpeggio di 30 senza strappo all'arrivo.",
+   "note": "Belaieff p. 3, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-1-31-34",
+   "brano": "scriabin9-1",
+   "battute": "31-34",
+   "titolo": "Finale: accenti, discese e accordo finale",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "31-32: canto accentato (crome puntate) mentre la mano scende al basso grave, prende l'accordo e fa discese di semicrome. 33: canto legato con arpeggio di semicrome. 34: accordo finale e arpeggio corto che sale; fine a b. 34.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: 31 e 32 separate, poi unite.",
+     "rep3": "DIN: accento del canto e discese più piano."
+    },
+    "2": {
+     "rep2": "CIECO: salto al basso grave senza guardare.",
+     "rep3": "MENT: arpeggio finale, ascolto prima di suonare."
+    }
+   },
+   "rep4_verifica": "Discese uguali; canto sopra; accordo finale insieme e tenuto.",
+   "note": "Belaieff p. 3, sistema 5."
+  },
+  {
+   "id": "scriabin9-2-1-2",
+   "brano": "scriabin9-2",
+   "battute": "1-2",
+   "titolo": "Il canto sopra gli arpeggi larghi",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "Andante, 6/8, p. Tutto il brano è per la sola mano sinistra: canto, accordi e basso sono della stessa mano. La mano apre un arpeggio di semicrome dal Re bemolle grave fino all'acuto e torna giù in ogni battuta, e intanto canta la melodia in alto (La bemolle, Sol, La bemolle; Fa, Re bemolle) con le forcelle.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi legati e uguali; il canto tenuto sopra col pedale e mai coperto.",
+   "note": "Belaieff p. 4, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-3-4",
+   "brano": "scriabin9-2",
+   "battute": "3-4",
+   "titolo": "Accordi e scala cromatica del basso",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "3: accordi tenuti in alto mentre il basso sale a semicrome cromatiche. 4: accordo, arpeggio che sale e figura di biscrome ribattute in alto con accento, che porta alla b. 5.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi tenuti.",
+     "rep3": "RIT sulla salita cromatica: lungo-corto."
+    },
+    "2": {
+     "rep2": "ALT: solo il basso di 3, poi solo la figura di 4.",
+     "rep3": "DIN: accento di 4 e subito piano."
+    }
+   },
+   "rep4_verifica": "Accordi tenuti fino in fondo; biscrome di 4 uguali.",
+   "note": "Belaieff p. 4, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-2-5-6",
+   "brano": "scriabin9-2",
+   "battute": "5-6",
+   "titolo": "Figure di semicrome in alto e accordi sotto",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "5-6: la mano alterna figure di semicrome nel registro alto (diteggiature 4-3 scritte) e accordi o note del canto in chiave di basso; il canto è nel tenore. Salti continui di una o due ottave dentro la battuta.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto dalla figura all'accordo senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi in chiave di basso.",
+     "rep3": "DIN: canto del tenore più forte delle figure."
+    }
+   },
+   "rep4_verifica": "Figure leggere e uguali; il canto del tenore legato attraverso i salti.",
+   "note": "Belaieff p. 4, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-7-8",
+   "brano": "scriabin9-2",
+   "battute": "7-8",
+   "titolo": "Ornamento di biscrome e basso grave",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "7: accordo in alto con discesa di biscrome, poi la mano va al basso grave (ottava con acciaccatura) e risale. 8: accordi con semicrome in levare in alto e arpeggi di semicrome del basso.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto all'ottava grave senza guardare.",
+     "rep3": "RIT sulle biscrome di 7."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 8.",
+     "rep3": "DIN: discesa di 7 piano, ottava grave senza colpo."
+    }
+   },
+   "rep4_verifica": "Biscrome di 7 uguali e in tempo; ottava grave presa senza ritardo.",
+   "note": "Belaieff p. 4, sistema 3."
+  },
+  {
+   "id": "scriabin9-2-9-10",
+   "brano": "scriabin9-2",
+   "battute": "9-10",
+   "titolo": "Canto ad accordi e arpeggi del basso",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "9: canto in alto ad accordi tenuti, il basso sale ad arpeggio (diteggiatura 1-2 scritta). 10: come 1, accordi in alto e arpeggio largo su e giù con forcella.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Accordi in alto insieme; arpeggio continuo sotto.",
+   "note": "Belaieff p. 4, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-11-12",
+   "brano": "scriabin9-2",
+   "battute": "11-12",
+   "titolo": "Bicordi del basso e corona",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "11: accordi in alto, il basso sale per bicordi di semicrome (con terzina). 12: accordi di biscrome con corona, poi biscrome nel registro medio-alto che legano alla b. 13.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sui bicordi di 11.",
+     "rep3": "RIT sulle biscrome di 12."
+    },
+    "2": {
+     "rep2": "CHUNK: 11 e 12 separate.",
+     "rep3": "DIN: corona di 12 piano, biscrome leggere."
+    }
+   },
+   "rep4_verifica": "Bicordi insieme; biscrome di 12 uguali dopo la corona.",
+   "note": "Belaieff p. 4, sistema 4."
+  },
+  {
+   "id": "scriabin9-2-13-14",
+   "brano": "scriabin9-2",
+   "battute": "13-14",
+   "titolo": "Figure in alto e accordi sotto (ritorno)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Come 5-6: figure di semicrome in alto e accordi col canto nel tenore in chiave di basso, salti continui.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi sotto.",
+     "rep3": "DIN: canto del tenore sopra le figure."
+    }
+   },
+   "rep4_verifica": "Come 5-6.",
+   "note": "Belaieff p. 4, sistema 5."
+  },
+  {
+   "id": "scriabin9-2-15-16",
+   "brano": "scriabin9-2",
+   "battute": "15-16",
+   "titolo": "Ornamento, basso grave e corona",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "15: come 7, accordo con discesa di biscrome e ottava grave. 16: accordi con semicrome puntate, corona, poi arpeggio corto del basso.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto all'ottava grave.",
+     "rep3": "RIT sulle biscrome."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 16.",
+     "rep3": "MENT: corona di 16, poi il mf di 17."
+    }
+   },
+   "rep4_verifica": "Biscrome in tempo; corona ascoltata.",
+   "note": "Belaieff p. 4 sistema 5 – p. 5 sistema 1."
+  },
+  {
+   "id": "scriabin9-2-17-18",
+   "brano": "scriabin9-2",
+   "battute": "17-18",
+   "titolo": "mf: accordi ribattuti in crescendo e sf",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "17 mf: accordo tenuto, poi accordi ribattuti di biscrome che salgono cromatici in crescendo, il basso scende per ottave. 18 sf: accordo, poi il basso sale ad arpeggio largo (oltre due ottave) e lancia la nota in alto.",
+   "andate": {
+    "1": {
+     "rep2": "STAC: accordi ribattuti leggeri, dal polso.",
+     "rep3": "DIN: cresc. di 17 senza indurire, sf di 18 come accento."
+    },
+    "2": {
+     "rep2": "CHUNK: arpeggio di 18 in due gesti.",
+     "rep3": "CIECO: ritorno all'accordo senza guardare."
+    }
+   },
+   "rep4_verifica": "Ribattuti uguali e in crescendo vero; sf senza colpo.",
+   "note": "Belaieff p. 5, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-19-20",
+   "brano": "scriabin9-2",
+   "battute": "19-20",
+   "titolo": "Accordi ribattuti e arpeggio, con corona",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "19: come 17, accordi ribattuti che salgono. 20 sf: accordo e arpeggio largo del basso che sale fino all'acuto; corona in fondo alla battuta.",
+   "andate": {
+    "1": {
+     "rep2": "STAC: ribattuti leggeri.",
+     "rep3": "DIN: sf come accento, poi piano verso la corona."
+    },
+    "2": {
+     "rep2": "CHUNK: arpeggio di 20 in due gesti.",
+     "rep3": "CIECO: salto senza guardare."
+    }
+   },
+   "rep4_verifica": "Come 17-18; corona tenuta il giusto.",
+   "note": "Belaieff p. 5, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-21-22",
+   "brano": "scriabin9-2",
+   "battute": "21-22",
+   "titolo": "Ribattuti, poi arpeggi tra le chiavi",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "21: accordo tenuto e ribattuti di biscrome, basso per ottave. 22: accordi in alto, il basso sale passando in chiave di violino e torna in chiave di basso, poi accordi in levare.",
+   "andate": {
+    "1": {
+     "rep2": "STAC: ribattuti leggeri.",
+     "rep3": "BLOC sugli accordi di 22."
+    },
+    "2": {
+     "rep2": "CIECO: cambio di registro di 22 senza guardare.",
+     "rep3": "DIN: crescendo verso il ff di 23."
+    }
+   },
+   "rep4_verifica": "Ribattuti uguali; i cambi di registro non spezzano il tempo.",
+   "note": "Belaieff p. 5, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-2-23-24",
+   "brano": "scriabin9-2",
+   "battute": "23-24",
+   "titolo": "ff: accordi e ottave gravi",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "23 ff: accordi in alto, il basso grave con acciaccatura d'ottava e accordi di semicrome che scendono. 24: accordi a semicrome nel basso e salti agli accordi in alto.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 23-24.",
+     "rep3": "CIECO: salti ai bassi gravi senza guardare."
+    },
+    "2": {
+     "rep2": "PESO: ff di braccio, polso sciolto.",
+     "rep3": "DIN: ff pieno ma senza durezza."
+    }
+   },
+   "rep4_verifica": "Accordi insieme e pieni; bassi gravi in tempo.",
+   "note": "Belaieff p. 5, sistema 3."
+  },
+  {
+   "id": "scriabin9-2-25-26",
+   "brano": "scriabin9-2",
+   "battute": "25-26",
+   "titolo": "Accordi veloci, poi p e rit.",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "25: accordi veloci di semicrome nel registro medio-alto dopo il basso grave. 26 p: grande accordo arpeggiato, discesa di biscrome nel canto, rit., arpeggio del basso che sale verso la cadenza.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 25.",
+     "rep3": "DIN: subito p a 26."
+    },
+    "2": {
+     "rep2": "RIT sulla discesa di 26.",
+     "rep3": "MENT: rit. di 26 pensato prima di suonare."
+    }
+   },
+   "rep4_verifica": "Accordi di 25 insieme; passaggio al p netto; rit. graduale.",
+   "note": "Belaieff p. 5, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-27-27",
+   "brano": "scriabin9-2",
+   "battute": "27",
+   "titolo": "Cadenza",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "Cadenza pp, fuori dai gruppi di due: arpeggio rapido dal basso più grave fino all'ottava sopra, poi una lunga onda di biscrome cromatiche all'8va che scende per gradi, e due trilli in fondo prima della ripresa.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: la cadenza in gruppi da un'onda alla volta.",
+     "rep3": "DIN: pp uniforme, forcelle piccole."
+    },
+    "2": {
+     "rep2": "ACC: l'onda intera come un gesto, lenta.",
+     "rep3": "RIT sui gruppi di biscrome."
+    }
+   },
+   "rep4_verifica": "Onde uguali e legate; nessuna fermata; i trilli regolari e piano.",
+   "note": "Belaieff p. 5, sistemi 4-5."
+  },
+  {
+   "id": "scriabin9-2-28-29",
+   "brano": "scriabin9-2",
+   "battute": "28-29",
+   "titolo": "Il canto sopra gli arpeggi larghi (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "Ripresa di 1-2. Andante, 6/8, p. Tutto il brano è per la sola mano sinistra: canto, accordi e basso sono della stessa mano. La mano apre un arpeggio di semicrome dal Re bemolle grave fino all'acuto e torna giù in ogni battuta, e intanto canta la melodia in alto (La bemolle, Sol, La bemolle; Fa, Re bemolle) con le forcelle.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi legati e uguali; il canto tenuto sopra col pedale e mai coperto.",
+   "note": "Belaieff p. 4, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-30-31",
+   "brano": "scriabin9-2",
+   "battute": "30-31",
+   "titolo": "Accordi e scala cromatica del basso (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 3-4. 3: accordi tenuti in alto mentre il basso sale a semicrome cromatiche. 4: accordo, arpeggio che sale e figura di biscrome ribattute in alto con accento, che porta alla b. 5.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi tenuti.",
+     "rep3": "RIT sulla salita cromatica: lungo-corto."
+    },
+    "2": {
+     "rep2": "ALT: solo il basso di 3, poi solo la figura di 4.",
+     "rep3": "DIN: accento di 4 e subito piano."
+    }
+   },
+   "rep4_verifica": "Accordi tenuti fino in fondo; biscrome di 4 uguali.",
+   "note": "Belaieff p. 4, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-2-32-33",
+   "brano": "scriabin9-2",
+   "battute": "32-33",
+   "titolo": "Figure di semicrome in alto e accordi sotto (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 5-6. 5-6: la mano alterna figure di semicrome nel registro alto (diteggiature 4-3 scritte) e accordi o note del canto in chiave di basso; il canto è nel tenore. Salti continui di una o due ottave dentro la battuta.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto dalla figura all'accordo senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi in chiave di basso.",
+     "rep3": "DIN: canto del tenore più forte delle figure."
+    }
+   },
+   "rep4_verifica": "Figure leggere e uguali; il canto del tenore legato attraverso i salti.",
+   "note": "Belaieff p. 4, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-34-35",
+   "brano": "scriabin9-2",
+   "battute": "34-35",
+   "titolo": "Ornamento di biscrome e basso grave (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 7-8. 7: accordo in alto con discesa di biscrome, poi la mano va al basso grave (ottava con acciaccatura) e risale. 8: accordi con semicrome in levare in alto e arpeggi di semicrome del basso.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto all'ottava grave senza guardare.",
+     "rep3": "RIT sulle biscrome di 7."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 8.",
+     "rep3": "DIN: discesa di 7 piano, ottava grave senza colpo."
+    }
+   },
+   "rep4_verifica": "Biscrome di 7 uguali e in tempo; ottava grave presa senza ritardo.",
+   "note": "Belaieff p. 4, sistema 3."
+  },
+  {
+   "id": "scriabin9-2-36-37",
+   "brano": "scriabin9-2",
+   "battute": "36-37",
+   "titolo": "Canto ad accordi e arpeggi del basso (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "Ripresa di 9-10. 9: canto in alto ad accordi tenuti, il basso sale ad arpeggio (diteggiatura 1-2 scritta). 10: come 1, accordi in alto e arpeggio largo su e giù con forcella.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Accordi in alto insieme; arpeggio continuo sotto.",
+   "note": "Belaieff p. 4, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-38-39",
+   "brano": "scriabin9-2",
+   "battute": "38-39",
+   "titolo": "Bicordi del basso e corona (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 11-12. 11: accordi in alto, il basso sale per bicordi di semicrome (con terzina). 12: accordi di biscrome con corona, poi biscrome nel registro medio-alto che legano alla b. 13.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sui bicordi di 11.",
+     "rep3": "RIT sulle biscrome di 12."
+    },
+    "2": {
+     "rep2": "CHUNK: 11 e 12 separate.",
+     "rep3": "DIN: corona di 12 piano, biscrome leggere."
+    }
+   },
+   "rep4_verifica": "Bicordi insieme; biscrome di 12 uguali dopo la corona.",
+   "note": "Belaieff p. 4, sistema 4."
+  },
+  {
+   "id": "scriabin9-2-40-41",
+   "brano": "scriabin9-2",
+   "battute": "40-41",
+   "titolo": "Figure in alto e accordi in chiave di violino",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "40: come 13 (figure di semicrome in alto, accordi sotto). 41: le figure salgono e gli accordi sotto passano in chiave di violino; il basso torna in chiave di basso in fondo.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 41.",
+     "rep3": "DIN: canto del tenore sopra le figure."
+    }
+   },
+   "rep4_verifica": "Come 13-14; il cambio di registro di 41 senza buchi.",
+   "note": "Belaieff p. 6, sistema 5."
+  },
+  {
+   "id": "scriabin9-2-42-43",
+   "brano": "scriabin9-2",
+   "battute": "42-43",
+   "titolo": "Accordi con biscrome e rit.",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "42: accordo con biscrome e basso grave, come 15. 43: accordi in alto a crome puntate, rit., e arpeggio del basso che sale verso il p di 44.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto al basso grave.",
+     "rep3": "RIT sulle biscrome."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 43.",
+     "rep3": "DIN: rit. e dim. verso il p."
+    }
+   },
+   "rep4_verifica": "Biscrome in tempo; rit. graduale.",
+   "note": "Belaieff p. 6 sistema 5 – p. 7 sistema 1."
+  },
+  {
+   "id": "scriabin9-2-44-45",
+   "brano": "scriabin9-2",
+   "battute": "44-45",
+   "titolo": "Arpeggi che passano in chiave di violino",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "44 p: canto in alto (La, Sol, La) e arpeggi di semicrome che salgono dal grave fino in chiave di violino. 45: come 44 sul Fa e Re bemolle, l'arpeggio arriva all'8va.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi legati dal grave all'acuto; il canto resta sopra.",
+   "note": "Belaieff p. 7, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-46-47",
+   "brano": "scriabin9-2",
+   "battute": "46-47",
+   "titolo": "Crome tra le chiavi e accordo pieno",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "46: accordi in alto e crome del basso che saltano tra chiave di basso e di violino, fino all'8va. 47: accordo pieno in alto, poi arpeggio di semicrome che sale da sotto.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salti di 46 senza guardare.",
+     "rep3": "DIN: crome leggere, accordi sopra."
+    },
+    "2": {
+     "rep2": "BLOC sull'accordo di 47.",
+     "rep3": "CHUNK: arpeggio di 47 in due gesti."
+    }
+   },
+   "rep4_verifica": "Salti di 46 in tempo; accordo di 47 insieme.",
+   "note": "Belaieff p. 7, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-48-49",
+   "brano": "scriabin9-2",
+   "battute": "48-49",
+   "titolo": "Canto e arpeggi all'8va",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "48: canto (La, Sol, La) con arpeggi di semicrome che salgono. 49: canto sul Fa e Re bemolle, arpeggio fino all'8va con forcella.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Come 44-45.",
+   "note": "Belaieff p. 7, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-2-50-51",
+   "brano": "scriabin9-2",
+   "battute": "50-51",
+   "titolo": "Accordi in salita e inizio del legato",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "50: accordi a crome che salgono e bassi a crome tra le chiavi, all'8va. 51 legato: discesa di biscrome dall'acuto e salita ad arpeggio, primo trillo.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 50.",
+     "rep3": "CHUNK: discesa e salita di 51 separate."
+    },
+    "2": {
+     "rep2": "CIECO: salti di 50 senza guardare.",
+     "rep3": "DIN: legato pp."
+    }
+   },
+   "rep4_verifica": "Accordi di 50 insieme; biscrome di 51 uguali e legate.",
+   "note": "Belaieff p. 7, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-52-53",
+   "brano": "scriabin9-2",
+   "battute": "52-53",
+   "titolo": "Trilli e onda finale pp smorz.",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "52: discese e salite di biscrome con trilli, all'8va. 53 pp: trillo e onda di biscrome legate che si spegne (smorz.).",
+   "andate": {
+    "1": {
+     "rep2": "RIT sulle biscrome.",
+     "rep3": "DIN: pp e smorz. graduale."
+    },
+    "2": {
+     "rep2": "ACC: l'onda di 53 in un gesto.",
+     "rep3": "CHUNK: trilli separati dal resto."
+    }
+   },
+   "rep4_verifica": "Trilli regolari; smorz. senza rallentare troppo.",
+   "note": "Belaieff p. 7, sistema 4."
+  },
+  {
+   "id": "scriabin9-2-54-57",
+   "brano": "scriabin9-2",
+   "battute": "54-57",
+   "titolo": "Ad libitum e accordi finali",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "54 ad libitum, mf cresc.: accordi con acciaccature nel basso che salgono, poi ppp e corona. 55: arpeggio di semicrome dal grave all'acuto. 56: nota acuta e accordo. 57: accordo finale tenuto. (Ultimo gruppo di due unito al penultimo.)",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 54.",
+     "rep3": "DIN: cresc. e poi ppp subito."
+    },
+    "2": {
+     "rep2": "CHUNK: arpeggio di 55 in due gesti.",
+     "rep3": "MENT: accordo finale, ascolto prima di suonare."
+    }
+   },
+   "rep4_verifica": "Contrasto mf-ppp netto; arpeggio di 55 continuo; accordo finale insieme.",
+   "note": "Belaieff p. 7, sistema 5."
   }
  ],
  "priorita": [
@@ -8169,6 +8963,84 @@
    "frammenti": [
     "chopin25-7-29-36",
     "chopin25-7-57-59"
+   ]
+  },
+  {
+   "id": "scriabin9-1-fam-canto",
+   "nome": "Canto sopra le crome ribattute",
+   "frammenti": [
+    "scriabin9-1-1-4",
+    "scriabin9-1-17-22"
+   ]
+  },
+  {
+   "id": "scriabin9-1-fam-salti",
+   "nome": "Salti tra basso grave e accordi",
+   "frammenti": [
+    "scriabin9-1-9-12",
+    "scriabin9-1-13-16"
+   ]
+  },
+  {
+   "id": "scriabin9-1-fam-arpeggi",
+   "nome": "Arpeggi larghi del basso",
+   "frammenti": [
+    "scriabin9-1-5-8",
+    "scriabin9-1-23-26",
+    "scriabin9-1-27-30",
+    "scriabin9-1-31-34"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-arpeggi",
+   "nome": "Canto sopra gli arpeggi larghi",
+   "frammenti": [
+    "scriabin9-2-1-2",
+    "scriabin9-2-9-10",
+    "scriabin9-2-28-29",
+    "scriabin9-2-36-37",
+    "scriabin9-2-44-45",
+    "scriabin9-2-46-47",
+    "scriabin9-2-48-49"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-salti",
+   "nome": "Salti tra figure in alto e accordi sotto",
+   "frammenti": [
+    "scriabin9-2-3-4",
+    "scriabin9-2-5-6",
+    "scriabin9-2-7-8",
+    "scriabin9-2-11-12",
+    "scriabin9-2-13-14",
+    "scriabin9-2-15-16",
+    "scriabin9-2-30-31",
+    "scriabin9-2-32-33",
+    "scriabin9-2-34-35",
+    "scriabin9-2-38-39",
+    "scriabin9-2-40-41",
+    "scriabin9-2-42-43"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-accordi",
+   "nome": "Accordi ribattuti e accordi pieni",
+   "frammenti": [
+    "scriabin9-2-17-18",
+    "scriabin9-2-19-20",
+    "scriabin9-2-21-22",
+    "scriabin9-2-23-24",
+    "scriabin9-2-25-26"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-cadenza",
+   "nome": "Cadenze e passaggi all'8va",
+   "frammenti": [
+    "scriabin9-2-27-27",
+    "scriabin9-2-50-51",
+    "scriabin9-2-52-53",
+    "scriabin9-2-54-57"
    ]
   }
  ],
