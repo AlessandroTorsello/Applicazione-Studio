@@ -49,7 +49,9 @@ assert all(x['famiglia'] is None or x['famiglia'] in noti for x in frammenti), '
 assert all(i in noti for g in famiglie for i in g['frammenti']), 'frammento sconosciuto in una famiglia'
 # i brani del file base che non hanno ancora un'analisi restano in fondo, incompleti
 resto = [b for b in base['brani'][1:] if b['id'] not in {x['id'] for x in brani}]
-out['brani'] = brani + resto; out['frammenti'] = frammenti; out['famiglie'] = famiglie
+# 3.7.1: «Altro», brano senza frammenti per segnare il tempo di tutto il resto (sessione libera, circuito libero, a mano)
+altro = {'id': 'altro', 'nome': 'Altro', 'completo': False, 'solo_tempo': True}
+out['brani'] = brani + resto + [altro]; out['frammenti'] = frammenti; out['famiglie'] = famiglie
 # Metodo, versione 3: le regole dello slot riscritte sostituiscono quelle del file base (le altre restano);
 # metrica e priorità di resistenza entrano in ogni brano; il resto (errori, voto, avvisi, regole) sta in «metodo».
 metodo = leggi('metodo_v3.json')

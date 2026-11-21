@@ -373,3 +373,6 @@ details.avv>summary{color:var(--accent);font-weight:600}
 .card.nt .fmeta{margin:0 0 2px}
 .tg.st{margin-bottom:6px;font-weight:500}
 .tg.st input{flex:0 0 auto}
+.sugg{margin:-4px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
+.sugg p{margin:4px 0 8px;font-size:var(--t-sm)}
+.sugg .sigrow{margin:0}

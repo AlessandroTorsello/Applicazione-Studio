@@ -19,9 +19,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
 
   await p.goto(U); await w();
   const cat = await p.evaluate(() => ({ brani: CATALOGO.brani.map(x => [x.id, x.completo, (x.priorita || []).length]), n: CATALOGO.frammenti.length, perBrano: CATALOGO.brani.map(x => CATALOGO.frammenti.filter(f => f.brano === x.id).length) }));
-  ok(JSON.stringify(cat.brani.map(x => x[0])) === JSON.stringify(['op111', 'op111-2', 'mephisto', 'scriabin28', 'nabucco', 'rach39-6']), 'sei brani: ' + cat.brani.map(x => x[0]).join(', '));
-  ok(cat.brani.every(x => x[1] === true && x[2] === (x[0] === 'rach39-6' ? 1 : 7)), 'tutti completi, ognuno con le sue 7 priorità (Rachmaninov: una sola, «Da definire»)');
-  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29, 84, 19]) && cat.n === 307, 'frammenti per brano: ' + cat.perBrano.join(', '));
+  ok(JSON.stringify(cat.brani.map(x => x[0])) === JSON.stringify(['op111', 'op111-2', 'mephisto', 'scriabin28', 'nabucco', 'rach39-6', 'altro']), 'sei brani più «Altro»: ' + cat.brani.map(x => x[0]).join(', '));
+  ok(cat.brani.filter(x => x[0] !== 'altro').every(x => x[1] === true && x[2] === 7), 'tutti completi, ognuno con le sue 7 priorità («Altro» escluso: solo tempo)');
+  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29, 84, 19, 0]) && cat.n === 307, 'frammenti per brano: ' + cat.perBrano.join(', '));
   const refs = await p.evaluate(() => { const ids = new Set(CATALOGO.frammenti.map(f => f.id)), fam = new Set(CATALOGO.famiglie.map(f => f.id)), br = new Set(CATALOGO.brani.map(x => x.id));
     return { fam: CATALOGO.frammenti.filter(f => f.famiglia && !fam.has(f.famiglia)).length, fr: CATALOGO.famiglie.flatMap(g => g.frammenti).filter(i => !ids.has(i)).length, br: CATALOGO.frammenti.filter(f => !br.has(f.brano)).length,
       sig: [...new Set(JSON.stringify(CATALOGO.frammenti).match(/\b(?:[A-Z]{3,})\b/g))].filter(s => !C.S.has(s) && !['III', 'VII', 'MAX'].includes(s)) }; });

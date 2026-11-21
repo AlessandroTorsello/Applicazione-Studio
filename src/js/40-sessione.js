@@ -186,7 +186,7 @@ SCREENS.run = () => {
     <div class="repnum">${r === 1 && !prima ? 'Contesto' : 'Rep ' + r}<small>${r === 1 && !prima ? esc(contestoBatt(f) || '±2 battute') + ' · 85-90%' : 'di 4'}</small></div>
     ${r > 1 && S.cur.voto != null ? `<p class="diag">Test di oggi: voto ${fmtV(S.cur.voto)}</p>` : ''}
     ${eTest ? `<p class="diag">Rep 1 è il test del giorno · ${esc(votoTesto(fid) || 'primo voto')}</p>` : ''}
-    ${x ? `<div class="vrow"><span>Variante di Rep ${r} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>` : ''}
+    ${x ? `<div class="vrow"><span>Variante di Rep ${r} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>${suggRiga(S, f, r)}` : ''}
     ${avvisi}
     ${istruzioni(r === 1 ? (prima ? 'Istruzioni di Rep 1' : 'Istruzioni della Rep di contesto') : x ? titoloIstr('Rep ' + r, x) : 'Istruzioni di Rep 4', body)}
     <div class="toggles">

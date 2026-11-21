@@ -38,6 +38,7 @@ const ACT = {
   frmerge: el => unisciFrammento(el.dataset.id),
   dvmodo: el => { if (DV) { DV.modo = el.dataset.v; render(); } },
   ctrlpiu: () => ctrlPiu(),
+  usasugg: el => { const S = D.sessione_aperta; if (!S || !S.circuiti[S.pos.c]) return; const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento; vinc(S, fid)['r' + el.dataset.rep] = el.dataset.s; save(); render(); toast('Variante: ' + el.dataset.s); },
   consolida: el => { const y = window.scrollY; setStatoFr(el.dataset.id, 'consolidato'); render(); window.scrollTo(0, y); toast('Passato ai consolidati: bb. ' + frLabel(el.dataset.id)); },
   riportanuovi: el => { setStatoFr(el.dataset.id, 'nuovo'); render(); toast('Di nuovo tra i nuovi: bb. ' + frLabel(el.dataset.id)); },
   regge: el => { esitoNuovo(el.dataset.id, true); render(); toast('Regge: bb. ' + frLabel(el.dataset.id) + ' è consolidato'); },

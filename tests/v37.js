@@ -129,6 +129,22 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const nuovoId = await p.evaluate(() => D.frammenti_utente.find(f => f.battute === '200-204').id);
   ok(await p.evaluate(id => eNuovo(id), nuovoId), 'frammento aggiunto a mano a un brano consolidato: parte nuovo');
 
+  /* --- 3.7.1: Rachmaninov con analisi, «Altro», suggerimento in vista --- */
+  const rc = await p.evaluate(() => { const l = C.frammenti.filter(f => f.brano === 'rach39-6'); return { n: l.length, testi: l.every(f => f.nodo_motorio && f.andate['1'].rep2 && f.andate['2'].rep3 && f.rep4_verifica && f.titolo), prio: prioDi('rach39-6').length, fam: C.famiglie.filter(g => g.id.startsWith('rach39-6')).length }; });
+  ok(rc.n === 19 && rc.testi && rc.prio === 7 && rc.fam === 6, 'Rachmaninov: 19 frammenti con testi, 7 priorità, 6 famiglie');
+  await p.evaluate(() => { D.sessione_aperta = null; startFree(['altro']); }); await w(700);
+  ok((await txt('.cur-b')) === 'Altro' && !(await p.locator('[data-act="studiati"]').count()), '«Altro» in sessione libera, senza passaggi nuovi');
+  await p.evaluate(() => { D.sessione_aperta = null; save(); });
+  await p.goto(U + '#select'); await w();
+  ok(!(await p.locator('details.acc[data-brano="altro"]').count()), '«Altro» non compare nella scelta dei passaggi');
+  await p.evaluate(A => { D.bozza.circuiti = [{ andate: 3, slot: [A] }]; D.bozza.selezionati = [A]; startSession(); D.sessione_aperta.pos.r = 3; save(); render(); }, A); await w(700);
+  ok(await p.locator('.sugg').count() === 1 && (await txt('.sugg')).includes('andata 1'), 'Rep 3: il suggerimento del catalogo per l\'andata 1 è in vista');
+  await shot('rep3-suggerimento');
+  const s0 = await p.locator('.sugg [data-act="usasugg"]').first().getAttribute('data-s');
+  await p.locator('.sugg [data-act="usasugg"]').first().click(); await w();
+  ok((await txt('.vrow')).includes(s0), 'toccando la sigla suggerita diventa la variante di Rep 3: ' + s0);
+  await p.evaluate(() => { D.sessione_aperta = null; save(); });
+
   /* --- 7. testi --- */
   await p.goto(U + '#rules/metodo'); await w();
   ok((await txt('#metodo')).includes('Frammenti nuovi e consolidati') && (await txt('#metodo')).includes('Studiare un passaggio nuovo'), 'Sigle e regole: voce aggiornata e indicazioni per la sessione libera');

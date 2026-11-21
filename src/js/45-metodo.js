@@ -211,6 +211,18 @@ function vincLogTesto(l) {
   if ((!a || a === LIBERO) && (!b || b === LIBERO)) return 'nessuna variante';
   return `Rep 2: ${varianteNome(a)}` + (b ? ` · Rep 3: ${varianteNome(b)}` : '');
 }
+/* 3.7.1: il suggerimento del catalogo per l'andata in corso torna in vista nella Rep 2 e nella Rep 3, con le sue sigle
+   da toccare per usarle. Resta un suggerimento: la variante la scegli tu (regola della 3.5). */
+function suggAndata(f, a, rep) {
+  const ks = coppie(f).filter(k => ((f.andate || {})[k] || {})['rep' + rep]); if (!ks.length) return null;
+  const k = ks.includes(String(a)) ? String(a) : ks[(a - 1) % ks.length], t = f.andate[k]['rep' + rep];
+  return { k, t, sigle: sigleIn(t) };
+}
+function suggRiga(S, f, rep) {
+  const g = suggAndata(f, S.pos.a, rep); if (!g) return '';
+  const cur = varianteDi(S, f.id, rep);
+  return `<div class="sugg"><span class="vlabel">Suggerito · andata ${esc(g.k)}</span><p>${fmtText(g.t)}</p>${g.sigle.length ? `<div class="sigrow">${g.sigle.map(x => `<button class="sigpick ${x === cur ? 'on' : ''}" data-act="usasugg" data-rep="${rep}" data-s="${esc(x)}"><b>${esc(x)}</b><span>${x === cur ? 'in uso' : 'usa'}</span></button>`).join('')}</div>` : ''}</div>`;
+}
 /* Scelta della variante di una Rep: nessuna, una sigla (anche partendo dall'errore trovato) o una tecnica tua. */
 function varianteSheet(S, fid, rep, after) {
   const f = fr(fid); if (!f) return;
@@ -220,6 +232,7 @@ function varianteSheet(S, fid, rep, after) {
   openSheet(`<h2>Variante di Rep ${rep}</h2>
     <p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)} · vale anche per le andate dopo</p>
     <button class="btn two ${cur === LIBERO ? 'on' : ''}" data-pick="${LIBERO}"><b>Nessuna variante${cur === LIBERO ? ' (in uso)' : ''}</b><span>Rep ${rep} senza una tecnica particolare</span></button>
+    ${(g => g && g.sigle.length ? `<div class="label" style="margin-top:12px">Suggerite dal catalogo · andata ${esc(g.k)}</div><div class="sigrow">${g.sigle.map(sigBtn).join('')}</div>` : '')(S.pos ? suggAndata(f, S.pos.a, rep) : null)}
     <details class="sub2"><summary>Suggerimenti dall'errore trovato</summary><div>${errs.map(e => `<div class="errsug"><span>${esc(e.errore)}</span><div class="sigrow">${e.sigle.map(sigBtn).join('')}</div></div>`).join('')}</div></details>
     <div class="label" style="margin-top:12px">Tutte le sigle</div>
     <div class="sigrow">${C.sigle.map(s => sigBtn(s.sigla)).join('')}</div>
