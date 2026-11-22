@@ -25,6 +25,13 @@ AGGIUNTE = [
     # Due estratti (Sinfonia e concertato) in un solo brano: le battute ripartono da 1 nel concertato,
     # l'app li distingue dal prefisso del titolo («Sinfonia · …», «Concertato · …»).
     ('dati_nabucco.json', 'nabucco', 'nabucco', "Verdi, Nabucco: Sinfonia e concertato «S'appressan gl'istanti»", None),
+    # 3.7.1: solo la divisione in frammenti di Alessandro, senza testi; brano nuovo.
+    ('dati_rach39_6.json', 'rach39-6', 'rach39-6', 'Rachmaninov, Études-tableaux op. 39 n. 6', None),
+    ('dati_rach23_6.json', 'rach23-6', 'rach23-6', 'Rachmaninov, Preludio op. 23 n. 6', None),
+    ('dati_chopin25_7.json', 'chopin25-7', 'chopin25-7', 'Chopin, Studio op. 25 n. 7', None),
+    # 3.7.1: due brani sotto un gruppo («gruppo» in metodo_v3.json)
+    ('dati_scriabin9_1.json', 'scriabin9-1', 'scriabin9-1', 'Scriabin, Preludio op. 9 n. 1', None),
+    ('dati_scriabin9_2.json', 'scriabin9-2', 'scriabin9-2', 'Scriabin, Notturno op. 9 n. 2', None),
 ]
 leggi = lambda f: json.load(open(os.path.join(data, f), encoding='utf-8'))
 base = leggi(BASE)
@@ -47,7 +54,9 @@ assert all(x['famiglia'] is None or x['famiglia'] in noti for x in frammenti), '
 assert all(i in noti for g in famiglie for i in g['frammenti']), 'frammento sconosciuto in una famiglia'
 # i brani del file base che non hanno ancora un'analisi restano in fondo, incompleti
 resto = [b for b in base['brani'][1:] if b['id'] not in {x['id'] for x in brani}]
-out['brani'] = brani + resto; out['frammenti'] = frammenti; out['famiglie'] = famiglie
+# 3.7.1: «Altro», brano senza frammenti per segnare il tempo di tutto il resto (sessione libera, circuito libero, a mano)
+altro = {'id': 'altro', 'nome': 'Altro', 'completo': False, 'solo_tempo': True}
+out['brani'] = brani + resto + [altro]; out['frammenti'] = frammenti; out['famiglie'] = famiglie
 # Metodo, versione 3: le regole dello slot riscritte sostituiscono quelle del file base (le altre restano);
 # metrica e priorità di resistenza entrano in ogni brano; il resto (errori, voto, avvisi, regole) sta in «metodo».
 metodo = leggi('metodo_v3.json')

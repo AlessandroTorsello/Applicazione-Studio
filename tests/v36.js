@@ -23,7 +23,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const hash = () => p.evaluate(() => decodeURIComponent(location.hash));
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '3.6.0', 'versione 3.6.0');
+  ok(await p.evaluate(() => APP_VERSION) === '3.8.0', 'versione 3.8.0 (suite della 3.6)');
 
   /* --- 1. slot e andate scritti a mano --- */
   await p.click('[data-act="nuova"]'); await w();
@@ -38,7 +38,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await shot('nuova-7-slot-8-andate');
   await p.click('[data-act="newgo"]'); await w();
   const ids = await p.evaluate(() => C.frammenti.filter(f => f.brano === 'op111').slice(0, 8).map(f => f.id));
-  for (const id of ids) await p.check(`input[data-sel="${id}"]`);
+  for (const id of ids) await p.check(`details.acc input[data-sel="${id}"]`);
   await w(200);
   ok((await txt('#selnote')).includes('8 passaggi scelti · 2 circuiti da 7 slot'), 'selezione: circuiti da 7 slot (' + await txt('#selnote') + ')');
   await p.click('#gocompose'); await w();

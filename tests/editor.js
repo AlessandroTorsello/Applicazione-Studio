@@ -1,4 +1,5 @@
 /* Controlli sulla 3.1: Nabucco nel catalogo, brani nuovi e consolidati (slot di controllo), editor di brani e frammenti.
+   3.7: lo stato è per frammento e i nuovi non entrano nei circuiti; lo slot di controllo si prova su una sessione aperta prima dell'aggiornamento.
    Uso: node tests/editor.js [cartella-screenshot] */
 const { chromium } = require('playwright');
 const path = require('path');
@@ -43,8 +44,10 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok((await txt('.card:has(#sb)')).includes('15 frammenti') && (await p.locator('#sda option').count()) === 15, 'estratto del concertato: 15 frammenti');
   await shot('prova-estratti');
 
-  /* --- 2. brano nuovo: slot di controllo con varianti scelte da te --- */
-  await avvia([N1, A]);
+  /* --- 2. slot di controllo (sessione aperta con la 3.6) con varianti scelte da te --- */
+  await p.evaluate(([N1, A]) => { D.stato_frammenti[N1] = 'consolidato'; D.sessione_aperta = null; D.bozza.circuiti = [{ andate: 3, slot: [N1, A] }]; D.bozza.selezionati = [N1, A]; startSession();
+    D.sessione_aperta.circuiti[0].slot[0].ctrl = true; delete D.stato_frammenti[N1]; save(); render(); }, [N1, A]);
+  await w(700);
   ok(/Ripetizione 1/i.test(await txt('.repnum')) && (await txt('.repnum')).includes('5-7'), 'brano nuovo: ripetizione 1 di 5-7');
   ok((await txt('.diag')).includes('50-65%') && /Variante A/.test(await txt('.vrow')) && /nessuna/i.test(await txt('.vrow')), 'ripetizione 1: variante A, si parte da nessuna; controllo al 50-65%');
   await p.click('[data-act="vincolo"]'); await w(); await p.locator('.sheet .sigpick[data-pick="MET"]').last().click(); await w();
@@ -73,17 +76,17 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(d.sessioni[d.sessioni.length - 1].log[0].bpm_rep2 === 70 && !(await txt('main')).includes('senza errori'), 'bpm salvati al secondo passaggio; riepilogo senza «senza errori»: ' + JSON.stringify(d.sessioni[d.sessioni.length - 1].log[0]) + ' ' + (await txt('main')).slice(0, 600));
   await shot('controllo-riepilogo');
   await p.goto(U + '#brano/nabucco'); await w();
-  ok(!(await txt('main')).includes('reggono'), '3.5: nella scheda del brano niente conteggio «reggono»');
+  ok(!(await txt('main')).includes('reggono') && (await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 84 consolidati 0'), 'scheda del brano: 84 nuovi, 0 consolidati');
   await shot('brano-nuovo');
-  // passaggio a consolidato
-  await p.click('[data-act="stato"][data-v="consolidato"]'); await w();
-  ok((await D()).stato.nabucco === 'consolidato' && (await txt('.top .sub')).includes('consolidato'), 'il brano passa a consolidato');
+  // 3.7: passaggio a consolidato del singolo frammento
+  await p.click(`[data-act="consolida"][data-id="${N1}"]`); await w();
+  ok((await D()).stato_frammenti[N1] === 'consolidato' && (await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 83 consolidati 1'), 'un frammento passa ai consolidati');
   await shot('brano-consolidato');
   await avvia([N1]);
   ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'consolidato: slot da 4 Rep con il test del giorno');
   await fatto(); await p.fill('#r1voto', '5,5'); await p.click('#r1ok'); await w();
   ok((await D()).sessione_aperta.cur.voto === 5.5 && (await p.evaluate(id => daRipassare().some(f => f.id === id), N1)) && /nessuna/i.test(await txt('.vrow')), 'consolidato: il voto 5,5 (sotto 6) lo mette in «Da ripassare»; Rep 2 parte senza variante');
-  await p.evaluate(() => { D.sessione_aperta = null; setStato('nabucco', 'nuovo'); });
+  await p.evaluate(N1 => { D.sessione_aperta = null; setStatoFr(N1, 'nuovo'); }, N1);
 
   /* --- 3. editor: brano nuovo, divisione in frammenti --- */
   await p.goto(U + '#settings'); await w();
@@ -130,11 +133,12 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   // selezione: elenco semplice in ordine di battuta, e una sessione con testi vuoti
   await p.goto(U + '#select'); await w();
   await p.click(`details.acc[data-brano="${bid}"] summary`); await w();
-  ok(await p.locator(`details.acc[data-brano="${bid}"] .frow`).count() === 6 && !(await p.locator(`details.acc[data-brano="${bid}"] .prio`).count()) && (await txt(`details.acc[data-brano="${bid}"] summary`)).includes('nuovo'), 'selezione: brano aggiunto, elenco semplice, etichetta «nuovo»');
+  ok(await p.locator(`details.acc[data-brano="${bid}"] .frow`).count() === 0 && (await txt(`details.acc[data-brano="${bid}"] summary`)).toLowerCase().includes('6 nuovi') && (await p.locator(`details.acc[data-brano="${bid}"] .accbody`).textContent()).includes('sessione libera'), '3.7 selezione: brano aggiunto, frammenti tutti nuovi e fuori dai circuiti');
   await shot('selezione-brano-aggiunto');
   const u2 = await p.evaluate(b => tuttiDi(b)[1].id, bid);
+  await p.evaluate(id => setStatoFr(id, 'consolidato'), u2);
   await avvia([u2]);
-  ok(/Ripetizione 1/i.test(await txt('.repnum')) && /nessuna/i.test(await txt('.vrow')), 'frammento senza testi: lo slot di controllo funziona lo stesso');
+  ok(/Rep 1/.test(await txt('.repnum')), 'frammento senza testi, consolidato: lo slot da 4 Rep funziona lo stesso');
   await p.evaluate(() => { D.sessione_aperta = null; save(); });
 
   /* --- 5. frammenti del catalogo: modifica, ripristino, nascondi --- */
@@ -168,7 +172,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on .news')).includes('3.1'), 'chi arriva dalla 3.0 vede le novità della 3.1');
   await shot('novita-31');
   d = await D();
-  ok(d.impostazioni.visto_versione === '3.6.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato.nabucco === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
+  ok(d.impostazioni.visto_versione === '3.8.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato_frammenti['nabucco-sinfonia-1-4'] === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
   await p.reload(); await w(900);
   ok(!(await p.locator('.sheet.on').count()), 'al secondo avvio le novità non tornano');
 

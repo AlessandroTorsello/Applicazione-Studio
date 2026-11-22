@@ -55,6 +55,19 @@ details.acc>summary::-webkit-details-marker{display:none}
 details.acc>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
 details.acc[open]>summary::after{transform:rotate(180deg)}
 details.acc>summary .grow{flex:1}
+details.sez{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 14px;overflow:hidden}
+details.sez>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;font-weight:700;font-size:var(--t-md)}
+details.sez>summary::-webkit-details-marker{display:none}
+details.sez>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
+details.sez[open]>summary::after{transform:rotate(180deg)}
+details.sez>summary .grow{flex:1}
+details.grp{margin:0 0 14px}
+details.grp>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 4px;font-weight:700;font-size:var(--t-md);cursor:pointer}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
+details.grp[open]>summary::after{transform:rotate(180deg)}
+details.grp>summary .grow{flex:1}
+.grpbody{padding-left:12px;border-left:2px solid var(--line);margin-left:4px}
 .accbody{padding:0 12px 12px}
 .prio{border-top:1px solid var(--line);padding:12px 4px 4px}
 .prio h3{font-size:var(--t-md);display:flex;gap:10px;align-items:baseline}
@@ -367,3 +380,12 @@ details.avv>summary{color:var(--accent);font-weight:600}
 .circh{flex-wrap:wrap}
 .circh h3{flex:1 1 100%}
 .circh .seg button{padding:8px 12px}
+/* 3.7: frammenti nuovi e consolidati */
+.frow .btn.cons{align-self:center;margin:0;padding:6px 12px;font-size:var(--t-sm);flex:0 0 auto}
+.card.nt .fbody{padding:0;width:100%}
+.card.nt .fmeta{margin:0 0 2px}
+.tg.st{margin-bottom:6px;font-weight:500}
+.tg.st input{flex:0 0 auto}
+.sugg{margin:-4px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
+.sugg p{margin:4px 0 8px;font-size:var(--t-sm)}
+.sugg .sigrow{margin:0}

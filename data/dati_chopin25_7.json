@@ -1,0 +1,241 @@
+{
+ "versione": 2,
+ "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Henle (Studi, pp. 93-96), da verificare al pianoforte.",
+ "brani": [
+  {
+   "id": "chopin25-7",
+   "nome": "Chopin, Studio op. 25 n. 7",
+   "completo": true
+  }
+ ],
+ "frammenti": [
+  {
+   "id": "chopin25-7-1-8",
+   "brano": "chopin25-7",
+   "battute": "1-8",
+   "titolo": "Recitativo e primo tema",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "Lento, semiminima 66. Prima della b. 1 il recitativo della sola sinistra, p, libero (non numerato: è dentro questo frammento). Poi il tema a due voci: la sinistra canta come un violoncello (Mi in chiave di violino a b. 1, discese a semicrome a 3, salita a sestine con quintina a 4), la destra tiene il soprano sopra crome ribattute pp in accordi. A 7 trillo della sinistra e risposta a semicrome con diteggiatura scritta.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: canto della sinistra da sola, la destra fa i movimenti sui tasti.",
+     "rep3": "DIN: crome ribattute della destra ppp, soprano p, sinistra mf cantabile."
+    },
+    "2": {
+     "rep2": "CHUNK: recitativo diviso in tre arcate, poi legato.",
+     "rep3": "ALT: destra sola, soprano legato con le crome staccate leggere sotto."
+    }
+   },
+   "rep4_verifica": "Tre piani distinti (sinistra, soprano, crome interne); crome uguali e mai più forti del canto; recitativo libero ma senza fermate.",
+   "note": "Henle p. 93, recitativo e sistemi 1-3."
+  },
+  {
+   "id": "chopin25-7-9-17",
+   "brano": "chopin25-7",
+   "battute": "9-17",
+   "titolo": "Ripresa del tema e semicrome pp",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "Il tema torna (9-10) e a 11 la sinistra apre un arpeggio pp col pedale, dal Si grave alle semicrome nel registro medio. 14-17: la sinistra passa a semicrome continue sotto la destra che tiene sincopi e crome ribattute; dim. a 14, pp a 15, discesa cromatica a 16.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: 14-17 una battuta alla volta, la sinistra da sola.",
+     "rep3": "DIN: sinistra pp uguale, soprano della destra che canta sopra."
+    },
+    "2": {
+     "rep2": "RIT sulle semicrome di 14-16: lungo-corto e corto-lungo.",
+     "rep3": "CIECO: arpeggio di 11 senza guardare la sinistra."
+    }
+   },
+   "rep4_verifica": "Semicrome della sinistra uniformi e in secondo piano; il soprano lega sopra le crome ribattute.",
+   "note": "Henle p. 93, sistemi 3-5."
+  },
+  {
+   "id": "chopin25-7-18-21",
+   "brano": "chopin25-7",
+   "battute": "18-21",
+   "titolo": "pp e accordi staccati",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "18-19 pp: la sinistra canta (crome puntate, poi semicrome a 19), la destra accordi ribattuti. A 20 la destra sale per accordi staccati (diteggiature 4-3-5-4-5 scritte) col pedale. A 21 inizia il periodo nuovo: terzine, ottava ornata, sinistra con note lunghe.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 20: posizione pronta prima di suonare.",
+     "rep3": "STAC: accordi di 20 staccati e leggeri, pedale solo dove scritto."
+    },
+    "2": {
+     "rep2": "ALT: sinistra sola a 18-19, canto legato.",
+     "rep3": "DIN: 21 cresc. senza accelerare."
+    }
+   },
+   "rep4_verifica": "Accordi di 20 tutti insieme e uguali; pp di 18-19 senza perdere il canto.",
+   "note": "Henle p. 94, sistemi 1-2."
+  },
+  {
+   "id": "chopin25-7-22-28",
+   "brano": "chopin25-7",
+   "battute": "22-28",
+   "titolo": "Volate della sinistra fino al fff",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-volate",
+   "nodo_motorio": "22: la sinistra parte con una volata di biscrome (accenti, terzine e sestine, fino in chiave di violino), 24 di nuovo a biscrome. 25 f con trillo della sinistra. 26: sinistra a biscrome cromatiche (gruppi di 14 e di 6) in crescendo con diteggiature scritte. 27 fff, ritenuto: grande scala cromatica della sinistra su e giù, sotto gli accordi della destra. 28 fz p, poi pp.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: le volate di 22 e 24 divise in gruppi di 3 e 6, ognuno fermo sulla nota d'arrivo.",
+     "rep3": "RIT sulle biscrome di 26: per gruppi di quattro."
+    },
+    "2": {
+     "rep2": "ACC: la volata di 27 si suona come un gesto unico; la destra entra dopo.",
+     "rep3": "DIN: 26 crescendo fino al fff di 27 senza irrigidire il polso."
+    }
+   },
+   "rep4_verifica": "Volate senza buchi e senza accelerare all'arrivo; fff di 27 pieno ma non duro; 28 subito p.",
+   "note": "Henle p. 94, sistemi 2-5."
+  },
+  {
+   "id": "chopin25-7-29-36",
+   "brano": "chopin25-7",
+   "battute": "29-36",
+   "titolo": "Arpeggi della sinistra col pedale",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-arpeggi",
+   "nodo_motorio": "La sinistra suona in ogni battuta una figura a semicrome che scende per arpeggio e risale con una crome puntata (pedale a ogni battuta, scritto). La destra tiene il soprano lungo sopra accordi ribattuti. 32: discesa della sinistra in biscrome fino al grave. 35 ppp, 36 smorz. con corona.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle posizioni dell'arpeggio della sinistra, battuta per battuta.",
+     "rep3": "DIN: pedale come scritto, cambio pulito a ogni battuta, senza buchi."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola, la destra muta sui tasti.",
+     "rep3": "DIN: ppp di 35 tenendo il soprano."
+    }
+   },
+   "rep4_verifica": "Arpeggi della sinistra legati e senza accenti sui cambi di posizione; pedale pulito; ppp vero a 35.",
+   "note": "Henle p. 95, sistemi 1-2."
+  },
+  {
+   "id": "chopin25-7-37-44",
+   "brano": "chopin25-7",
+   "battute": "37-44",
+   "titolo": "Transizione pp e poco ritenuto",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "37-39: la destra a crome ribattute con soprano, la sinistra canta con trillo a 37 e risposta ornata. 40 pausa della destra, pp: la sinistra sola a semicrome. 41-44: crome ribattute della destra, sinistra cantabile (ten. a 43), pp poco ritenuto a 44.",
+   "andate": {
+    "1": {
+     "rep2": "ALT: sinistra sola a 40-41, poi con la destra.",
+     "rep3": "DIN: crome della destra pp, sinistra p."
+    },
+    "2": {
+     "rep2": "CHUNK: 37-39 e 41-44 separati, poi uniti attraverso 40.",
+     "rep3": "RIT nel trillo di 37: numero di note fisso."
+    }
+   },
+   "rep4_verifica": "Il trillo non rallenta il tempo; 40 legata alla battuta dopo; poco ritenuto senza perdere il pp.",
+   "note": "Henle p. 95, sistemi 3-4."
+  },
+  {
+   "id": "chopin25-7-45-56",
+   "brano": "chopin25-7",
+   "battute": "45-56",
+   "titolo": "Ripresa fz e volata in crescendo",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-volate",
+   "nodo_motorio": "45 fz: torna il tema, la sinistra canta nel registro alto. 50-51: arpeggi in terzine e trillo della sinistra. 52: lunga volata della sinistra dal grave all'acuto (terzine, diteggiature scritte), crescendo, sotto gli accordi della destra. 53 fz, 55 trillo e salto della sinistra; 56 accento e discesa al grave.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: la volata di 52 in gruppi di tre, fermi sulla prima nota di ogni gruppo.",
+     "rep3": "DIN: fz di 45 e di 53 come accento, poi subito p."
+    },
+    "2": {
+     "rep2": "ACC: volata di 52 in un gesto, arrivo sul tempo.",
+     "rep3": "ALT: sinistra sola 50-56."
+    }
+   },
+   "rep4_verifica": "La volata arriva sul tempo di 53 senza strappare; trillo di 55 regolare; il canto della sinistra resta legato.",
+   "note": "Henle p. 95 sistema 4 – p. 96 sistema 2."
+  },
+  {
+   "id": "chopin25-7-57-59",
+   "brano": "chopin25-7",
+   "battute": "57-59",
+   "titolo": "Semicrome della sinistra sotto le sincopi",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-arpeggi",
+   "nodo_motorio": "La sinistra suona semicrome continue (57-58), con diteggiature scritte, salendo e scendendo; la destra tiene sincopi legate sopra crome ribattute. 59: la sinistra in terzine di semicrome, poi crome puntate.",
+   "andate": {
+    "1": {
+     "rep2": "RIT sulle semicrome della sinistra.",
+     "rep3": "DIN: sinistra p uguale, soprano della destra sopra."
+    },
+    "2": {
+     "rep2": "CIECO: sinistra senza guardare.",
+     "rep3": "MUTA: destra sola, sincopi legate."
+    }
+   },
+   "rep4_verifica": "Semicrome uguali e legate; nessun accento sui cambi di posizione.",
+   "note": "Henle p. 96, sistemi 3-4."
+  },
+  {
+   "id": "chopin25-7-60-68",
+   "brano": "chopin25-7",
+   "battute": "60-68",
+   "titolo": "Coda: f, smorzando e accordi finali",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "60-62 pp: crome ribattute della destra, la sinistra a semicrome; ritenuto a 62. 63 f ten.: la sinistra suona accordi a due voci con il basso che si muove (dim.). 64-66: sinistra ad accordi e basso, smorzando, corone. 66-68: accordi finali pp col pedale, ultima corona.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi della sinistra di 63-65.",
+     "rep3": "DIN: f di 63 e dim. fino al pp di 66."
+    },
+    "2": {
+     "rep2": "ALT: sinistra sola 63-66, basso legato sotto gli accordi.",
+     "rep3": "MENT: accordi finali, ascolto prima di suonare."
+    }
+   },
+   "rep4_verifica": "Basso legato sotto gli accordi della sinistra; smorzando graduale; accordi finali insieme e pp.",
+   "note": "Henle p. 96, sistemi 4-5."
+  }
+ ],
+ "priorita": [
+  {
+   "n": 1,
+   "nome": "Senza priorità",
+   "perche": "Dalla 3.7.1 le priorità non si usano più."
+  }
+ ],
+ "famiglie": [
+  {
+   "id": "chopin25-7-fam-canto",
+   "nome": "Canto della sinistra sopra le crome ribattute",
+   "frammenti": [
+    "chopin25-7-1-8",
+    "chopin25-7-9-17",
+    "chopin25-7-18-21",
+    "chopin25-7-37-44"
+   ]
+  },
+  {
+   "id": "chopin25-7-fam-volate",
+   "nome": "Volate rapide della sinistra",
+   "frammenti": [
+    "chopin25-7-22-28",
+    "chopin25-7-45-56"
+   ]
+  },
+  {
+   "id": "chopin25-7-fam-arpeggi",
+   "nome": "Semicrome e arpeggi della sinistra",
+   "frammenti": [
+    "chopin25-7-29-36",
+    "chopin25-7-57-59"
+   ]
+  }
+ ],
+ "definizioni": {
+  "priorita": "Non usata.",
+  "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+ }
+}

@@ -56,7 +56,7 @@ function giunturaTesto(a, b) {
 }
 
 /* ---- voto in decimi (revisione del 12/11/2026, al posto dei livelli 0-4) ----
-   Dopo la prima Rep 1 del giorno si dà un voto da 0 a 10 sulla metrica del brano. Il voto cala da solo
+   Dopo la prima Rep 1 del giorno si dà un voto da 0 a 10 (pulizia al tempo e suono). Il voto cala da solo
    (VOTO.decadimento punti al giorno); sotto VOTO.soglia il frammento è da ripassare. Il voto si ricava ogni volta
    dal registro (voci con «test» e «voto») e da D.riascolti (voto a mano, prova; «riascolto» solo nei dati della 3.2): eliminare una voce
    o una sessione toglie anche il suo voto, senza altri conti. */
@@ -107,8 +107,8 @@ function votoOggi(S, fid) {
   if (S && S.cur && S.cur.test && S.cur.voto != null) return S.cur.voto;
   const i = infoVoto(fid); return i && i.u.d === todayStr() ? i.u.v : null;
 }
-/* Da ripassare oggi: frammenti già votati con voto attuale sotto 6, nei brani consolidati.
-   Ordine (3.6): voto crescente su tutti i brani, poi priorità; in fondo quelli la cui famiglia è stata studiata da poco. */
+/* Da ripassare oggi: frammenti consolidati già votati con voto attuale sotto 6.
+   Ordine (3.6): voto crescente su tutti i brani, poi brano e battuta (3.7.1: niente priorità); in fondo quelli la cui famiglia è stata studiata da poco. */
 let RIP = new Map();
 function famiglieRecenti() {
   const t = todayStr(), rec = new Set(), studiato = new Set();
@@ -122,12 +122,12 @@ function daRipassare() {
   RIP = new Map();
   const famDi = f => f.famiglia || (C.famiglie.find(g => (g.frammenti || []).includes(f.id)) || {}).id || null;
   C.frammenti.forEach(f => {
-    if (C.hidden.has(f.brano) || statoDi(f.brano) === 'nuovo') return;
+    if (C.hidden.has(f.brano) || eNuovo(f.id)) return;   // 3.7: i nuovi stanno in «Nuovi da testare»
     const i = infoVoto(f.id, M); if (!i || !daRivedere(i.u)) return;
     const fam = famDi(f), r = !!(fam && rec.has(fam) && [...C.frammenti].some(g => g.id !== f.id && famDi(g) === fam && studiato.has(g.id)));
     RIP.set(f.id, { a: i.a, rec: r });
   });
-  return C.frammenti.filter(f => RIP.has(f.id)).sort((a, b) => RIP.get(a.id).rec - RIP.get(b.id).rec || RIP.get(a.id).a - RIP.get(b.id).a || ord.get(a.brano) - ord.get(b.brano) || a.priorita - b.priorita || primaBattuta(a) - primaBattuta(b));
+  return C.frammenti.filter(f => RIP.has(f.id)).sort((a, b) => RIP.get(a.id).rec - RIP.get(b.id).rec || RIP.get(a.id).a - RIP.get(b.id).a || ord.get(a.brano) - ord.get(b.brano) || primaBattuta(a) - primaBattuta(b));   // 3.7.1: senza priorità
 }
 function setVoto(fid, voto, fonte, extra) {
   const t = todayStr(); fonte = fonte || 'riascolto';
@@ -211,6 +211,18 @@ function vincLogTesto(l) {
   if ((!a || a === LIBERO) && (!b || b === LIBERO)) return 'nessuna variante';
   return `Rep 2: ${varianteNome(a)}` + (b ? ` · Rep 3: ${varianteNome(b)}` : '');
 }
+/* 3.7.1: il suggerimento del catalogo per l'andata in corso torna in vista nella Rep 2 e nella Rep 3, con le sue sigle
+   da toccare per usarle. Resta un suggerimento: la variante la scegli tu (regola della 3.5). */
+function suggAndata(f, a, rep) {
+  const ks = coppie(f).filter(k => ((f.andate || {})[k] || {})['rep' + rep]); if (!ks.length) return null;
+  const k = ks.includes(String(a)) ? String(a) : ks[(a - 1) % ks.length], t = f.andate[k]['rep' + rep];
+  return { k, t, sigle: sigleIn(t) };
+}
+function suggRiga(S, f, rep) {
+  const g = suggAndata(f, S.pos.a, rep); if (!g) return '';
+  const cur = varianteDi(S, f.id, rep);
+  return `<div class="sugg"><span class="vlabel">Suggerito · andata ${esc(g.k)}</span><p>${fmtText(g.t)}</p>${g.sigle.length ? `<div class="sigrow">${g.sigle.map(x => `<button class="sigpick ${x === cur ? 'on' : ''}" data-act="usasugg" data-rep="${rep}" data-s="${esc(x)}"><b>${esc(x)}</b><span>${x === cur ? 'in uso' : 'usa'}</span></button>`).join('')}</div>` : ''}</div>`;
+}
 /* Scelta della variante di una Rep: nessuna, una sigla (anche partendo dall'errore trovato) o una tecnica tua. */
 function varianteSheet(S, fid, rep, after) {
   const f = fr(fid); if (!f) return;
@@ -220,6 +232,7 @@ function varianteSheet(S, fid, rep, after) {
   openSheet(`<h2>Variante di Rep ${rep}</h2>
     <p class="small muted" style="margin-top:-6px">bb. ${esc(f.battute)} · vale anche per le andate dopo</p>
     <button class="btn two ${cur === LIBERO ? 'on' : ''}" data-pick="${LIBERO}"><b>Nessuna variante${cur === LIBERO ? ' (in uso)' : ''}</b><span>Rep ${rep} senza una tecnica particolare</span></button>
+    ${(g => g && g.sigle.length ? `<div class="label" style="margin-top:12px">Suggerite dal catalogo · andata ${esc(g.k)}</div><div class="sigrow">${g.sigle.map(sigBtn).join('')}</div>` : '')(S.pos ? suggAndata(f, S.pos.a, rep) : null)}
     <details class="sub2"><summary>Suggerimenti dall'errore trovato</summary><div>${errs.map(e => `<div class="errsug"><span>${esc(e.errore)}</span><div class="sigrow">${e.sigle.map(sigBtn).join('')}</div></div>`).join('')}</div></details>
     <div class="label" style="margin-top:12px">Tutte le sigle</div>
     <div class="sigrow">${C.sigle.map(s => sigBtn(s.sigla)).join('')}</div>
@@ -437,13 +450,14 @@ function provaCard(ses) {
 }
 SCREENS.prova = sid => {
   const ses = D.sessioni.find(s => s.id === sid), e = provaVoce(ses); if (!e) { replaceTo('#history'); return; }
-  const cur = new Set(e.sporchi || []);
+  const cur = new Set(e.sporchi || []), nN = (e.frammenti || []).filter(id => eNuovo(id)).length;   // 3.7: i nuovi non ricevono voti
   app.innerHTML = header('Riascolto della prova', `${branoNome(e.brano)} · ${tratto(e.frammenti || [])}`, '#summary/' + sid) + `<main class="wrap" style="padding-bottom:calc(120px + env(safe-area-inset-bottom))">
     <p class="lead">Riascoltando la registrazione, spunta i frammenti in cui senti un punto sporco. Ricevono voto ${fmtV(VOTO.prova_sporco)} per oggi (se il loro voto attuale è più alto) e compaiono in «Da ripassare oggi».</p>
-    <section class="card">${(e.frammenti || []).map(id => { const f = fr(id); return f ? `<div class="frow"><label class="chk"><input type="checkbox" data-sp="${esc(id)}" ${cur.has(id) ? 'checked' : ''} aria-label="Punto sporco in ${esc(f.battute)}"></label><div class="fbody"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<span class="fmeta">${esc(votoTesto(id) || 'ancora nessun voto')}</span></div></div>` : ''; }).join('')}</section>
+    ${nN ? `<p class="small muted">${nN} ${nN === 1 ? 'frammento nuovo non compare' : 'frammenti nuovi non compaiono'}: non ricevono voti.</p>` : ''}
+    <section class="card">${(e.frammenti || []).map(id => { const f = fr(id); return f && !eNuovo(id) ? `<div class="frow"><label class="chk"><input type="checkbox" data-sp="${esc(id)}" ${cur.has(id) ? 'checked' : ''} aria-label="Punto sporco in ${esc(f.battute)}"></label><div class="fbody"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<span class="fmeta">${esc(votoTesto(id) || 'ancora nessun voto')}</span></div></div>` : ''; }).join('')}</section>
   </main><div class="bar"><div class="inner"><button class="btn primary xl" id="spok">Conferma il riascolto</button></div></div>`;
   $('#spok').addEventListener('click', () => {
-    const sp = $$('input[data-sp]').filter(i => i.checked).map(i => i.dataset.sp), t = todayStr();
+    const sp = $$('input[data-sp]').filter(i => i.checked).map(i => i.dataset.sp).filter(id => !eNuovo(id));
     // una prova si può rivedere: prima si tolgono i voti che questa prova aveva già dato
     D.riascolti = D.riascolti.filter(v => !(v.fonte === 'prova' && v.sid === sid));
     e.sporchi = sp; sp.forEach(id => { const a = votoAttuale((infoVoto(id) || {}).u); if (!infoVoto(id) || a > VOTO.prova_sporco) setVoto(id, VOTO.prova_sporco, 'prova', { sid }); });

@@ -32,7 +32,7 @@ SCREENS.home = () => {
   const today = todayStr(), t = totals(dayLogs(today)), S = D.sessione_aperta;
   const lastExp = D.impostazioni.ultimo_export;
   const needBackup = D.sessioni.length && (!lastExp || (Date.now() - new Date(lastExp).getTime()) > 7 * 864e5);
-  const ch = daysChart(7), last = lastRepeatable(), due = daRipassare();
+  const ch = daysChart(7), last = lastRepeatable(), due = daRipassare(), nt = nuoviDaTestare();
   app.innerHTML = topbar('Summum Studium', fmtDateLong(today)) + `<main class="wrap tabbed">
     ${!storageOk ? `<div class="hint">Questo browser non permette di salvare i dati. Usa l'app installata o un altro browser.</div>` : ''}
     ${needBackup ? `<div class="hint">${lastExp ? 'Ultimo backup più di una settimana fa.' : 'Non hai ancora fatto un backup.'} <button class="link" data-act="export">Salva un backup adesso</button></div>` : ''}
@@ -45,6 +45,9 @@ SCREENS.home = () => {
     ${due.length ? `<section class="card"><div class="cardh"><span class="label">Da ripassare oggi</span><b>${due.length} ${due.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
       <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))} · voto sotto ${fmtV(VOTO.ripasso)}</p>
       <button class="btn" style="margin:0" data-act="ripasso">Scegli i passaggi da ripassare</button></section>` : ''}
+    ${nt.length ? `<section class="card"><div class="cardh"><span class="label">Nuovi da testare</span><b>${nt.length} ${nt.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
+      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(nt.map(f => branoBreve(f.brano)))].join(' · '))} · regge o non regge</p>
+      <button class="btn" style="margin:0" data-act="go" data-h="#nuovi">Testa i passaggi nuovi</button></section>` : ''}
     <button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">+ Aggiungi sessione</button>
     ${last && !S ? `<button class="btn two" data-act="repeat" data-id="${esc(last.id)}"><b>Ripeti l'ultima sessione</b><span>${esc(sesDescr(last))}</span></button>` : ''}
     <section class="card" style="margin-top:4px"><div class="cardh"><span class="label">Ultimi 7 giorni</span><b>${fmtMinRound(ch.tot)}</b></div>${ch.html}
@@ -145,7 +148,8 @@ async function repeatSession(ses) {
     B.cfg.slot = clamp(B.circuiti_lib[0].slot.length, ...LIM.slot); B.cfg.andate = B.circuiti_lib[0].andate;
     save(); go('#composelib'); return;
   }
-  B.circuiti = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, ...LIM.andate), slot: c.slot.map(x => x.frammento).filter(id => fr(id)) })).filter(c => c.slot.length);
+  B.circuiti = ses.circuiti.map(c => ({ andate: clamp(c.andate_previste || 3, ...LIM.andate), slot: c.slot.map(x => x.frammento).filter(id => fr(id) && !eNuovo(id)) })).filter(c => c.slot.length);
+  if (!B.circuiti.length) { toast('In quella sessione c\'erano solo frammenti nuovi'); return; }
   B.selezionati = [...new Set(B.circuiti.flatMap(c => c.slot))];
   B.cfg.slot = clamp(B.circuiti[0].slot.length, ...LIM.slot); B.cfg.andate = B.circuiti[0].andate;
   save(); go('#compose');
@@ -156,7 +160,7 @@ function newBranoSheet(then) {
   let stato = 'nuovo';
   openSheet(`<h2>Nuovo brano</h2>
     <div class="field"><label for="nbn">Nome del brano</label><input type="text" id="nbn" placeholder="es. Chopin, Ballata n. 4" enterkeyhint="done"></div>
-    <div class="optrow" style="border-top:0;padding-top:0"><span><b>Stato</b><br><span class="small muted">si cambia quando vuoi dalla scheda del brano</span></span><div class="seg"><button data-nst="nuovo" class="on">Nuovo</button><button data-nst="consolidato">Consolidato</button></div></div>
+    <div class="optrow" style="border-top:0;padding-top:0"><span><b>Stato</b><br><span class="small muted">di tutti i suoi frammenti, all'inizio</span></span><div class="seg"><button data-nst="nuovo" class="on">Nuovo</button><button data-nst="consolidato">Consolidato</button></div></div>
     <button class="btn primary xl" id="nbok">Aggiungi</button><button class="btn" data-act="closesheet">Annulla</button>`, sh => {
     const inp = $('#nbn', sh);
     const ok = () => {
@@ -265,6 +269,7 @@ function renderFree(S) {
     <div class="label" style="margin-top:22px">Cambia brano</div>
     <div class="bgrid" style="margin-top:8px">${S.brani.map(id => `<button data-act="fswitch" data-id="${esc(id)}" class="${id === S.corrente ? 'on' : ''}" ${id === S.corrente ? 'aria-current="true"' : ''}><span>${esc(branoNome(id))}</span><small data-bt="${esc(id)}">${fmtClock(bt(id))}</small></button>`).join('')}
       <button data-act="faddb" style="justify-content:center;border-style:dashed">+ Altro brano</button></div>
+    ${nuoviInSessione(S) ? `<button class="btn two" data-act="studiati" style="margin-top:18px"><b>Passaggi nuovi studiati</b><span>${(S.studiati || []).length ? (S.studiati.length === 1 ? '1 segnato' : S.studiati.length + ' segnati') + ' · da testare domani' : 'facoltativo · tocca per segnarli'}</span></button>` : ''}
     <details class="sub2" ${S.cur.note ? 'open' : ''}><summary>Note su ${esc(branoCorto(S.corrente))}</summary><div><textarea id="note" placeholder="Annotazioni su questo tratto di studio">${esc(S.cur.note)}</textarea></div></details>
   </main>
   <div class="bar"><div class="inner"><button class="btn primary fatto" data-act="endsession">Termina la sessione</button></div></div>`;

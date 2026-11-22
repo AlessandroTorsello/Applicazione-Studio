@@ -1,6 +1,6 @@
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '3.6.0';
+const APP_VERSION = '3.8.0';
 /* 3.6: slot e andate oltre i pulsanti (2-5) si scrivono a mano entro questi limiti; le andate partono da 2. */
 const LIM = { slot: [2, 20], andate: [2, 12] };
 const LEZIONE = 'lezione-pratica';   // «brano» delle lezioni pratiche: solo tempo
@@ -37,7 +37,8 @@ function defaultData() {
     catalogo_importato: { brani: [], frammenti: [], famiglie: [], sigle: [] },
     impostazioni: { tema: 'scuro', testo: 'normale', stile: STILE_PREDEFINITO, ultimo_export: null, visto_versione: null },
     target: {},
-    stato: {}, frammenti_nascosti: [],         // brano nuovo o consolidato; frammenti tolti dagli elenchi
+    stato: {}, frammenti_nascosti: [],         // stato di partenza del brano (nuovo o consolidato); frammenti tolti dagli elenchi
+    stato_frammenti: {}, da_testare: [], esiti_nuovi: [],   // 3.7: stato del singolo frammento, coda «Nuovi da testare», esiti Regge/Non regge
     livelli: {}, riascolti: [], metrica: {},   // livelli: dati della 3.0-3.1, conservati ma non più usati (dalla 3.2 il voto in decimi si calcola dal registro e da riascolti)
     sessione_aperta: null, sessioni: [],
     bozza: { selezionati: [], circuiti: [], circuiti_lib: [], brani_liberi: [], cfg: { tipo: 'circuito', slot: 3, andate: 3, modo: 'scritti' } }
@@ -51,11 +52,12 @@ function normalize(d) {
   out.catalogo_importato = Object.assign(defaultData().catalogo_importato, (d && d.catalogo_importato) || {});
   out.bozza = Object.assign(defaultData().bozza, (d && d.bozza) || {});
   out.bozza.cfg = Object.assign(defaultData().bozza.cfg, out.bozza.cfg || {});
-  ['frammenti_utente', 'brani_utente', 'famiglie_utente', 'sessioni', 'brani_nascosti', 'frammenti_nascosti'].forEach(k => { if (!Array.isArray(out[k])) out[k] = []; });
+  ['frammenti_utente', 'brani_utente', 'famiglie_utente', 'sessioni', 'brani_nascosti', 'frammenti_nascosti', 'da_testare', 'esiti_nuovi'].forEach(k => { if (!Array.isArray(out[k])) out[k] = []; });
   ['selezionati', 'circuiti', 'circuiti_lib', 'brani_liberi'].forEach(k => { if (!Array.isArray(out.bozza[k])) out.bozza[k] = []; });
-  ['target', 'livelli', 'metrica', 'stato'].forEach(k => { if (!out[k] || typeof out[k] !== 'object' || Array.isArray(out[k])) out[k] = {}; });
+  ['target', 'livelli', 'metrica', 'stato', 'stato_frammenti'].forEach(k => { if (!out[k] || typeof out[k] !== 'object' || Array.isArray(out[k])) out[k] = {}; });
   if (!Array.isArray(out.riascolti)) out.riascolti = [];
   out.riascolti = out.riascolti.filter(v => v && v.frammento && v.data);
+  out.da_testare = out.da_testare.filter(x => x && x.frammento && /^\d{4}-\d{2}-\d{2}$/.test(x.data || ''));
   out.riascolti.forEach(v => { if (v.scala !== 10) { if ([1, 2, 3].includes(v.voto)) { v.da3 = v.voto; v.voto = { 1: 3, 2: 7, 3: 10 }[v.voto]; } v.scala = 10; v.fonte = v.fonte || 'riascolto'; } });   // 3.2: voti di riascolto 1-3 in decimi
   out.sessioni = out.sessioni.filter(s => s && typeof s === 'object');
   out.sessioni.forEach(s => { if (!Array.isArray(s.log)) s.log = []; if (!Array.isArray(s.circuiti)) s.circuiti = []; });
@@ -115,6 +117,16 @@ function buildCat() {
 buildCat();
 const branoNome = id => id === LEZIONE ? 'Lezione pratica' : (C.B.get(id) || {}).nome || id || '—';
 const branoCorto = id => branoNome(id).split(',')[0];
+/* 3.7.1: brani raggruppati (es. «Scriabin op. 9»: Preludio e Notturno). I brani vicini con lo stesso «gruppo»
+   finiscono dentro un solo elenco che si apre; gli altri restano come sono. */
+const openGruppi = new Set();
+const perGruppo = (brani, riga) => { let out = '', i = 0;
+  while (i < brani.length) { const g = brani[i].gruppo; if (!g) { out += riga(brani[i]); i++; continue; }
+    let j = i; while (j < brani.length && brani[j].gruppo === g) j++;
+    out += `<details class="grp" data-gruppo="${esc(g)}" ${openGruppi.has(g) ? 'open' : ''}><summary><span class="grow">${esc(g)}</span><span class="small muted">${j - i} brani</span></summary><div class="grpbody">${brani.slice(i, j).map(riga).join('')}</div></details>`;
+    i = j; }
+  return out; };
+const gruppiToggle = () => $$('details.grp').forEach(d => d.addEventListener('toggle', () => { d.open ? openGruppi.add(d.dataset.gruppo) : openGruppi.delete(d.dataset.gruppo); }));
 const fr = id => C.F.get(id);
 // Le priorità sono proprie di ogni brano: il n. 1 dell'op. 111 non è il n. 1 del Mephisto.
 const PRIO_GENERICHE = [1, 2, 3, 4, 5, 6, 7].map(n => ({ n, nome: 'Priorità ' + n, perche: '' }));

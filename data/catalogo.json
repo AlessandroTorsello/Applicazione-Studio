@@ -245,6 +245,151 @@
    },
    "metrica": "tempo",
    "stato": "nuovo"
+  },
+  {
+   "id": "rach39-6",
+   "nome": "Rachmaninov, Études-tableaux op. 39 n. 6",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Henle (Études-tableaux op. 39, pp. 64-69), da verificare al pianoforte.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Salti della sinistra tra basso e accordo, ff",
+     "perche": "Il difetto che indichi per primo (salti imprecisi) nella forma più carica: 71-76 e 88-93, ff, la sinistra salta a ogni croma dal basso all'accordo mentre la destra martella accordi accentati. Si somma la resistenza."
+    },
+    {
+     "n": 2,
+     "nome": "Accordi staccati sopra i bassi in salto (marcia)",
+     "perche": "Da b. 36 il «tema del lupo»: accordi staccati della destra sopra un basso che salta di ottava, con accelerando fino al Più mosso. Salti e rigidità insieme, ma a dinamica più bassa delle priorità 1."
+    },
+    {
+     "n": 3,
+     "nome": "Presto leggiere: accordi e doppie note sopra i salti",
+     "perche": "59-70: la destra suona accordi e seste rapide a p, la sinistra salta basso-accordo. Il rischio è la rigidità a p (il difetto del Mephisto) e la perdita del leggiere."
+    },
+    {
+     "n": 4,
+     "nome": "Doppie note e accordi rapidi della destra, mf-f",
+     "perche": "Seste, terze e accordi a semicrome con salti di registro (15-17, 24-27, 103-110). Uniformità e precisione della mano destra a mani unite."
+    },
+    {
+     "n": 5,
+     "nome": "Figura leggiere a semicrome",
+     "perche": "Il motivo dell'inizio (6-10, 20-23, 94-102): note ribattute e terze spezzate staccate a p sopra le crome legate della sinistra. Coordinazione e uniformità a mani unite, il difetto dell'op. 111."
+    },
+    {
+     "n": 6,
+     "nome": "Scale cromatiche a due mani",
+     "perche": "Salite e discese cromatiche in terzine e semicrome a mani parallele (1-5, 11, 19, 35, 115-121). Brevi, ma la coordinazione delle due mani decade per prima."
+    },
+    {
+     "n": 7,
+     "nome": "Arpeggi larghi e canto",
+     "perche": "28-35 e 77-80: arpeggi di decima della sinistra e canto sopra un ostinato. Meno urgenti: non dipendono dalla velocità quanto dal legato e dal suono."
+    }
+   ],
+   "definizioni": {
+    "priorita": "Organizzazione dei passaggi: 7 gruppi in ordine di urgenza (1 = più urgente).",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+   },
+   "metrica": "tempo",
+   "stato": "nuovo"
+  },
+  {
+   "id": "rach23-6",
+   "nome": "Rachmaninov, Preludio op. 23 n. 6",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Henle (Preludi op. 23, pp. 30-33), da verificare al pianoforte.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Doppie note veloci e mani alternate",
+     "perche": "39-42: la destra sale e scende a semicrome in doppie note (diteggiature 5-1-4-2, 1-2-5-1 scritte), poi le due mani si alternano in discesa fino all'accordo finale. È il passo più esposto: pp e senza pedale che copra."
+    },
+    {
+     "n": 2,
+     "nome": "Sinistra larga a semicrome in crescendo",
+     "perche": "8-13 e 18-22: le semicrome della sinistra si allargano oltre l'ottava, con accordi arpeggiati e passaggi in chiave di violino, mentre il canto cresce fino al f all'8va. Estensione e salti della sinistra, il tuo difetto dei salti."
+    },
+    {
+     "n": 3,
+     "nome": "Semicrome divise tra le mani (m.g. e m.d.)",
+     "perche": "28-30: le semicrome passano da una mano all'altra dentro la stessa figura mentre la sinistra canta nel tenore. Il problema è l'uguaglianza del passaggio da mano a mano, cioè la coordinazione."
+    },
+    {
+     "n": 4,
+     "nome": "Canto sopra le semicrome della sinistra, pp e p",
+     "perche": "1-7, 14-17, 23-26: la sinistra percorre due ottave a semicrome legate e la destra canta per terze, seste e accordi. Il rischio è che le semicrome coprano il canto e che il pp diventi rigido."
+    }
+   ],
+   "definizioni": {
+    "priorita": "Organizzazione dei passaggi: 4 gruppi in ordine di urgenza (1 = più urgente).",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+   },
+   "metrica": "suono",
+   "stato": "nuovo"
+  },
+  {
+   "id": "chopin25-7",
+   "nome": "Chopin, Studio op. 25 n. 7",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Henle (Studi, pp. 93-96), da verificare al pianoforte.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Senza priorità",
+     "perche": "Dalla 3.7.1 le priorità non si usano più."
+    }
+   ],
+   "definizioni": {
+    "priorita": "Non usata.",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+   },
+   "stato": "nuovo"
+  },
+  {
+   "id": "scriabin9-1",
+   "nome": "Scriabin, Preludio op. 9 n. 1",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Belaieff 1895 (pp. 2-3), da verificare al pianoforte.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Senza priorità",
+     "perche": "Dalla 3.7.1 le priorità non si usano più."
+    }
+   ],
+   "definizioni": {
+    "priorita": "Non usata.",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+   },
+   "stato": "nuovo",
+   "gruppo": "Scriabin op. 9"
+  },
+  {
+   "id": "scriabin9-2",
+   "nome": "Scriabin, Notturno op. 9 n. 2",
+   "completo": true,
+   "fonte": "Divisione in frammenti di Alessandro (21/11/2026: gruppi di due battute, cadenza a parte, ultimo gruppo di quattro); analisi di Claude dalla partitura Belaieff 1895 (pp. 4-7), da verificare al pianoforte.",
+   "priorita": [
+    {
+     "n": 1,
+     "nome": "Senza priorità",
+     "perche": "Dalla 3.7.1 le priorità non si usano più."
+    }
+   ],
+   "definizioni": {
+    "priorita": "Non usata.",
+    "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+   },
+   "stato": "nuovo",
+   "gruppo": "Scriabin op. 9"
+  },
+  {
+   "id": "altro",
+   "nome": "Altro",
+   "completo": false,
+   "solo_tempo": true
   }
  ],
  "sigle": [
@@ -376,7 +521,7 @@
   "drop_out": "Se alla terza andata Rep 1 è pulita e fluida, il frammento non fa la quarta. Il drop-out serve solo a risparmiare tempo dentro la sessione: non cambia il voto.",
   "arresto": "Due errori nello stesso punto con lo stesso vincolo: scendi di 8-10 clic o accorcia il frammento.",
   "da_annotare": "Il voto del test (prima Rep 1 del giorno), il tempo di Rep 4 e il vincolo usato.",
-  "verifica_2_settimane": "Brani con metrica «tempo»: se dopo due settimane il tempo di Rep 4 non sale, torna a Rep 2-3 al 70-80% uniforme. Brani con metrica «suono»: la verifica scatta se in due settimane il voto del test a freddo non sale."
+  "verifica_2_settimane": "Se dopo due settimane il voto del test a freddo non sale e resta sotto 8,5, torna a Rep 2-3 al 70-80% uniforme."
  },
  "regole_circuito": {
   "struttura": "3-5 slot per circuito, 3-4 andate.",
@@ -6492,6 +6637,1497 @@
    },
    "rep4_verifica": "Crescendo di 61 di peso; ff senza durezza; nota lunga della voce tenuta fino alla corona.",
    "note": "Ricordi p. 151, sistema 1 batt. 1 – sistema 1 batt. 3."
+  },
+  {
+   "id": "rach39-6-1-5",
+   "brano": "rach39-6",
+   "battute": "1-5",
+   "titolo": "Salita cromatica in terzine, accordo sf",
+   "priorita": 6,
+   "famiglia": "rach39-6-fam-cromatiche",
+   "nodo_motorio": "Le due mani salgono insieme per semitoni in terzine di crome (in chiave di basso, a due ottave di distanza), sotto un'unica legatura, fino all'accordo sf con l'ottava grave della sinistra. Due volte, poi l'accordo p di b. 5. Il passaggio del pollice capita in punti diversi nelle due mani.",
+   "andate": {
+    "1": {
+     "rep2": "NODO: fermati sulle note in cui una mano passa il pollice e l'altra no; i due tasti devono scendere insieme.",
+     "rep3": "RIT sulle terzine: lungo-corto-corto, poi corto-corto-lungo."
+    },
+    "2": {
+     "rep2": "CHUNK: un quarto più la prima nota del seguente, a tempo pieno; nello stop la mano è già sulla posizione nuova.",
+     "rep3": "PESO sull'accordo sf e sull'ottava grave: caduta e rilascio, poi la pausa contata."
+    }
+   },
+   "rep4_verifica": "Le due mani esattamente insieme, crescendo regolare senza accelerare, accordo sf di caduta e mani ferme nelle pause.",
+   "note": "Henle p. 64, sistema 1."
+  },
+  {
+   "id": "rach39-6-6-10",
+   "brano": "rach39-6",
+   "battute": "6-10",
+   "titolo": "Leggiere: il motivo a semicrome",
+   "priorita": 5,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "Destra: gruppi di quattro semicrome staccate a p, nota acuta poi terza spezzata o nota ribattuta che scende (diteggiature 3-2, 5-2 scritte). Sinistra: coppie di crome legate-staccate con salti di sesta e settima. A b. 9 la sinistra tiene una minima e aggiunge terze in levare (mf).",
+   "andate": {
+    "1": {
+     "rep2": "STAC pp: ogni semicroma dal tasto, il braccio scorre; nessun sollevamento.",
+     "rep3": "DIN: sinistra legato e cantabile, destra staccato pp."
+    },
+    "2": {
+     "rep2": "ACC: accento sulla 2ª semicroma di ogni gruppo, poi sulla 3ª, poi sulla 4ª; resto pp.",
+     "rep3": "MUTA: la destra suona, la sinistra fa i movimenti sui tasti senza abbassarli; poi il contrario."
+    }
+   },
+   "rep4_verifica": "Semicrome uguali e leggere, nessuna nota ribattuta che si perde, crome della sinistra legate a coppie. p vero.",
+   "note": "Henle p. 64, sistema 2 – sistema 3 batt. 1."
+  },
+  {
+   "id": "rach39-6-11-18",
+   "brano": "rach39-6",
+   "battute": "11-18",
+   "titolo": "Cromatica, poi leggiere e seste mf",
+   "priorita": 4,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "11: cromatica a mani parallele (destra in semicrome, sinistra in semicrome e terzina) verso l'accordo sf di 12. 12-14: il motivo leggiere. 15-17: la destra passa ad accordi e seste a semicrome con salti di registro, sopra minime e terze in levare della sinistra (mf). 18 dim.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle seste di 15-17: ogni posizione come accordo, cambio senza guardare.",
+     "rep3": "NODO sulla cromatica di 11."
+    },
+    "2": {
+     "rep2": "CHUNK su 15-17: un quarto più la nota d'arrivo, stop già in posizione.",
+     "rep3": "DIN: destra p, sinistra mf, poi il contrario."
+    }
+   },
+   "rep4_verifica": "Seste uguali, la nota superiore che canta; passaggio dalla cromatica al leggiere senza scarto di tempo.",
+   "note": "Henle p. 64, sistema 3 batt. 2 – sistema 5 batt. 1."
+  },
+  {
+   "id": "rach39-6-19-21",
+   "brano": "rach39-6",
+   "battute": "19-21",
+   "titolo": "Seconda cromatica, ritorno del motivo",
+   "priorita": 6,
+   "famiglia": "rach39-6-fam-cromatiche",
+   "nodo_motorio": "19: destra cromatica in semicrome, sinistra in semicrome e terzina che scende nel grave (8va bassa). 20: accordo sf, poi subito il motivo leggiere p. 21: il motivo con bicordi e crescendo.",
+   "andate": {
+    "1": {
+     "rep2": "NODO sulla cromatica di 19.",
+     "rep3": "CIECO sull'arrivo di 20: dall'ultima nota della cromatica all'accordo sf."
+    },
+    "2": {
+     "rep2": "CHUNK: 19 in due blocchi, poi 20 a tempo.",
+     "rep3": "STAC pp sul motivo di 20-21."
+    }
+   },
+   "rep4_verifica": "Arrivo sull'accordo sf preciso e subito p dopo, senza respiro aggiunto.",
+   "note": "Henle p. 64, sistema 5 batt. 2 – p. 65, sistema 1 batt. 1."
+  },
+  {
+   "id": "rach39-6-22-23",
+   "brano": "rach39-6",
+   "battute": "22-23",
+   "titolo": "sf con salto della sinistra, poi il motivo",
+   "priorita": 5,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "22: sf, la destra scende con un'appoggiatura mentre la sinistra salta al La grave; poi il motivo p. 23: il motivo con terze in levare e crescendo; sinistra a crome legate con bemolli.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sul salto della sinistra a 22: sposta, tocca, poi suona.",
+     "rep3": "STAC pp sul motivo."
+    },
+    "2": {
+     "rep2": "PESO sullo sf di 22, rilascio immediato.",
+     "rep3": "MUTA: destra sola con la sinistra sui tasti."
+    }
+   },
+   "rep4_verifica": "Salto della sinistra sicuro, sf corto e subito p, semicrome uguali.",
+   "note": "Henle p. 65, sistema 1 batt. 2-3."
+  },
+  {
+   "id": "rach39-6-24-27",
+   "brano": "rach39-6",
+   "battute": "24-27",
+   "titolo": "Accordi e doppie note della destra, cresc. f",
+   "priorita": 4,
+   "famiglia": "rach39-6-fam-doppie-note",
+   "nodo_motorio": "24 sf e cresc.: la destra sale con semicrome e bicordi, sinistra a crome staccate. 25: semicrome con accordi sul battere e salti verso l'alto, sinistra minima accentata e accordi in levare. 26-27 f: accordi staccati e doppie note a semicrome nell'acuto, sinistra con accordi in levare e salti al basso.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC: ogni posizione della destra come accordo, a quarti, senza guardare.",
+     "rep3": "PESO sugli accordi staccati di 26-27."
+    },
+    "2": {
+     "rep2": "CHUNK: un quarto più la nota d'arrivo, stop già in posizione.",
+     "rep3": "RIT: lungo-corto sulle coppie di semicrome."
+    }
+   },
+   "rep4_verifica": "f senza durezza, accordi completi, salti della sinistra in tempo.",
+   "note": "Henle p. 65, sistema 2 – sistema 3 batt. 1."
+  },
+  {
+   "id": "rach39-6-28-35",
+   "brano": "rach39-6",
+   "battute": "28-35",
+   "titolo": "Arpeggi larghi a mani unite (e ossia)",
+   "priorita": 7,
+   "famiglia": null,
+   "nodo_motorio": "28-34 mf poi dim.: destra a semicrome in arpeggi spezzati larghi (diteggiature 5, 1-2-3-5 scritte), sinistra a crome con basso e arpeggio di decima e oltre. L'ossia sopra il rigo semplifica la destra. 34 p, poi 35: salita cromatica in terzine verso il Poco meno mosso.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC: le posizioni della sinistra come accordi, cambio senza guardare.",
+     "rep3": "RIT sulle semicrome della destra."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola con la destra sui tasti; poi il contrario.",
+     "rep3": "CIECO sui salti della sinistra."
+    }
+   },
+   "rep4_verifica": "Legato della sinistra senza buchi, destra uguale; dim. reale fino al p.",
+   "note": "Henle p. 65, sistema 3 batt. 2 – p. 66, sistema 1 batt. 1. Scegli prima se usare l'ossia."
+  },
+  {
+   "id": "rach39-6-36-43",
+   "brano": "rach39-6",
+   "battute": "36-43",
+   "titolo": "Poco meno mosso: accordi sopra il basso ostinato",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "sf pp. Sinistra: crome staccate e accentate tra ottava grave e quinta (ostinato), con volate di biscrome (5-4-3-2-1) a 38 e 42. Destra: melodia di accordi staccati e minime in chiave di basso, che sale di registro.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti dell'ostinato: sposta, tocca, suona.",
+     "rep3": "STAC pp sugli accordi della destra."
+    },
+    "2": {
+     "rep2": "DIN: sinistra p, destra mf sulla melodia.",
+     "rep3": "PESO pp sugli accordi accentati, polso libero tra uno e l'altro."
+    }
+   },
+   "rep4_verifica": "pp tenuto, ostinato regolare, volate della sinistra senza rallentare.",
+   "note": "Henle p. 66, sistema 1 batt. 2 – sistema 2 batt. 4."
+  },
+  {
+   "id": "rach39-6-44-51",
+   "brano": "rach39-6",
+   "battute": "44-51",
+   "titolo": "Accelerando: accordi e salti, fino al mf",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "44 p, 45 poco a poco accelerando e poco cresc.: sinistra in salto tra basso e nota media a crome, volate di biscrome a 47-48. Destra: accordi staccati a crome. Da 48 passa in chiave di violino; 49-51 mf: accordi accentati della destra, sinistra con ottave e accordi in salto.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra.",
+     "rep3": "BLOC sugli accordi della destra."
+    },
+    "2": {
+     "rep2": "MET: lo stesso tratto a due tempi diversi, per controllare l'accelerando.",
+     "rep3": "PESO sugli accordi accentati di 49-51."
+    }
+   },
+   "rep4_verifica": "Accelerando graduale, non a scatti; salti sicuri anche alla velocità più alta.",
+   "note": "Henle p. 66, sistema 2 batt. 5 – sistema 4 batt. 3."
+  },
+  {
+   "id": "rach39-6-52-58",
+   "brano": "rach39-6",
+   "battute": "52-58",
+   "titolo": "f, poi Più mosso: accordi a mani unite",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "52 f: accordi della destra, sinistra in ottave e salti. 53 più mosso p: accordi staccati della destra con accenti, sinistra con bassi e accordi in levare che saltano. 57 cresc. 58 f: accordi accentati in tutte e due le mani.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle posizioni della destra, cambio senza guardare.",
+     "rep3": "CIECO sui salti della sinistra."
+    },
+    "2": {
+     "rep2": "PESO sugli accenti, rilascio tra un accordo e l'altro.",
+     "rep3": "DIN: destra p, sinistra f, poi il contrario."
+    }
+   },
+   "rep4_verifica": "Più mosso netto, accordi completi, braccio libero fino al f di 58.",
+   "note": "Henle p. 66, sistema 4 batt. 4 – p. 67, sistema 1 batt. 2."
+  },
+  {
+   "id": "rach39-6-59-64",
+   "brano": "rach39-6",
+   "battute": "59-64",
+   "titolo": "Presto leggiere: accordi e seste sopra i salti",
+   "priorita": 3,
+   "famiglia": "rach39-6-fam-presto",
+   "nodo_motorio": "Presto, p leggiere. Destra: accordi sul battere e seste o terze a semicrome legate, con accenti. Sinistra: basso a crome e accordo staccato in levare, salto a ogni croma. 63-64: la sinistra passa a semicrome e accordi accentati.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra: sposta, tocca, suona.",
+     "rep3": "BLOC sulle posizioni della destra."
+    },
+    "2": {
+     "rep2": "STAC pp sugli accordi della sinistra.",
+     "rep3": "CHUNK: un quarto più la prima nota del seguente, a tempo Presto."
+    }
+   },
+   "rep4_verifica": "p leggiere a tempo Presto, accordi della sinistra corti e precisi, destra senza durezza.",
+   "note": "Henle p. 67, sistema 1 batt. 3 – sistema 3 batt. 1."
+  },
+  {
+   "id": "rach39-6-65-70",
+   "brano": "rach39-6",
+   "battute": "65-70",
+   "titolo": "Doppie note all'8va, arpeggi della sinistra",
+   "priorita": 3,
+   "famiglia": "rach39-6-fam-presto",
+   "nodo_motorio": "65 sf p: destra all'ottava sopra, doppie note a semicrome e crome legate. Sinistra: ottava grave accentata, poi arpeggio largo staccato (1-3 scritto) che sale. 67 sforz. 69 cresc., 70 ff: la sinistra a semicrome e accordi accentati.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra dal basso all'arpeggio.",
+     "rep3": "BLOC sulle doppie note della destra."
+    },
+    "2": {
+     "rep2": "DIN: destra pp, sinistra f.",
+     "rep3": "PESO sull'ff di 70."
+    }
+   },
+   "rep4_verifica": "Doppie note uguali e leggere, salti della sinistra in tempo, crescendo fino a ff senza irrigidirsi.",
+   "note": "Henle p. 67, sistema 3 batt. 2 – sistema 4."
+  },
+  {
+   "id": "rach39-6-71-76",
+   "brano": "rach39-6",
+   "battute": "71-76",
+   "titolo": "ff: accordi accentati e salti della sinistra",
+   "priorita": 1,
+   "famiglia": "rach39-6-fam-ff-salti",
+   "nodo_motorio": "All'8va, ff. Destra: accordi accentati a crome e semicrome, tutti con l'accento. Sinistra: ottava grave accentata e accordo nel registro medio, alternati a ogni croma. 74 dim., 75 rallentando, 76 p.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra, una battuta alla volta.",
+     "rep3": "PESO mp sugli accordi: caduta e rilascio."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi della destra senza guardare.",
+     "rep3": "CHUNK: un quarto più il primo accordo del seguente, stop già in posizione."
+    }
+   },
+   "rep4_verifica": "ff di peso, non di spinta; nessun salto mancato; rallentando e dim. reali.",
+   "note": "Henle p. 67, sistema 5 – p. 68, sistema 1."
+  },
+  {
+   "id": "rach39-6-77-80",
+   "brano": "rach39-6",
+   "battute": "77-80",
+   "titolo": "A tempo: canto sopra le semicrome cromatiche",
+   "priorita": 7,
+   "famiglia": null,
+   "nodo_motorio": "77 f: la destra scende in chiave di basso con nota tenuta, la sinistra comincia l'ostinato a semicrome cromatiche nel grave. 78-80 dim. poi p: minime legate della destra, sinistra sempre a semicrome.",
+   "andate": {
+    "1": {
+     "rep2": "DIN: destra cantabile, sinistra pp.",
+     "rep3": "RIT sulle semicrome della sinistra."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola con la destra sui tasti.",
+     "rep3": "MENT, poi la ripetizione reale."
+    }
+   },
+   "rep4_verifica": "Note lunghe della destra tenute, semicrome della sinistra uguali e in secondo piano.",
+   "note": "Henle p. 68, sistema 2."
+  },
+  {
+   "id": "rach39-6-81-87",
+   "brano": "rach39-6",
+   "battute": "81-87",
+   "titolo": "Marcato: accordi in levare, poi f",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "81 mf marcato: accordi della destra in levare dopo la pausa, sinistra con basso e accordo in salto. 83-84 cresc., la destra sale in chiave di violino con accordi e ritmi puntati. 86 f: accordi della destra con terzine, sinistra con salti larghi. 87 cresc.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra.",
+     "rep3": "CLIC: un clic sul levare, l'accordo della destra con il clic."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi della destra.",
+     "rep3": "PESO sugli accordi di 86-87."
+    }
+   },
+   "rep4_verifica": "Levare precisi dopo le pause, crescendo senza correre, salti puliti.",
+   "note": "Henle p. 68, sistema 3 – sistema 4 batt. 3."
+  },
+  {
+   "id": "rach39-6-88-93",
+   "brano": "rach39-6",
+   "battute": "88-93",
+   "titolo": "ff all'8va: accordi e salti, poi la discesa",
+   "priorita": 1,
+   "famiglia": "rach39-6-fam-ff-salti",
+   "nodo_motorio": "88 ff, 8va: la destra ripete figure di accordi accentati, la sinistra ottave e accordi in salto. 91-92: accenti su ogni croma. 93 ff: le due mani si alternano con accordi in discesa cromatica fino al sff di 94.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra.",
+     "rep3": "ALT su 93: le mani si alternano a quarti, poi a ottavi, senza perdere la pulsazione."
+    },
+    "2": {
+     "rep2": "PESO mp sugli accordi accentati.",
+     "rep3": "CHUNK: un quarto più l'accordo seguente, stop in posizione."
+    }
+   },
+   "rep4_verifica": "ff senza irrigidirsi fino alla fine; 93 regolare e arrivo preciso sul sff.",
+   "note": "Henle p. 68, sistema 4 batt. 4 – sistema 6 batt. 1."
+  },
+  {
+   "id": "rach39-6-94-102",
+   "brano": "rach39-6",
+   "battute": "94-102",
+   "titolo": "Tempo I: il motivo leggiere e le seste",
+   "priorita": 5,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "94 sff, poi p: ritorno del motivo leggiere sopra le crome della sinistra (come 6-10). 97-100: seste e accordi della destra con salti di registro, mf, sopra minime e terze della sinistra (come 15-17). 101 dim. 102 p: la destra scende a semicrome legate.",
+   "andate": {
+    "1": {
+     "rep2": "STAC pp sul motivo.",
+     "rep3": "BLOC sulle seste di 97-100."
+    },
+    "2": {
+     "rep2": "ACC sulle semicrome del motivo.",
+     "rep3": "DIN: destra p, sinistra mf."
+    }
+   },
+   "rep4_verifica": "Lo stesso leggiere di 6-10, seste uguali, dim. reale a 101.",
+   "note": "Henle p. 68, sistema 6 batt. 2 – p. 69, sistema 2 batt. 2."
+  },
+  {
+   "id": "rach39-6-103-110",
+   "brano": "rach39-6",
+   "battute": "103-110",
+   "titolo": "Accordi staccati e semicrome della sinistra, mf",
+   "priorita": 4,
+   "famiglia": "rach39-6-fam-doppie-note",
+   "nodo_motorio": "103 e 105: accordi staccati della destra nell'acuto, mentre la sinistra suona semicrome cromatiche con diteggiatura scritta (1, 2-1-3). 104 e 106: la destra scende a semicrome legate. 107 mf: accordi e terze a semicrome della destra, sinistra con accordi. 108 dim. 109: semicrome con bicordi (5-2-1 scritto). 110 p, terzine.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle posizioni della destra.",
+     "rep3": "DIN: destra p staccato, sinistra legato."
+    },
+    "2": {
+     "rep2": "NODO dove la sinistra cambia posizione e la destra no.",
+     "rep3": "CHUNK: un quarto più la nota d'arrivo."
+    }
+   },
+   "rep4_verifica": "Accordi della destra completi e corti, semicrome della sinistra uguali, dim. fino al p di 110.",
+   "note": "Henle p. 69, sistema 2 batt. 3 – sistema 4 batt. 2."
+  },
+  {
+   "id": "rach39-6-111-121",
+   "brano": "rach39-6",
+   "battute": "111-121",
+   "titolo": "Terze pp, discesa f e salita finale",
+   "priorita": 6,
+   "famiglia": "rach39-6-fam-cromatiche",
+   "nodo_motorio": "111-114 p e pp: la destra suona terze e bicordi legati sopra accordi tenuti e arpeggi della sinistra. 115-116 f: discesa cromatica a crome a due mani. 117-121: la salita cromatica dell'inizio, due volte, con accordi sf e l'ultimo accordo accentato.",
+   "andate": {
+    "1": {
+     "rep2": "NODO sulle discese e salite cromatiche.",
+     "rep3": "DIN: in 111-114 terze pp, sinistra legato."
+    },
+    "2": {
+     "rep2": "CHUNK sulle cromatiche, stop in posizione.",
+     "rep3": "PESO sugli accordi sf finali."
+    }
+   },
+   "rep4_verifica": "Terze pp uguali, cromatiche a mani insieme, accordi finali di caduta e pause contate.",
+   "note": "Henle p. 69, sistema 4 batt. 3 – fine."
+  },
+  {
+   "id": "rach23-6-1-7",
+   "brano": "rach23-6",
+   "battute": "1-7",
+   "titolo": "Il tema pp sopra le semicrome",
+   "priorita": 4,
+   "famiglia": "rach23-6-fam-tema",
+   "nodo_motorio": "Andante, semiminima 72, pp. Sinistra: semicrome legate che salgono di due ottave fino in chiave di violino e ridiscendono, con diteggiature scritte (4-3, 2-1-4-2, 1-3-2-4-3-2). Destra: il canto in terze e seste con crome puntate e forcelle; a 4 accordi pieni a crome, a 5-7 di nuovo il tema.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: sinistra sola, la destra fa i movimenti sui tasti.",
+     "rep3": "DIN: sinistra pp, destra p cantabile."
+    },
+    "2": {
+     "rep2": "RIT sulle semicrome della sinistra: lungo-corto, poi corto-lungo.",
+     "rep3": "BLOC sulle posizioni della sinistra, cambio senza guardare."
+    }
+   },
+   "rep4_verifica": "Semicrome uguali e in secondo piano, canto legato sopra; pp senza rigidità.",
+   "note": "Henle p. 30, sistema 1 – sistema 4 batt. 1."
+  },
+  {
+   "id": "rach23-6-8-13",
+   "brano": "rach23-6",
+   "battute": "8-13",
+   "titolo": "mf: sinistra larga e accordi arpeggiati",
+   "priorita": 2,
+   "famiglia": "rach23-6-fam-sinistra-larga",
+   "nodo_motorio": "8 mf: accordi arpeggiati della sinistra, poi semicrome in chiave di violino con estensioni oltre l'ottava (5-4-2, 1-5-2-1 scritti); dim. 9 p: il tema. 10 cresc. 11 mf: accordi della destra con il canto in alto, sinistra a semicrome che passa in chiave di basso. 12 p: semicrome con diteggiatura scritta (3-1-3-2-1-5-2-3) e passaggio in chiave di violino. 13: accordi della destra con forcelle.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra dall'arpeggio alle semicrome.",
+     "rep3": "BLOC sulle posizioni allargate della sinistra."
+    },
+    "2": {
+     "rep2": "CHUNK: un quarto più la prima nota del seguente, stop già in posizione.",
+     "rep3": "DIN: canto della destra mf, sinistra p."
+    }
+   },
+   "rep4_verifica": "Sinistra uguale anche dove si allarga, arpeggi rapidi e non spezzati, canto che resta sopra.",
+   "note": "Henle p. 30, sistema 4 batt. 2 – p. 31, sistema 2 batt. 1."
+  },
+  {
+   "id": "rach23-6-14-17",
+   "brano": "rach23-6",
+   "battute": "14-17",
+   "titolo": "p, poco a poco cresc.: il tema si allarga",
+   "priorita": 4,
+   "famiglia": "rach23-6-fam-tema",
+   "nodo_motorio": "14 p: la destra tiene il canto in accordi e note lunghe legate. 15 poco a poco cresc. Sinistra: semicrome e arpeggi larghi che salgono in chiave di violino e tornano nel basso, con terzine di semicrome e crome puntate.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: sinistra sola, con la destra sui tasti.",
+     "rep3": "DIN: destra cantabile, sinistra pp."
+    },
+    "2": {
+     "rep2": "BLOC sulle posizioni della sinistra.",
+     "rep3": "MENT, poi la ripetizione reale."
+    }
+   },
+   "rep4_verifica": "Crescendo graduale, note lunghe del canto tenute davvero, sinistra legata.",
+   "note": "Henle p. 31, sistema 2 batt. 2 – sistema 3."
+  },
+  {
+   "id": "rach23-6-18-22",
+   "brano": "rach23-6",
+   "battute": "18-22",
+   "titolo": "Cresc. fino al f all'8va, poi p",
+   "priorita": 2,
+   "famiglia": "rach23-6-fam-sinistra-larga",
+   "nodo_motorio": "18: accordo arpeggiato della sinistra e scala discendente a semicrome; la destra sale con terze e accordi. 19 f, all'8va: accordi di quattro suoni tenuti della destra, sinistra con salti larghi, accordo arpeggiato e terzina di semicrome. 20 dim. 21-22 p: la destra canta per terze con note tenute; la sinistra suona semicrome in un registro stretto con il pollice.",
+   "andate": {
+    "1": {
+     "rep2": "PESO sugli accordi f di 19: caduta e rilascio.",
+     "rep3": "CIECO sui salti della sinistra di 19-20."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi della destra all'8va.",
+     "rep3": "DIN in 21-22: canto della destra p, semicrome della sinistra pp."
+    }
+   },
+   "rep4_verifica": "f pieno senza durezza, salti della sinistra in tempo, dim. reale fino al p.",
+   "note": "Henle p. 31, sistema 4 – sistema 5."
+  },
+  {
+   "id": "rach23-6-23-26",
+   "brano": "rach23-6",
+   "battute": "23-26",
+   "titolo": "Ripresa p: canto semplice, cromatismi della sinistra",
+   "priorita": 4,
+   "famiglia": "rach23-6-fam-tema",
+   "nodo_motorio": "23 p: la destra canta a note singole con una voce interna; la sinistra sale a semicrome dal Mi bemolle grave fino al tenore. 25: la sinistra scende con salti (3-1 scritti). 26 dim.: la sinistra suona semicrome cromatiche sopra un basso tenuto; la destra ha una seconda voce.",
+   "andate": {
+    "1": {
+     "rep2": "DIN: destra cantabile, sinistra pp.",
+     "rep3": "NODO dove la sinistra cambia posizione e la destra tiene."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola con la destra sui tasti.",
+     "rep3": "RIT sulle semicrome cromatiche di 26."
+    }
+   },
+   "rep4_verifica": "Canto legato senza buchi, basso tenuto per tutta la battuta 26.",
+   "note": "Henle p. 32, sistema 1 – sistema 2."
+  },
+  {
+   "id": "rach23-6-27-30",
+   "brano": "rach23-6",
+   "battute": "27-30",
+   "titolo": "pp: semicrome divise tra le mani",
+   "priorita": 3,
+   "famiglia": null,
+   "nodo_motorio": "27: la sinistra sale dal Mi bemolle grave (4-3-2-1-5 scritto) fino in chiave di violino. 28 pp: la sinistra apre la figura in chiave di violino (m.g.) e la destra la continua (m.d.) con accordi e semicrome; intanto la sinistra canta nel tenore con un accordo arpeggiato e note lunghe. 29-30: la stessa figura.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: la figura della destra sola, la sinistra sui tasti; poi il contrario.",
+     "rep3": "NODO sul passaggio da m.g. a m.d.: tasti che scendono senza buco."
+    },
+    "2": {
+     "rep2": "DIN: canto del tenore p, semicrome pp.",
+     "rep3": "CHUNK: dalla nota della sinistra al primo accordo della destra, a tempo, stop."
+    }
+   },
+   "rep4_verifica": "Nessun buco tra la mano sinistra e la destra; canto del tenore in primo piano.",
+   "note": "Henle p. 32, sistema 3 – sistema 4."
+  },
+  {
+   "id": "rach23-6-31-43",
+   "brano": "rach23-6",
+   "battute": "31-43",
+   "titolo": "Canto del tenore, doppie note e accordo finale",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "31-38: la destra canta in alto, la sinistra porta un canto in accordi con ritmo puntato (mf a 32, dim. 34, p 35, cresc. 36, f 37, mf e dim. 38). 39 pp: la sinistra sale ad arpeggio; poi la destra prosegue a semicrome in doppie note (5-1-4-2, 1-3-4-2 scritti) fino all'acuto. 41: discesa in doppie note (1-2-5-1, 2-5-1-3). 42: le mani si alternano a semicrome in discesa, rit. 43: accordo arpeggiato con corona, la sinistra incrocia (m.g.).",
+   "andate": {
+    "1": {
+     "rep2": "RIT sulle doppie note di 39-41.",
+     "rep3": "ALT su 42: le mani si alternano senza perdere la pulsazione."
+    },
+    "2": {
+     "rep2": "BLOC sulle posizioni delle doppie note.",
+     "rep3": "DIN in 31-38: canto della sinistra mf, destra p."
+    }
+   },
+   "rep4_verifica": "Doppie note uguali e pp, nessun buco nel cambio di mano a 42; accordo finale arpeggiato e tenuto.",
+   "note": "Henle p. 32, sistema 5 – p. 33, fine."
+  },
+  {
+   "id": "chopin25-7-1-8",
+   "brano": "chopin25-7",
+   "battute": "1-8",
+   "titolo": "Recitativo e primo tema",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "Lento, semiminima 66. Prima della b. 1 il recitativo della sola sinistra, p, libero (non numerato: è dentro questo frammento). Poi il tema a due voci: la sinistra canta come un violoncello (Mi in chiave di violino a b. 1, discese a semicrome a 3, salita a sestine con quintina a 4), la destra tiene il soprano sopra crome ribattute pp in accordi. A 7 trillo della sinistra e risposta a semicrome con diteggiatura scritta.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: canto della sinistra da sola, la destra fa i movimenti sui tasti.",
+     "rep3": "DIN: crome ribattute della destra ppp, soprano p, sinistra mf cantabile."
+    },
+    "2": {
+     "rep2": "CHUNK: recitativo diviso in tre arcate, poi legato.",
+     "rep3": "ALT: destra sola, soprano legato con le crome staccate leggere sotto."
+    }
+   },
+   "rep4_verifica": "Tre piani distinti (sinistra, soprano, crome interne); crome uguali e mai più forti del canto; recitativo libero ma senza fermate.",
+   "note": "Henle p. 93, recitativo e sistemi 1-3."
+  },
+  {
+   "id": "chopin25-7-9-17",
+   "brano": "chopin25-7",
+   "battute": "9-17",
+   "titolo": "Ripresa del tema e semicrome pp",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "Il tema torna (9-10) e a 11 la sinistra apre un arpeggio pp col pedale, dal Si grave alle semicrome nel registro medio. 14-17: la sinistra passa a semicrome continue sotto la destra che tiene sincopi e crome ribattute; dim. a 14, pp a 15, discesa cromatica a 16.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: 14-17 una battuta alla volta, la sinistra da sola.",
+     "rep3": "DIN: sinistra pp uguale, soprano della destra che canta sopra."
+    },
+    "2": {
+     "rep2": "RIT sulle semicrome di 14-16: lungo-corto e corto-lungo.",
+     "rep3": "CIECO: arpeggio di 11 senza guardare la sinistra."
+    }
+   },
+   "rep4_verifica": "Semicrome della sinistra uniformi e in secondo piano; il soprano lega sopra le crome ribattute.",
+   "note": "Henle p. 93, sistemi 3-5."
+  },
+  {
+   "id": "chopin25-7-18-21",
+   "brano": "chopin25-7",
+   "battute": "18-21",
+   "titolo": "pp e accordi staccati",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "18-19 pp: la sinistra canta (crome puntate, poi semicrome a 19), la destra accordi ribattuti. A 20 la destra sale per accordi staccati (diteggiature 4-3-5-4-5 scritte) col pedale. A 21 inizia il periodo nuovo: terzine, ottava ornata, sinistra con note lunghe.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 20: posizione pronta prima di suonare.",
+     "rep3": "STAC: accordi di 20 staccati e leggeri, pedale solo dove scritto."
+    },
+    "2": {
+     "rep2": "ALT: sinistra sola a 18-19, canto legato.",
+     "rep3": "DIN: 21 cresc. senza accelerare."
+    }
+   },
+   "rep4_verifica": "Accordi di 20 tutti insieme e uguali; pp di 18-19 senza perdere il canto.",
+   "note": "Henle p. 94, sistemi 1-2."
+  },
+  {
+   "id": "chopin25-7-22-28",
+   "brano": "chopin25-7",
+   "battute": "22-28",
+   "titolo": "Volate della sinistra fino al fff",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-volate",
+   "nodo_motorio": "22: la sinistra parte con una volata di biscrome (accenti, terzine e sestine, fino in chiave di violino), 24 di nuovo a biscrome. 25 f con trillo della sinistra. 26: sinistra a biscrome cromatiche (gruppi di 14 e di 6) in crescendo con diteggiature scritte. 27 fff, ritenuto: grande scala cromatica della sinistra su e giù, sotto gli accordi della destra. 28 fz p, poi pp.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: le volate di 22 e 24 divise in gruppi di 3 e 6, ognuno fermo sulla nota d'arrivo.",
+     "rep3": "RIT sulle biscrome di 26: per gruppi di quattro."
+    },
+    "2": {
+     "rep2": "ACC: la volata di 27 si suona come un gesto unico; la destra entra dopo.",
+     "rep3": "DIN: 26 crescendo fino al fff di 27 senza irrigidire il polso."
+    }
+   },
+   "rep4_verifica": "Volate senza buchi e senza accelerare all'arrivo; fff di 27 pieno ma non duro; 28 subito p.",
+   "note": "Henle p. 94, sistemi 2-5."
+  },
+  {
+   "id": "chopin25-7-29-36",
+   "brano": "chopin25-7",
+   "battute": "29-36",
+   "titolo": "Arpeggi della sinistra col pedale",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-arpeggi",
+   "nodo_motorio": "La sinistra suona in ogni battuta una figura a semicrome che scende per arpeggio e risale con una crome puntata (pedale a ogni battuta, scritto). La destra tiene il soprano lungo sopra accordi ribattuti. 32: discesa della sinistra in biscrome fino al grave. 35 ppp, 36 smorz. con corona.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle posizioni dell'arpeggio della sinistra, battuta per battuta.",
+     "rep3": "DIN: pedale come scritto, cambio pulito a ogni battuta, senza buchi."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola, la destra muta sui tasti.",
+     "rep3": "DIN: ppp di 35 tenendo il soprano."
+    }
+   },
+   "rep4_verifica": "Arpeggi della sinistra legati e senza accenti sui cambi di posizione; pedale pulito; ppp vero a 35.",
+   "note": "Henle p. 95, sistemi 1-2."
+  },
+  {
+   "id": "chopin25-7-37-44",
+   "brano": "chopin25-7",
+   "battute": "37-44",
+   "titolo": "Transizione pp e poco ritenuto",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-canto",
+   "nodo_motorio": "37-39: la destra a crome ribattute con soprano, la sinistra canta con trillo a 37 e risposta ornata. 40 pausa della destra, pp: la sinistra sola a semicrome. 41-44: crome ribattute della destra, sinistra cantabile (ten. a 43), pp poco ritenuto a 44.",
+   "andate": {
+    "1": {
+     "rep2": "ALT: sinistra sola a 40-41, poi con la destra.",
+     "rep3": "DIN: crome della destra pp, sinistra p."
+    },
+    "2": {
+     "rep2": "CHUNK: 37-39 e 41-44 separati, poi uniti attraverso 40.",
+     "rep3": "RIT nel trillo di 37: numero di note fisso."
+    }
+   },
+   "rep4_verifica": "Il trillo non rallenta il tempo; 40 legata alla battuta dopo; poco ritenuto senza perdere il pp.",
+   "note": "Henle p. 95, sistemi 3-4."
+  },
+  {
+   "id": "chopin25-7-45-56",
+   "brano": "chopin25-7",
+   "battute": "45-56",
+   "titolo": "Ripresa fz e volata in crescendo",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-volate",
+   "nodo_motorio": "45 fz: torna il tema, la sinistra canta nel registro alto. 50-51: arpeggi in terzine e trillo della sinistra. 52: lunga volata della sinistra dal grave all'acuto (terzine, diteggiature scritte), crescendo, sotto gli accordi della destra. 53 fz, 55 trillo e salto della sinistra; 56 accento e discesa al grave.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: la volata di 52 in gruppi di tre, fermi sulla prima nota di ogni gruppo.",
+     "rep3": "DIN: fz di 45 e di 53 come accento, poi subito p."
+    },
+    "2": {
+     "rep2": "ACC: volata di 52 in un gesto, arrivo sul tempo.",
+     "rep3": "ALT: sinistra sola 50-56."
+    }
+   },
+   "rep4_verifica": "La volata arriva sul tempo di 53 senza strappare; trillo di 55 regolare; il canto della sinistra resta legato.",
+   "note": "Henle p. 95 sistema 4 – p. 96 sistema 2."
+  },
+  {
+   "id": "chopin25-7-57-59",
+   "brano": "chopin25-7",
+   "battute": "57-59",
+   "titolo": "Semicrome della sinistra sotto le sincopi",
+   "priorita": 1,
+   "famiglia": "chopin25-7-fam-arpeggi",
+   "nodo_motorio": "La sinistra suona semicrome continue (57-58), con diteggiature scritte, salendo e scendendo; la destra tiene sincopi legate sopra crome ribattute. 59: la sinistra in terzine di semicrome, poi crome puntate.",
+   "andate": {
+    "1": {
+     "rep2": "RIT sulle semicrome della sinistra.",
+     "rep3": "DIN: sinistra p uguale, soprano della destra sopra."
+    },
+    "2": {
+     "rep2": "CIECO: sinistra senza guardare.",
+     "rep3": "MUTA: destra sola, sincopi legate."
+    }
+   },
+   "rep4_verifica": "Semicrome uguali e legate; nessun accento sui cambi di posizione.",
+   "note": "Henle p. 96, sistemi 3-4."
+  },
+  {
+   "id": "chopin25-7-60-68",
+   "brano": "chopin25-7",
+   "battute": "60-68",
+   "titolo": "Coda: f, smorzando e accordi finali",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "60-62 pp: crome ribattute della destra, la sinistra a semicrome; ritenuto a 62. 63 f ten.: la sinistra suona accordi a due voci con il basso che si muove (dim.). 64-66: sinistra ad accordi e basso, smorzando, corone. 66-68: accordi finali pp col pedale, ultima corona.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi della sinistra di 63-65.",
+     "rep3": "DIN: f di 63 e dim. fino al pp di 66."
+    },
+    "2": {
+     "rep2": "ALT: sinistra sola 63-66, basso legato sotto gli accordi.",
+     "rep3": "MENT: accordi finali, ascolto prima di suonare."
+    }
+   },
+   "rep4_verifica": "Basso legato sotto gli accordi della sinistra; smorzando graduale; accordi finali insieme e pp.",
+   "note": "Henle p. 96, sistemi 4-5."
+  },
+  {
+   "id": "scriabin9-1-1-4",
+   "brano": "scriabin9-1",
+   "battute": "1-4",
+   "titolo": "Il tema: canto sopra le crome ribattute",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-canto",
+   "nodo_motorio": "Andante, 3/4, p. Tutto il brano è per la sola mano sinistra: canto, accordi e basso sono della stessa mano. Il canto in alto (crome puntate, semicrome) va al pollice e al 2, le crome ribattute degli accordi interni alle dita lunghe, sotto; da b. 2 il basso entra con un arpeggio di semicrome e tiene la minima legata. cresc. a 4.",
+   "andate": {
+    "1": {
+     "rep2": "ALT: solo il canto, con la diteggiatura che userai nel brano.",
+     "rep3": "DIN: crome interne pp, canto p che esce."
+    },
+    "2": {
+     "rep2": "PESO sul pollice per il canto, polso sciolto sulle crome.",
+     "rep3": "BLOC sugli accordi interni: posizione pronta prima del canto."
+    }
+   },
+   "rep4_verifica": "Canto legato e sopra; crome interne uguali e piano; basso tenuto col pedale senza sporcare.",
+   "note": "Belaieff p. 2, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-1-5-8",
+   "brano": "scriabin9-1",
+   "battute": "5-8",
+   "titolo": "Crescendo e arpeggio largo del basso (f)",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "5-6: canto con accordi a crome e basso a semiminime, semicrome in terzina a 6. 7 f: il basso sale per arpeggio di semicrome dal registro grave fino all'acuto, poi torna giù; il canto tiene accordi in alto. 8 dim.: la mano scende di nuovo al basso con un arpeggio corto.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio di 7 diviso in due gesti, fermi sulla nota d'arrivo.",
+     "rep3": "DIN: cresc. da 5 al f di 7, dim. a 8."
+    },
+    "2": {
+     "rep2": "ROT: apertura dell'arpeggio di 7 dal gomito, senza allungare le dita.",
+     "rep3": "CIECO: salto di ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggio di 7 continuo e senza accenti; il canto non si interrompe sul salto.",
+   "note": "Belaieff p. 2, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-1-9-12",
+   "brano": "scriabin9-1",
+   "battute": "9-12",
+   "titolo": "Basso grave e accordi in levare",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-salti",
+   "nodo_motorio": "9 p: il canto scende, il basso tiene una minima grave e gli accordi entrano in levare dopo le pause (accordo di tre suoni dopo la croma di pausa). 10-12 cresc.: basso a semicrome che sale e accordi in levare; ottave legate nel basso grave alla fine di ogni battuta.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi in levare: la mano arriva già in posizione.",
+     "rep3": "CIECO: salto dal basso all'accordo senza guardare."
+    },
+    "2": {
+     "rep2": "RIT: salto basso-accordo prima lento, poi in tempo.",
+     "rep3": "DIN: cresc. da 10 a 12 senza indurire gli accordi."
+    }
+   },
+   "rep4_verifica": "Accordi in levare insieme e leggeri; basso tenuto col pedale; nessun buco nel tempo dopo i salti.",
+   "note": "Belaieff p. 2, sistemi 3-5."
+  },
+  {
+   "id": "scriabin9-1-13-16",
+   "brano": "scriabin9-1",
+   "battute": "13-16",
+   "titolo": "f: accordi in alto, basso grave legato",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-salti",
+   "nodo_motorio": "13-15 f: il canto va a ottave e accordi nel registro alto (crome puntate), gli accordi interni rispondono in levare, il basso tiene quinte e ottave gravi legate da una battuta all'altra: la mano copre tutta la tastiera in ogni battuta. 16 dim., p a 17.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una battuta alla volta, basso e accordo come un solo gesto.",
+     "rep3": "BLOC sugli accordi in alto."
+    },
+    "2": {
+     "rep2": "CIECO: salti tra registro grave e acuto senza guardare.",
+     "rep3": "DIN: f pieno a 13, dim. vero a 16."
+    }
+   },
+   "rep4_verifica": "f di braccio e non di dita; accordi alti tutti insieme; il basso arriva in tempo senza accento.",
+   "note": "Belaieff p. 2 sistema 5 – p. 3 sistema 1."
+  },
+  {
+   "id": "scriabin9-1-17-22",
+   "brano": "scriabin9-1",
+   "battute": "17-22",
+   "titolo": "p, attesa e ritorno del tema pp",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-canto",
+   "nodo_motorio": "17 p: accordo con La legato, 18 la nota tenuta e il basso fermo. 19 pp: torna il tema come a 1, poi 20-22 come 2-4 (basso con arpeggio di semicrome e minima legata, crome interne ribattute).",
+   "andate": {
+    "1": {
+     "rep2": "ALT: solo il canto di 19-22.",
+     "rep3": "DIN: pp di 19 più piano dell'inizio."
+    },
+    "2": {
+     "rep2": "PESO sul pollice per il canto.",
+     "rep3": "MENT: 17-18 contando le pause, poi l'attacco di 19."
+    }
+   },
+   "rep4_verifica": "Il silenzio di 18 dura il giusto; pp di 19 senza perdere il canto.",
+   "note": "Belaieff p. 3, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-1-23-26",
+   "brano": "scriabin9-1",
+   "battute": "23-26",
+   "titolo": "Canto con le terzine del basso e arpeggi larghi",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "23: canto con accordi, il basso in terzina di semicrome. 24: accordi e basso cantabile. 25-26: accordi tenuti in alto mentre il basso apre arpeggi di semicrome dal grave all'acuto (fino al Fa doppio diesis), con salti da una battuta all'altra.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggi di 25 e 26 divisi in due, poi interi.",
+     "rep3": "DIN: accordi in alto p, arpeggio sotto più piano."
+    },
+    "2": {
+     "rep2": "ROT sugli arpeggi di 25-26.",
+     "rep3": "CIECO: ritorno al grave senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi continui; l'accordo in alto resta tenuto e non si sporca col pedale.",
+   "note": "Belaieff p. 3, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-1-27-30",
+   "brano": "scriabin9-1",
+   "battute": "27-30",
+   "titolo": "Accenti sul canto e arpeggio di tre ottave",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "27: canto con accordi a crome e basso a semicrome che salta. 28-29: canto con accento, legato sopra accordi tenuti; il basso fa figure di semicrome dal grave e note singole in levare. 30: accordo e arpeggio di semicrome che sale per tre ottave fino all'acuto.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio di 30 in tre gruppi.",
+     "rep3": "DIN: accento di 28 e 29 sul canto, non sugli accordi."
+    },
+    "2": {
+     "rep2": "ACC: arpeggio di 30 come un solo gesto.",
+     "rep3": "BLOC sugli accordi tenuti di 28-29."
+    }
+   },
+   "rep4_verifica": "Accento del canto chiaro ma legato; arpeggio di 30 senza strappo all'arrivo.",
+   "note": "Belaieff p. 3, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-1-31-34",
+   "brano": "scriabin9-1",
+   "battute": "31-34",
+   "titolo": "Finale: accenti, discese e accordo finale",
+   "priorita": 1,
+   "famiglia": "scriabin9-1-fam-arpeggi",
+   "nodo_motorio": "31-32: canto accentato (crome puntate) mentre la mano scende al basso grave, prende l'accordo e fa discese di semicrome. 33: canto legato con arpeggio di semicrome. 34: accordo finale e arpeggio corto che sale; fine a b. 34.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: 31 e 32 separate, poi unite.",
+     "rep3": "DIN: accento del canto e discese più piano."
+    },
+    "2": {
+     "rep2": "CIECO: salto al basso grave senza guardare.",
+     "rep3": "MENT: arpeggio finale, ascolto prima di suonare."
+    }
+   },
+   "rep4_verifica": "Discese uguali; canto sopra; accordo finale insieme e tenuto.",
+   "note": "Belaieff p. 3, sistema 5."
+  },
+  {
+   "id": "scriabin9-2-1-2",
+   "brano": "scriabin9-2",
+   "battute": "1-2",
+   "titolo": "Il canto sopra gli arpeggi larghi",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "Andante, 6/8, p. Tutto il brano è per la sola mano sinistra: canto, accordi e basso sono della stessa mano. La mano apre un arpeggio di semicrome dal Re bemolle grave fino all'acuto e torna giù in ogni battuta, e intanto canta la melodia in alto (La bemolle, Sol, La bemolle; Fa, Re bemolle) con le forcelle.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi legati e uguali; il canto tenuto sopra col pedale e mai coperto.",
+   "note": "Belaieff p. 4, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-3-4",
+   "brano": "scriabin9-2",
+   "battute": "3-4",
+   "titolo": "Accordi e scala cromatica del basso",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "3: accordi tenuti in alto mentre il basso sale a semicrome cromatiche. 4: accordo, arpeggio che sale e figura di biscrome ribattute in alto con accento, che porta alla b. 5.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi tenuti.",
+     "rep3": "RIT sulla salita cromatica: lungo-corto."
+    },
+    "2": {
+     "rep2": "ALT: solo il basso di 3, poi solo la figura di 4.",
+     "rep3": "DIN: accento di 4 e subito piano."
+    }
+   },
+   "rep4_verifica": "Accordi tenuti fino in fondo; biscrome di 4 uguali.",
+   "note": "Belaieff p. 4, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-2-5-6",
+   "brano": "scriabin9-2",
+   "battute": "5-6",
+   "titolo": "Figure di semicrome in alto e accordi sotto",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "5-6: la mano alterna figure di semicrome nel registro alto (diteggiature 4-3 scritte) e accordi o note del canto in chiave di basso; il canto è nel tenore. Salti continui di una o due ottave dentro la battuta.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto dalla figura all'accordo senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi in chiave di basso.",
+     "rep3": "DIN: canto del tenore più forte delle figure."
+    }
+   },
+   "rep4_verifica": "Figure leggere e uguali; il canto del tenore legato attraverso i salti.",
+   "note": "Belaieff p. 4, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-7-8",
+   "brano": "scriabin9-2",
+   "battute": "7-8",
+   "titolo": "Ornamento di biscrome e basso grave",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "7: accordo in alto con discesa di biscrome, poi la mano va al basso grave (ottava con acciaccatura) e risale. 8: accordi con semicrome in levare in alto e arpeggi di semicrome del basso.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto all'ottava grave senza guardare.",
+     "rep3": "RIT sulle biscrome di 7."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 8.",
+     "rep3": "DIN: discesa di 7 piano, ottava grave senza colpo."
+    }
+   },
+   "rep4_verifica": "Biscrome di 7 uguali e in tempo; ottava grave presa senza ritardo.",
+   "note": "Belaieff p. 4, sistema 3."
+  },
+  {
+   "id": "scriabin9-2-9-10",
+   "brano": "scriabin9-2",
+   "battute": "9-10",
+   "titolo": "Canto ad accordi e arpeggi del basso",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "9: canto in alto ad accordi tenuti, il basso sale ad arpeggio (diteggiatura 1-2 scritta). 10: come 1, accordi in alto e arpeggio largo su e giù con forcella.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Accordi in alto insieme; arpeggio continuo sotto.",
+   "note": "Belaieff p. 4, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-11-12",
+   "brano": "scriabin9-2",
+   "battute": "11-12",
+   "titolo": "Bicordi del basso e corona",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "11: accordi in alto, il basso sale per bicordi di semicrome (con terzina). 12: accordi di biscrome con corona, poi biscrome nel registro medio-alto che legano alla b. 13.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sui bicordi di 11.",
+     "rep3": "RIT sulle biscrome di 12."
+    },
+    "2": {
+     "rep2": "CHUNK: 11 e 12 separate.",
+     "rep3": "DIN: corona di 12 piano, biscrome leggere."
+    }
+   },
+   "rep4_verifica": "Bicordi insieme; biscrome di 12 uguali dopo la corona.",
+   "note": "Belaieff p. 4, sistema 4."
+  },
+  {
+   "id": "scriabin9-2-13-14",
+   "brano": "scriabin9-2",
+   "battute": "13-14",
+   "titolo": "Figure in alto e accordi sotto (ritorno)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Come 5-6: figure di semicrome in alto e accordi col canto nel tenore in chiave di basso, salti continui.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi sotto.",
+     "rep3": "DIN: canto del tenore sopra le figure."
+    }
+   },
+   "rep4_verifica": "Come 5-6.",
+   "note": "Belaieff p. 4, sistema 5."
+  },
+  {
+   "id": "scriabin9-2-15-16",
+   "brano": "scriabin9-2",
+   "battute": "15-16",
+   "titolo": "Ornamento, basso grave e corona",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "15: come 7, accordo con discesa di biscrome e ottava grave. 16: accordi con semicrome puntate, corona, poi arpeggio corto del basso.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto all'ottava grave.",
+     "rep3": "RIT sulle biscrome."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 16.",
+     "rep3": "MENT: corona di 16, poi il mf di 17."
+    }
+   },
+   "rep4_verifica": "Biscrome in tempo; corona ascoltata.",
+   "note": "Belaieff p. 4 sistema 5 – p. 5 sistema 1."
+  },
+  {
+   "id": "scriabin9-2-17-18",
+   "brano": "scriabin9-2",
+   "battute": "17-18",
+   "titolo": "mf: accordi ribattuti in crescendo e sf",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "17 mf: accordo tenuto, poi accordi ribattuti di biscrome che salgono cromatici in crescendo, il basso scende per ottave. 18 sf: accordo, poi il basso sale ad arpeggio largo (oltre due ottave) e lancia la nota in alto.",
+   "andate": {
+    "1": {
+     "rep2": "STAC: accordi ribattuti leggeri, dal polso.",
+     "rep3": "DIN: cresc. di 17 senza indurire, sf di 18 come accento."
+    },
+    "2": {
+     "rep2": "CHUNK: arpeggio di 18 in due gesti.",
+     "rep3": "CIECO: ritorno all'accordo senza guardare."
+    }
+   },
+   "rep4_verifica": "Ribattuti uguali e in crescendo vero; sf senza colpo.",
+   "note": "Belaieff p. 5, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-19-20",
+   "brano": "scriabin9-2",
+   "battute": "19-20",
+   "titolo": "Accordi ribattuti e arpeggio, con corona",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "19: come 17, accordi ribattuti che salgono. 20 sf: accordo e arpeggio largo del basso che sale fino all'acuto; corona in fondo alla battuta.",
+   "andate": {
+    "1": {
+     "rep2": "STAC: ribattuti leggeri.",
+     "rep3": "DIN: sf come accento, poi piano verso la corona."
+    },
+    "2": {
+     "rep2": "CHUNK: arpeggio di 20 in due gesti.",
+     "rep3": "CIECO: salto senza guardare."
+    }
+   },
+   "rep4_verifica": "Come 17-18; corona tenuta il giusto.",
+   "note": "Belaieff p. 5, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-21-22",
+   "brano": "scriabin9-2",
+   "battute": "21-22",
+   "titolo": "Ribattuti, poi arpeggi tra le chiavi",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "21: accordo tenuto e ribattuti di biscrome, basso per ottave. 22: accordi in alto, il basso sale passando in chiave di violino e torna in chiave di basso, poi accordi in levare.",
+   "andate": {
+    "1": {
+     "rep2": "STAC: ribattuti leggeri.",
+     "rep3": "BLOC sugli accordi di 22."
+    },
+    "2": {
+     "rep2": "CIECO: cambio di registro di 22 senza guardare.",
+     "rep3": "DIN: crescendo verso il ff di 23."
+    }
+   },
+   "rep4_verifica": "Ribattuti uguali; i cambi di registro non spezzano il tempo.",
+   "note": "Belaieff p. 5, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-2-23-24",
+   "brano": "scriabin9-2",
+   "battute": "23-24",
+   "titolo": "ff: accordi e ottave gravi",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "23 ff: accordi in alto, il basso grave con acciaccatura d'ottava e accordi di semicrome che scendono. 24: accordi a semicrome nel basso e salti agli accordi in alto.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 23-24.",
+     "rep3": "CIECO: salti ai bassi gravi senza guardare."
+    },
+    "2": {
+     "rep2": "PESO: ff di braccio, polso sciolto.",
+     "rep3": "DIN: ff pieno ma senza durezza."
+    }
+   },
+   "rep4_verifica": "Accordi insieme e pieni; bassi gravi in tempo.",
+   "note": "Belaieff p. 5, sistema 3."
+  },
+  {
+   "id": "scriabin9-2-25-26",
+   "brano": "scriabin9-2",
+   "battute": "25-26",
+   "titolo": "Accordi veloci, poi p e rit.",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-accordi",
+   "nodo_motorio": "25: accordi veloci di semicrome nel registro medio-alto dopo il basso grave. 26 p: grande accordo arpeggiato, discesa di biscrome nel canto, rit., arpeggio del basso che sale verso la cadenza.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 25.",
+     "rep3": "DIN: subito p a 26."
+    },
+    "2": {
+     "rep2": "RIT sulla discesa di 26.",
+     "rep3": "MENT: rit. di 26 pensato prima di suonare."
+    }
+   },
+   "rep4_verifica": "Accordi di 25 insieme; passaggio al p netto; rit. graduale.",
+   "note": "Belaieff p. 5, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-27-27",
+   "brano": "scriabin9-2",
+   "battute": "27",
+   "titolo": "Cadenza",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "Cadenza pp, fuori dai gruppi di due: arpeggio rapido dal basso più grave fino all'ottava sopra, poi una lunga onda di biscrome cromatiche all'8va che scende per gradi, e due trilli in fondo prima della ripresa.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: la cadenza in gruppi da un'onda alla volta.",
+     "rep3": "DIN: pp uniforme, forcelle piccole."
+    },
+    "2": {
+     "rep2": "ACC: l'onda intera come un gesto, lenta.",
+     "rep3": "RIT sui gruppi di biscrome."
+    }
+   },
+   "rep4_verifica": "Onde uguali e legate; nessuna fermata; i trilli regolari e piano.",
+   "note": "Belaieff p. 5, sistemi 4-5."
+  },
+  {
+   "id": "scriabin9-2-28-29",
+   "brano": "scriabin9-2",
+   "battute": "28-29",
+   "titolo": "Il canto sopra gli arpeggi larghi (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "Ripresa di 1-2. Andante, 6/8, p. Tutto il brano è per la sola mano sinistra: canto, accordi e basso sono della stessa mano. La mano apre un arpeggio di semicrome dal Re bemolle grave fino all'acuto e torna giù in ogni battuta, e intanto canta la melodia in alto (La bemolle, Sol, La bemolle; Fa, Re bemolle) con le forcelle.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi legati e uguali; il canto tenuto sopra col pedale e mai coperto.",
+   "note": "Belaieff p. 4, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-30-31",
+   "brano": "scriabin9-2",
+   "battute": "30-31",
+   "titolo": "Accordi e scala cromatica del basso (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 3-4. 3: accordi tenuti in alto mentre il basso sale a semicrome cromatiche. 4: accordo, arpeggio che sale e figura di biscrome ribattute in alto con accento, che porta alla b. 5.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi tenuti.",
+     "rep3": "RIT sulla salita cromatica: lungo-corto."
+    },
+    "2": {
+     "rep2": "ALT: solo il basso di 3, poi solo la figura di 4.",
+     "rep3": "DIN: accento di 4 e subito piano."
+    }
+   },
+   "rep4_verifica": "Accordi tenuti fino in fondo; biscrome di 4 uguali.",
+   "note": "Belaieff p. 4, sistemi 1-2."
+  },
+  {
+   "id": "scriabin9-2-32-33",
+   "brano": "scriabin9-2",
+   "battute": "32-33",
+   "titolo": "Figure di semicrome in alto e accordi sotto (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 5-6. 5-6: la mano alterna figure di semicrome nel registro alto (diteggiature 4-3 scritte) e accordi o note del canto in chiave di basso; il canto è nel tenore. Salti continui di una o due ottave dentro la battuta.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto dalla figura all'accordo senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi in chiave di basso.",
+     "rep3": "DIN: canto del tenore più forte delle figure."
+    }
+   },
+   "rep4_verifica": "Figure leggere e uguali; il canto del tenore legato attraverso i salti.",
+   "note": "Belaieff p. 4, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-34-35",
+   "brano": "scriabin9-2",
+   "battute": "34-35",
+   "titolo": "Ornamento di biscrome e basso grave (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 7-8. 7: accordo in alto con discesa di biscrome, poi la mano va al basso grave (ottava con acciaccatura) e risale. 8: accordi con semicrome in levare in alto e arpeggi di semicrome del basso.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto all'ottava grave senza guardare.",
+     "rep3": "RIT sulle biscrome di 7."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 8.",
+     "rep3": "DIN: discesa di 7 piano, ottava grave senza colpo."
+    }
+   },
+   "rep4_verifica": "Biscrome di 7 uguali e in tempo; ottava grave presa senza ritardo.",
+   "note": "Belaieff p. 4, sistema 3."
+  },
+  {
+   "id": "scriabin9-2-36-37",
+   "brano": "scriabin9-2",
+   "battute": "36-37",
+   "titolo": "Canto ad accordi e arpeggi del basso (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "Ripresa di 9-10. 9: canto in alto ad accordi tenuti, il basso sale ad arpeggio (diteggiatura 1-2 scritta). 10: come 1, accordi in alto e arpeggio largo su e giù con forcella.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Accordi in alto insieme; arpeggio continuo sotto.",
+   "note": "Belaieff p. 4, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-38-39",
+   "brano": "scriabin9-2",
+   "battute": "38-39",
+   "titolo": "Bicordi del basso e corona (ripresa)",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "Ripresa di 11-12. 11: accordi in alto, il basso sale per bicordi di semicrome (con terzina). 12: accordi di biscrome con corona, poi biscrome nel registro medio-alto che legano alla b. 13.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sui bicordi di 11.",
+     "rep3": "RIT sulle biscrome di 12."
+    },
+    "2": {
+     "rep2": "CHUNK: 11 e 12 separate.",
+     "rep3": "DIN: corona di 12 piano, biscrome leggere."
+    }
+   },
+   "rep4_verifica": "Bicordi insieme; biscrome di 12 uguali dopo la corona.",
+   "note": "Belaieff p. 4, sistema 4."
+  },
+  {
+   "id": "scriabin9-2-40-41",
+   "brano": "scriabin9-2",
+   "battute": "40-41",
+   "titolo": "Figure in alto e accordi in chiave di violino",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "40: come 13 (figure di semicrome in alto, accordi sotto). 41: le figure salgono e gli accordi sotto passano in chiave di violino; il basso torna in chiave di basso in fondo.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: una figura e il suo accordo alla volta.",
+     "rep3": "CIECO: salto senza guardare."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 41.",
+     "rep3": "DIN: canto del tenore sopra le figure."
+    }
+   },
+   "rep4_verifica": "Come 13-14; il cambio di registro di 41 senza buchi.",
+   "note": "Belaieff p. 6, sistema 5."
+  },
+  {
+   "id": "scriabin9-2-42-43",
+   "brano": "scriabin9-2",
+   "battute": "42-43",
+   "titolo": "Accordi con biscrome e rit.",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-salti",
+   "nodo_motorio": "42: accordo con biscrome e basso grave, come 15. 43: accordi in alto a crome puntate, rit., e arpeggio del basso che sale verso il p di 44.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salto al basso grave.",
+     "rep3": "RIT sulle biscrome."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi di 43.",
+     "rep3": "DIN: rit. e dim. verso il p."
+    }
+   },
+   "rep4_verifica": "Biscrome in tempo; rit. graduale.",
+   "note": "Belaieff p. 6 sistema 5 – p. 7 sistema 1."
+  },
+  {
+   "id": "scriabin9-2-44-45",
+   "brano": "scriabin9-2",
+   "battute": "44-45",
+   "titolo": "Arpeggi che passano in chiave di violino",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "44 p: canto in alto (La, Sol, La) e arpeggi di semicrome che salgono dal grave fino in chiave di violino. 45: come 44 sul Fa e Re bemolle, l'arpeggio arriva all'8va.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Arpeggi legati dal grave all'acuto; il canto resta sopra.",
+   "note": "Belaieff p. 7, sistema 1."
+  },
+  {
+   "id": "scriabin9-2-46-47",
+   "brano": "scriabin9-2",
+   "battute": "46-47",
+   "titolo": "Crome tra le chiavi e accordo pieno",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "46: accordi in alto e crome del basso che saltano tra chiave di basso e di violino, fino all'8va. 47: accordo pieno in alto, poi arpeggio di semicrome che sale da sotto.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO: salti di 46 senza guardare.",
+     "rep3": "DIN: crome leggere, accordi sopra."
+    },
+    "2": {
+     "rep2": "BLOC sull'accordo di 47.",
+     "rep3": "CHUNK: arpeggio di 47 in due gesti."
+    }
+   },
+   "rep4_verifica": "Salti di 46 in tempo; accordo di 47 insieme.",
+   "note": "Belaieff p. 7, sistema 2."
+  },
+  {
+   "id": "scriabin9-2-48-49",
+   "brano": "scriabin9-2",
+   "battute": "48-49",
+   "titolo": "Canto e arpeggi all'8va",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-arpeggi",
+   "nodo_motorio": "48: canto (La, Sol, La) con arpeggi di semicrome che salgono. 49: canto sul Fa e Re bemolle, arpeggio fino all'8va con forcella.",
+   "andate": {
+    "1": {
+     "rep2": "CHUNK: arpeggio diviso in salita e discesa, fermo sulla nota più alta.",
+     "rep3": "DIN: canto p, arpeggio pp sotto."
+    },
+    "2": {
+     "rep2": "ROT: apertura dal gomito, pollice morbido sui passaggi.",
+     "rep3": "CIECO: ritorno al basso senza guardare."
+    }
+   },
+   "rep4_verifica": "Come 44-45.",
+   "note": "Belaieff p. 7, sistemi 2-3."
+  },
+  {
+   "id": "scriabin9-2-50-51",
+   "brano": "scriabin9-2",
+   "battute": "50-51",
+   "titolo": "Accordi in salita e inizio del legato",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "50: accordi a crome che salgono e bassi a crome tra le chiavi, all'8va. 51 legato: discesa di biscrome dall'acuto e salita ad arpeggio, primo trillo.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 50.",
+     "rep3": "CHUNK: discesa e salita di 51 separate."
+    },
+    "2": {
+     "rep2": "CIECO: salti di 50 senza guardare.",
+     "rep3": "DIN: legato pp."
+    }
+   },
+   "rep4_verifica": "Accordi di 50 insieme; biscrome di 51 uguali e legate.",
+   "note": "Belaieff p. 7, sistemi 3-4."
+  },
+  {
+   "id": "scriabin9-2-52-53",
+   "brano": "scriabin9-2",
+   "battute": "52-53",
+   "titolo": "Trilli e onda finale pp smorz.",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "52: discese e salite di biscrome con trilli, all'8va. 53 pp: trillo e onda di biscrome legate che si spegne (smorz.).",
+   "andate": {
+    "1": {
+     "rep2": "RIT sulle biscrome.",
+     "rep3": "DIN: pp e smorz. graduale."
+    },
+    "2": {
+     "rep2": "ACC: l'onda di 53 in un gesto.",
+     "rep3": "CHUNK: trilli separati dal resto."
+    }
+   },
+   "rep4_verifica": "Trilli regolari; smorz. senza rallentare troppo.",
+   "note": "Belaieff p. 7, sistema 4."
+  },
+  {
+   "id": "scriabin9-2-54-57",
+   "brano": "scriabin9-2",
+   "battute": "54-57",
+   "titolo": "Ad libitum e accordi finali",
+   "priorita": 1,
+   "famiglia": "scriabin9-2-fam-cadenza",
+   "nodo_motorio": "54 ad libitum, mf cresc.: accordi con acciaccature nel basso che salgono, poi ppp e corona. 55: arpeggio di semicrome dal grave all'acuto. 56: nota acuta e accordo. 57: accordo finale tenuto. (Ultimo gruppo di due unito al penultimo.)",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sugli accordi di 54.",
+     "rep3": "DIN: cresc. e poi ppp subito."
+    },
+    "2": {
+     "rep2": "CHUNK: arpeggio di 55 in due gesti.",
+     "rep3": "MENT: accordo finale, ascolto prima di suonare."
+    }
+   },
+   "rep4_verifica": "Contrasto mf-ppp netto; arpeggio di 55 continuo; accordo finale insieme.",
+   "note": "Belaieff p. 7, sistema 5."
   }
  ],
  "priorita": [
@@ -7232,6 +8868,180 @@
     "nabucco-concertato-56-60",
     "nabucco-concertato-61-63"
    ]
+  },
+  {
+   "id": "rach39-6-fam-cromatiche",
+   "nome": "Scale cromatiche a due mani verso un accordo sf",
+   "frammenti": [
+    "rach39-6-1-5",
+    "rach39-6-19-21",
+    "rach39-6-111-121"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-leggiere",
+   "nome": "Figura leggiere a semicrome sopra crome legate",
+   "frammenti": [
+    "rach39-6-6-10",
+    "rach39-6-11-18",
+    "rach39-6-22-23",
+    "rach39-6-94-102"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-doppie-note",
+   "nome": "Doppie note e accordi rapidi della destra",
+   "frammenti": [
+    "rach39-6-24-27",
+    "rach39-6-103-110"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-marcia",
+   "nome": "Accordi staccati sopra bassi in salto",
+   "frammenti": [
+    "rach39-6-36-43",
+    "rach39-6-44-51",
+    "rach39-6-52-58",
+    "rach39-6-81-87"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-presto",
+   "nome": "Presto leggiere sopra i salti della sinistra",
+   "frammenti": [
+    "rach39-6-59-64",
+    "rach39-6-65-70"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-ff-salti",
+   "nome": "Accordi ff e salti della sinistra",
+   "frammenti": [
+    "rach39-6-71-76",
+    "rach39-6-88-93"
+   ]
+  },
+  {
+   "id": "rach23-6-fam-tema",
+   "nome": "Tema sopra le semicrome della sinistra",
+   "frammenti": [
+    "rach23-6-1-7",
+    "rach23-6-14-17",
+    "rach23-6-23-26"
+   ]
+  },
+  {
+   "id": "rach23-6-fam-sinistra-larga",
+   "nome": "Semicrome larghe della sinistra in crescendo",
+   "frammenti": [
+    "rach23-6-8-13",
+    "rach23-6-18-22"
+   ]
+  },
+  {
+   "id": "chopin25-7-fam-canto",
+   "nome": "Canto della sinistra sopra le crome ribattute",
+   "frammenti": [
+    "chopin25-7-1-8",
+    "chopin25-7-9-17",
+    "chopin25-7-18-21",
+    "chopin25-7-37-44"
+   ]
+  },
+  {
+   "id": "chopin25-7-fam-volate",
+   "nome": "Volate rapide della sinistra",
+   "frammenti": [
+    "chopin25-7-22-28",
+    "chopin25-7-45-56"
+   ]
+  },
+  {
+   "id": "chopin25-7-fam-arpeggi",
+   "nome": "Semicrome e arpeggi della sinistra",
+   "frammenti": [
+    "chopin25-7-29-36",
+    "chopin25-7-57-59"
+   ]
+  },
+  {
+   "id": "scriabin9-1-fam-canto",
+   "nome": "Canto sopra le crome ribattute",
+   "frammenti": [
+    "scriabin9-1-1-4",
+    "scriabin9-1-17-22"
+   ]
+  },
+  {
+   "id": "scriabin9-1-fam-salti",
+   "nome": "Salti tra basso grave e accordi",
+   "frammenti": [
+    "scriabin9-1-9-12",
+    "scriabin9-1-13-16"
+   ]
+  },
+  {
+   "id": "scriabin9-1-fam-arpeggi",
+   "nome": "Arpeggi larghi del basso",
+   "frammenti": [
+    "scriabin9-1-5-8",
+    "scriabin9-1-23-26",
+    "scriabin9-1-27-30",
+    "scriabin9-1-31-34"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-arpeggi",
+   "nome": "Canto sopra gli arpeggi larghi",
+   "frammenti": [
+    "scriabin9-2-1-2",
+    "scriabin9-2-9-10",
+    "scriabin9-2-28-29",
+    "scriabin9-2-36-37",
+    "scriabin9-2-44-45",
+    "scriabin9-2-46-47",
+    "scriabin9-2-48-49"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-salti",
+   "nome": "Salti tra figure in alto e accordi sotto",
+   "frammenti": [
+    "scriabin9-2-3-4",
+    "scriabin9-2-5-6",
+    "scriabin9-2-7-8",
+    "scriabin9-2-11-12",
+    "scriabin9-2-13-14",
+    "scriabin9-2-15-16",
+    "scriabin9-2-30-31",
+    "scriabin9-2-32-33",
+    "scriabin9-2-34-35",
+    "scriabin9-2-38-39",
+    "scriabin9-2-40-41",
+    "scriabin9-2-42-43"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-accordi",
+   "nome": "Accordi ribattuti e accordi pieni",
+   "frammenti": [
+    "scriabin9-2-17-18",
+    "scriabin9-2-19-20",
+    "scriabin9-2-21-22",
+    "scriabin9-2-23-24",
+    "scriabin9-2-25-26"
+   ]
+  },
+  {
+   "id": "scriabin9-2-fam-cadenza",
+   "nome": "Cadenze e passaggi all'8va",
+   "frammenti": [
+    "scriabin9-2-27-27",
+    "scriabin9-2-50-51",
+    "scriabin9-2-52-53",
+    "scriabin9-2-54-57"
+   ]
   }
  ],
  "definizioni": {
@@ -7383,23 +9193,27 @@
    },
    {
     "titolo": "Voto in decimi",
-    "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 sulla metrica del brano: pulizia al tempo per i brani «tempo», suono per i brani «suono». Le altre Rep 1 dello stesso giorno non contano. Se il test resta senza voto non conta: al ripasso successivo il voto viene chiesto di nuovo.\nPunti di riferimento: 10 = al tempo giusto, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 scende sotto 6 in 17 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso (a parità, la priorità). Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
+    "testo": "Il test vero è la prima Rep 1 del giorno per quel frammento. Subito dopo si dà un voto da 0 a 10 che tiene insieme pulizia al tempo e suono, per tutti i brani. Le altre Rep 1 dello stesso giorno non contano. Se il test resta senza voto non conta: al ripasso successivo il voto viene chiesto di nuovo.\nPunti di riferimento: 10 = al tempo giusto, pulito, suono giusto; 8-9 = un piccolo difetto; 7 = pulito ma sotto tempo, o note giuste con suono duro o diseguale; 5 = errori in un punto; 3 = errori in più punti o fermate; 0 = non si riesce a suonare.\nIl voto cala da solo di 0,25 al giorno dall'ultimo test: un 10 scende sotto 6 in 17 giorni. Un frammento mai votato non entra nella lista.\n«Da ripassare oggi», in cima alla scelta dei passaggi: i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso. Non ci sono date fisse.\nPausa tra frammenti simili: se un frammento della stessa famiglia è stato studiato negli ultimi 2 giorni, il frammento scende in fondo con la scritta «famiglia studiata di recente».\nIl drop-out dentro la sessione non cambia il voto. Un voto si può anche dare a mano dalla pagina del frammento."
    },
    {
     "titolo": "Condizioni reali più spesso",
-    "testo": "Voto del test di oggi sotto 7: Rep 2-3 a mp e senza pedale.\nVoto del test di oggi da 7 in su: Rep 3 con dinamica e pedale reali, mantenendo la variante. Due Rep su quattro sono in condizioni reali.\nFrammenti di resistenza (priorità 2 del Mephisto): Rep 2-3 sempre nella dinamica scritta, con il test di PESO (polso mobile durante lo stop). Se l'avambraccio si indurisce, ci si ferma."
+    "testo": "Voto del test di oggi sotto 7: Rep 2-3 a mp e senza pedale.\nVoto del test di oggi da 7 in su: Rep 3 con dinamica e pedale reali, mantenendo la variante. Due Rep su quattro sono in condizioni reali.\nFrammenti di resistenza del Mephisto (ottave e accordi ribattuti in f e ff): Rep 2-3 sempre nella dinamica scritta, con il test di PESO (polso mobile durante lo stop). Se l'avambraccio si indurisce, ci si ferma."
    },
    {
     "titolo": "Prova",
     "testo": "Una sezione o il brano intero, una sola volta, senza fermarsi, registrata. Dopo, al riascolto, si segnano i punti sporchi: i frammenti che li contengono prendono 5 come voto del giorno (se non avevano già un voto più basso) e finiscono in «Da ripassare»."
    },
    {
-    "titolo": "Metrica adatta al brano",
-    "testo": "Ogni brano ha una metrica principale: tempo (op. 111 I movimento, Mephisto, Nabucco) o suono (op. 111 Arietta, Fantasia op. 28). Il voto del test riguarda quella metrica.\nVerifica a due settimane, per tutti i brani: se il voto del test a freddo non sale in due settimane e resta sotto 8,5, la pagina del frammento lo segnala."
+    "titolo": "Verifica a due settimane",
+    "testo": "Per tutti i brani: se il voto del test a freddo non sale in due settimane e resta sotto 8,5, la pagina del frammento lo segnala. Il voto tiene insieme pulizia al tempo e suono (dalla 3.7.1 non c'è più una metrica per brano)."
    },
    {
-    "titolo": "Brani nuovi e consolidati",
-    "testo": "Ogni brano è «nuovo» o «consolidato»; si cambia in Impostazioni, toccando il brano.\nBrano nuovo: in ogni slot 5-7 ripetizioni di puro controllo al 50-65%, alternando le due varianti che scegli tu (A e B), oppure nessuna. Niente Rep 1 a freddo, niente Rep 4, nessun test e nessun voto: il frammento non entra in «Da ripassare». Meglio in circuiti di soli frammenti dello stesso brano (l'app non lo impone).\nBrano consolidato: lo slot da 4 Rep, con test del giorno e voto in decimi."
+    "titolo": "Frammenti nuovi e consolidati",
+    "testo": "Ogni frammento è «nuovo» o «consolidato». Un brano entra con un aggiornamento dell'app e i suoi frammenti partono nuovi (oggi il Nabucco).\nNei circuiti vanno solo i consolidati. I nuovi si studiano in sessione libera: lì segni, se vuoi, quelli studiati.\nDal giorno dopo compaiono in home, in «Nuovi da testare»: una volta a freddo, al tempo di lavoro. «Regge» lo passa ai consolidati (basta una volta, decidi tu); «Non regge» lo lascia nuovo e lo toglie dalla coda.\nUn frammento appena consolidato non ha voto: lo scegli tu per un circuito e il primo test del giorno gli dà il voto. Si passa ai consolidati anche a mano, dalla scheda del brano o dalla pagina del frammento."
+   },
+   {
+    "titolo": "Studiare un passaggio nuovo (sessione libera)",
+    "testo": "Indicazioni, non regole dell'app.\nPrima: leggi tutta la sezione, trova la struttura, decidi diteggiatura e pedale.\nPoi, frammento per frammento: mani unite presto; tempo che cambia (lento, poi a scatti più veloci), non fisso; suono vero da subito; varianti di mappa (BLOC, NODO, MUTA, CIECO, DIN, MENT). Fine quando lo suoni giusto 3 volte di fila, al massimo 8 tentativi.\nAlla fine: la sezione intera, lenta, senza fermarti."
    },
    {
     "titolo": "Scelta dei passaggi",
@@ -7417,7 +9231,8 @@
    ],
    "slot": "Brano nuovo: 5-7 ripetizioni di puro controllo al 50-65%, alternando le due varianti che scegli tu (A e B), oppure nessuna. Niente Rep 1 a freddo, niente Rep 4, nessun test e nessun voto.",
    "soglia": "Proposta dell'analisi del Nabucco, non una regola: un frammento è pronto per lo slot da 4 Rep quando regge note e diteggiatura al 65% senza errori per due sessioni.",
-   "fonte": "«Come usare il documento» dell'analisi del Nabucco (12/11/2026), che riporta il metodo di Alessandro per i passaggi nuovi."
+   "fonte": "«Come usare il documento» dell'analisi del Nabucco (12/11/2026), che riporta il metodo di Alessandro per i passaggi nuovi.",
+   "nota_3_7": "Dalla 3.7 lo slot di controllo non si crea più (i nuovi non entrano nei circuiti): questi numeri servono solo alle sessioni aperte prima dell'aggiornamento e allo storico."
   },
   "superate": {
    "rep1": "Test a freddo all'85-95%, solo alla prima andata del frammento nella sessione, poi un voto da 0 a 10. Niente riga di diagnosi. Nelle andate dopo, al posto di Rep 1 c'è la Rep di contesto: il frammento con 2 battute prima e 2 dopo, all'85-90%.",

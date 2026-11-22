@@ -1,0 +1,508 @@
+{
+ "versione": 2,
+ "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Henle (Études-tableaux op. 39, pp. 64-69), da verificare al pianoforte.",
+ "brani": [
+  {
+   "id": "rach39-6",
+   "nome": "Rachmaninov, Études-tableaux op. 39 n. 6",
+   "completo": true
+  }
+ ],
+ "frammenti": [
+  {
+   "id": "rach39-6-1-5",
+   "brano": "rach39-6",
+   "battute": "1-5",
+   "titolo": "Salita cromatica in terzine, accordo sf",
+   "priorita": 6,
+   "famiglia": "rach39-6-fam-cromatiche",
+   "nodo_motorio": "Le due mani salgono insieme per semitoni in terzine di crome (in chiave di basso, a due ottave di distanza), sotto un'unica legatura, fino all'accordo sf con l'ottava grave della sinistra. Due volte, poi l'accordo p di b. 5. Il passaggio del pollice capita in punti diversi nelle due mani.",
+   "andate": {
+    "1": {
+     "rep2": "NODO: fermati sulle note in cui una mano passa il pollice e l'altra no; i due tasti devono scendere insieme.",
+     "rep3": "RIT sulle terzine: lungo-corto-corto, poi corto-corto-lungo."
+    },
+    "2": {
+     "rep2": "CHUNK: un quarto più la prima nota del seguente, a tempo pieno; nello stop la mano è già sulla posizione nuova.",
+     "rep3": "PESO sull'accordo sf e sull'ottava grave: caduta e rilascio, poi la pausa contata."
+    }
+   },
+   "rep4_verifica": "Le due mani esattamente insieme, crescendo regolare senza accelerare, accordo sf di caduta e mani ferme nelle pause.",
+   "note": "Henle p. 64, sistema 1."
+  },
+  {
+   "id": "rach39-6-6-10",
+   "brano": "rach39-6",
+   "battute": "6-10",
+   "titolo": "Leggiere: il motivo a semicrome",
+   "priorita": 5,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "Destra: gruppi di quattro semicrome staccate a p, nota acuta poi terza spezzata o nota ribattuta che scende (diteggiature 3-2, 5-2 scritte). Sinistra: coppie di crome legate-staccate con salti di sesta e settima. A b. 9 la sinistra tiene una minima e aggiunge terze in levare (mf).",
+   "andate": {
+    "1": {
+     "rep2": "STAC pp: ogni semicroma dal tasto, il braccio scorre; nessun sollevamento.",
+     "rep3": "DIN: sinistra legato e cantabile, destra staccato pp."
+    },
+    "2": {
+     "rep2": "ACC: accento sulla 2ª semicroma di ogni gruppo, poi sulla 3ª, poi sulla 4ª; resto pp.",
+     "rep3": "MUTA: la destra suona, la sinistra fa i movimenti sui tasti senza abbassarli; poi il contrario."
+    }
+   },
+   "rep4_verifica": "Semicrome uguali e leggere, nessuna nota ribattuta che si perde, crome della sinistra legate a coppie. p vero.",
+   "note": "Henle p. 64, sistema 2 – sistema 3 batt. 1."
+  },
+  {
+   "id": "rach39-6-11-18",
+   "brano": "rach39-6",
+   "battute": "11-18",
+   "titolo": "Cromatica, poi leggiere e seste mf",
+   "priorita": 4,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "11: cromatica a mani parallele (destra in semicrome, sinistra in semicrome e terzina) verso l'accordo sf di 12. 12-14: il motivo leggiere. 15-17: la destra passa ad accordi e seste a semicrome con salti di registro, sopra minime e terze in levare della sinistra (mf). 18 dim.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle seste di 15-17: ogni posizione come accordo, cambio senza guardare.",
+     "rep3": "NODO sulla cromatica di 11."
+    },
+    "2": {
+     "rep2": "CHUNK su 15-17: un quarto più la nota d'arrivo, stop già in posizione.",
+     "rep3": "DIN: destra p, sinistra mf, poi il contrario."
+    }
+   },
+   "rep4_verifica": "Seste uguali, la nota superiore che canta; passaggio dalla cromatica al leggiere senza scarto di tempo.",
+   "note": "Henle p. 64, sistema 3 batt. 2 – sistema 5 batt. 1."
+  },
+  {
+   "id": "rach39-6-19-21",
+   "brano": "rach39-6",
+   "battute": "19-21",
+   "titolo": "Seconda cromatica, ritorno del motivo",
+   "priorita": 6,
+   "famiglia": "rach39-6-fam-cromatiche",
+   "nodo_motorio": "19: destra cromatica in semicrome, sinistra in semicrome e terzina che scende nel grave (8va bassa). 20: accordo sf, poi subito il motivo leggiere p. 21: il motivo con bicordi e crescendo.",
+   "andate": {
+    "1": {
+     "rep2": "NODO sulla cromatica di 19.",
+     "rep3": "CIECO sull'arrivo di 20: dall'ultima nota della cromatica all'accordo sf."
+    },
+    "2": {
+     "rep2": "CHUNK: 19 in due blocchi, poi 20 a tempo.",
+     "rep3": "STAC pp sul motivo di 20-21."
+    }
+   },
+   "rep4_verifica": "Arrivo sull'accordo sf preciso e subito p dopo, senza respiro aggiunto.",
+   "note": "Henle p. 64, sistema 5 batt. 2 – p. 65, sistema 1 batt. 1."
+  },
+  {
+   "id": "rach39-6-22-23",
+   "brano": "rach39-6",
+   "battute": "22-23",
+   "titolo": "sf con salto della sinistra, poi il motivo",
+   "priorita": 5,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "22: sf, la destra scende con un'appoggiatura mentre la sinistra salta al La grave; poi il motivo p. 23: il motivo con terze in levare e crescendo; sinistra a crome legate con bemolli.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sul salto della sinistra a 22: sposta, tocca, poi suona.",
+     "rep3": "STAC pp sul motivo."
+    },
+    "2": {
+     "rep2": "PESO sullo sf di 22, rilascio immediato.",
+     "rep3": "MUTA: destra sola con la sinistra sui tasti."
+    }
+   },
+   "rep4_verifica": "Salto della sinistra sicuro, sf corto e subito p, semicrome uguali.",
+   "note": "Henle p. 65, sistema 1 batt. 2-3."
+  },
+  {
+   "id": "rach39-6-24-27",
+   "brano": "rach39-6",
+   "battute": "24-27",
+   "titolo": "Accordi e doppie note della destra, cresc. f",
+   "priorita": 4,
+   "famiglia": "rach39-6-fam-doppie-note",
+   "nodo_motorio": "24 sf e cresc.: la destra sale con semicrome e bicordi, sinistra a crome staccate. 25: semicrome con accordi sul battere e salti verso l'alto, sinistra minima accentata e accordi in levare. 26-27 f: accordi staccati e doppie note a semicrome nell'acuto, sinistra con accordi in levare e salti al basso.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC: ogni posizione della destra come accordo, a quarti, senza guardare.",
+     "rep3": "PESO sugli accordi staccati di 26-27."
+    },
+    "2": {
+     "rep2": "CHUNK: un quarto più la nota d'arrivo, stop già in posizione.",
+     "rep3": "RIT: lungo-corto sulle coppie di semicrome."
+    }
+   },
+   "rep4_verifica": "f senza durezza, accordi completi, salti della sinistra in tempo.",
+   "note": "Henle p. 65, sistema 2 – sistema 3 batt. 1."
+  },
+  {
+   "id": "rach39-6-28-35",
+   "brano": "rach39-6",
+   "battute": "28-35",
+   "titolo": "Arpeggi larghi a mani unite (e ossia)",
+   "priorita": 7,
+   "famiglia": null,
+   "nodo_motorio": "28-34 mf poi dim.: destra a semicrome in arpeggi spezzati larghi (diteggiature 5, 1-2-3-5 scritte), sinistra a crome con basso e arpeggio di decima e oltre. L'ossia sopra il rigo semplifica la destra. 34 p, poi 35: salita cromatica in terzine verso il Poco meno mosso.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC: le posizioni della sinistra come accordi, cambio senza guardare.",
+     "rep3": "RIT sulle semicrome della destra."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola con la destra sui tasti; poi il contrario.",
+     "rep3": "CIECO sui salti della sinistra."
+    }
+   },
+   "rep4_verifica": "Legato della sinistra senza buchi, destra uguale; dim. reale fino al p.",
+   "note": "Henle p. 65, sistema 3 batt. 2 – p. 66, sistema 1 batt. 1. Scegli prima se usare l'ossia."
+  },
+  {
+   "id": "rach39-6-36-43",
+   "brano": "rach39-6",
+   "battute": "36-43",
+   "titolo": "Poco meno mosso: accordi sopra il basso ostinato",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "sf pp. Sinistra: crome staccate e accentate tra ottava grave e quinta (ostinato), con volate di biscrome (5-4-3-2-1) a 38 e 42. Destra: melodia di accordi staccati e minime in chiave di basso, che sale di registro.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti dell'ostinato: sposta, tocca, suona.",
+     "rep3": "STAC pp sugli accordi della destra."
+    },
+    "2": {
+     "rep2": "DIN: sinistra p, destra mf sulla melodia.",
+     "rep3": "PESO pp sugli accordi accentati, polso libero tra uno e l'altro."
+    }
+   },
+   "rep4_verifica": "pp tenuto, ostinato regolare, volate della sinistra senza rallentare.",
+   "note": "Henle p. 66, sistema 1 batt. 2 – sistema 2 batt. 4."
+  },
+  {
+   "id": "rach39-6-44-51",
+   "brano": "rach39-6",
+   "battute": "44-51",
+   "titolo": "Accelerando: accordi e salti, fino al mf",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "44 p, 45 poco a poco accelerando e poco cresc.: sinistra in salto tra basso e nota media a crome, volate di biscrome a 47-48. Destra: accordi staccati a crome. Da 48 passa in chiave di violino; 49-51 mf: accordi accentati della destra, sinistra con ottave e accordi in salto.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra.",
+     "rep3": "BLOC sugli accordi della destra."
+    },
+    "2": {
+     "rep2": "MET: lo stesso tratto a due tempi diversi, per controllare l'accelerando.",
+     "rep3": "PESO sugli accordi accentati di 49-51."
+    }
+   },
+   "rep4_verifica": "Accelerando graduale, non a scatti; salti sicuri anche alla velocità più alta.",
+   "note": "Henle p. 66, sistema 2 batt. 5 – sistema 4 batt. 3."
+  },
+  {
+   "id": "rach39-6-52-58",
+   "brano": "rach39-6",
+   "battute": "52-58",
+   "titolo": "f, poi Più mosso: accordi a mani unite",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "52 f: accordi della destra, sinistra in ottave e salti. 53 più mosso p: accordi staccati della destra con accenti, sinistra con bassi e accordi in levare che saltano. 57 cresc. 58 f: accordi accentati in tutte e due le mani.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle posizioni della destra, cambio senza guardare.",
+     "rep3": "CIECO sui salti della sinistra."
+    },
+    "2": {
+     "rep2": "PESO sugli accenti, rilascio tra un accordo e l'altro.",
+     "rep3": "DIN: destra p, sinistra f, poi il contrario."
+    }
+   },
+   "rep4_verifica": "Più mosso netto, accordi completi, braccio libero fino al f di 58.",
+   "note": "Henle p. 66, sistema 4 batt. 4 – p. 67, sistema 1 batt. 2."
+  },
+  {
+   "id": "rach39-6-59-64",
+   "brano": "rach39-6",
+   "battute": "59-64",
+   "titolo": "Presto leggiere: accordi e seste sopra i salti",
+   "priorita": 3,
+   "famiglia": "rach39-6-fam-presto",
+   "nodo_motorio": "Presto, p leggiere. Destra: accordi sul battere e seste o terze a semicrome legate, con accenti. Sinistra: basso a crome e accordo staccato in levare, salto a ogni croma. 63-64: la sinistra passa a semicrome e accordi accentati.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra: sposta, tocca, suona.",
+     "rep3": "BLOC sulle posizioni della destra."
+    },
+    "2": {
+     "rep2": "STAC pp sugli accordi della sinistra.",
+     "rep3": "CHUNK: un quarto più la prima nota del seguente, a tempo Presto."
+    }
+   },
+   "rep4_verifica": "p leggiere a tempo Presto, accordi della sinistra corti e precisi, destra senza durezza.",
+   "note": "Henle p. 67, sistema 1 batt. 3 – sistema 3 batt. 1."
+  },
+  {
+   "id": "rach39-6-65-70",
+   "brano": "rach39-6",
+   "battute": "65-70",
+   "titolo": "Doppie note all'8va, arpeggi della sinistra",
+   "priorita": 3,
+   "famiglia": "rach39-6-fam-presto",
+   "nodo_motorio": "65 sf p: destra all'ottava sopra, doppie note a semicrome e crome legate. Sinistra: ottava grave accentata, poi arpeggio largo staccato (1-3 scritto) che sale. 67 sforz. 69 cresc., 70 ff: la sinistra a semicrome e accordi accentati.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra dal basso all'arpeggio.",
+     "rep3": "BLOC sulle doppie note della destra."
+    },
+    "2": {
+     "rep2": "DIN: destra pp, sinistra f.",
+     "rep3": "PESO sull'ff di 70."
+    }
+   },
+   "rep4_verifica": "Doppie note uguali e leggere, salti della sinistra in tempo, crescendo fino a ff senza irrigidirsi.",
+   "note": "Henle p. 67, sistema 3 batt. 2 – sistema 4."
+  },
+  {
+   "id": "rach39-6-71-76",
+   "brano": "rach39-6",
+   "battute": "71-76",
+   "titolo": "ff: accordi accentati e salti della sinistra",
+   "priorita": 1,
+   "famiglia": "rach39-6-fam-ff-salti",
+   "nodo_motorio": "All'8va, ff. Destra: accordi accentati a crome e semicrome, tutti con l'accento. Sinistra: ottava grave accentata e accordo nel registro medio, alternati a ogni croma. 74 dim., 75 rallentando, 76 p.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra, una battuta alla volta.",
+     "rep3": "PESO mp sugli accordi: caduta e rilascio."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi della destra senza guardare.",
+     "rep3": "CHUNK: un quarto più il primo accordo del seguente, stop già in posizione."
+    }
+   },
+   "rep4_verifica": "ff di peso, non di spinta; nessun salto mancato; rallentando e dim. reali.",
+   "note": "Henle p. 67, sistema 5 – p. 68, sistema 1."
+  },
+  {
+   "id": "rach39-6-77-80",
+   "brano": "rach39-6",
+   "battute": "77-80",
+   "titolo": "A tempo: canto sopra le semicrome cromatiche",
+   "priorita": 7,
+   "famiglia": null,
+   "nodo_motorio": "77 f: la destra scende in chiave di basso con nota tenuta, la sinistra comincia l'ostinato a semicrome cromatiche nel grave. 78-80 dim. poi p: minime legate della destra, sinistra sempre a semicrome.",
+   "andate": {
+    "1": {
+     "rep2": "DIN: destra cantabile, sinistra pp.",
+     "rep3": "RIT sulle semicrome della sinistra."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola con la destra sui tasti.",
+     "rep3": "MENT, poi la ripetizione reale."
+    }
+   },
+   "rep4_verifica": "Note lunghe della destra tenute, semicrome della sinistra uguali e in secondo piano.",
+   "note": "Henle p. 68, sistema 2."
+  },
+  {
+   "id": "rach39-6-81-87",
+   "brano": "rach39-6",
+   "battute": "81-87",
+   "titolo": "Marcato: accordi in levare, poi f",
+   "priorita": 2,
+   "famiglia": "rach39-6-fam-marcia",
+   "nodo_motorio": "81 mf marcato: accordi della destra in levare dopo la pausa, sinistra con basso e accordo in salto. 83-84 cresc., la destra sale in chiave di violino con accordi e ritmi puntati. 86 f: accordi della destra con terzine, sinistra con salti larghi. 87 cresc.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra.",
+     "rep3": "CLIC: un clic sul levare, l'accordo della destra con il clic."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi della destra.",
+     "rep3": "PESO sugli accordi di 86-87."
+    }
+   },
+   "rep4_verifica": "Levare precisi dopo le pause, crescendo senza correre, salti puliti.",
+   "note": "Henle p. 68, sistema 3 – sistema 4 batt. 3."
+  },
+  {
+   "id": "rach39-6-88-93",
+   "brano": "rach39-6",
+   "battute": "88-93",
+   "titolo": "ff all'8va: accordi e salti, poi la discesa",
+   "priorita": 1,
+   "famiglia": "rach39-6-fam-ff-salti",
+   "nodo_motorio": "88 ff, 8va: la destra ripete figure di accordi accentati, la sinistra ottave e accordi in salto. 91-92: accenti su ogni croma. 93 ff: le due mani si alternano con accordi in discesa cromatica fino al sff di 94.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra.",
+     "rep3": "ALT su 93: le mani si alternano a quarti, poi a ottavi, senza perdere la pulsazione."
+    },
+    "2": {
+     "rep2": "PESO mp sugli accordi accentati.",
+     "rep3": "CHUNK: un quarto più l'accordo seguente, stop in posizione."
+    }
+   },
+   "rep4_verifica": "ff senza irrigidirsi fino alla fine; 93 regolare e arrivo preciso sul sff.",
+   "note": "Henle p. 68, sistema 4 batt. 4 – sistema 6 batt. 1."
+  },
+  {
+   "id": "rach39-6-94-102",
+   "brano": "rach39-6",
+   "battute": "94-102",
+   "titolo": "Tempo I: il motivo leggiere e le seste",
+   "priorita": 5,
+   "famiglia": "rach39-6-fam-leggiere",
+   "nodo_motorio": "94 sff, poi p: ritorno del motivo leggiere sopra le crome della sinistra (come 6-10). 97-100: seste e accordi della destra con salti di registro, mf, sopra minime e terze della sinistra (come 15-17). 101 dim. 102 p: la destra scende a semicrome legate.",
+   "andate": {
+    "1": {
+     "rep2": "STAC pp sul motivo.",
+     "rep3": "BLOC sulle seste di 97-100."
+    },
+    "2": {
+     "rep2": "ACC sulle semicrome del motivo.",
+     "rep3": "DIN: destra p, sinistra mf."
+    }
+   },
+   "rep4_verifica": "Lo stesso leggiere di 6-10, seste uguali, dim. reale a 101.",
+   "note": "Henle p. 68, sistema 6 batt. 2 – p. 69, sistema 2 batt. 2."
+  },
+  {
+   "id": "rach39-6-103-110",
+   "brano": "rach39-6",
+   "battute": "103-110",
+   "titolo": "Accordi staccati e semicrome della sinistra, mf",
+   "priorita": 4,
+   "famiglia": "rach39-6-fam-doppie-note",
+   "nodo_motorio": "103 e 105: accordi staccati della destra nell'acuto, mentre la sinistra suona semicrome cromatiche con diteggiatura scritta (1, 2-1-3). 104 e 106: la destra scende a semicrome legate. 107 mf: accordi e terze a semicrome della destra, sinistra con accordi. 108 dim. 109: semicrome con bicordi (5-2-1 scritto). 110 p, terzine.",
+   "andate": {
+    "1": {
+     "rep2": "BLOC sulle posizioni della destra.",
+     "rep3": "DIN: destra p staccato, sinistra legato."
+    },
+    "2": {
+     "rep2": "NODO dove la sinistra cambia posizione e la destra no.",
+     "rep3": "CHUNK: un quarto più la nota d'arrivo."
+    }
+   },
+   "rep4_verifica": "Accordi della destra completi e corti, semicrome della sinistra uguali, dim. fino al p di 110.",
+   "note": "Henle p. 69, sistema 2 batt. 3 – sistema 4 batt. 2."
+  },
+  {
+   "id": "rach39-6-111-121",
+   "brano": "rach39-6",
+   "battute": "111-121",
+   "titolo": "Terze pp, discesa f e salita finale",
+   "priorita": 6,
+   "famiglia": "rach39-6-fam-cromatiche",
+   "nodo_motorio": "111-114 p e pp: la destra suona terze e bicordi legati sopra accordi tenuti e arpeggi della sinistra. 115-116 f: discesa cromatica a crome a due mani. 117-121: la salita cromatica dell'inizio, due volte, con accordi sf e l'ultimo accordo accentato.",
+   "andate": {
+    "1": {
+     "rep2": "NODO sulle discese e salite cromatiche.",
+     "rep3": "DIN: in 111-114 terze pp, sinistra legato."
+    },
+    "2": {
+     "rep2": "CHUNK sulle cromatiche, stop in posizione.",
+     "rep3": "PESO sugli accordi sf finali."
+    }
+   },
+   "rep4_verifica": "Terze pp uguali, cromatiche a mani insieme, accordi finali di caduta e pause contate.",
+   "note": "Henle p. 69, sistema 4 batt. 3 – fine."
+  }
+ ],
+ "priorita": [
+  {
+   "n": 1,
+   "nome": "Salti della sinistra tra basso e accordo, ff",
+   "perche": "Il difetto che indichi per primo (salti imprecisi) nella forma più carica: 71-76 e 88-93, ff, la sinistra salta a ogni croma dal basso all'accordo mentre la destra martella accordi accentati. Si somma la resistenza."
+  },
+  {
+   "n": 2,
+   "nome": "Accordi staccati sopra i bassi in salto (marcia)",
+   "perche": "Da b. 36 il «tema del lupo»: accordi staccati della destra sopra un basso che salta di ottava, con accelerando fino al Più mosso. Salti e rigidità insieme, ma a dinamica più bassa delle priorità 1."
+  },
+  {
+   "n": 3,
+   "nome": "Presto leggiere: accordi e doppie note sopra i salti",
+   "perche": "59-70: la destra suona accordi e seste rapide a p, la sinistra salta basso-accordo. Il rischio è la rigidità a p (il difetto del Mephisto) e la perdita del leggiere."
+  },
+  {
+   "n": 4,
+   "nome": "Doppie note e accordi rapidi della destra, mf-f",
+   "perche": "Seste, terze e accordi a semicrome con salti di registro (15-17, 24-27, 103-110). Uniformità e precisione della mano destra a mani unite."
+  },
+  {
+   "n": 5,
+   "nome": "Figura leggiere a semicrome",
+   "perche": "Il motivo dell'inizio (6-10, 20-23, 94-102): note ribattute e terze spezzate staccate a p sopra le crome legate della sinistra. Coordinazione e uniformità a mani unite, il difetto dell'op. 111."
+  },
+  {
+   "n": 6,
+   "nome": "Scale cromatiche a due mani",
+   "perche": "Salite e discese cromatiche in terzine e semicrome a mani parallele (1-5, 11, 19, 35, 115-121). Brevi, ma la coordinazione delle due mani decade per prima."
+  },
+  {
+   "n": 7,
+   "nome": "Arpeggi larghi e canto",
+   "perche": "28-35 e 77-80: arpeggi di decima della sinistra e canto sopra un ostinato. Meno urgenti: non dipendono dalla velocità quanto dal legato e dal suono."
+  }
+ ],
+ "famiglie": [
+  {
+   "id": "rach39-6-fam-cromatiche",
+   "nome": "Scale cromatiche a due mani verso un accordo sf",
+   "frammenti": [
+    "rach39-6-1-5",
+    "rach39-6-19-21",
+    "rach39-6-111-121"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-leggiere",
+   "nome": "Figura leggiere a semicrome sopra crome legate",
+   "frammenti": [
+    "rach39-6-6-10",
+    "rach39-6-11-18",
+    "rach39-6-22-23",
+    "rach39-6-94-102"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-doppie-note",
+   "nome": "Doppie note e accordi rapidi della destra",
+   "frammenti": [
+    "rach39-6-24-27",
+    "rach39-6-103-110"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-marcia",
+   "nome": "Accordi staccati sopra bassi in salto",
+   "frammenti": [
+    "rach39-6-36-43",
+    "rach39-6-44-51",
+    "rach39-6-52-58",
+    "rach39-6-81-87"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-presto",
+   "nome": "Presto leggiere sopra i salti della sinistra",
+   "frammenti": [
+    "rach39-6-59-64",
+    "rach39-6-65-70"
+   ]
+  },
+  {
+   "id": "rach39-6-fam-ff-salti",
+   "nome": "Accordi ff e salti della sinistra",
+   "frammenti": [
+    "rach39-6-71-76",
+    "rach39-6-88-93"
+   ]
+  }
+ ],
+ "definizioni": {
+  "priorita": "Organizzazione dei passaggi: 7 gruppi in ordine di urgenza (1 = più urgente).",
+  "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+ }
+}

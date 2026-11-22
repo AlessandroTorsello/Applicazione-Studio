@@ -96,7 +96,7 @@ SCREENS.summary = sid => {
   app.innerHTML = header(sesTipo(ses), `${fmtDateLong(ses.data)}${man ? '' : ' · ' + sesOre(ses)}`, '#day/' + ses.data) + `<main class="wrap">
     <section class="card"><div class="label">Totale della sessione</div><div class="big">${fmtMin(st.tot)}</div>
       <p class="small muted" style="margin:0">${man ? 'Minuti inseriti a mano.' : 'Somma dei secondi cronometrati negli slot.' + (ses.secondi_cronometro ? ' Cronometro di sessione: ' + fmtMin(ses.secondi_cronometro) + '.' : '')}</p></section>
-    ${provaCard(ses)}
+    ${provaCard(ses)}${studiatiCard(ses)}
     <section class="card">${ses.log.length ? st.html : '<p class="muted" style="margin:0">Nessuno slot registrato.</p>'}</section>
     <button class="btn primary" data-act="copysess" data-id="${esc(ses.id)}">Copia il riepilogo come testo</button>
     ${canRepeat(ses) ? `<button class="btn" data-act="repeat" data-id="${esc(ses.id)}">Ripeti questa sessione</button>` : ''}
@@ -234,15 +234,15 @@ SCREENS.frag = fid => {
   const points = [...perDay.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([d, v]) => ({ d, v }));
   const r4 = h.filter(l => l.tempo_rep4 != null), ultimoR4 = r4.length ? r4[r4.length - 1] : null;
   const tot = h.reduce((a, l) => a + (l.secondi || 0), 0);
-  const suono = !!f && metricaDi(f.brano) === 'suono', iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [], tpoints = iv ? iv.storia.filter(x => x.fonte === 'test').map(x => ({ d: x.d, v: x.v })) : [];
-  const nuovo = !!f && statoDi(f.brano) === 'nuovo';
+  const iv = infoVoto(fid), vpoints = iv ? iv.storia.map(x => ({ d: x.d, v: x.v })) : [], tpoints = iv ? iv.storia.filter(x => x.fonte === 'test').map(x => ({ d: x.d, v: x.v })) : [];
+  const nuovo = !!f && eNuovo(fid);
   /* Verifica a 2 settimane (3.5): per tutti i brani sul voto del test a freddo; avviso solo se non sale e resta sotto 8,5. */
   const fermo = twoWeekCheck(tpoints) && tpoints[tpoints.length - 1].v < (VOTO.verifica_sotto || 8.5);
   const vst = vincoliStats(h);
   const FONTI = { test: 'test', riascolto: 'riascolto', mano: 'a mano', prova: 'prova' };
   const tempoCard = `<section class="card"><div class="label">Bpm con MET o CLIC (ultimo valore di ogni giorno)</div>${points.length ? chartSvg(points, null, 'Andamento dei bpm') : '<p class="muted" style="margin:8px 0 0">Nessun bpm: compaiono quando li segni dopo una Rep con MET o CLIC.</p>'}
       ${ultimoR4 ? `<p class="small muted" style="margin:6px 0 0">Fino alla 3.4: ultimo tempo di Rep 4 ${esc(ultimoR4.tempo_rep4)} bpm (${esc(fmtDateShort(ultimoR4.data))}).</p>` : ''}</section>`;
-  const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto (0-${VOTO.massimo})</span><span class="pill">${suono ? 'metrica: suono' : 'metrica: tempo'}</span></div>
+  const votoCard = f ? `<section class="card"><div class="cardh"><span class="label">Voto (0-${VOTO.massimo})</span></div>
       ${vpoints.length > 1 ? chartSvg(vpoints, VOTO.ripasso, 'Andamento del voto', 'da ripassare') : ''}
       ${iv ? `<p class="small muted" style="margin:6px 0 0">Ultimi voti: ${esc(iv.storia.slice(-5).reverse().map(x => fmtV(x.v) + ' ' + fmtDayMonth(x.d) + (x.fonte !== 'test' ? ' (' + FONTI[x.fonte] + ')' : '')).join(' · '))}</p>` : ''}
     </section>` : '';
@@ -250,7 +250,8 @@ SCREENS.frag = fid => {
     <section class="card"><div class="row stat3"><div><div class="label">Minuti totali</div><div class="statv">${fmtMinRound(tot)}</div></div>
       <div><div class="label">Voto attuale</div><div class="statv">${iv ? fmtV(iv.a) : '—'}</div></div>
       <div><div class="label">Ultimi bpm</div><div class="statv">${points.length ? points[points.length - 1].v : '—'}</div></div></div>
-      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:10px;padding-bottom:0"><span><b>${nuovo ? 'Brano nuovo: niente voto' : iv ? esc(votoTesto(fid)) : 'Ancora nessun voto'}</b><br><span class="small muted">${nuovo ? 'il voto parte quando il brano diventa consolidato' : iv ? `cala di ${fmtN(VOTO.decadimento)} al giorno${isResistenza(f) ? ' · frammento di resistenza' : ''}` : 'arriva con il test della prima Rep 1 del giorno'}</span></span><button class="btn inline" style="margin:0" data-act="votomano" data-id="${esc(fid)}">Voto a mano</button></div>` : ''}</section>
+      ${f ? `<div class="optrow" style="border-top:1px solid var(--line);margin-top:10px;padding-bottom:0"><span><b>${nuovo ? 'Frammento nuovo: niente voto' : iv ? esc(votoTesto(fid)) : 'Ancora nessun voto'}</b><br><span class="small muted">${nuovo ? (e => e && e.esito === 'non_regge' ? 'non reggeva · ' + fmtDayMonth(e.data) : D.da_testare.some(x => x.frammento === fid) ? 'in «Nuovi da testare»' : 'il voto parte quando passa ai consolidati')(ultimoEsito(fid)) : iv ? `cala di ${fmtN(VOTO.decadimento)} al giorno${isResistenza(f) ? ' · frammento di resistenza' : ''}` : 'arriva con il test della prima Rep 1 del giorno'}</span></span>${nuovo ? `<button class="btn primary inline" style="margin:0" data-act="consolida" data-id="${esc(fid)}">Passa ai consolidati</button>` : `<button class="btn inline" style="margin:0" data-act="votomano" data-id="${esc(fid)}">Voto a mano</button>`}</div>` : ''}</section>
+    ${f ? statoRiga(fid, true) : ''}
     ${fermo ? `<div class="hint">${fmtText(AVV.due_settimane || CATALOGO.regole_slot.verifica_2_settimane)}</div>` : ''}
     ${votoCard + tempoCard}
     ${vst.length ? `<section class="card"><div class="label">Varianti usate</div><p class="small muted" style="margin:4px 0 6px">Per ogni variante: in quanti giorni l'hai usata e di quanto è cambiato, in media, il voto del test al giorno di studio successivo.</p>

@@ -5,7 +5,7 @@ function startSession(modo) {
   modo = modo === 'libero' ? 'libero' : 'scritti';
   const circ = modo === 'libero'
     ? D.bozza.circuiti_lib.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.map((s, j) => ({ etichetta: slotLab(j, i), frammento: null, brano: s.brano, battute: (s.battute || '').trim() })) }))
-    : D.bozza.circuiti.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.map((fid, j) => Object.assign({ etichetta: slotLab(j, i), frammento: fid }, eNuovo(fid) ? { ctrl: true } : {})) }));   // ctrl: slot di controllo dei brani nuovi
+    : D.bozza.circuiti.filter(c => c.slot.length).map((c, i) => ({ n: i + 1, andate_previste: c.andate, slot: c.slot.filter(fid => !eNuovo(fid)).map((fid, j) => ({ etichetta: slotLab(j, i), frammento: fid })) })).filter(c => c.slot.length);   // 3.7: solo frammenti consolidati (lo slot di controllo non si crea più)
   if (!circ.length) { toast('Aggiungi almeno uno slot'); return; }
   const now = Date.now(); navDepth = 0;
   D.sessione_aperta = { tipo: 'circuito', modo, id: 's' + now.toString(36), data: todayStr(), inizio: new Date(now).toISOString(), circuiti: circ,
@@ -95,7 +95,7 @@ function closeSession(silent) {
   else if (S.tipo === 'cucitura') { if (S.pos.r > 1 || S.timer.slot >= 5) cucFinalize(S, S.pos.r - 1); }
   else if (S.tipo === 'prova') { if (S.timer.slot >= 1) provaFinalize(S); }
   else if (S.pos.r > 1 || S.timer.slot >= 5) finalizeSlot(S, S.modo === 'libero' ? null : S.pos.r - 1);
-  const ses = { id: S.id, tipo: S.tipo || 'circuito', modo: S.modo || null, data: S.data, inizio: S.inizio, fine: new Date().toISOString(), secondi_cronometro: Math.round(S.timer.sess), circuiti: S.circuiti || [], brani: S.brani || undefined, brano: S.brano || undefined, frammenti: S.frammenti || undefined, log: S.log };
+  const ses = { id: S.id, tipo: S.tipo || 'circuito', modo: S.modo || null, data: S.data, inizio: S.inizio, fine: new Date().toISOString(), secondi_cronometro: Math.round(S.timer.sess), circuiti: S.circuiti || [], brani: S.brani || undefined, studiati: S.studiati || undefined, brano: S.brano || undefined, frammenti: S.frammenti || undefined, log: S.log };
   D.sessioni.push(ses); D.sessione_aperta = null; save();
   if (!silent) { navDepth = 0; replaceTo('#summary/' + ses.id); }
 }
@@ -186,7 +186,7 @@ SCREENS.run = () => {
     <div class="repnum">${r === 1 && !prima ? 'Contesto' : 'Rep ' + r}<small>${r === 1 && !prima ? esc(contestoBatt(f) || '±2 battute') + ' · 85-90%' : 'di 4'}</small></div>
     ${r > 1 && S.cur.voto != null ? `<p class="diag">Test di oggi: voto ${fmtV(S.cur.voto)}</p>` : ''}
     ${eTest ? `<p class="diag">Rep 1 è il test del giorno · ${esc(votoTesto(fid) || 'primo voto')}</p>` : ''}
-    ${x ? `<div class="vrow"><span>Variante di Rep ${r} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>` : ''}
+    ${x ? `<div class="vrow"><span>Variante di Rep ${r} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>${suggRiga(S, f, r)}` : ''}
     ${avvisi}
     ${istruzioni(r === 1 ? (prima ? 'Istruzioni di Rep 1' : 'Istruzioni della Rep di contesto') : x ? titoloIstr('Rep ' + r, x) : 'Istruzioni di Rep 4', body)}
     <div class="toggles">
@@ -274,10 +274,9 @@ function onFatto() {
 /* Dopo la Rep 1 della prima andata: solo il voto del test (3.5: niente diagnosi né altre domande). */
 function rep1Sheet(S) {
   const fid = S.circuiti[S.pos.c].slot[S.pos.s].frammento, f = fr(fid);
-  const suono = f && metricaDi(f.brano) === 'suono';
   const pre = S.cur.voto != null ? fmtV(S.cur.voto) : '';
   openSheet(`<h2>Voto del test</h2>
-    <div class="field"><label for="r1voto">Da 0 a 10 · ${suono ? 'suono' : 'pulizia al tempo'}</label>
+    <div class="field"><label for="r1voto">Da 0 a 10 · pulizia al tempo e suono</label>
       <div class="row" style="align-items:center"><button class="ib stepb" data-vstep="-${VOTO.passo}" aria-label="Meno">−</button>
       <input type="text" id="r1voto" class="vin" inputmode="decimal" value="${esc(pre)}" placeholder="—" enterkeyhint="done">
       <button class="ib stepb" data-vstep="${VOTO.passo}" aria-label="Più">+</button></div>
@@ -357,18 +356,18 @@ function circEditSheet() {
 function circAddSheet() {
   const S = D.sessione_aperta; if (!S) return;
   const c = S.pos.c, circ = S.circuiti[c], dentro = new Set(circ.slot.filter(sl => !isDropped(S, c, S.pos.a, sl)).map(sl => sl.frammento));
-  const vis = C.braniVis.filter(b => C.frammenti.some(f => f.brano === b.id)); if (!vis.length) return;
+  const vis = C.braniVis.filter(b => C.frammenti.some(f => f.brano === b.id && !eNuovo(f.id))); if (!vis.length) return;
   if (!circAddBrano || !vis.some(b => b.id === circAddBrano)) { const f0 = fr(circ.slot[S.pos.s].frammento); circAddBrano = f0 && vis.some(b => b.id === f0.brano) ? f0.brano : vis[0].id; }
-  const list = tuttiDi(circAddBrano).filter(f => !dentro.has(f.id)), M = mappaVoti();
+  const list = tuttiDi(circAddBrano).filter(f => !dentro.has(f.id) && !eNuovo(f.id)), M = mappaVoti();
   openSheet(`<h2>Aggiungi un frammento</h2>
     <div class="field"><label for="cab">Brano</label><select class="sel" id="cab" style="width:100%">${vis.map(b => `<option value="${esc(b.id)}" ${b.id === circAddBrano ? 'selected' : ''}>${esc(b.nome)}</option>`).join('')}</select></div>
-    ${list.map(f => `<button class="btn two" data-add="${esc(f.id)}"><b><span class="bat">${esc(f.battute)}</span> ${esc(f.titolo)}</b><span>${esc(votoTesto(f.id, M) || (eNuovo(f.id) ? 'brano nuovo · slot di controllo' : 'nessun voto finora'))}</span></button>`).join('') || '<p class="muted">Tutti i frammenti di questo brano sono già nel circuito.</p>'}
+    ${list.map(f => `<button class="btn two" data-add="${esc(f.id)}"><b><span class="bat">${esc(f.battute)}</span> ${esc(f.titolo)}</b><span>${esc(votoTesto(f.id, M) || 'nessun voto finora')}</span></button>`).join('') || '<p class="muted">Tutti i frammenti di questo brano sono già nel circuito.</p>'}
     <button class="btn" id="cano">Torna al circuito</button>`, sh => {
     $('#cab', sh).addEventListener('change', e => { circAddBrano = e.target.value; circAddSheet(); });
     $$('[data-add]', sh).forEach(b => b.addEventListener('click', () => {
       const fid = b.dataset.add, usate = new Set(circ.slot.map(x => x.etichetta));
       let k = circ.slot.length; while (usate.has(slotLab(k, c))) k++;
-      const sl = Object.assign({ etichetta: slotLab(k, c), frammento: fid }, eNuovo(fid) ? { ctrl: true } : {});
+      const sl = { etichetta: slotLab(k, c), frammento: fid };
       circ.slot.push(sl); delete S.dropout[c + '|' + slotKey(sl)];
       save(); toast(`Aggiunto ${sl.etichetta} · bb. ${frLabel(fid)}`); render(); circEditSheet();
     }));

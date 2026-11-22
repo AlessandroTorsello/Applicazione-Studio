@@ -11,8 +11,8 @@ SCREENS.rules = anchor => {
     <details class="acc" id="metodo" ${anchor === 'metodo' ? 'open' : ''}><summary><span class="grow">Metodo, versione 3</span></summary><div class="accbody">
       ${(M3.regole || []).map(x => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(x.titolo)}</div><p style="margin:4px 0 0">${fmtText(x.testo)}</p></div>`).join('')}
       <div class="sigcard"><div class="label">Dall'errore alla variante (suggerimenti)</div>${(M3.errori || []).map(e => `<p style="margin:8px 0">${esc(e.errore)}<br>${linkSigle(esc(e.sigle.join(' · ')))}</p>`).join('')}</div>
-      <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${statoDi(x.id)} · metrica: ${metricaDi(x.id)}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · frammenti di resistenza: priorità ' + x.resistenza.join(', ') : ''}</span></p>`).join('')}
-        <p class="small muted" style="margin:8px 0 0">Stato e metrica di un brano si cambiano in Impostazioni, toccando il brano.</p></div>
+      <div class="sigcard"><div class="label">Brani</div>${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => `<p style="margin:8px 0"><b>${esc(x.nome)}</b><br><span class="muted">${(c => c.nuovi ? `${c.nuovi} nuovi, ${c.consolidati} consolidati` : 'consolidato')(contaStati(x.id))}${Array.isArray(x.resistenza) && x.resistenza.length ? ' · con frammenti di resistenza' : ''}</span></p>`).join('')}
+        <p class="small muted" style="margin:8px 0 0">I frammenti di un brano si cambiano in Impostazioni, toccando il brano.</p></div>
       ${M3.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(M3.fonte)}</p>` : ''}</div></details>
     <details class="acc"><summary><span class="grow">Regole dello slot</span></summary><div class="accbody">
       ${Object.keys(RS).map(k => `<div class="sigcard"><div class="sg" style="color:var(--accent)">${esc(SLOT_LABELS[k] || k)}</div>${SUP[k]
@@ -22,15 +22,13 @@ SCREENS.rules = anchor => {
       <div class="sigcard"><div class="label">Struttura</div><p style="margin:4px 0 0">${fmtText(RC.struttura)}</p></div>
       <div class="sigcard"><div class="label">Composizione</div><ol class="fable">${(RC.fable_composizione || []).map(x => `<li>${fmtText(x)}</li>`).join('')}</ol></div>
       <div class="sigcard"><p class="muted small" style="margin:0">${esc(RC.nota)}</p></div></div></details>
-    <details class="acc"><summary><span class="grow">Priorità e famiglie</span></summary><div class="accbody">
-      <p class="small muted" style="margin:0 0 10px">Ogni brano ha le sue priorità e le sue famiglie.</p>
+    <details class="acc"><summary><span class="grow">Famiglie</span></summary><div class="accbody">
+      <p class="small muted" style="margin:0 0 10px">Ogni brano ha le sue famiglie.</p>
       ${C.braniVis.filter(x => C.frammenti.some(f => f.brano === x.id)).map(x => {
         const ids = new Set(C.frammenti.filter(f => f.brano === x.id).map(f => f.id));
         const fams = C.famiglie.filter(g => (g.frammenti || []).some(id => ids.has(id)));
         const def = x.definizioni || CATALOGO.definizioni || {};
         return `<details class="sub2"><summary>${esc(x.nome)}</summary><div>
-        <div class="sigcard"><div class="label">Priorità</div><p style="margin:4px 0">${esc(def.priorita || '')}</p>
-          ${prioDi(x.id).map(p => `<p style="margin:8px 0"><span class="pn">${p.n}</span> <b>${esc(p.nome)}</b><br><span class="muted">${esc(p.perche)}</span></p>`).join('')}</div>
         ${fams.length ? `<div class="sigcard"><div class="label">Famiglie</div><p style="margin:4px 0">${esc(def.famiglia || '')}</p>
           ${fams.map(g => `<p style="margin:8px 0"><b>${esc(g.nome)}</b><br><span class="muted">${(g.frammenti || []).map(id => 'bb. ' + esc(frLabel(id))).join(' · ')}</span></p>`).join('')}</div>` : ''}
         ${x.fonte ? `<p class="small muted" style="margin:8px 0 0">Fonte: ${esc(x.fonte)}</p>` : ''}</div></details>`;
@@ -65,8 +63,8 @@ SCREENS.settings = () => {
       ${stored(KEY_PREIMP) ? '<button class="btn" data-act="undoimport">Annulla l\'ultimo ripristino</button>' : ''}
     </section>
     <section class="card"><div class="label">Brani</div>
-      <p class="small muted">Tocca un brano per dividerlo in frammenti, cambiare i frammenti, passarlo da nuovo a consolidato, rinominarlo o nasconderlo. Lo storico non cambia.</p>
-      ${C.brani.map(b => `<button class="brow" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}"><span class="grow">${esc(b.nome)}</span>${statoDi(b.id) === 'nuovo' ? '<span class="tag">nuovo</span>' : ''}${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`).join('')}
+      <p class="small muted">Tocca un brano per dividerlo in frammenti, cambiare i frammenti, passarli ai consolidati, rinominarlo o nasconderlo. Lo storico non cambia.</p>
+      ${perGruppo(C.brani, b => `<button class="brow" data-act="go" data-h="#brano/${encodeURIComponent(b.id)}"><span class="grow">${esc(b.nome)}</span>${(n => n ? `<span class="tag">${n} ${n === 1 ? 'nuovo' : 'nuovi'}</span>` : '')(contaStati(b.id).nuovi)}${C.hidden.has(b.id) ? '<span class="tag">nascosto</span>' : ''}${C.braniUtente.has(b.id) ? '<span class="tag">aggiunto</span>' : ''}<span class="muted">›</span></button>`)}
       <button class="btn" style="margin-top:10px" data-act="newbrano" data-then="settings">+ Aggiungi un brano</button>
     </section>
     <section class="card"><div class="label">Catalogo dei passaggi</div>
@@ -77,7 +75,7 @@ SCREENS.settings = () => {
     </section>
     <section class="card"><div class="label">Informazioni</div>
       <button class="btn" style="margin-top:8px" data-act="news">Novità della versione 3</button>
-      <p class="small muted" style="margin:0">Summum Studium ${APP_VERSION} · catalogo: ${CATALOGO.brani.filter(b => b.completo).length} brani, ${CATALOGO.frammenti.length} frammenti. Le fonti sono in Sigle e regole, alla voce Priorità e famiglie.</p>
+      <p class="small muted" style="margin:0">Summum Studium ${APP_VERSION} · catalogo: ${CATALOGO.brani.filter(b => b.completo).length} brani, ${CATALOGO.frammenti.length} frammenti. Le fonti sono in Sigle e regole, alla voce Famiglie.</p>
     </section>
     <section class="card"><div class="label">Zona pericolosa</div>
       ${stored(KEY_PRE2) ? '<button class="btn" data-act="restorepre2" style="margin-top:8px">Torna ai dati di prima dell\'aggiornamento alla 2.0</button>' : ''}
@@ -88,11 +86,10 @@ SCREENS.settings = () => {
 };
 function branoSheet(id) {
   const b = C.B.get(id); if (!b) return;
-  const mine = C.braniUtente.has(id), hid = C.hidden.has(id), u = branoUso(id), met = metricaDi(id);
+  const mine = C.braniUtente.has(id), hid = C.hidden.has(id), u = branoUso(id);
   openSheet(`<h2>${esc(b.nome)}</h2>
     <p class="small muted" style="margin-top:-6px">${u.fr} ${u.fr === 1 ? 'frammento' : 'frammenti'} in catalogo · ${fmtMinRound(u.sec)} registrati${mine ? '' : ' · brano del catalogo'}</p>
     ${mine ? `<div class="field"><label for="brn">Nome</label><input type="text" id="brn" value="${esc(b.nome)}"></div><button class="btn primary" id="brsave">Salva il nome</button>` : ''}
-    ${u.fr ? `<div class="optrow" style="border-top:0"><span><b>Metrica</b><br><span class="small muted">${met === 'suono' ? 'il voto del test riguarda il suono' : 'conta il tempo di Rep 4'}</span></span><div class="seg">${['tempo', 'suono'].map(m => `<button data-met="${m}" class="${met === m ? 'on' : ''}" aria-pressed="${met === m}">${m}</button>`).join('')}</div></div>` : ''}
     <button class="btn" id="brhide">${hid ? 'Mostra di nuovo negli elenchi' : 'Nascondi dagli elenchi'}</button>
     <p class="small muted">${hid ? 'Ora non compare quando scegli brani e passaggi.' : 'Un brano nascosto non compare quando scegli brani e passaggi; minuti e storico restano.'}</p>
     ${mine && !u.n && !u.fr ? '<button class="btn danger" id="brdel">Elimina il brano</button>' : ''}
@@ -101,7 +98,6 @@ function branoSheet(id) {
       const nome = $('#brn', sh).value.trim(); if (!nome) { toast('Il nome non può essere vuoto'); return; }
       const x = D.brani_utente.find(y => y.id === id); if (x) x.nome = nome; save(); buildCat(); render(); toast('Nome salvato');
     });
-    $$('[data-met]', sh).forEach(x => x.addEventListener('click', () => { D.metrica[id] = x.dataset.met; save(); branoSheet(id); }));
     $('#brhide', sh).addEventListener('click', () => {
       D.brani_nascosti = hid ? D.brani_nascosti.filter(x => x !== id) : [...D.brani_nascosti, id];
       save(); buildCat(); render(); toast(hid ? 'Brano di nuovo visibile' : 'Brano nascosto');
@@ -194,8 +190,19 @@ function resetSheet() {
 }
 function newsSheet() {
   openSheet(`<h2>Novità della versione 3</h2>
-    <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
+    <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano, 19 frammenti divisi da te, tutti nuovi, con l'analisi (nodo motorio, suggerimenti, famiglie).</li>
+      <li><b>3.8 · Per voto</b>: nella scelta dei passaggi, sotto «Da ripassare oggi», una sezione richiudibile con tutti i frammenti consolidati dal voto più basso al più alto; in fondo quelli mai votati.</li>
+      <li><b>3.7.1 · Scriabin op. 9</b>: Preludio (8 frammenti) e Notturno per la mano sinistra (28 frammenti: gruppi di due battute, la cadenza da sola, l'ultimo gruppo di quattro), nuovi, con l'analisi. I due brani stanno sotto «Scriabin op. 9».</li>
+      <li><b>3.7.1 · Chopin, Studio op. 25 n. 7</b>: nuovo brano, 9 frammenti divisi da te (il recitativo iniziale è dentro 1-8), tutti nuovi, con l'analisi.</li>
+      <li><b>3.7.1 · Rachmaninov, Preludio op. 23 n. 6</b>: nuovo brano, 7 frammenti divisi da te, tutti nuovi, con l'analisi.</li>
+      <li><b>3.7.1 · Niente metrica e niente priorità</b>: il voto del test tiene insieme pulizia al tempo e suono, per tutti i brani. Le priorità non compaiono più (i dati restano).</li>
+      <li><b>3.7.1 · Suggerimenti in vista</b>: in Rep 2 e Rep 3 compare il suggerimento del catalogo per l'andata in corso; tocca una sigla per usarla. La variante resta una tua scelta.</li>
+      <li><b>3.7.1 · Brano «Altro»</b>: per il tempo di tutto il resto, in sessione libera, nel circuito libero e nella registrazione a mano.</li>
+      <li><b>3.7 · Frammenti nuovi e consolidati</b>: lo stato vale per ogni frammento. Nei circuiti vanno solo i consolidati; i nuovi (oggi il Nabucco) si studiano in sessione libera.</li>
+      <li><b>3.7 · Nuovi da testare</b>: in sessione libera segni, se vuoi, i passaggi nuovi studiati. Dal giorno dopo li trovi in home: «Regge» li passa ai consolidati, «Non regge» li lascia nuovi. Il primo voto arriva al primo circuito.</li>
+      <li><b>3.7 · Passa ai consolidati</b>: anche a mano, dalla scheda del brano o dalla pagina del frammento. Per un tocco sbagliato c'è «Riporta tra i nuovi».</li>
       <li><b>3.6 · Slot e andate a scelta</b>: oltre ai pulsanti, con «Altro…» scrivi tu il numero di slot (fino a 20) e di andate (da 2 a 12). Durante un circuito, dal menu ⋯, puoi aggiungere un'andata.</li>
       <li><b>3.6 · Da ripassare sotto 6</b>: entrano solo i frammenti col voto attuale sotto 6, in un solo elenco dal voto più basso. Accanto agli altri voti non compare più «da ripassare tra…».</li>
       <li><b>3.6 · Nuovo circuito da zero</b>: dopo l'avvio di un circuito la scelta dei passaggi si azzera; per rifarlo uguale c'è «Ripeti la sessione».</li>
@@ -217,7 +224,7 @@ function newsSheet() {
       <li><b>Una coppia di vincoli per sessione</b> (superato dalla 3.5: ora le varianti le scegli tu): ogni frammento usava gli stessi vincoli di Rep 2 e Rep 3 in tutte le andate, e la coppia cambiava da un giorno all'altro.</li>
       <li><b>Condizioni reali più spesso</b>: con voto del test di oggi da 7 in su la Rep 3 è con dinamica e pedale reali. I frammenti di resistenza del Mephisto lavorano nella dinamica scritta fin dall'inizio.</li>
       <li><b>Prova</b> (la Cucitura è stata tolta nella 3.5): un'esecuzione unica; al riascolto segni i punti sporchi e quei frammenti finiscono in «Da ripassare».</li>
-      <li><b>Tempo o suono</b>: ogni brano ha la sua metrica. Il voto del test riguarda quella metrica. L'app non registra l'audio.</li>
+      <li><b>Un solo voto</b>: il voto del test tiene insieme pulizia al tempo e suono, per tutti i brani. L'app non registra l'audio.</li>
     </ul>
     <button class="link" data-act="go" data-h="#rules/metodo" style="display:block;margin:0 0 10px">Leggi le regole complete</button>
     <details class="sub2" style="margin-bottom:12px"><summary>Novità della versione 2</summary><div><ul class="news">

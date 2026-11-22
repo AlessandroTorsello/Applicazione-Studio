@@ -1,0 +1,205 @@
+{
+ "versione": 2,
+ "fonte": "Divisione in frammenti di Alessandro (21/11/2026); analisi di Claude dalla partitura Henle (Preludi op. 23, pp. 30-33), da verificare al pianoforte.",
+ "brani": [
+  {
+   "id": "rach23-6",
+   "nome": "Rachmaninov, Preludio op. 23 n. 6",
+   "completo": true
+  }
+ ],
+ "frammenti": [
+  {
+   "id": "rach23-6-1-7",
+   "brano": "rach23-6",
+   "battute": "1-7",
+   "titolo": "Il tema pp sopra le semicrome",
+   "priorita": 4,
+   "famiglia": "rach23-6-fam-tema",
+   "nodo_motorio": "Andante, semiminima 72, pp. Sinistra: semicrome legate che salgono di due ottave fino in chiave di violino e ridiscendono, con diteggiature scritte (4-3, 2-1-4-2, 1-3-2-4-3-2). Destra: il canto in terze e seste con crome puntate e forcelle; a 4 accordi pieni a crome, a 5-7 di nuovo il tema.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: sinistra sola, la destra fa i movimenti sui tasti.",
+     "rep3": "DIN: sinistra pp, destra p cantabile."
+    },
+    "2": {
+     "rep2": "RIT sulle semicrome della sinistra: lungo-corto, poi corto-lungo.",
+     "rep3": "BLOC sulle posizioni della sinistra, cambio senza guardare."
+    }
+   },
+   "rep4_verifica": "Semicrome uguali e in secondo piano, canto legato sopra; pp senza rigidità.",
+   "note": "Henle p. 30, sistema 1 – sistema 4 batt. 1."
+  },
+  {
+   "id": "rach23-6-8-13",
+   "brano": "rach23-6",
+   "battute": "8-13",
+   "titolo": "mf: sinistra larga e accordi arpeggiati",
+   "priorita": 2,
+   "famiglia": "rach23-6-fam-sinistra-larga",
+   "nodo_motorio": "8 mf: accordi arpeggiati della sinistra, poi semicrome in chiave di violino con estensioni oltre l'ottava (5-4-2, 1-5-2-1 scritti); dim. 9 p: il tema. 10 cresc. 11 mf: accordi della destra con il canto in alto, sinistra a semicrome che passa in chiave di basso. 12 p: semicrome con diteggiatura scritta (3-1-3-2-1-5-2-3) e passaggio in chiave di violino. 13: accordi della destra con forcelle.",
+   "andate": {
+    "1": {
+     "rep2": "CIECO sui salti della sinistra dall'arpeggio alle semicrome.",
+     "rep3": "BLOC sulle posizioni allargate della sinistra."
+    },
+    "2": {
+     "rep2": "CHUNK: un quarto più la prima nota del seguente, stop già in posizione.",
+     "rep3": "DIN: canto della destra mf, sinistra p."
+    }
+   },
+   "rep4_verifica": "Sinistra uguale anche dove si allarga, arpeggi rapidi e non spezzati, canto che resta sopra.",
+   "note": "Henle p. 30, sistema 4 batt. 2 – p. 31, sistema 2 batt. 1."
+  },
+  {
+   "id": "rach23-6-14-17",
+   "brano": "rach23-6",
+   "battute": "14-17",
+   "titolo": "p, poco a poco cresc.: il tema si allarga",
+   "priorita": 4,
+   "famiglia": "rach23-6-fam-tema",
+   "nodo_motorio": "14 p: la destra tiene il canto in accordi e note lunghe legate. 15 poco a poco cresc. Sinistra: semicrome e arpeggi larghi che salgono in chiave di violino e tornano nel basso, con terzine di semicrome e crome puntate.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: sinistra sola, con la destra sui tasti.",
+     "rep3": "DIN: destra cantabile, sinistra pp."
+    },
+    "2": {
+     "rep2": "BLOC sulle posizioni della sinistra.",
+     "rep3": "MENT, poi la ripetizione reale."
+    }
+   },
+   "rep4_verifica": "Crescendo graduale, note lunghe del canto tenute davvero, sinistra legata.",
+   "note": "Henle p. 31, sistema 2 batt. 2 – sistema 3."
+  },
+  {
+   "id": "rach23-6-18-22",
+   "brano": "rach23-6",
+   "battute": "18-22",
+   "titolo": "Cresc. fino al f all'8va, poi p",
+   "priorita": 2,
+   "famiglia": "rach23-6-fam-sinistra-larga",
+   "nodo_motorio": "18: accordo arpeggiato della sinistra e scala discendente a semicrome; la destra sale con terze e accordi. 19 f, all'8va: accordi di quattro suoni tenuti della destra, sinistra con salti larghi, accordo arpeggiato e terzina di semicrome. 20 dim. 21-22 p: la destra canta per terze con note tenute; la sinistra suona semicrome in un registro stretto con il pollice.",
+   "andate": {
+    "1": {
+     "rep2": "PESO sugli accordi f di 19: caduta e rilascio.",
+     "rep3": "CIECO sui salti della sinistra di 19-20."
+    },
+    "2": {
+     "rep2": "BLOC sugli accordi della destra all'8va.",
+     "rep3": "DIN in 21-22: canto della destra p, semicrome della sinistra pp."
+    }
+   },
+   "rep4_verifica": "f pieno senza durezza, salti della sinistra in tempo, dim. reale fino al p.",
+   "note": "Henle p. 31, sistema 4 – sistema 5."
+  },
+  {
+   "id": "rach23-6-23-26",
+   "brano": "rach23-6",
+   "battute": "23-26",
+   "titolo": "Ripresa p: canto semplice, cromatismi della sinistra",
+   "priorita": 4,
+   "famiglia": "rach23-6-fam-tema",
+   "nodo_motorio": "23 p: la destra canta a note singole con una voce interna; la sinistra sale a semicrome dal Mi bemolle grave fino al tenore. 25: la sinistra scende con salti (3-1 scritti). 26 dim.: la sinistra suona semicrome cromatiche sopra un basso tenuto; la destra ha una seconda voce.",
+   "andate": {
+    "1": {
+     "rep2": "DIN: destra cantabile, sinistra pp.",
+     "rep3": "NODO dove la sinistra cambia posizione e la destra tiene."
+    },
+    "2": {
+     "rep2": "MUTA: sinistra sola con la destra sui tasti.",
+     "rep3": "RIT sulle semicrome cromatiche di 26."
+    }
+   },
+   "rep4_verifica": "Canto legato senza buchi, basso tenuto per tutta la battuta 26.",
+   "note": "Henle p. 32, sistema 1 – sistema 2."
+  },
+  {
+   "id": "rach23-6-27-30",
+   "brano": "rach23-6",
+   "battute": "27-30",
+   "titolo": "pp: semicrome divise tra le mani",
+   "priorita": 3,
+   "famiglia": null,
+   "nodo_motorio": "27: la sinistra sale dal Mi bemolle grave (4-3-2-1-5 scritto) fino in chiave di violino. 28 pp: la sinistra apre la figura in chiave di violino (m.g.) e la destra la continua (m.d.) con accordi e semicrome; intanto la sinistra canta nel tenore con un accordo arpeggiato e note lunghe. 29-30: la stessa figura.",
+   "andate": {
+    "1": {
+     "rep2": "MUTA: la figura della destra sola, la sinistra sui tasti; poi il contrario.",
+     "rep3": "NODO sul passaggio da m.g. a m.d.: tasti che scendono senza buco."
+    },
+    "2": {
+     "rep2": "DIN: canto del tenore p, semicrome pp.",
+     "rep3": "CHUNK: dalla nota della sinistra al primo accordo della destra, a tempo, stop."
+    }
+   },
+   "rep4_verifica": "Nessun buco tra la mano sinistra e la destra; canto del tenore in primo piano.",
+   "note": "Henle p. 32, sistema 3 – sistema 4."
+  },
+  {
+   "id": "rach23-6-31-43",
+   "brano": "rach23-6",
+   "battute": "31-43",
+   "titolo": "Canto del tenore, doppie note e accordo finale",
+   "priorita": 1,
+   "famiglia": null,
+   "nodo_motorio": "31-38: la destra canta in alto, la sinistra porta un canto in accordi con ritmo puntato (mf a 32, dim. 34, p 35, cresc. 36, f 37, mf e dim. 38). 39 pp: la sinistra sale ad arpeggio; poi la destra prosegue a semicrome in doppie note (5-1-4-2, 1-3-4-2 scritti) fino all'acuto. 41: discesa in doppie note (1-2-5-1, 2-5-1-3). 42: le mani si alternano a semicrome in discesa, rit. 43: accordo arpeggiato con corona, la sinistra incrocia (m.g.).",
+   "andate": {
+    "1": {
+     "rep2": "RIT sulle doppie note di 39-41.",
+     "rep3": "ALT su 42: le mani si alternano senza perdere la pulsazione."
+    },
+    "2": {
+     "rep2": "BLOC sulle posizioni delle doppie note.",
+     "rep3": "DIN in 31-38: canto della sinistra mf, destra p."
+    }
+   },
+   "rep4_verifica": "Doppie note uguali e pp, nessun buco nel cambio di mano a 42; accordo finale arpeggiato e tenuto.",
+   "note": "Henle p. 32, sistema 5 – p. 33, fine."
+  }
+ ],
+ "priorita": [
+  {
+   "n": 1,
+   "nome": "Doppie note veloci e mani alternate",
+   "perche": "39-42: la destra sale e scende a semicrome in doppie note (diteggiature 5-1-4-2, 1-2-5-1 scritte), poi le due mani si alternano in discesa fino all'accordo finale. È il passo più esposto: pp e senza pedale che copra."
+  },
+  {
+   "n": 2,
+   "nome": "Sinistra larga a semicrome in crescendo",
+   "perche": "8-13 e 18-22: le semicrome della sinistra si allargano oltre l'ottava, con accordi arpeggiati e passaggi in chiave di violino, mentre il canto cresce fino al f all'8va. Estensione e salti della sinistra, il tuo difetto dei salti."
+  },
+  {
+   "n": 3,
+   "nome": "Semicrome divise tra le mani (m.g. e m.d.)",
+   "perche": "28-30: le semicrome passano da una mano all'altra dentro la stessa figura mentre la sinistra canta nel tenore. Il problema è l'uguaglianza del passaggio da mano a mano, cioè la coordinazione."
+  },
+  {
+   "n": 4,
+   "nome": "Canto sopra le semicrome della sinistra, pp e p",
+   "perche": "1-7, 14-17, 23-26: la sinistra percorre due ottave a semicrome legate e la destra canta per terze, seste e accordi. Il rischio è che le semicrome coprano il canto e che il pp diventi rigido."
+  }
+ ],
+ "famiglie": [
+  {
+   "id": "rach23-6-fam-tema",
+   "nome": "Tema sopra le semicrome della sinistra",
+   "frammenti": [
+    "rach23-6-1-7",
+    "rach23-6-14-17",
+    "rach23-6-23-26"
+   ]
+  },
+  {
+   "id": "rach23-6-fam-sinistra-larga",
+   "nome": "Semicrome larghe della sinistra in crescendo",
+   "frammenti": [
+    "rach23-6-8-13",
+    "rach23-6-18-22"
+   ]
+  }
+ ],
+ "definizioni": {
+  "priorita": "Organizzazione dei passaggi: 4 gruppi in ordine di urgenza (1 = più urgente).",
+  "famiglia": "Frammenti con tecniche simili, che si lavorano con lo stesso metodo. Un frammento con famiglia null non ha frammenti simili."
+ }
+}

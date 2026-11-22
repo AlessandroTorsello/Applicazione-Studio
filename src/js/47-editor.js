@@ -1,21 +1,83 @@
-
-/* ================= BRANI NUOVI E CONSOLIDATI ================= */
-/* Un brano nuovo non usa lo slot da 4 Rep: 5-7 ripetizioni di controllo al 50-65%, alternando i due vincoli
-   dell'andata 1, senza test a freddo e senza Rep 4 (regole in CATALOGO.metodo.nuovi). */
+/* ================= FRAMMENTI NUOVI E CONSOLIDATI (3.7) ================= */
+/* Lo stato vale per il singolo frammento. D.stato[brano] è solo lo stato di partenza dei suoi frammenti (dal catalogo:
+   Nabucco nuovo, gli altri consolidati; i brani aggiunti a mano nascono nuovi); D.stato_frammenti[id] lo sovrascrive.
+   I frammenti nuovi non entrano nei circuiti: si studiano in sessione libera, dove si segnano quelli studiati; dal giorno
+   dopo compaiono in «Nuovi da testare» con Regge (passa ai consolidati) e Non regge (resta nuovo, esce dalla coda).
+   Lo slot di controllo (fino alla 3.6) resta solo per le sessioni aperte prima dell'aggiornamento. */
 const NUOVI = M3.nuovi || {};
 const CTRL_MIN = (NUOVI.ripetizioni || [5, 7])[0], CTRL_MAX = (NUOVI.ripetizioni || [5, 7])[1], CTRL_PCT = NUOVI.percento || [50, 65];
 const statoDi = bid => D.stato[bid] || (C.B.get(bid) || {}).stato || (C.braniUtente.has(bid) ? 'nuovo' : 'consolidato');
-const eNuovo = fid => { const f = fr(fid); return !!f && statoDi(f.brano) === 'nuovo'; };
+const statoFr = fid => { const s = D.stato_frammenti[fid]; if (s === 'nuovo' || s === 'consolidato') return s; const f = fr(fid); return f ? statoDi(f.brano) : 'consolidato'; };
+const eNuovo = fid => !!fr(fid) && statoFr(fid) === 'nuovo';
+const contaStati = bid => { const l = tuttiDi(bid), n = l.filter(f => eNuovo(f.id)).length; return { nuovi: n, consolidati: l.length - n }; };
+function setStatoFr(fid, st) {
+  D.stato_frammenti[fid] = st === 'nuovo' ? 'nuovo' : 'consolidato';
+  if (st !== 'nuovo') D.da_testare = D.da_testare.filter(x => x.frammento !== fid);
+  else togliDallaBozza(fid);
+  save();
+}
 function setStato(bid, st) { D.stato[bid] = st === 'nuovo' ? 'nuovo' : 'consolidato'; save(); }
+/* Coda dei nuovi da testare: compaiono dal giorno dopo quello in cui li hai segnati (test a freddo). */
+function nuoviDaTestare() {
+  const t = todayStr(), ord = new Map(C.brani.map((b, i) => [b.id, i]));
+  return D.da_testare.filter(x => x.data < t && eNuovo(x.frammento) && !C.fnasc.has(x.frammento) && !C.hidden.has(fr(x.frammento).brano))
+    .map(x => fr(x.frammento)).sort((a, b) => ord.get(a.brano) - ord.get(b.brano) || primaBattuta(a) - primaBattuta(b));
+}
+/* Frammenti nuovi segnati come studiati in una sessione libera: la coda si allinea alla scelta. */
+function segnaStudiati(ses, ids) {
+  const prima = new Set(ses.studiati || []), dopo = new Set(ids.filter(id => eNuovo(id)));
+  ses.studiati = [...dopo];
+  prima.forEach(id => { if (!dopo.has(id)) D.da_testare = D.da_testare.filter(x => !(x.frammento === id && x.data === ses.data)); });
+  dopo.forEach(id => { if (!prima.has(id)) { D.da_testare = D.da_testare.filter(x => x.frammento !== id); D.da_testare.push({ frammento: id, data: ses.data }); } });
+  save();
+}
+function esitoNuovo(fid, regge) {
+  D.da_testare = D.da_testare.filter(x => x.frammento !== fid);
+  D.esiti_nuovi.push({ frammento: fid, data: todayStr(), esito: regge ? 'regge' : 'non_regge' });
+  if (regge) setStatoFr(fid, 'consolidato'); else save();
+}
+const ultimoEsito = fid => D.esiti_nuovi.filter(x => x.frammento === fid).pop() || null;
+/* Elenco dei frammenti nuovi dei brani di una sessione libera, da spuntare. */
+function studiatiSheet(ses) {
+  const brani = (ses.brani || []).filter(id => C.B.has(id)), sel = new Set(ses.studiati || []);
+  const gruppi = brani.map(b => ({ b, l: tuttiDi(b).filter(f => eNuovo(f.id)) })).filter(g => g.l.length);
+  openSheet(`<h2>Passaggi nuovi studiati</h2>
+    <p class="small muted" style="margin-top:-6px">Facoltativo. Quelli spuntati li testi a freddo da domani, in «Da ripassare».</p>
+    ${gruppi.map(g => `<div class="label" style="margin:12px 0 4px">${esc(branoNome(g.b))}</div>${g.l.map(f => `<label class="tg st"><input type="checkbox" data-st="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''}> <span><b class="bat">${esc(f.battute)}</b> ${esc(f.titolo)}</span></label>`).join('')}`).join('') || '<p class="muted">Nessun frammento nuovo nei brani di questa sessione.</p>'}
+    <button class="btn primary xl" id="stok">Fatto</button>`, sh => {
+    $('#stok', sh).addEventListener('click', () => {
+      const ids = $$('input[data-st]', sh).filter(i => i.checked).map(i => i.dataset.st);
+      segnaStudiati(ses, ids); closeSheet(); render();
+      toast(ids.length ? `${ids.length} ${ids.length === 1 ? 'passaggio da testare' : 'passaggi da testare'} da domani` : 'Nessun passaggio segnato');
+    });
+  });
+}
+/* Riga dello stato nella pagina del frammento (storico) e nella sua modifica. */
+function statoRiga(fid, soloConsolidato) {
+  const e = ultimoEsito(fid), quando = e ? ' · ' + fmtDayMonth(e.data) : '';
+  return eNuovo(fid) && soloConsolidato ? '' : eNuovo(fid)
+    ? `<section class="card"><div class="optrow" style="border-top:0;padding:0"><span><b>Frammento nuovo</b>${e && e.esito === 'non_regge' ? `<br><span class="small muted">non reggeva${quando}</span>` : D.da_testare.some(x => x.frammento === fid) ? '<br><span class="small muted">in «Nuovi da testare»</span>' : ''}</span><button class="btn primary inline" style="margin:0" data-act="consolida" data-id="${esc(fid)}">Passa ai consolidati</button></div></section>`
+    : D.stato_frammenti[fid] === 'consolidato' ? `<p class="small muted" style="margin:0 0 12px">Consolidato${e && e.esito === 'regge' ? ' (regge' + quando + ')' : ''}. <button class="link" data-act="riportanuovi" data-id="${esc(fid)}">Riporta tra i nuovi</button></p>` : '';
+}
+/* Nel riepilogo di una sessione libera: i passaggi nuovi segnati, modificabili. */
+function studiatiCard(ses) {
+  if (ses.tipo !== 'libera' || !(nuoviInSessione(ses) || (ses.studiati || []).length)) return '';
+  const n = (ses.studiati || []).length;
+  return `<section class="card"><div class="cardh"><span class="label">Passaggi nuovi studiati</span><b>${n || 'nessuno'}</b></div>
+    <button class="btn" style="margin:0" data-act="studiati" data-id="${esc(ses.id)}">${n ? 'Modifica' : 'Segna i passaggi nuovi studiati'}</button></section>`;
+}
+const nuoviInSessione = ses => (ses.brani || []).some(b => C.B.has(b) && tuttiDi(b).some(f => eNuovo(f.id)));
+/* «Nuovi da testare»: Regge / Non regge, un tocco. */
+SCREENS.nuovi = () => {
+  const l = nuoviDaTestare();
+  app.innerHTML = header('Nuovi da testare', l.length ? `${l.length} ${l.length === 1 ? 'passaggio' : 'passaggi'}` : 'Nessun passaggio', '#home') + `<main class="wrap">
+    <p class="lead">Una volta, a freddo, al tempo di lavoro.</p>
+    ${l.map(f => `<section class="card nt"><button class="fbody" data-act="preview" data-id="${esc(f.id)}"><span class="fmeta">${esc(branoBreve(f.brano))}</span><b class="bat">${esc(f.battute)}</b> ${esc(f.titolo)}</button>
+      <div class="row" style="margin-top:10px"><button class="btn" style="margin:0" data-act="nonregge" data-id="${esc(f.id)}">Non regge</button><button class="btn primary" style="margin:0" data-act="regge" data-id="${esc(f.id)}">Regge</button></div></section>`).join('') || '<p class="muted">Niente da testare oggi. I passaggi che segni in sessione libera compaiono qui dal giorno dopo.</p>'}
+  </main>`;
+};
 /* Lo slot in corso è di controllo? (deciso all'inizio della sessione, non cambia a metà) */
 function ctrlSlot(S) { const c = S && S.circuiti && S.circuiti[S.pos.c], sl = c && c.slot[S.pos.s]; return sl && sl.ctrl ? sl : null; }
-/* Un frammento «regge» quando nelle ultime due sessioni con controllo è stato senza errori (dato registrato fino alla 3.4;
-   dalla 3.5 la domanda non c'è più). */
-function controlloPulito(fid) {
-  const ses = [];
-  D.sessioni.forEach(s => { const v = (s.log || []).filter(l => l.frammento === fid && l.controllo && l.senza_errori != null); if (v.length) ses.push(v.every(l => l.senza_errori)); });
-  return ses.length >= 2 && ses[ses.length - 1] && ses[ses.length - 2];
-}
 /* Slot di controllo: ripetizioni dispari con la variante di Rep 2, pari con quella di Rep 3, scelte da te (3.5). */
 const repCtrl = r => r % 2 ? 2 : 3;
 function renderCtrl(S) {
@@ -117,6 +179,7 @@ function dividiFrammento(id) {
       const n = prev(); if (!(n > a && n <= b)) return;
       const due = Object.assign(JSON.parse(JSON.stringify(f)), { id: `${f.brano}-${n}-${b}-u${Date.now().toString(36)}`, battute: batt(n, b) });
       salvaUtente(Object.assign(JSON.parse(JSON.stringify(f)), { battute: batt(a, n - 1) })); salvaUtente(due);
+      D.stato_frammenti[due.id] = statoFr(f.id);   // 3.7: la seconda parte resta nuova o consolidata come l'originale
       D.famiglie_utente.forEach(x => { if (x.id === f.famiglia) x.frammenti.push(due.id); });
       save(); buildCat(); closeSheet(); toast('Frammento diviso in due'); replaceTo('#brano/' + encodeURIComponent(f.brano));
     });
@@ -144,13 +207,12 @@ async function unisciFrammento(id) {
 /* ---- scheda del brano: stato, frammenti in ordine, divisione ---- */
 SCREENS.brano = bid => {
   const b = C.B.get(bid); if (!b) { replaceTo('#settings'); return; }
-  const list = tuttiDi(bid), st = statoDi(bid), nasc = [...C.F.values()].filter(f => f.brano === bid && C.fnasc.has(f.id)), mod = list.filter(f => eModificato(f.id));
+  const list = tuttiDi(bid), cs = contaStati(bid), nasc = [...C.F.values()].filter(f => f.brano === bid && C.fnasc.has(f.id)), mod = list.filter(f => eModificato(f.id));
   const sez = sezioniDi(bid);
-  const riga = f => `<div class="frow"><button class="fbody" data-act="go" data-h="#form/${encodeURIComponent(bid)}/${encodeURIComponent(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${eModificato(f.id) ? '<span class="tag">modificato</span>' : C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${st === 'nuovo' && controlloPulito(f.id) ? '<span class="tag">regge</span>' : ''}</button><span class="muted" aria-hidden="true" style="align-self:center;padding:0 6px">›</span></div>`;
-  app.innerHTML = header(b.nome, `${list.length} ${list.length === 1 ? 'frammento' : 'frammenti'} · brano ${st}`, '#settings') + `<main class="wrap">
-    <section class="card"><div class="optrow" style="border-top:0;padding-top:0"><span><b>Stato del brano</b></span><div class="seg">${[['nuovo', 'Nuovo'], ['consolidato', 'Consolidato']].map(([v, l]) => `<button data-act="stato" data-id="${esc(bid)}" data-v="${v}" class="${st === v ? 'on' : ''}" aria-pressed="${st === v}">${l}</button>`).join('')}</div></div>
-      <p class="small muted" style="margin:6px 0 0">${st === 'nuovo' ? esc(NUOVI.slot || '') : 'Brano consolidato: lo slot da 4 Rep, con il test del giorno e i livelli.'}</p>
-      ${st === 'nuovo' && list.length ? `<p class="small muted" style="margin:8px 0 0">${esc(NUOVI.soglia || '')}</p>` : ''}</section>
+  const riga = f => `<div class="frow"><button class="fbody" data-act="go" data-h="#form/${encodeURIComponent(bid)}/${encodeURIComponent(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${eModificato(f.id) ? '<span class="tag">modificato</span>' : C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}</button>${eNuovo(f.id) ? `<button class="btn inline cons" data-act="consolida" data-id="${esc(f.id)}" aria-label="Passa ai consolidati bb. ${esc(f.battute)}">Consolida</button>` : '<span class="muted" aria-hidden="true" style="align-self:center;padding:0 6px">›</span>'}</div>`;
+  app.innerHTML = header(b.nome, `${list.length} ${list.length === 1 ? 'frammento' : 'frammenti'}`, '#settings') + `<main class="wrap">
+    ${list.length ? `<section class="card"><div class="row stat3"><div><div class="label">Nuovi</div><div class="statv">${cs.nuovi}</div></div><div><div class="label">Consolidati</div><div class="statv">${cs.consolidati}</div></div></div>
+      ${cs.nuovi ? '<p class="small muted" style="margin:6px 0 0">I nuovi si studiano in sessione libera; nei circuiti vanno solo i consolidati.</p>' : ''}</section>` : ''}
     <section class="card"><div class="label" style="margin-bottom:8px">Frammenti</div>
       <button class="btn ${list.length ? '' : 'primary'}" data-act="go" data-h="#dividi/${encodeURIComponent(bid)}">Dividi il brano in frammenti</button>
       <button class="btn" data-act="go" data-h="#form/${encodeURIComponent(bid)}">Aggiungi un frammento a mano</button>
@@ -160,7 +222,7 @@ SCREENS.brano = bid => {
     ${nasc.length || mod.length ? `<section class="card"><div class="label" style="margin-bottom:6px">Frammenti del catalogo cambiati</div>
       ${mod.length ? `<p class="small muted" style="margin:0 0 8px">${mod.length} ${mod.length === 1 ? 'modificato' : 'modificati'}: l'originale si ripristina dalla scheda del frammento.</p>` : ''}
       ${nasc.map(f => `<div class="optrow"><span><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}<br><span class="small muted">nascosto</span></span><button class="btn inline" style="margin:0" data-act="frrestore" data-id="${esc(f.id)}">Ripristina</button></div>`).join('')}</section>` : ''}
-    <button class="btn" data-act="brano" data-id="${esc(bid)}">Nome, metrica e altre opzioni del brano</button>
+    <button class="btn" data-act="brano" data-id="${esc(bid)}">Nome e altre opzioni del brano</button>
   </main>`;
 };
 

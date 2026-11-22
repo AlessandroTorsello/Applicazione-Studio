@@ -19,9 +19,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
 
   await p.goto(U); await w();
   const cat = await p.evaluate(() => ({ brani: CATALOGO.brani.map(x => [x.id, x.completo, (x.priorita || []).length]), n: CATALOGO.frammenti.length, perBrano: CATALOGO.brani.map(x => CATALOGO.frammenti.filter(f => f.brano === x.id).length) }));
-  ok(JSON.stringify(cat.brani.map(x => x[0])) === JSON.stringify(['op111', 'op111-2', 'mephisto', 'scriabin28', 'nabucco']), 'cinque brani: ' + cat.brani.map(x => x[0]).join(', '));
-  ok(cat.brani.every(x => x[1] === true && x[2] === 7), 'tutti completi, ognuno con le sue 7 priorità');
-  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29, 84]) && cat.n === 288, 'frammenti per brano: ' + cat.perBrano.join(', '));
+  ok(JSON.stringify(cat.brani.map(x => x[0])) === JSON.stringify(['op111', 'op111-2', 'mephisto', 'scriabin28', 'nabucco', 'rach39-6', 'rach23-6', 'chopin25-7', 'scriabin9-1', 'scriabin9-2', 'altro']), 'dieci brani più «Altro»: ' + cat.brani.map(x => x[0]).join(', '));
+  ok(cat.brani.filter(x => x[0] !== 'altro').every(x => x[1] === true), 'tutti completi («Altro» escluso: solo tempo)');
+  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29, 84, 19, 7, 9, 8, 28, 0]) && cat.n === 359, 'frammenti per brano: ' + cat.perBrano.join(', '));
   const refs = await p.evaluate(() => { const ids = new Set(CATALOGO.frammenti.map(f => f.id)), fam = new Set(CATALOGO.famiglie.map(f => f.id)), br = new Set(CATALOGO.brani.map(x => x.id));
     return { fam: CATALOGO.frammenti.filter(f => f.famiglia && !fam.has(f.famiglia)).length, fr: CATALOGO.famiglie.flatMap(g => g.frammenti).filter(i => !ids.has(i)).length, br: CATALOGO.frammenti.filter(f => !br.has(f.brano)).length,
       sig: [...new Set(JSON.stringify(CATALOGO.frammenti).match(/\b(?:[A-Z]{3,})\b/g))].filter(s => !C.S.has(s) && !['III', 'VII', 'MAX'].includes(s)) }; });
@@ -30,9 +30,13 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
 
   // selezione: quattro elenchi, priorità del brano giusto
   await p.goto(U + '#select'); await w();
-  ok(await p.locator('details.acc').count() === 5, 'la selezione mostra cinque brani');
-  const pills = await p.locator('details.acc .pill').allInnerTexts();
-  ok(pills.join(' ') === '0/50 0/49 0/76 0/29 0/84', 'contatori: ' + pills.join(' '));
+  ok(await p.locator('details.acc').count() === 10, 'la selezione mostra dieci brani');
+  ok(await p.locator('details.grp[data-gruppo="Scriabin op. 9"] details.acc').count() === 2 && !(await p.locator('details.grp[open]').count()), 'Preludio e Notturno dentro «Scriabin op. 9», chiuso');
+  await p.click('details.grp summary'); await w();
+  ok(await p.locator('details.grp[open] details.acc[data-brano="scriabin9-2"]').isVisible(), 'il gruppo si apre e mostra il Notturno');
+  await p.click('details.grp summary'); await w();
+  const pills = await p.locator('details.acc .pill').allTextContents();
+  ok(pills.join(' ') === '0/50 0/49 0/76 0/29 0/0 0/0 0/0 0/0 0/0 0/0', 'contatori (3.7: i frammenti nuovi del Nabucco non si scelgono per i circuiti): ' + pills.join(' '));
   await p.click('details.acc[data-brano="op111-2"] summary'); await w();
   // 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano
   const bats = await p.locator('details.acc[data-brano="op111-2"] .frow .bat').allInnerTexts();
@@ -43,16 +47,16 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const fid = 'op 111 secondo movimento-1-4';
   await p.click(`details.acc[data-brano="op111-2"] [data-act="preview"][data-id="${fid}"]`); await w();
   const sheet = await p.locator('.sheet.on').innerText();
-  ok(sheet.includes('Priorità 7 · Canto ad accordi e passi lenti'), 'scheda: priorità 7 col nome del II movimento');
+  ok(!/Priorità/.test(sheet) && /Famiglia/.test(sheet), '3.7.1: la scheda non mostra più la priorità');
   ok(/II movimento/i.test(sheet) && /\bnote\b/i.test(sheet), 'scheda: nome del brano e note dell\'analisi');
   await shot('scheda-arietta');
   await p.click('.sheet.on [data-act="presel"]'); await w(); await p.click('.sheet.on [data-act="closesheet"]'); await w();
   // un frammento di Scriabin e uno del Mephisto, poi una sessione vera
   await p.click('details.acc[data-brano="scriabin28"] summary'); await w();
-  await p.check('input[data-sel="scriabin fantasie-1-4"]');
+  await p.check('details.acc input[data-sel="scriabin fantasie-1-4"]');
   await p.click('details.acc[data-brano="mephisto"] summary'); await w();
-  await p.check('input[data-sel="mephisto-137-144"]'); await w();
-  ok((await p.locator('details.acc .pill').allInnerTexts()).join(' ') === '0/50 1/49 1/76 1/29 0/84', 'selezione con identificativi che contengono spazi');
+  await p.check('details.acc input[data-sel="mephisto-137-144"]'); await w();
+  ok((await p.locator('details.acc .pill').allTextContents()).join(' ') === '0/50 1/49 1/76 1/29 0/0 0/0 0/0 0/0 0/0 0/0', 'selezione con identificativi che contengono spazi');
   await p.click('#gocompose'); await w(); await shot('composizione-tre-brani');
   await p.click('[data-act="start"]'); await w(900);
   const l2 = await p.locator('.runh .l2').innerText();
@@ -62,16 +66,17 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(/nessuna/i.test(await p.locator('.vrow').innerText()) && instr.includes('DIN dentro la mano') && instr.includes('Suggerimenti del catalogo'), '3.5: Rep 2 senza variante, il testo del catalogo dell\'Arietta solo come suggerimento');
   await shot('rep2-arietta');
   await p.evaluate(() => { D.sessione_aperta = null; save(); }); await p.goto(U + '#rules'); await w();
-  await p.locator('details.acc summary', { hasText: 'Priorità e famiglie' }).click(); await w();
-  ok(await p.locator('details.sub2 summary', { hasText: 'Mephisto' }).count() === 1, 'regole: priorità e famiglie divise per brano');
+  await p.locator('details.acc summary', { hasText: /^Famiglie$/ }).click(); await w();
+  ok(await p.locator('details.sub2 summary', { hasText: 'Mephisto' }).count() === 1, 'regole: famiglie divise per brano');
   await p.locator('details.sub2 summary', { hasText: 'Mephisto' }).click(); await w(); await shot('regole-mephisto');
-  ok((await p.locator('details.sub2[open]').innerText()).includes('Salti rapidi di accordi e ottave'), 'regole: priorità del Mephisto');
+  const rm = await p.locator('details.sub2[open]').innerText();
+  ok(!/Priorità/.test(rm) && !rm.includes('Salti rapidi di accordi e ottave'), '3.7.1: regole del Mephisto senza priorità');
 
   // importazione di un file di un solo brano: le priorità scritte nel file restano legate a quel brano
   const r = await p.evaluate(() => { importCatalog({ versione: 2, brani: [{ id: 'prova', nome: 'Brano di prova', completo: true }], priorita: [{ n: 1, nome: 'Priorità del brano di prova', perche: 'x' }],
     definizioni: { priorita: 'd', famiglia: 'd' }, famiglie: [], frammenti: [{ id: 'prova-1-2', brano: 'prova', battute: '1-2', titolo: 't', priorita: 1, famiglia: null, nodo_motorio: 'n', andate: { 1: { rep2: 'a', rep3: 'b' }, 2: { rep2: 'c', rep3: 'd' } }, rep4_verifica: 'v' }] });
     return { mio: prioDi('prova')[0].nome, op111: prioDi('op111')[0].nome, n: C.frammenti.length }; });
-  ok(r.mio === 'Priorità del brano di prova' && r.op111 === 'Semicrome parallele a due mani' && r.n === 289, 'importazione: priorità legate al brano importato, le altre intatte');
+  ok(r.mio === 'Priorità del brano di prova' && r.op111 === 'Semicrome parallele a due mani' && r.n === 360, 'importazione: priorità legate al brano importato, le altre intatte');
 
   console.log(errs.length ? 'ERRORI:\n' + errs.join('\n') : 'nessun errore in console');
   console.log(fails || errs.length ? `\n${fails} controlli falliti` : '\nTutti i controlli passati');
