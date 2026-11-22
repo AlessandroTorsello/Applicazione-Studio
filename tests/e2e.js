@@ -33,11 +33,11 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.click('[data-k="slot"][data-v="2"]'); await w(200);
   await p.click('[data-act="newgo"]'); await w();
   ok(await hash() === '#select', 'va alla selezione');
-  const boxes = p.locator('input[data-sel]');
+  const boxes = p.locator('details.acc input[data-sel]');
   for (let i = 0; i < 3; i++) await boxes.nth(i).check();
   await w(200); await shot('selezione');
   ok((await txt('#selnote')).includes('3 passaggi scelti'), 'nota di selezione: ' + await txt('#selnote'));
-  await p.locator('.fbody').first().click(); await w(); await shot('anteprima');
+  await p.locator('details.acc .fbody').first().click(); await w(); await shot('anteprima');
   ok(await p.locator('.sheet.on').count() === 1, 'anteprima aperta');
   await p.goBack(); await w();
   ok(!(await p.locator('.sheet.on').count()) && await hash() === '#select', 'Indietro chiude il foglio e resta sulla selezione');
@@ -93,7 +93,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   let d = await D();
   { const l0 = d.sessioni[0].log[0];
     ok(d.sessioni.length === 1 && l0.bpm_rep2 === 96 && l0.vincolo_rep2 === 'MET' && l0.tempo_rep4 == null && l0.voto === 8 && l0.test && !l0.diagnosi, 'dati salvati (bpm di MET, voto del test, niente Rep 4): ' + JSON.stringify(l0)); }
-  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.7.1', 'versione dei dati');
+  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.8.0', 'versione dei dati');
 
   /* --- ripeti la sessione --- */
   await p.click('[data-act="repeat"]'); await w(700);

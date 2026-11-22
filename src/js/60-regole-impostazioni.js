@@ -193,6 +193,7 @@ function newsSheet() {
     <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
       <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano, 19 frammenti divisi da te, tutti nuovi, con l'analisi (nodo motorio, suggerimenti, famiglie).</li>
+      <li><b>3.8 · Per voto</b>: nella scelta dei passaggi, sotto «Da ripassare oggi», una sezione richiudibile con tutti i frammenti consolidati dal voto più basso al più alto; in fondo quelli mai votati.</li>
       <li><b>3.7.1 · Scriabin op. 9</b>: Preludio (8 frammenti) e Notturno per la mano sinistra (28 frammenti: gruppi di due battute, la cadenza da sola, l'ultimo gruppo di quattro), nuovi, con l'analisi. I due brani stanno sotto «Scriabin op. 9».</li>
       <li><b>3.7.1 · Chopin, Studio op. 25 n. 7</b>: nuovo brano, 9 frammenti divisi da te (il recitativo iniziale è dentro 1-8), tutti nuovi, con l'analisi.</li>
       <li><b>3.7.1 · Rachmaninov, Preludio op. 23 n. 6</b>: nuovo brano, 7 frammenti divisi da te, tutti nuovi, con l'analisi.</li>

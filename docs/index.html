@@ -75,6 +75,12 @@ details.acc>summary::-webkit-details-marker{display:none}
 details.acc>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
 details.acc[open]>summary::after{transform:rotate(180deg)}
 details.acc>summary .grow{flex:1}
+details.sez{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 14px;overflow:hidden}
+details.sez>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;font-weight:700;font-size:var(--t-md)}
+details.sez>summary::-webkit-details-marker{display:none}
+details.sez>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
+details.sez[open]>summary::after{transform:rotate(180deg)}
+details.sez>summary .grow{flex:1}
 details.grp{margin:0 0 14px}
 details.grp>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 4px;font-weight:700;font-size:var(--t-md);cursor:pointer}
 details.grp>summary::-webkit-details-marker{display:none}
@@ -440,7 +446,7 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 .slot .lab,.pn,.chip,.tabs button.on span{font-weight:700}
 @media (max-height:700px){.repnum{font-size:var(--t-3xl);margin-top:8px}}
 /* forme */
-.card,details.acc,.circ,.empty,.choice button,.bgrid button,.dayrow,.btn.two{border-radius:var(--r-card)}
+.card,details.acc,details.sez,.circ,.empty,.choice button,.bgrid button,.dayrow,.btn.two{border-radius:var(--r-card)}
 .btn,.yn button{border-radius:var(--r-btn)}
 .fatto{border-radius:var(--r-btn)}
 .pausebar,.recap,.tg,details.sub2,textarea,input[type=text],input[type=number],input[type=date],.tgt,.fam,.hint,select.sel{border-radius:var(--r-field)}
@@ -476,7 +482,7 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 [data-stile="spartito"] .label,[data-stile="spartito"] .panel .lbl,[data-stile="spartito"] .sigcard dt{letter-spacing:.09em;font-size:var(--t-xs);font-weight:600}
 [data-stile="spartito"] .repnum{font-style:italic}
 [data-stile="spartito"] .btn{letter-spacing:.01em}
-[data-stile="spartito"] .card,[data-stile="spartito"] details.acc,[data-stile="spartito"] .circ{box-shadow:0 1px 0 var(--line)}
+[data-stile="spartito"] .card,[data-stile="spartito"] details.acc,[data-stile="spartito"] details.sez,[data-stile="spartito"] .circ{box-shadow:0 1px 0 var(--line)}
 
 /* ---------- Salvia: morbido e arrotondato, verde, senza bordi duri ---------- */
 :root[data-stile="salvia"]{
@@ -488,7 +494,7 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
   --bg:#eef3ee; --bg2:#f7faf7; --card:#ffffff; --line:#d3dcd5; --text:#16201b; --muted:#5a6860;
   --accent:#2c6a51; --accent-ink:#ffffff; --ok:#2f7d4f; --bad:#b3362e; --sig:#1f5f8b; --bb:#2c6a51;
 }
-[data-stile="salvia"] .card,[data-stile="salvia"] details.acc,[data-stile="salvia"] .circ,[data-stile="salvia"] .dayrow{border-color:transparent}
+[data-stile="salvia"] .card,[data-stile="salvia"] details.acc,[data-stile="salvia"] details.sez,[data-stile="salvia"] .circ,[data-stile="salvia"] .dayrow{border-color:transparent}
 [data-stile="salvia"] .card.now{border-color:var(--accent)}
 [data-stile="salvia"] .fatto{border-radius:26px}
 [data-stile="salvia"] .ib{min-width:40px;height:40px}
@@ -513,8 +519,8 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 [data-stile="inchiostro"] .top h1{font-size:var(--t-xl)}
 [data-stile="inchiostro"] .big{font-size:calc(var(--t-3xl)*1.1)}
 [data-stile="inchiostro"] .repnum{font-size:calc(var(--t-4xl)*1.1)}
-[data-stile="inchiostro"] .card,[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] .circ{border-width:0;border-top:2px solid var(--text);background:transparent;padding-left:2px;padding-right:2px}
-[data-stile="inchiostro"] details.acc{padding:0}
+[data-stile="inchiostro"] .card,[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] details.sez,[data-stile="inchiostro"] .circ{border-width:0;border-top:2px solid var(--text);background:transparent;padding-left:2px;padding-right:2px}
+[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] details.sez{padding:0}
 [data-stile="inchiostro"] .card.now{border:2px solid var(--accent);padding:14px 14px;background:var(--accent-soft)}
 [data-stile="inchiostro"] .label{letter-spacing:.07em;font-weight:700;color:var(--text)}
 [data-stile="inchiostro"] .dayrow{background:transparent;border-width:0 0 1px;border-radius:0;padding-left:2px;padding-right:2px}
@@ -545,7 +551,7 @@ const CATALOGO = {"versione": 3, "fonte": "Analisi di Fable, «Op. 111, I movime
 <script>
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '3.7.1';
+const APP_VERSION = '3.8.0';
 /* 3.6: slot e andate oltre i pulsanti (2-5) si scrivono a mano entro questi limiti; le andate partono da 2. */
 const LIM = { slot: [2, 20], andate: [2, 12] };
 const LEZIONE = 'lezione-pratica';   // «brano» delle lezioni pratiche: solo tempo
@@ -1258,6 +1264,18 @@ function lezioneSheet(o) {
 const openBrani = new Set(['op111']);
 let LAST = new Map(); // ultimo studio per frammento, ricalcolato quando si apre la selezione
 let VMAP = null;      // voti per frammento, ricalcolati insieme
+let openVoto = false; // 3.8: sezione «Per voto» aperta o chiusa (chiusa all'inizio)
+/* 3.8: «Per voto», tutti i frammenti consolidati dal voto attuale più basso al più alto; in fondo quelli mai votati. */
+function perVotoHtml(sel) {
+  const ord = new Map(C.brani.map((b, i) => [b.id, i]));
+  const tutti = C.frammenti.filter(f => !C.hidden.has(f.brano) && !eNuovo(f.id)).map(f => ({ f, i: infoVoto(f.id, VMAP) }));
+  if (!tutti.length) return '';
+  const pos = x => ord.get(x.f.brano) - 0, bat = x => primaBattuta(x.f);
+  const conV = tutti.filter(x => x.i).sort((a, b) => a.i.a - b.i.a || pos(a) - pos(b) || bat(a) - bat(b)), senza = tutti.filter(x => !x.i);
+  return `<details class="sez" id="pervoto" ${openVoto ? 'open' : ''}><summary><span class="grow">Per voto</span><span class="pill">${conV.length} con voto</span></summary>
+    <div class="accbody"><p class="small muted" style="margin:0 0 6px">Dal voto più basso al più alto.</p>${conV.map(x => fragRow(x.f, sel, true)).join('')}
+    ${senza.length ? `<div class="famrec">Mai votati · ${senza.length}</div>${senza.sort((a, b) => pos(a) - pos(b) || bat(a) - bat(b)).map(x => fragRow(x.f, sel, true)).join('')}` : ''}</div></details>`;
+}
 function fragMeta(f) {
   const x = LAST.get(f.id), liv = votoTesto(f.id, VMAP), p = [];
   if (x && x.data) p.push(`Studiato ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}`);
@@ -1301,10 +1319,11 @@ SCREENS.select = () => {
   });
   app.innerHTML = header('Scegli i passaggi', `Circuito a ${D.bozza.cfg.slot} slot`, '#new') +
     `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">${steps(['Tipo', 'Passaggi', 'Circuiti'], 1)}
-    <p class="lead">Spunta per scegliere, tocca il titolo per la scheda.</p>${dueHtml}${body}
+    <p class="lead">Spunta per scegliere, tocca il titolo per la scheda.</p>${dueHtml}${perVotoHtml(sel)}${body}
     <button class="btn" data-act="newbrano" data-then="brano">+ Nuovo brano</button></main>
     <div class="bar"><div class="inner"><p class="barnote" id="selnote">${esc(selNote(sel.size))}</p><div class="row"><button class="btn" data-act="deselall" style="flex:0 0 auto;width:auto">Azzera</button><button class="btn primary" data-act="go" data-h="#compose" id="gocompose" ${sel.size ? '' : 'disabled'}>Avanti: componi i circuiti</button></div></div></div>`;
   $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); })); gruppiToggle();
+  const pv = $('#pervoto'); if (pv) pv.addEventListener('toggle', () => { openVoto = pv.open; });
   $$('input[data-sel]').forEach(inp => inp.addEventListener('change', () => toggleSel(inp.dataset.sel, inp.checked)));
 };
 function selNote(n) {
@@ -3014,6 +3033,7 @@ function newsSheet() {
     <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
       <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano, 19 frammenti divisi da te, tutti nuovi, con l'analisi (nodo motorio, suggerimenti, famiglie).</li>
+      <li><b>3.8 · Per voto</b>: nella scelta dei passaggi, sotto «Da ripassare oggi», una sezione richiudibile con tutti i frammenti consolidati dal voto più basso al più alto; in fondo quelli mai votati.</li>
       <li><b>3.7.1 · Scriabin op. 9</b>: Preludio (8 frammenti) e Notturno per la mano sinistra (28 frammenti: gruppi di due battute, la cadenza da sola, l'ultimo gruppo di quattro), nuovi, con l'analisi. I due brani stanno sotto «Scriabin op. 9».</li>
       <li><b>3.7.1 · Chopin, Studio op. 25 n. 7</b>: nuovo brano, 9 frammenti divisi da te (il recitativo iniziale è dentro 1-8), tutti nuovi, con l'analisi.</li>
       <li><b>3.7.1 · Rachmaninov, Preludio op. 23 n. 6</b>: nuovo brano, 7 frammenti divisi da te, tutti nuovi, con l'analisi.</li>

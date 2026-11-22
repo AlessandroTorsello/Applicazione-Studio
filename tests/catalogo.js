@@ -53,9 +53,9 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.click('.sheet.on [data-act="presel"]'); await w(); await p.click('.sheet.on [data-act="closesheet"]'); await w();
   // un frammento di Scriabin e uno del Mephisto, poi una sessione vera
   await p.click('details.acc[data-brano="scriabin28"] summary'); await w();
-  await p.check('input[data-sel="scriabin fantasie-1-4"]');
+  await p.check('details.acc input[data-sel="scriabin fantasie-1-4"]');
   await p.click('details.acc[data-brano="mephisto"] summary'); await w();
-  await p.check('input[data-sel="mephisto-137-144"]'); await w();
+  await p.check('details.acc input[data-sel="mephisto-137-144"]'); await w();
   ok((await p.locator('details.acc .pill').allTextContents()).join(' ') === '0/50 1/49 1/76 1/29 0/0 0/0 0/0 0/0 0/0 0/0', 'selezione con identificativi che contengono spazi');
   await p.click('#gocompose'); await w(); await shot('composizione-tre-brani');
   await p.click('[data-act="start"]'); await w(900);

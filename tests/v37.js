@@ -30,7 +30,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
       log: [{ circuito: 1, andata: 1, etichetta: 'A1', frammento: N1, brano: 'nabucco', secondi: 200, rep_completate: 5, controllo: true }] });
     localStorage.setItem('circuiti_studio_v2', JSON.stringify(D)); }, [N1, A]);
   await p.reload(); await w(900);
-  ok(await p.evaluate(() => APP_VERSION) === '3.7.1', 'versione 3.7.1');
+  ok(await p.evaluate(() => APP_VERSION) === '3.8.0', 'versione 3.8.0');
   ok((await txt('.sheet.on .news')).includes('3.7 · Frammenti nuovi e consolidati'), 'chi arriva dalla 3.6 vede le novità della 3.7');
   await shot('novita');
   await p.click('.sheet.on [data-act="closesheet"]').catch(() => p.evaluate(() => closeSheet())); await w();
@@ -144,6 +144,21 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await p.locator('.sugg [data-act="usasugg"]').first().click(); await w();
   ok((await txt('.vrow')).includes(s0), 'toccando la sigla suggerita diventa la variante di Rep 3: ' + s0);
   await p.evaluate(() => { D.sessione_aperta = null; save(); });
+
+  /* --- 3.8: sezione «Per voto» --- */
+  await p.evaluate(() => { setVoto('op111-20-23', 9, 'mano'); setVoto('mephisto-202-206', 0.5, 'mano'); setVoto('op111-6-10', 6.5, 'mano'); save(); });
+  await p.goto(U + '#select'); await w();
+  ok(await p.locator('details#pervoto').count() === 1 && !(await p.locator('details#pervoto[open]').count()), '3.8: sezione «Per voto», chiusa all\'inizio');
+  await p.click('details#pervoto summary'); await w(); await shot('per-voto');
+  const pv = await p.locator('details#pervoto input[data-sel]').evaluateAll(xs => xs.map(x => x.dataset.sel));
+  const iv = await p.evaluate(ids => ids.map(id => (infoVoto(id, mappaVoti()) || {}).a ?? null), pv);
+  const conV = iv.filter(v => v != null);
+  ok(pv[0] === 'mephisto-202-206' && conV.every((v, i) => !i || v >= conV[i - 1]) && iv.indexOf(null) === conV.length && pv.length === await p.evaluate(() => C.frammenti.filter(f => !C.hidden.has(f.brano) && !eNuovo(f.id)).length), '«Per voto»: voto crescente, poi i mai votati, solo consolidati: ' + pv.slice(0, 3).join(', '));
+  await p.locator('details#pervoto input[data-sel="op111-20-23"]').check(); await w();
+  ok(await p.locator('details.acc[data-brano="op111"] input[data-sel="op111-20-23"]').isChecked() && (await p.evaluate(() => D.bozza.selezionati)).includes('op111-20-23'), '«Per voto»: la spunta vale anche nell\'elenco del brano');
+  await p.goto(U + '#home'); await p.goto(U + '#select'); await w();
+  ok(await p.locator('details#pervoto[open]').count() === 1, '«Per voto» resta aperta tornando alla scelta');
+  await p.evaluate(() => { D.bozza.selezionati = []; save(); });
 
   /* --- 7. testi --- */
   await p.goto(U + '#rules/metodo'); await w();

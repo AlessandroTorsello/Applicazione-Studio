@@ -35,7 +35,7 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 .slot .lab,.pn,.chip,.tabs button.on span{font-weight:700}
 @media (max-height:700px){.repnum{font-size:var(--t-3xl);margin-top:8px}}
 /* forme */
-.card,details.acc,.circ,.empty,.choice button,.bgrid button,.dayrow,.btn.two{border-radius:var(--r-card)}
+.card,details.acc,details.sez,.circ,.empty,.choice button,.bgrid button,.dayrow,.btn.two{border-radius:var(--r-card)}
 .btn,.yn button{border-radius:var(--r-btn)}
 .fatto{border-radius:var(--r-btn)}
 .pausebar,.recap,.tg,details.sub2,textarea,input[type=text],input[type=number],input[type=date],.tgt,.fam,.hint,select.sel{border-radius:var(--r-field)}
@@ -71,7 +71,7 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 [data-stile="spartito"] .label,[data-stile="spartito"] .panel .lbl,[data-stile="spartito"] .sigcard dt{letter-spacing:.09em;font-size:var(--t-xs);font-weight:600}
 [data-stile="spartito"] .repnum{font-style:italic}
 [data-stile="spartito"] .btn{letter-spacing:.01em}
-[data-stile="spartito"] .card,[data-stile="spartito"] details.acc,[data-stile="spartito"] .circ{box-shadow:0 1px 0 var(--line)}
+[data-stile="spartito"] .card,[data-stile="spartito"] details.acc,[data-stile="spartito"] details.sez,[data-stile="spartito"] .circ{box-shadow:0 1px 0 var(--line)}
 
 /* ---------- Salvia: morbido e arrotondato, verde, senza bordi duri ---------- */
 :root[data-stile="salvia"]{
@@ -83,7 +83,7 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
   --bg:#eef3ee; --bg2:#f7faf7; --card:#ffffff; --line:#d3dcd5; --text:#16201b; --muted:#5a6860;
   --accent:#2c6a51; --accent-ink:#ffffff; --ok:#2f7d4f; --bad:#b3362e; --sig:#1f5f8b; --bb:#2c6a51;
 }
-[data-stile="salvia"] .card,[data-stile="salvia"] details.acc,[data-stile="salvia"] .circ,[data-stile="salvia"] .dayrow{border-color:transparent}
+[data-stile="salvia"] .card,[data-stile="salvia"] details.acc,[data-stile="salvia"] details.sez,[data-stile="salvia"] .circ,[data-stile="salvia"] .dayrow{border-color:transparent}
 [data-stile="salvia"] .card.now{border-color:var(--accent)}
 [data-stile="salvia"] .fatto{border-radius:26px}
 [data-stile="salvia"] .ib{min-width:40px;height:40px}
@@ -108,8 +108,8 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 [data-stile="inchiostro"] .top h1{font-size:var(--t-xl)}
 [data-stile="inchiostro"] .big{font-size:calc(var(--t-3xl)*1.1)}
 [data-stile="inchiostro"] .repnum{font-size:calc(var(--t-4xl)*1.1)}
-[data-stile="inchiostro"] .card,[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] .circ{border-width:0;border-top:2px solid var(--text);background:transparent;padding-left:2px;padding-right:2px}
-[data-stile="inchiostro"] details.acc{padding:0}
+[data-stile="inchiostro"] .card,[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] details.sez,[data-stile="inchiostro"] .circ{border-width:0;border-top:2px solid var(--text);background:transparent;padding-left:2px;padding-right:2px}
+[data-stile="inchiostro"] details.acc,[data-stile="inchiostro"] details.sez{padding:0}
 [data-stile="inchiostro"] .card.now{border:2px solid var(--accent);padding:14px 14px;background:var(--accent-soft)}
 [data-stile="inchiostro"] .label{letter-spacing:.07em;font-weight:700;color:var(--text)}
 [data-stile="inchiostro"] .dayrow{background:transparent;border-width:0 0 1px;border-radius:0;padding-left:2px;padding-right:2px}

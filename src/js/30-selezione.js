@@ -2,6 +2,18 @@
 const openBrani = new Set(['op111']);
 let LAST = new Map(); // ultimo studio per frammento, ricalcolato quando si apre la selezione
 let VMAP = null;      // voti per frammento, ricalcolati insieme
+let openVoto = false; // 3.8: sezione «Per voto» aperta o chiusa (chiusa all'inizio)
+/* 3.8: «Per voto», tutti i frammenti consolidati dal voto attuale più basso al più alto; in fondo quelli mai votati. */
+function perVotoHtml(sel) {
+  const ord = new Map(C.brani.map((b, i) => [b.id, i]));
+  const tutti = C.frammenti.filter(f => !C.hidden.has(f.brano) && !eNuovo(f.id)).map(f => ({ f, i: infoVoto(f.id, VMAP) }));
+  if (!tutti.length) return '';
+  const pos = x => ord.get(x.f.brano) - 0, bat = x => primaBattuta(x.f);
+  const conV = tutti.filter(x => x.i).sort((a, b) => a.i.a - b.i.a || pos(a) - pos(b) || bat(a) - bat(b)), senza = tutti.filter(x => !x.i);
+  return `<details class="sez" id="pervoto" ${openVoto ? 'open' : ''}><summary><span class="grow">Per voto</span><span class="pill">${conV.length} con voto</span></summary>
+    <div class="accbody"><p class="small muted" style="margin:0 0 6px">Dal voto più basso al più alto.</p>${conV.map(x => fragRow(x.f, sel, true)).join('')}
+    ${senza.length ? `<div class="famrec">Mai votati · ${senza.length}</div>${senza.sort((a, b) => pos(a) - pos(b) || bat(a) - bat(b)).map(x => fragRow(x.f, sel, true)).join('')}` : ''}</div></details>`;
+}
 function fragMeta(f) {
   const x = LAST.get(f.id), liv = votoTesto(f.id, VMAP), p = [];
   if (x && x.data) p.push(`Studiato ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}`);
@@ -45,10 +57,11 @@ SCREENS.select = () => {
   });
   app.innerHTML = header('Scegli i passaggi', `Circuito a ${D.bozza.cfg.slot} slot`, '#new') +
     `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">${steps(['Tipo', 'Passaggi', 'Circuiti'], 1)}
-    <p class="lead">Spunta per scegliere, tocca il titolo per la scheda.</p>${dueHtml}${body}
+    <p class="lead">Spunta per scegliere, tocca il titolo per la scheda.</p>${dueHtml}${perVotoHtml(sel)}${body}
     <button class="btn" data-act="newbrano" data-then="brano">+ Nuovo brano</button></main>
     <div class="bar"><div class="inner"><p class="barnote" id="selnote">${esc(selNote(sel.size))}</p><div class="row"><button class="btn" data-act="deselall" style="flex:0 0 auto;width:auto">Azzera</button><button class="btn primary" data-act="go" data-h="#compose" id="gocompose" ${sel.size ? '' : 'disabled'}>Avanti: componi i circuiti</button></div></div></div>`;
   $$('details.acc').forEach(d => d.addEventListener('toggle', () => { d.open ? openBrani.add(d.dataset.brano) : openBrani.delete(d.dataset.brano); })); gruppiToggle();
+  const pv = $('#pervoto'); if (pv) pv.addEventListener('toggle', () => { openVoto = pv.open; });
   $$('input[data-sel]').forEach(inp => inp.addEventListener('change', () => toggleSel(inp.dataset.sel, inp.checked)));
 };
 function selNote(n) {

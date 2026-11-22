@@ -55,6 +55,12 @@ details.acc>summary::-webkit-details-marker{display:none}
 details.acc>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
 details.acc[open]>summary::after{transform:rotate(180deg)}
 details.acc>summary .grow{flex:1}
+details.sez{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 14px;overflow:hidden}
+details.sez>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;font-weight:700;font-size:var(--t-md)}
+details.sez>summary::-webkit-details-marker{display:none}
+details.sez>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
+details.sez[open]>summary::after{transform:rotate(180deg)}
+details.sez>summary .grow{flex:1}
 details.grp{margin:0 0 14px}
 details.grp>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 4px;font-weight:700;font-size:var(--t-md);cursor:pointer}
 details.grp>summary::-webkit-details-marker{display:none}
