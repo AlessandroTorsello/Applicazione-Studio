@@ -22,7 +22,7 @@ function fragMeta(f) {
 }
 function fragRow(f, sel, conBrano) {
   return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
-  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button></div>`;
+  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button>${scoreBtn(f, 'sel:')}</div>${scoreBox(f, 'sel:')}`;
 }
 /* 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano (per estratto, se il brano ne ha più d'uno);
    la famiglia resta nella scheda del frammento e in Sigle e regole (3.7.1: niente più priorità). */
@@ -78,11 +78,12 @@ function toggleSel(id, on) {
   const g = $('#gocompose'); if (g) g.disabled = !s.length;
   const sn = $('#selnote'); if (sn) sn.textContent = selNote(s.length);
 }
-function previewHtml(f) {
+function previewHtml(f, noScore) {
   const keys = Object.keys(f.andate || {}).sort();
   const famN = f.famiglia ? ((C.FAM.get(f.famiglia) || {}).nome || f.famiglia) : 'Nessuna';
   return `<div class="label">${esc(branoNome(f.brano))}</div>
   <h2><span class="bat">${esc(f.battute)}</span> ${esc(f.titolo)}</h2>
+  ${noScore ? "" : scoreOpen(f)}
   <p class="small muted" style="margin:-6px 0 12px">Famiglia: ${esc(famN)}${f.parti ? ' · Parti: ' + f.parti.map(esc).join(' + ') : ''}${f.trillo_3_5 ? ' · trillo 3-5' : ''}</p>
   <div class="label">Nodo motorio</div><p>${fmtText(f.nodo_motorio)}</p>
   ${isResistenza(f) ? `<div class="hint">${fmtText(AVV.resistenza)}</div>` : ''}

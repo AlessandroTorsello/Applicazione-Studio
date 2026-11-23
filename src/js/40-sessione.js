@@ -143,11 +143,18 @@ function runHead(S, extra) {
       <button class="ib pausebtn" data-act="pause">${running ? 'Pausa' : 'Riprendi'}</button></div>
   </div>`;
 }
+/* 4.0: l'anello della Rep (avanzamento delle 4 Rep dello slot, con il tempo dello slot al centro). */
+function repRing(o, S) {
+  const R = 52, L = 2 * Math.PI * R, fr = Math.max(0, Math.min(1, o.frac || 0)), T = S.timer;
+  return `<div class="repring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle class="rt" cx="60" cy="60" r="${R}"/>${fr > 0 ? `<circle class="rf" cx="60" cy="60" r="${R}" stroke-dasharray="${(L * fr).toFixed(1)} ${L.toFixed(1)}"/>` : ''}</svg>
+    <div class="ri"><span class="rl">${esc(o.lab)}</span>${o.big !== '' ? `<span class="rb">${esc(o.big)}<small>${esc(o.of || '')}</small></span>` : ''}${o.sub ? `<span class="rsub">${o.sub}</span>` : ''}<span class="rs" id="t-ring">slot ${fmtClock(T.slot + tRun(T))}</span></div></div>`;
+}
 function runTicker(S, extra) {
   let beat = 0;
   ticker = setInterval(() => {
     const T = S.timer, ts = $('#t-slot'), tt = $('#t-sess'); if (!tt) return;
     if (ts) ts.textContent = fmtClock(T.slot + tRun(T)); tt.textContent = fmtClock(T.sess + tRun(T));
+    const tr = $('#t-ring'); if (tr) tr.textContent = 'slot ' + fmtClock(T.slot + tRun(T));
     if (extra) extra(T);
     if (++beat % 20 === 0) save();
   }, 1000);
@@ -180,10 +187,12 @@ SCREENS.run = () => {
   const canBack = r > 1 || !!retreat(S, S.pos);
   const poi = r === 1 ? (eTest ? 'poi: voto del test, quindi Rep 2' : 'poi: Rep 2') : (r === 2 || r === 3) && usaMetronomo(x) ? `poi: bpm (facoltativi), quindi ${r === 2 ? 'Rep 3' : 'Rep 4'}` : r === 2 ? 'poi: Rep 3' : r === 3 ? 'poi: Rep 4' : nextInfo(S);
   app.innerHTML = runHead(S, { dots, lines: `<div class="l2">${esc(branoNome(f.brano))}</div>
-    <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</div>` }) + `
+    <div class="l3"><span class="grow"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</span>${scoreBtn(f, 'run:')}</div>` }) + `
   <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
     ${pausedBanner(S)}
-    <div class="repnum">${r === 1 && !prima ? 'Contesto' : 'Rep ' + r}<small>${r === 1 && !prima ? esc(contestoBatt(f) || '±2 battute') + ' · 85-90%' : 'di 4'}</small></div>
+    ${scoreBox(f, 'run:')}
+    ${repRing(r === 1 && !prima ? { lab: 'Contesto', big: '', sub: esc(contestoBatt(f) || '±2 battute') + ' · 85-90%', frac: 0 } : { lab: 'Rep', big: r, of: '/4', frac: (r - 1) / 4 }, S)}
+    <div class="repnum sr">${r === 1 && !prima ? 'Contesto' : 'Rep ' + r}<small>${r === 1 && !prima ? esc(contestoBatt(f) || '±2 battute') + ' · 85-90%' : 'di 4'}</small></div>
     ${r > 1 && S.cur.voto != null ? `<p class="diag">Test di oggi: voto ${fmtV(S.cur.voto)}</p>` : ''}
     ${eTest ? `<p class="diag">Rep 1 è il test del giorno · ${esc(votoTesto(fid) || 'primo voto')}</p>` : ''}
     ${x ? `<div class="vrow"><span>Variante di Rep ${r} · <b>${esc(varianteNome(x))}</b></span><button class="link" data-act="vincolo">${x === LIBERO ? 'Scegli variante' : 'Cambia variante'}</button></div>${suggRiga(S, f, r)}` : ''}
@@ -280,6 +289,7 @@ function rep1Sheet(S) {
       <div class="row" style="align-items:center"><button class="ib stepb" data-vstep="-${VOTO.passo}" aria-label="Meno">−</button>
       <input type="text" id="r1voto" class="vin" inputmode="decimal" value="${esc(pre)}" placeholder="—" enterkeyhint="done">
       <button class="ib stepb" data-vstep="${VOTO.passo}" aria-label="Più">+</button></div>
+      ${votoKeys(pre)}
       <p class="small muted" style="margin:6px 0 0">${votoTesto(fid) ? esc(votoTesto(fid)) + '.' : 'Primo voto di questo frammento.'} Vuoto: il test non conta e te lo richiede la prossima volta.</p></div>
     ${riferimentiHtml()}
     <button class="btn primary xl" id="r1ok">Avanti a Rep 2</button>`, sh => {
@@ -288,6 +298,7 @@ function rep1Sheet(S) {
       const cur = leggiVoto(inp.value), st = Number(b.dataset.vstep);
       inp.value = fmtV(cur == null ? VOTO.soglia : Math.min(VOTO.massimo, Math.max(0, cur + st)));
     }));
+    bindVotoKeys(sh, inp);
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') $('#r1ok', sh).click(); });
     $('#r1ok', sh).addEventListener('click', () => {
       S.cur.voto = leggiVoto(inp.value);
@@ -298,6 +309,22 @@ function rep1Sheet(S) {
       S.pos.r = 2; save(); render();
     });
   });
+}
+/* 4.0: tastiera del voto, un tocco per numero; «,5» aggiunge il mezzo voto al numero scelto. */
+function votoKeys(pre) {
+  const v = leggiVoto(pre), k = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  return `<div class="vkeys" role="group" aria-label="Voto">${k.map(n => `<button type="button" data-vk="${n}" class="${v != null && Math.floor(v) === n ? 'on' : ''}">${n}</button>`).join('')}<button type="button" data-vk="h" class="${v != null && v % 1 ? 'on' : ''}" aria-label="Mezzo voto">,5</button></div>`;
+}
+function bindVotoKeys(sh, inp) {
+  const sync = () => { const v = leggiVoto(inp.value); $$('[data-vk]', sh).forEach(b => b.classList.toggle('on', v != null && (b.dataset.vk === 'h' ? v % 1 !== 0 : Math.floor(v) === Number(b.dataset.vk)))); };
+  $$('[data-vk]', sh).forEach(b => b.addEventListener('click', () => {
+    const cur = leggiVoto(inp.value);
+    if (b.dataset.vk === 'h') { if (cur == null) return; const base = Math.floor(cur); inp.value = fmtV(cur % 1 ? base : Math.min(VOTO.massimo, base + .5)); }
+    else inp.value = fmtV(Number(b.dataset.vk));
+    sync();
+  }));
+  inp.addEventListener('input', sync);
+  $$('[data-vstep]', sh).forEach(b => b.addEventListener('click', sync));
 }
 function repBack() {
   const S = D.sessione_aperta; if (!S) return;

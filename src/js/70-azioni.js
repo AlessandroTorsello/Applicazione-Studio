@@ -132,6 +132,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#ov').c
 
 /* ================= AVVIO ================= */
 applyPrefs();
+try { matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => { if (D.impostazioni.tema === 'auto') { applyPrefs(); render(); } }); } catch (e) { }
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) { }
 if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => { })); }
 const bootFrom = D.sessione_aperta ? (D.sessione_aperta.timer.hid || D.sessione_aperta.timer.seen || 0) : 0;

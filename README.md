@@ -4,7 +4,7 @@
 
 App per guidare e registrare lo studio al pianoforte a micro-circuiti (in catalogo: Beethoven op. 111 I e II movimento, Liszt Mephisto Valzer n. 1, Scriabin Fantasia op. 28, Verdi Nabucco, Sinfonia e concertato). È una web app in un solo file, installabile come PWA e distribuita anche come APK Android.
 
-Versione attuale: **3.7.1** (voto in decimi al posto dei livelli, § 11; niente riascolto settimanale, § 12; Rep 2-3 libere o con una tecnica scritta a mano, § 13; varianti scelte da te, Rep di contesto, sigla MET, drop-out immediato e circuito modificabile, § 14; slot e andate a scelta, ripasso sotto 6, lezione pratica, istruzioni chiuse, § 15; frammenti nuovi e consolidati, nuovi da testare, § 16). Metodo versione 3: regole in `data/metodo_v3.json`, codice in `src/js/45-metodo.js`, specifica al § 9 di `data/SPEC_programma_circuiti.md`. Brani nuovi e consolidati, editor di brani e frammenti: `src/js/47-editor.js`, specifica al § 10.
+Versione attuale: **4.0.0** (nuovo design Quadrante e battute in partitura, vedi sotto; voto in decimi al posto dei livelli, § 11; niente riascolto settimanale, § 12; Rep 2-3 libere o con una tecnica scritta a mano, § 13; varianti scelte da te, Rep di contesto, sigla MET, drop-out immediato e circuito modificabile, § 14; slot e andate a scelta, ripasso sotto 6, lezione pratica, istruzioni chiuse, § 15; frammenti nuovi e consolidati, nuovi da testare, § 16). Metodo versione 3: regole in `data/metodo_v3.json`, codice in `src/js/45-metodo.js`, specifica al § 9 di `data/SPEC_programma_circuiti.md`. Brani nuovi e consolidati, editor di brani e frammenti: `src/js/47-editor.js`, specifica al § 10.
 
 ## Struttura
 
@@ -22,12 +22,13 @@ Versione attuale: **3.7.1** (voto in decimi al posto dei livelli, § 11; niente 
 
 ```
 python3 src/unisci_catalogo.py
-python3 src/build.py data/catalogo.json docs
+python3 src/build.py data/catalogo.json docs [cartella dei ritagli]
 node tests/e2e.js            # prova automatica; con una cartella come argomento salva gli screenshot
 node tests/catalogo.js       # controlli sul catalogo a più brani
 node tests/metodo.js         # controlli sul metodo versione 3 (varianti, voto in decimi, da ripassare, prova, niente riascolto)
 node tests/editor.js         # brani nuovi e consolidati, editor di brani e frammenti, Nabucco
 node tests/v36.js           # 3.6: slot e andate a scelta, andata in più, ripasso sotto 6, lezione pratica
+node tests/v40.js           # 4.0: design Quadrante, passaggio dalla 3.8 senza perdite, tastiera del voto, ritagli
 node tests/v37.js           # 3.7: frammenti nuovi e consolidati, passaggi segnati in sessione libera, Regge / Non regge
 ```
 
@@ -53,3 +54,16 @@ Stanno in `localStorage`, chiave `circuiti_studio_v2` (la stessa dalla 1.0). `no
 Metti in `data/` il file dell'analisi (stesso schema degli altri) e aggiungi una riga in `AGGIUNTE` dentro `src/unisci_catalogo.py`. Ogni brano porta con sé le proprie priorità (da 1 a 7), le definizioni e la fonte; sigle e regole dello slot sono quelle del file base `dati_op111.json`. L'identificativo del brano deve essere diverso da quelli già presenti: il file del II movimento dell'op. 111 dichiara `op111` come il I, e lo script lo registra come `op111-2`.
 
 Campo aggiunto dalla 2.1: `impostazioni.stile`. Campi aggiunti dalla 2.0: `target` (tempo target per frammento), `brani_nascosti`, `impostazioni.visto_versione`, sessioni con `tipo: "manuale"` (registrate a mano).
+
+## 4.0: design Quadrante e battute in partitura
+
+Lo stile Quadrante (nero e azzurro; in chiaro carta e arancione) è in `src/stili.css`, i componenti nuovi (anello della Rep,
+tastiera del voto, riquadri della home, freccetta della partitura) in fondo a `src/app.css`. Al primo avvio della 4.0 lo stile
+passa a Quadrante una volta sola (`impostazioni.quadrante_40`); gli stili di prima restano selezionabili. Pacchetto, firma e chiave
+dei dati non cambiano: la 4.0 si installa sopra la 3.x come un aggiornamento.
+
+I ritagli delle partiture **non stanno nel repository** (sono scansioni di edizioni protette). Sono nella cartella dei file del
+progetto, `circuiti/partiture-ritagli/`: `partiture.json` (per ogni brano, un elemento per sistema: immagine, prima e ultima battuta,
+dimensioni, x delle stanghette) e una cartella di immagini WebP per brano. Si passano a `build.py` come terzo argomento (o con la
+variabile `PARTITURE`); `build_apk.py` mette in `assets/partiture/` quello che trova in `docs/partiture/`. Codice: `src/js/15-partiture.js`.
+Se le stanghette di un sistema non sono state riconosciute con certezza si mostra il sistema intero.

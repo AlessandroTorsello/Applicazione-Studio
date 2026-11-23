@@ -72,7 +72,7 @@ SCREENS.nuovi = () => {
   const l = nuoviDaTestare();
   app.innerHTML = header('Nuovi da testare', l.length ? `${l.length} ${l.length === 1 ? 'passaggio' : 'passaggi'}` : 'Nessun passaggio', '#home') + `<main class="wrap">
     <p class="lead">Una volta, a freddo, al tempo di lavoro.</p>
-    ${l.map(f => `<section class="card nt"><button class="fbody" data-act="preview" data-id="${esc(f.id)}"><span class="fmeta">${esc(branoBreve(f.brano))}</span><b class="bat">${esc(f.battute)}</b> ${esc(f.titolo)}</button>
+    ${l.map(f => `<section class="card nt"><button class="fbody" data-act="preview" data-id="${esc(f.id)}"><span class="fmeta">${esc(branoBreve(f.brano))}</span><b class="bat">${esc(f.battute)}</b> ${esc(f.titolo)}</button>${scoreBtn(f, 'nt:')}${scoreBox(f, 'nt:')}
       <div class="row" style="margin-top:10px"><button class="btn" style="margin:0" data-act="nonregge" data-id="${esc(f.id)}">Non regge</button><button class="btn primary" style="margin:0" data-act="regge" data-id="${esc(f.id)}">Regge</button></div></section>`).join('') || '<p class="muted">Niente da testare oggi. I passaggi che segni in sessione libera compaiono qui dal giorno dopo.</p>'}
   </main>`;
 };
@@ -88,8 +88,9 @@ function renderCtrl(S) {
   const canBack = r > 1 || !!retreat(S, S.pos);
   const met = [2, 3].some(k => usaMetronomo(varianteDi(S, fid, k)));
   app.innerHTML = runHead(S, { dots, lines: `<div class="l2">${esc(branoNome(f.brano))}</div>
-    <div class="l3"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</div>` }) + `
+    <div class="l3"><span class="grow"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}</span>${scoreBtn(f, 'run:')}</div>` }) + `
   <main class="wrap" style="padding-bottom:calc(200px + env(safe-area-inset-bottom))">
+    ${scoreBox(f, 'run:')}
     ${pausedBanner(S)}
     <div class="repnum">Ripetizione ${r}<small>di ${CTRL_MIN}-${CTRL_MAX}</small></div>
     <p class="diag">Brano nuovo · controllo al ${CTRL_PCT[0]}-${CTRL_PCT[1]}%</p>

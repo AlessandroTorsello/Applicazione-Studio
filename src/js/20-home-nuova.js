@@ -33,25 +33,27 @@ SCREENS.home = () => {
   const lastExp = D.impostazioni.ultimo_export;
   const needBackup = D.sessioni.length && (!lastExp || (Date.now() - new Date(lastExp).getTime()) > 7 * 864e5);
   const ch = daysChart(7), last = lastRepeatable(), due = daRipassare(), nt = nuoviDaTestare();
+  /* 4.0 (Quadrante): il tempo di oggi in grande, due riquadri con i conteggi, i tre passaggi col voto più basso. */
+  const tile = (lab, n, act, extra) => `<button class="tile ${n ? '' : 'zero'}" ${n ? act : 'disabled'}><span class="label">${lab}</span><span class="tn">${n}</span><span class="ts">${extra}</span></button>`;
+  const peggiori = due.slice().sort((x, y) => RIP.get(x.id).a - RIP.get(y.id).a).slice(0, 3);
   app.innerHTML = topbar('Summum Studium', fmtDateLong(today)) + `<main class="wrap tabbed">
     ${!storageOk ? `<div class="hint">Questo browser non permette di salvare i dati. Usa l'app installata o un altro browser.</div>` : ''}
     ${needBackup ? `<div class="hint">${lastExp ? 'Ultimo backup più di una settimana fa.' : 'Non hai ancora fatto un backup.'} <button class="link" data-act="export">Salva un backup adesso</button></div>` : ''}
-    <section class="card"><div class="label">Oggi</div><div class="big" data-live="today">${fmtMin(t.tot)}</div>
-      ${t.perBrano.length ? kvBrani(t.perBrano) + `<button class="link" data-act="go" data-h="#day/${today}">Dettaglio della giornata</button>` : '<p class="muted" style="margin:0">Nessun minuto registrato oggi.</p>'}
+    <section class="hero"><div class="label">Oggi</div><div class="big" data-live="today">${fmtMin(t.tot)}</div>
+      ${t.perBrano.length ? `<details class="sub2 oggibr"><summary>Per brano</summary><div>${kvBrani(t.perBrano)}<button class="link" data-act="go" data-h="#day/${today}">Dettaglio della giornata</button></div></details>` : ''}
     </section>
     ${S ? `<section class="card now"><div class="label">${S.timer.since ? 'Sessione in corso' : 'Sessione in pausa'} · <span data-live="sess">${fmtClock(S.timer.sess + tRun(S.timer))}</span></div>
       <p class="nowpos">${esc(posDescr(S))}</p><p class="small muted" style="margin:0 0 10px">${esc(sesDescr(S))}</p>
       <button class="btn primary xl" data-act="go" data-h="#run" style="margin:0">Riprendi la sessione</button></section>` : ''}
-    ${due.length ? `<section class="card"><div class="cardh"><span class="label">Da ripassare oggi</span><b>${due.length} ${due.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
-      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(due.map(f => branoBreve(f.brano)))].join(' · '))} · voto sotto ${fmtV(VOTO.ripasso)}</p>
-      <button class="btn" style="margin:0" data-act="ripasso">Scegli i passaggi da ripassare</button></section>` : ''}
-    ${nt.length ? `<section class="card"><div class="cardh"><span class="label">Nuovi da testare</span><b>${nt.length} ${nt.length === 1 ? 'passaggio' : 'passaggi'}</b></div>
-      <p class="small muted" style="margin:0 0 10px">${esc([...new Set(nt.map(f => branoBreve(f.brano)))].join(' · '))} · regge o non regge</p>
-      <button class="btn" style="margin:0" data-act="go" data-h="#nuovi">Testa i passaggi nuovi</button></section>` : ''}
-    <button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">+ Aggiungi sessione</button>
-    ${last && !S ? `<button class="btn two" data-act="repeat" data-id="${esc(last.id)}"><b>Ripeti l'ultima sessione</b><span>${esc(sesDescr(last))}</span></button>` : ''}
-    <section class="card" style="margin-top:4px"><div class="cardh"><span class="label">Ultimi 7 giorni</span><b>${fmtMinRound(ch.tot)}</b></div>${ch.html}
-      <p class="small muted" style="margin:6px 0 0">Minuti per giorno. Tocca una barra per aprire la giornata.</p></section>
+    <div class="tiles">
+      ${tile('Da ripassare', due.length, 'data-act="ripasso"', due.length ? 'voto sotto ' + fmtV(VOTO.ripasso) : 'niente sotto ' + fmtV(VOTO.ripasso))}
+      ${tile('Nuovi da testare', nt.length, 'data-act="go" data-h="#nuovi"', nt.length ? esc([...new Set(nt.map(f => branoBreve(f.brano)))].join(' · ')) : 'nessuno')}
+    </div>
+    ${peggiori.length ? `<section class="card qlist">${peggiori.map(f => `<div class="q"><div class="qh"><button class="link plain grow" data-act="go" data-h="#frag/${esc(encodeURIComponent(f.id))}"><b class="bat">${esc(f.battute)}</b><span class="muted">${esc(f.titolo || branoBreve(f.brano))}</span></button><span class="vbad">${fmtV(RIP.get(f.id).a)}</span>${scoreBtn(f)}</div>${scoreBox(f)}</div>`).join('')}
+      ${due.length > 3 ? `<button class="link" data-act="ripasso">Tutti i ${due.length} da ripassare</button>` : ''}</section>` : ''}
+    <div class="ctas"><button class="btn ${S ? '' : 'primary'} xl" data-act="nuova">Nuova sessione</button>
+      ${last && !S ? `<button class="btn two" data-act="repeat" data-id="${esc(last.id)}" aria-label="Ripeti l'ultima sessione"><b>Ripeti l'ultima</b><span>${esc(sesDescr(last))}</span></button>` : ''}</div>
+    <section class="card" style="margin-top:4px"><div class="cardh"><span class="label">Ultimi 7 giorni</span><b>${fmtMinRound(ch.tot)}</b></div>${ch.html}</section>
     <button class="btn" data-act="lezione">Aggiungi lezione pratica</button>
     <button class="btn" data-act="manual">Registra a mano uno studio già fatto</button>
     ${installEvt ? `<button class="btn" data-act="install">Installa l'app sul telefono</button>` : ''}

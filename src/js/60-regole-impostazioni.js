@@ -48,10 +48,10 @@ SCREENS.settings = () => {
   const I = D.impostazioni, nSes = D.sessioni.length;
   app.innerHTML = topbar('Impostazioni') + `<main class="wrap tabbed">
     <section class="card"><div class="label" style="margin-bottom:8px">Aspetto</div>
-      <div class="optrow"><span>Tema</span><div class="seg"><button data-act="tema" data-v="scuro" class="${I.tema === 'scuro' ? 'on' : ''}" aria-pressed="${I.tema === 'scuro'}">Scuro</button><button data-act="tema" data-v="chiaro" class="${I.tema === 'chiaro' ? 'on' : ''}" aria-pressed="${I.tema === 'chiaro'}">Chiaro</button></div></div>
+      <div class="optrow"><span>Tema</span><div class="seg"><button data-act="tema" data-v="scuro" class="${I.tema === 'scuro' ? 'on' : ''}" aria-pressed="${I.tema === 'scuro'}">Scuro</button><button data-act="tema" data-v="chiaro" class="${I.tema === 'chiaro' ? 'on' : ''}" aria-pressed="${I.tema === 'chiaro'}">Chiaro</button><button data-act="tema" data-v="auto" class="${I.tema === 'auto' ? 'on' : ''}" aria-pressed="${I.tema === 'auto'}">Come il telefono</button></div></div>
       <div class="optrow"><span>Dimensione del testo</span><div class="seg">${[['piccolo', 'Testo piccolo', '.85em'], ['normale', 'Testo normale', '1em'], ['grande', 'Testo grande', '1.15em'], ['molto', 'Testo molto grande', '1.3em']].map(([v, lab, fs]) => `<button data-act="testo" data-v="${v}" class="${I.testo === v ? 'on' : ''}" style="font-size:${fs}" aria-label="${lab}" aria-pressed="${I.testo === v}">A</button>`).join('')}</div></div>
       <div class="optrow" style="display:block"><span>Stile</span>
-        <div class="stili">${STILI.map(s => { const c = s[I.tema === 'chiaro' ? 'chiaro' : 'scuro']; return `<button class="stile ${I.stile === s.id ? 'on' : ''}" data-act="stile" data-v="${s.id}" aria-pressed="${I.stile === s.id}">
+        <div class="stili">${STILI.map(s => { const c = s[document.documentElement.dataset.theme === 'chiaro' ? 'chiaro' : 'scuro']; return `<button class="stile ${I.stile === s.id ? 'on' : ''}" data-act="stile" data-v="${s.id}" aria-pressed="${I.stile === s.id}">
           <span class="sw" style="background:${c[0]};color:${c[1]}"><b style="font-family:${s.titoli}">Rep 2</b><i style="font-family:${s.testo}">Senza pedale, a mp</i><u style="background:${c[2]};color:${c[3]};border-radius:${s.raggio};font-family:${s.ui}">Fatto</u></span>
           <span class="nm">${esc(s.nome)}<small>${esc(s.descr)}</small></span></button>`; }).join('')}</div></div>
     </section>
@@ -110,8 +110,10 @@ function branoSheet(id) {
 }
 function applyPrefs() {
   const I = D.impostazioni, el = document.documentElement;
+  /* 4.0: il nuovo design vale per tutti una volta, anche per chi aveva scelto a mano un altro stile (resta selezionabile). */
+  if (!I.quadrante_40) { I.quadrante_40 = true; I.stile = 'quadrante'; I.stile_scelto = false; }
   if (!I.stile_scelto || !STILI.some(s => s.id === I.stile)) I.stile = STILE_PREDEFINITO; // finché non si sceglie a mano vale il predefinito
-  el.dataset.theme = I.tema === 'chiaro' ? 'chiaro' : 'scuro';
+  el.dataset.theme = I.tema === 'auto' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'chiaro' : 'scuro') : I.tema === 'chiaro' ? 'chiaro' : 'scuro';
   el.dataset.testo = I.testo || 'normale';
   el.dataset.stile = I.stile;
   const m = document.querySelector('meta[name=theme-color]');
@@ -189,9 +191,11 @@ function resetSheet() {
   });
 }
 function newsSheet() {
-  openSheet(`<h2>Novità della versione 3</h2>
+  openSheet(`<h2>Novità della versione 4</h2>
     <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
+      <li><b>4.0 · Nuovo design</b>: stile Quadrante, nero e azzurro (in chiaro carta e arancione; il tema può seguire il telefono). Anello della Rep con il tempo dello slot, voto con una tastiera di numeri, home con i conteggi e i tre passaggi col voto più basso. Gli stili di prima restano in Impostazioni. Funzioni e dati non cambiano.</li>
+      <li><b>4.0 · Battute in partitura</b>: la freccetta accanto a un frammento apre il ritaglio delle sue battute (Oggi, scelta dei passaggi, durante la Rep, nuovi da testare, scheda del frammento). Per ora: Chopin op. 25 n. 7, Rachmaninov op. 23 n. 6 e op. 39 n. 6, Scriabin op. 9 n. 1.</li>
       <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano, 19 frammenti divisi da te, tutti nuovi, con l'analisi (nodo motorio, suggerimenti, famiglie).</li>
       <li><b>3.8 · Per voto</b>: nella scelta dei passaggi, sotto «Da ripassare oggi», una sezione richiudibile con tutti i frammenti consolidati dal voto più basso al più alto; in fondo quelli mai votati.</li>
       <li><b>3.7.1 · Scriabin op. 9</b>: Preludio (8 frammenti) e Notturno per la mano sinistra (28 frammenti: gruppi di due battute, la cadenza da sola, l'ultimo gruppo di quattro), nuovi, con l'analisi. I due brani stanno sotto «Scriabin op. 9».</li>

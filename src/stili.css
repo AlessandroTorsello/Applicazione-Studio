@@ -125,3 +125,55 @@ h1,h2,h3,h4,.big,.repnum,.cur-b,.statv,.nowpos,.panel .sg,.sth,.stt{font-family:
 .stile .sw u{display:inline-block;text-decoration:none;margin-top:8px;padding:3px 10px;font-size:var(--t-xs);font-weight:700}
 .stile .nm{display:block;padding:8px 12px;font-weight:700;font-size:var(--t-sm);border-top:1px solid var(--line);color:var(--text);font-family:var(--font-ui)}
 .stile .nm small{display:block;font-weight:500;color:var(--muted);font-size:var(--t-xs)}
+
+/* ---------- Quadrante (4.0): nero pieno e azzurro ghiaccio; in chiaro carta e arancione. Cifre sottili, niente bordi ---------- */
+:root[data-stile="quadrante"]{
+  --font:"Inter",system-ui,sans-serif; --r-card:18px; --r-btn:16px; --r-field:12px; --r-sm:999px; --w-head:600; --w-btn:600; --w-instr:450; --lh-instr:1.45;
+  --bg:#000000; --bg2:#1a1f24; --card:#111417; --line:#1f252b; --text:#e9edf1; --muted:#7d8792;
+  --accent:#7dd3fc; --accent-ink:#041019; --ok:#6ee7b7; --bad:#fca5a5; --sig:#7dd3fc; --bb:#7dd3fc; --badbg:#2a1a1a;
+  --shadow:0 10px 40px rgba(0,0,0,.7);
+}
+:root[data-stile="quadrante"][data-theme="chiaro"]{
+  --bg:#f6f3ec; --bg2:#e2dbcc; --card:#ece6da; --line:#ddd6c7; --text:#1b1a17; --muted:#7c776c;
+  --accent:#c96442; --accent-ink:#ffffff; --ok:#3f7d55; --bad:#c96442; --sig:#c96442; --bb:#c96442; --badbg:#f4e1d7;
+  --shadow:0 10px 30px rgba(60,40,20,.18);
+}
+[data-stile="quadrante"] body{font-feature-settings:"tnum" 1,"cv11" 1}
+[data-stile="quadrante"] .card,[data-stile="quadrante"] details.acc,[data-stile="quadrante"] details.sez,[data-stile="quadrante"] .circ,
+[data-stile="quadrante"] .dayrow,[data-stile="quadrante"] details.sub2,[data-stile="quadrante"] .tg,[data-stile="quadrante"] .vbox,
+[data-stile="quadrante"] .choice button,[data-stile="quadrante"] .bgrid button,[data-stile="quadrante"] .errs button,[data-stile="quadrante"] .livs button,
+[data-stile="quadrante"] .sigpick,[data-stile="quadrante"] .recap,[data-stile="quadrante"] .tgt,[data-stile="quadrante"] .empty{border-color:transparent}
+[data-stile="quadrante"] details.sub2,[data-stile="quadrante"] .tg,[data-stile="quadrante"] .vbox,[data-stile="quadrante"] .tgt,[data-stile="quadrante"] .recap{background:var(--card)}
+[data-stile="quadrante"] .choice button.on,[data-stile="quadrante"] .bgrid button.on,[data-stile="quadrante"] .errs button.on,[data-stile="quadrante"] .livs button.on{border-color:var(--accent)}
+[data-stile="quadrante"] .card.now{border-color:transparent;background:var(--card);box-shadow:inset 3px 0 0 var(--accent)}
+[data-stile="quadrante"] .btn{border-color:transparent;background:var(--bg2)}
+[data-stile="quadrante"] .btn.primary{background:var(--accent);color:var(--accent-ink)}
+[data-stile="quadrante"] .btn.danger{border-color:var(--bad)}
+[data-stile="quadrante"] .ib{border-color:transparent;background:var(--bg2)}
+[data-stile="quadrante"] textarea,[data-stile="quadrante"] input[type=text],[data-stile="quadrante"] input[type=number],[data-stile="quadrante"] input[type=date],[data-stile="quadrante"] select.sel{border-color:transparent;background:var(--card)}
+[data-stile="quadrante"] .sheet{background:var(--bg)}
+[data-stile="quadrante"] .sheet textarea,[data-stile="quadrante"] .sheet input[type=text],[data-stile="quadrante"] .sheet .btn:not(.primary),[data-stile="quadrante"] .sheet details.sub2{background:var(--card)}
+[data-stile="quadrante"] .seg{border-color:transparent;background:var(--card);padding:3px;gap:3px}
+[data-stile="quadrante"] .seg button{border-radius:999px;padding-left:14px;padding-right:14px}
+[data-stile="quadrante"] .chip,[data-stile="quadrante"] .tag,[data-stile="quadrante"] .pill{border-radius:999px;border-color:transparent;background:var(--bg2);padding-left:8px;padding-right:8px}
+[data-stile="quadrante"] .chip.cur{background:var(--accent)}
+[data-stile="quadrante"] .label{font-weight:600;letter-spacing:.06em}
+[data-stile="quadrante"] .top,[data-stile="quadrante"] .runh,[data-stile="quadrante"] .bar,[data-stile="quadrante"] .tabwrap{border-color:transparent}
+[data-stile="quadrante"] .top h1{font-weight:600}
+[data-stile="quadrante"] .big,[data-stile="quadrante"] .bigclock{font-weight:300;letter-spacing:-.03em}
+[data-stile="quadrante"] .bigclock{font-size:var(--t-5xl);color:var(--text)}
+[data-stile="quadrante"] .fatto{border-radius:18px}
+[data-stile="quadrante"] .tabs button svg{stroke-width:1.7}
+[data-stile="quadrante"] .bartrack{border-radius:4px}
+[data-stile="quadrante"] .bat,[data-stile="quadrante"] .bb{font-weight:600}
+[data-stile="quadrante"] .dot{border-width:0;background:var(--bg2);width:22px;height:6px;border-radius:3px}
+[data-stile="quadrante"] .dot.done{background:var(--accent);opacity:.45}
+[data-stile="quadrante"] .dot.cur{background:var(--accent)}
+[data-stile="quadrante"] .dots{gap:4px}
+[data-stile="quadrante"] .prog{background:var(--bg2)}
+[data-stile="quadrante"] .runh.paused{box-shadow:inset 0 -2px 0 var(--bad)}
+[data-stile="quadrante"] .steps li{border-bottom-width:2px}
+[data-stile="quadrante"] .slot .lab{font-weight:600}
+[data-stile="quadrante"] .pn{font-weight:600}
+[data-stile="quadrante"] .hint{border-left-color:var(--accent);background:var(--card)}
+[data-stile="quadrante"] .fam{border-color:var(--line)}

@@ -142,11 +142,12 @@ function votoSheet(fid) {
   const f = fr(fid), i = infoVoto(fid), m = votoDiOggi(fid, 'mano');
   openSheet(`<h2>Voto a mano</h2><p class="muted small" style="margin-top:-6px">${f ? 'bb. ' + esc(f.battute) + (f.titolo ? ' · ' + esc(f.titolo) : '') : ''}</p>
     <p class="small">${i ? esc(votoTesto(fid)) + '.' : 'Ancora nessun voto.'} Di norma il voto viene dal test del giorno. Un voto dato qui vale come voto di oggi e prevale sugli altri della giornata.</p>
-    <div class="field"><label for="vm">Voto di oggi (0-${VOTO.massimo})</label><input type="text" id="vm" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${m != null ? esc(fmtV(m)) : ''}" class="bignum"></div>
+    <div class="field"><label for="vm">Voto di oggi (0-${VOTO.massimo})</label><input type="text" id="vm" inputmode="decimal" min="0" max="${VOTO.massimo}" step="${VOTO.passo}" value="${m != null ? esc(fmtV(m)) : ''}" class="bignum">${votoKeys(m != null ? fmtV(m) : '')}</div>
     ${riferimentiHtml()}
     <button class="btn primary xl" id="vmok">Salva il voto</button>
     ${m != null ? '<button class="btn danger" id="vmdel">Togli il voto a mano di oggi</button>' : ''}
     <button class="btn" data-act="closesheet">Annulla</button>`, sh => {
+    bindVotoKeys(sh, $('#vm', sh));
     $('#vmok', sh).addEventListener('click', () => { const v = leggiVoto($('#vm', sh).value); if (v == null) { toast(`Scrivi un voto da 0 a ${VOTO.massimo}`); return; } setVoto(fid, v, 'mano'); closeSheet(); render(); toast('Voto ' + fmtV(v) + ' salvato'); });
     const d = $('#vmdel', sh); if (d) d.addEventListener('click', () => { setVoto(fid, null, 'mano'); closeSheet(); render(); });
   });

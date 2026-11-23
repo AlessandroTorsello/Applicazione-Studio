@@ -247,6 +247,7 @@ SCREENS.frag = fid => {
       ${iv ? `<p class="small muted" style="margin:6px 0 0">Ultimi voti: ${esc(iv.storia.slice(-5).reverse().map(x => fmtV(x.v) + ' ' + fmtDayMonth(x.d) + (x.fonte !== 'test' ? ' (' + FONTI[x.fonte] + ')' : '')).join(' · '))}</p>` : ''}
     </section>` : '';
   app.innerHTML = header(f ? 'bb. ' + f.battute : fid, f ? f.titolo : '', '#frammenti') + `<main class="wrap">
+    ${f ? scoreOpen(f) : ''}
     <section class="card"><div class="row stat3"><div><div class="label">Minuti totali</div><div class="statv">${fmtMinRound(tot)}</div></div>
       <div><div class="label">Voto attuale</div><div class="statv">${iv ? fmtV(iv.a) : '—'}</div></div>
       <div><div class="label">Ultimi bpm</div><div class="statv">${points.length ? points[points.length - 1].v : '—'}</div></div></div>
@@ -262,6 +263,6 @@ SCREENS.frag = fid => {
         ${testTesto(l) ? `<br>${esc(testTesto(l))}` : ''}${vincLogTesto(l) ? `<br><span class="muted">Varianti:</span> ${esc(vincLogTesto(l))}` : ''}
         ${l.diagnosi ? `<br><span class="muted">Diagnosi:</span> ${esc(l.diagnosi)}` : ''}${l.note ? `<br><span class="muted">Note:</span> ${esc(l.note)}` : ''}</div>`).join('') || '<p class="muted" style="margin:8px 0 0">Ancora nessun dato.</p>'}
     </section>
-    ${f ? `<details class="sub2"><summary>Scheda del frammento</summary><div>${previewHtml(f)}</div></details>` : ''}
+    ${f ? `<details class="sub2"><summary>Scheda del frammento</summary><div>${previewHtml(f, true)}</div></details>` : ''}
   </main>`;
 };

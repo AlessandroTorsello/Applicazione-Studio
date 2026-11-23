@@ -1,12 +1,14 @@
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '3.8.0';
+const APP_VERSION = '4.0.0';
 /* 3.6: slot e andate oltre i pulsanti (2-5) si scrivono a mano entro questi limiti; le andate partono da 2. */
 const LIM = { slot: [2, 20], andate: [2, 12] };
 const LEZIONE = 'lezione-pratica';   // «brano» delle lezioni pratiche: solo tempo
 /* Stili: i colori qui servono solo per l'anteprima nelle Impostazioni; quelli veri sono in stili.css. */
 const SANS = "system-ui,sans-serif";
 const STILI = [
+  { id: 'quadrante', nome: 'Quadrante', descr: 'Il design della 4.0: nero e azzurro, in chiaro carta e arancione', titoli: "'Inter'," + SANS, testo: "'Inter'," + SANS, ui: "'Inter'," + SANS, raggio: '16px',
+    scuro: ['#000000', '#e9edf1', '#7dd3fc', '#041019'], chiaro: ['#f6f3ec', '#1b1a17', '#c96442', '#ffffff'] },
   { id: 'essenziale', nome: 'Essenziale', descr: 'Inter, bianco e nero', titoli: "'Inter'," + SANS, testo: "'Inter'," + SANS, ui: "'Inter'," + SANS, raggio: '10px',
     scuro: ['#0b0c0e', '#f3f4f6', '#f3f4f6', '#0b0c0e'], chiaro: ['#ffffff', '#111214', '#111214', '#ffffff'] },
   { id: 'spartito', nome: 'Spartito', descr: 'Con le grazie, carta e inchiostro', titoli: "'Source Serif 4',Georgia,serif", testo: "'Source Serif 4',Georgia,serif", ui: "'Inter'," + SANS, raggio: '4px',
@@ -18,7 +20,7 @@ const STILI = [
   { id: 'ambra', nome: 'Ambra', descr: 'Lo stile della versione 2.0', titoli: SANS, testo: SANS, ui: SANS, raggio: '12px',
     scuro: ['#0f1216', '#eef1f5', '#f2b84b', '#1a1405'], chiaro: ['#f6f4ef', '#14161a', '#9a5b00', '#ffffff'] }
 ];
-const STILE_PREDEFINITO = 'salvia';
+const STILE_PREDEFINITO = 'quadrante';
 const KEY = 'circuiti_studio_v2';          // stessa chiave dalla versione 1, anche dopo il cambio di nome: i dati restano leggibili
 const KEY_PRE2 = KEY + '_prima_della_2';   // copia di sicurezza fatta al primo avvio della 2.0
 const KEY_PREIMP = KEY + '_prima_import';  // copia fatta prima di ogni importazione
@@ -216,6 +218,7 @@ function openSheet(html, bind) {
   $('#panel').classList.remove('on');
   sh.classList.add('on'); $('#ov').classList.add('on'); ovPush();
   if (bind) bind(sh);
+  bindScores(sh);
 }
 const closeSheet = closeOverlays;
 function openPanel(sigla) {
@@ -304,6 +307,7 @@ function render() {
   const parts = location.hash.slice(1).split('/').map(decodeURIComponent);
   const fn = SCREENS[parts[0]] || SCREENS.home;
   fn(...parts.slice(1));
+  bindScores(app);
   if (parts[0] !== 'run') releaseWake();
   if (!ticker && D.sessione_aperta && $('[data-live]')) ticker = setInterval(liveTick, 1000);
   lastRender = Date.now();

@@ -389,3 +389,73 @@ details.avv>summary{color:var(--accent);font-weight:600}
 .sugg{margin:-4px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
 .sugg p{margin:4px 0 8px;font-size:var(--t-sm)}
 .sugg .sigrow{margin:0}
+
+/* ===================== 4.0: componenti del design Quadrante ===================== */
+.sr{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* home */
+.hero{padding:6px 2px 14px}
+.hero .big{font-size:var(--t-5xl);font-weight:300;letter-spacing:-.03em;line-height:1.05;margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.hero details.sub2{margin:0}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);padding:14px 16px;color:var(--text);min-width:0}
+.tile .tn{font-size:var(--t-3xl);font-weight:500;letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums}
+.tile:not(.zero):last-child .tn{color:var(--accent)}
+.tile .ts{font-size:var(--t-xs);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tile.zero{opacity:.55}
+.tile:disabled{cursor:default}
+.qlist{padding-top:6px;padding-bottom:6px}
+.q{padding:10px 0;border-top:1px solid var(--line)}
+.q:first-child{border-top:0}
+.qh{display:flex;align-items:center;gap:8px}
+.qh .grow{flex:1;min-width:0;display:flex;align-items:baseline;gap:6px;overflow:hidden}
+.qh .grow .muted{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:var(--t-sm)}
+.vbad{font-size:var(--t-sm);font-weight:600;background:var(--badbg,color-mix(in srgb,var(--bad) 18%,transparent));color:var(--bad);border-radius:8px;padding:2px 8px;font-variant-numeric:tabular-nums;flex:0 0 auto}
+.qlist .link{font-size:var(--t-sm);padding:8px 0 2px}
+.ctas{display:grid;grid-template-columns:1fr;gap:0}
+/* freccetta e ritaglio della partitura */
+.chev{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:0;background:var(--bg2);display:inline-grid;place-items:center;padding:0;align-self:center}
+.chev svg{width:12px;height:12px;stroke:var(--muted);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.chev.open svg{transform:rotate(180deg)}
+.score{margin:8px 0 10px;border-radius:12px;overflow:hidden;background:#fff;padding:6px 4px 2px}
+.score[hidden]{display:none}
+.scorecut{overflow:hidden;width:100%}
+.scorecut img{display:block;max-width:none}
+.scorecut+.scorecut{margin-top:6px}
+.scorezoom{display:block;margin:4px 0 2px auto;background:none;border:0;color:#666;font-size:var(--t-xs);padding:4px 6px}
+.score.big{padding:6px}
+.score.big img{display:block;width:100%;margin-bottom:6px}
+:root[data-theme="scuro"] .score{background:#000}
+:root[data-theme="scuro"] .score img{filter:invert(1) brightness(.88)}
+:root[data-theme="scuro"] .scorezoom{color:var(--muted)}
+:root[data-theme="chiaro"] .score{background:transparent;padding-left:0;padding-right:0}
+:root[data-theme="chiaro"] .score img{mix-blend-mode:multiply}
+.frow{flex-wrap:nowrap}
+.frow .chev{margin-right:2px}
+.card.nt{position:relative}
+.card.nt>.chev{position:absolute;top:12px;right:12px}
+.card.nt .fbody{padding-right:40px}
+.runh .l3{display:flex;align-items:center;gap:8px}
+.runh .l3 .grow{flex:1;min-width:0}
+/* anello della Rep */
+.repring{position:relative;width:min(176px,44vw);aspect-ratio:1;margin:14px auto 8px}
+.repring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.repring circle{fill:none;stroke-width:7}
+.repring .rt{stroke:var(--bg2)}
+.repring .rf{stroke:var(--accent);stroke-linecap:round}
+.repring .ri{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 18px}
+.repring .rl{font-size:var(--t-sm);color:var(--muted)}
+.repring .rb{font-size:var(--t-5xl);font-weight:250;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.repring .rb small{font-size:var(--t-xl);color:var(--muted);font-weight:400;margin-left:2px}
+.repring .rsub{font-size:var(--t-sm);font-weight:600;margin-top:4px}
+.repring .rs{font-size:var(--t-sm);color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+@media (max-height:700px){.repring{width:min(140px,36vw);margin-top:8px}.repring .rb{font-size:var(--t-4xl)}}
+/* tastiera del voto */
+.vkeys{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:12px 0 4px}
+.vkeys button{height:46px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:var(--t-lg);font-weight:500;font-variant-numeric:tabular-nums;color:var(--text)}
+.vkeys button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+[data-stile="quadrante"] .vkeys button{border-color:transparent}
+[data-stile="quadrante"] .tile{border-color:transparent}
+[data-stile="quadrante"] .hero .label{color:var(--muted)}
+[data-stile="quadrante"] .runh .l1 .grow{font-weight:600;font-size:min(var(--t-sm),15px);color:var(--muted)}
+[data-stile="quadrante"] .runh .l3{font-weight:500}
+.qh .bat{white-space:nowrap}

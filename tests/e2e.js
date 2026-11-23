@@ -93,7 +93,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   let d = await D();
   { const l0 = d.sessioni[0].log[0];
     ok(d.sessioni.length === 1 && l0.bpm_rep2 === 96 && l0.vincolo_rep2 === 'MET' && l0.tempo_rep4 == null && l0.voto === 8 && l0.test && !l0.diagnosi, 'dati salvati (bpm di MET, voto del test, niente Rep 4): ' + JSON.stringify(l0)); }
-  ok(d.versione === 3 && d.impostazioni.visto_versione === '3.8.0', 'versione dei dati');
+  ok(d.versione === 3 && d.impostazioni.visto_versione === '4.0.0', 'versione dei dati');
 
   /* --- ripeti la sessione --- */
   await p.click('[data-act="repeat"]'); await w(700);
@@ -195,7 +195,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   await ctx.addInitScript(v => { if (location.protocol === 'file:' && !sessionStorage.getItem('v1')) { localStorage.clear(); localStorage.setItem('circuiti_studio_v2', JSON.stringify(v)); sessionStorage.setItem('v1', '1'); } }, v1);
   await p.goto(U); await w(900);
   await shot('v1-novita');
-  ok(await p.locator('.sheet.on .news').count() >= 1 && (await p.locator('.sheet.on h2').innerText()).includes('versione 3'), 'chi arriva dalla v1 vede le novità');
+  ok(await p.locator('.sheet.on .news').count() >= 1 && (await p.locator('.sheet.on h2').innerText()).includes('versione 4'), 'chi arriva dalla v1 vede le novità');
   ok(await hash() === '#run', 'la sessione aperta della v1 viene ripresa');
   await p.click('.sheet [data-act="closesheet"]'); await w();
   ok((await txt('.l1')).includes('Andata 2/3 · Slot B1') && (await txt('.repnum')).startsWith('Rep 3'), 'stessa posizione: ' + await txt('.l1'));

@@ -30,7 +30,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
       log: [{ circuito: 1, andata: 1, etichetta: 'A1', frammento: N1, brano: 'nabucco', secondi: 200, rep_completate: 5, controllo: true }] });
     localStorage.setItem('circuiti_studio_v2', JSON.stringify(D)); }, [N1, A]);
   await p.reload(); await w(900);
-  ok(await p.evaluate(() => APP_VERSION) === '3.8.0', 'versione 3.8.0');
+  ok(await p.evaluate(() => APP_VERSION) === '4.0.0', 'versione 4.0.0');
   ok((await txt('.sheet.on .news')).includes('3.7 · Frammenti nuovi e consolidati'), 'chi arriva dalla 3.6 vede le novità della 3.7');
   await shot('novita');
   await p.click('.sheet.on [data-act="closesheet"]').catch(() => p.evaluate(() => closeSheet())); await w();
@@ -79,7 +79,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   /* --- 3. il giorno dopo: «Nuovi da testare» --- */
   await p.evaluate(([N1, N2]) => { D.da_testare = [{ frammento: N1, data: dayAdd(todayStr(), -1) }, { frammento: N2, data: dayAdd(todayStr(), -1) }]; save(); }, [N1, N2]);
   await p.goto(U + '#home'); await p.reload(); await w(700);
-  ok((await txt('.card:has([data-h="#nuovi"])')).includes('2 passaggi'), 'home: «Nuovi da testare», 2 passaggi');
+  ok((await txt('.tile[data-h="#nuovi"] .tn')) === '2', 'home: «Nuovi da testare», 2 passaggi');
   await shot('home-nuovi');
   await p.click('[data-h="#nuovi"]'); await w();
   ok(await p.locator('.card.nt').count() === 2, 'schermata con Regge / Non regge per ognuno');

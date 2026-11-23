@@ -23,7 +23,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const hash = () => p.evaluate(() => decodeURIComponent(location.hash));
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '3.8.0', 'versione 3.8.0 (suite della 3.6)');
+  ok(await p.evaluate(() => APP_VERSION) === '4.0.0', 'versione 4.0.0 (suite della 3.6)');
 
   /* --- 1. slot e andate scritti a mano --- */
   await p.click('[data-act="nuova"]'); await w();
@@ -71,7 +71,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(due.join() === 'op111-11-15:3,3,mephisto-202-206:4,8,op111-6-10:5,8', 'da ripassare: sotto 6, voto crescente su tutti i brani (' + due.join(' ') + ')');
   ok(await p.evaluate(() => votoTesto('op111-20-23')) === 'Voto 8,3 (9 dato 3 giorni fa)', 'un voto sopra 6 non dice «da ripassare»');
   await p.goto(U + '#home'); await p.reload(); await w();
-  ok((await txt('.card:has([data-act="ripasso"])')).includes('3 passaggi'), 'home: 3 passaggi da ripassare');
+  ok((await txt('.tile[data-act="ripasso"] .tn')) === '3', 'home: 3 passaggi da ripassare');
   await p.click('[data-act="ripasso"]'); await w();
   const righe = await p.locator('.card.due .frow .bat').allInnerTexts();
   ok(righe.join() === '11-15,202-206,6-10', 'selezione: un elenco solo, dal voto più basso (' + righe.join(' ') + ')');

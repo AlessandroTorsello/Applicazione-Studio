@@ -172,7 +172,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on .news')).includes('3.1'), 'chi arriva dalla 3.0 vede le novità della 3.1');
   await shot('novita-31');
   d = await D();
-  ok(d.impostazioni.visto_versione === '3.8.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato_frammenti['nabucco-sinfonia-1-4'] === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
+  ok(d.impostazioni.visto_versione === '4.0.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato_frammenti['nabucco-sinfonia-1-4'] === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
   await p.reload(); await w(900);
   ok(!(await p.locator('.sheet.on').count()), 'al secondo avvio le novità non tornano');
 

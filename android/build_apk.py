@@ -106,6 +106,11 @@ def main():
             z.writestr(zi, data)
         add('AndroidManifest.xml', patch_manifest(open(os.path.join(BASE, 'AndroidManifest.xml'), 'rb').read(), a.version_code, a.version_name))
         add('assets/index.html', open(a.html, 'rb').read())
+        # 4.0: ritagli delle partiture accanto a index.html (docs/partiture/<brano>/*.webp), se compilati
+        pdir = os.path.join(os.path.dirname(os.path.abspath(a.html)), 'partiture')
+        for root, _d, files in sorted(os.walk(pdir)):
+            for f in sorted(files):
+                p = os.path.join(root, f); add('assets/partiture/' + os.path.relpath(p, pdir).replace(os.sep, '/'), open(p, 'rb').read())
         for root, _d, files in sorted(os.walk(os.path.join(BASE, 'res'))):
             for f in sorted(files):
                 p = os.path.join(root, f); add(os.path.relpath(p, BASE).replace(os.sep, '/'), open(p, 'rb').read())
