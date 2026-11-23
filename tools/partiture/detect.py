@@ -53,7 +53,7 @@ def find_staves(a):
             if not any(st[0] < f[1] + st[2] and st[1] > f[0] - st[2] for f in found): found.append(st)
     found.sort()
     if found:
-        med = np.median([f[2] for f in found]); found = [f for f in found if abs(f[2] - med) < med * 0.25]
+        med = np.median([f[2] for f in found]); found = [f for f in found if abs(f[2] - med) < med * 0.15]
     return found
 
 def pair(st):
@@ -91,13 +91,61 @@ def barlines(a, s, sp):
         else: merged.append(list(g))
     return [float((g[0] + g[1]) / 2) for g in merged]
 
+def staff_x0(a, st):
+    rows = [int(round(y)) for y in np.linspace(st[0], st[1], 5)]
+    lines = np.mean([a[y - 1:y + 2].max(0) for y in rows], 0)
+    xs = np.where(lines > 0.8)[0]
+    return int(xs.min()) if len(xs) else 0
+
+def connected(a, s1, s2):
+    """Due pentagrammi sono dello stesso sistema se una linea verticale li unisce al margine sinistro."""
+    x = min(staff_x0(a, s1), staff_x0(a, s2))
+    seg = a[int(s1[1]) + 2:int(s2[0]) - 1, max(0, x - 5):x + 4]
+    return seg.size > 0 and seg.any(1).mean() > 0.92
+
+def group(a, st):
+    if not st: return []
+    systems = [[st[0]]]
+    for s in st[1:]:
+        if connected(a, systems[-1][-1], s): systems[-1].append(s)
+        else: systems.append([s])
+    if all(len(x) == 1 for x in systems) or sum(len(x) == 1 for x in systems) > len(systems) // 2:
+        return pair(st)
+    return systems
+
 def analyse(path):
     im, a = load(path)
     st = find_staves(a)
     out = []
-    for s in pair(st):
+    G = group(a, st)
+    two = [g[1][0] - g[0][0] for g in G if len(g) == 2]
+    if two:
+        dd = float(np.median(two))
+        for i, g in enumerate(G):
+            if len(g) != 1: continue
+            t, b, spc = g[0]
+            nt = G[i + 1][0][0] if i + 1 < len(G) else a.shape[0]
+            pb = G[i - 1][-1][1] if i > 0 else 0
+            if b + dd < nt - 2 * spc: g.append((t + dd, b + dd, spc))      # rigo inferiore non riconosciuto
+            elif t - dd > pb + 2 * spc: g.insert(0, (t - dd, b - dd, spc))  # rigo superiore non riconosciuto
+    if len(G) >= 3 and all(len(g) == 2 for g in G):   # sistema intero non riconosciuto: buco tra due sistemi
+        tops = [g[0][0] for g in G]; pitch = float(np.median(np.diff(tops)))
+        H = []
+        for i, g in enumerate(G):
+            H.append(g)
+            if i + 1 < len(G) and G[i + 1][0][0] - g[0][0] > 1.7 * pitch:
+                n = int(round((G[i + 1][0][0] - g[0][0]) / pitch)) - 1
+                step = (G[i + 1][0][0] - g[0][0]) / (n + 1)
+                for k in range(1, n + 1): H.append([(t + k * step, b + k * step, c) for t, b, c in g])
+        G = H
+    for s in G:
         sp = float(np.mean([x[2] for x in s]))
         x0, x1 = xrange_sys(a, s)
-        b = barlines(a, s, sp) if len(s) == 2 else []
+        b = barlines(a, s, sp) if len(s) >= 2 else []
         out.append({'staves': [(float(t), float(bb)) for t, bb, _ in s], 'sp': sp, 'bars': b, 'x0': x0, 'x1': x1})
+    if len(out) > 2:   # margini: i sistemi di una pagina li condividono (il primo può essere rientrato)
+        m0 = float(np.percentile([o['x0'] for o in out], 25)); m1 = float(np.percentile([o['x1'] for o in out], 75))
+        for o in out:
+            if o['x0'] == 0 and o['x1'] == a.shape[1] - 1: o['x0'], o['x1'] = int(m0), int(m1)
+            o['x0'] = int(min(o['x0'], m0)); o['x1'] = int(max(o['x1'], m1))
     return im, out

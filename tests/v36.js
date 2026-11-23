@@ -23,7 +23,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const hash = () => p.evaluate(() => decodeURIComponent(location.hash));
 
   await p.goto(U); await w();
-  ok(await p.evaluate(() => APP_VERSION) === '4.0.0', 'versione 4.0.0 (suite della 3.6)');
+  ok(await p.evaluate(() => APP_VERSION) === '4.0.1', 'versione 4.0.1 (suite della 3.6)');
 
   /* --- 1. slot e andate scritti a mano --- */
   await p.click('[data-act="nuova"]'); await w();

@@ -54,7 +54,7 @@ for pi, p in enumerate(pages, 1):
         fn = f's{len(sysl) + 1:03d}.webp'
         crop.save(f'out/{a.brano}/{fn}', 'WEBP', quality=60, method=6)
         bars = [round((b - x0) * sc) for b in s['bars']] if ok else None
-        sysl.append([fn, m, m + n - 1, crop.width, crop.height, bars])
+        sysl.append([fn, m, m + n - 1, crop.width, crop.height, bars, pi])
         # controllo: margine sinistro del sistema con la battuta calcolata
         lw = int(min(W, s['x0'] + 9 * sp)) - x0
         th = im.crop((x0, y0, x0 + lw, y1)).convert('RGB')
