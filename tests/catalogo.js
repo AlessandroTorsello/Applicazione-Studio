@@ -21,7 +21,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const cat = await p.evaluate(() => ({ brani: CATALOGO.brani.map(x => [x.id, x.completo, (x.priorita || []).length]), n: CATALOGO.frammenti.length, perBrano: CATALOGO.brani.map(x => CATALOGO.frammenti.filter(f => f.brano === x.id).length) }));
   ok(JSON.stringify(cat.brani.map(x => x[0])) === JSON.stringify(['op111', 'op111-2', 'mephisto', 'scriabin28', 'nabucco', 'rach39-6', 'rach23-6', 'chopin25-7', 'scriabin9-1', 'scriabin9-2', 'altro']), 'dieci brani più «Altro»: ' + cat.brani.map(x => x[0]).join(', '));
   ok(cat.brani.filter(x => x[0] !== 'altro').every(x => x[1] === true), 'tutti completi («Altro» escluso: solo tempo)');
-  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29, 84, 19, 7, 9, 8, 28, 0]) && cat.n === 359, 'frammenti per brano: ' + cat.perBrano.join(', '));
+  ok(JSON.stringify(cat.perBrano) === JSON.stringify([50, 49, 76, 29, 34, 19, 7, 9, 8, 28, 0]) && cat.n === 309, 'frammenti per brano: ' + cat.perBrano.join(', '));
   const refs = await p.evaluate(() => { const ids = new Set(CATALOGO.frammenti.map(f => f.id)), fam = new Set(CATALOGO.famiglie.map(f => f.id)), br = new Set(CATALOGO.brani.map(x => x.id));
     return { fam: CATALOGO.frammenti.filter(f => f.famiglia && !fam.has(f.famiglia)).length, fr: CATALOGO.famiglie.flatMap(g => g.frammenti).filter(i => !ids.has(i)).length, br: CATALOGO.frammenti.filter(f => !br.has(f.brano)).length,
       sig: [...new Set(JSON.stringify(CATALOGO.frammenti).match(/\b(?:[A-Z]{3,})\b/g))].filter(s => !C.S.has(s) && !['III', 'VII', 'MAX'].includes(s)) }; });
@@ -76,7 +76,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const r = await p.evaluate(() => { importCatalog({ versione: 2, brani: [{ id: 'prova', nome: 'Brano di prova', completo: true }], priorita: [{ n: 1, nome: 'Priorità del brano di prova', perche: 'x' }],
     definizioni: { priorita: 'd', famiglia: 'd' }, famiglie: [], frammenti: [{ id: 'prova-1-2', brano: 'prova', battute: '1-2', titolo: 't', priorita: 1, famiglia: null, nodo_motorio: 'n', andate: { 1: { rep2: 'a', rep3: 'b' }, 2: { rep2: 'c', rep3: 'd' } }, rep4_verifica: 'v' }] });
     return { mio: prioDi('prova')[0].nome, op111: prioDi('op111')[0].nome, n: C.frammenti.length }; });
-  ok(r.mio === 'Priorità del brano di prova' && r.op111 === 'Semicrome parallele a due mani' && r.n === 360, 'importazione: priorità legate al brano importato, le altre intatte');
+  ok(r.mio === 'Priorità del brano di prova' && r.op111 === 'Semicrome parallele a due mani' && r.n === 310, 'importazione: priorità legate al brano importato, le altre intatte');
 
   console.log(errs.length ? 'ERRORI:\n' + errs.join('\n') : 'nessun errore in console');
   console.log(fails || errs.length ? `\n${fails} controlli falliti` : '\nTutti i controlli passati');

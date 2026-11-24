@@ -39,6 +39,7 @@ out = dict(base); out['versione'] = 3
 primo = base['brani'][0]
 brani = [dict(primo, fonte=base.get('fonte'), priorita=base['priorita'], definizioni=base['definizioni'])]
 frammenti = list(base['frammenti']); famiglie = list(base['famiglie'])
+rinomina = {}   # 4.1: frammenti del catalogo ridivisi, vecchio id -> nuovo id (l'app ci sposta stati, voti e storico)
 for f, da, a, nome, fonte in AGGIUNTE:
     d = leggi(f)
     assert [b['id'] for b in d['brani']] == [da], (f, d['brani'])
@@ -47,6 +48,7 @@ for f, da, a, nome, fonte in AGGIUNTE:
                   'priorita': d['priorita'], 'definizioni': d['definizioni']})
     frammenti += [dict(x, brano=a) for x in d['frammenti']]
     famiglie += d['famiglie']
+    rinomina.update(d.get('rinomina_frammenti', {}))
 ids = [x['id'] for x in frammenti]; assert len(ids) == len(set(ids)), 'identificativi di frammento ripetuti'
 fam = [x['id'] for x in famiglie]; assert len(fam) == len(set(fam)), 'identificativi di famiglia ripetuti'
 noti = set(ids) | set(fam)
@@ -57,6 +59,8 @@ resto = [b for b in base['brani'][1:] if b['id'] not in {x['id'] for x in brani}
 # 3.7.1: «Altro», brano senza frammenti per segnare il tempo di tutto il resto (sessione libera, circuito libero, a mano)
 altro = {'id': 'altro', 'nome': 'Altro', 'completo': False, 'solo_tempo': True}
 out['brani'] = brani + resto + [altro]; out['frammenti'] = frammenti; out['famiglie'] = famiglie
+assert all(n in set(ids) and o not in set(ids) for o, n in rinomina.items()), 'rinomina verso frammenti inesistenti'
+out['rinomina_frammenti'] = rinomina
 # Metodo, versione 3: le regole dello slot riscritte sostituiscono quelle del file base (le altre restano);
 # metrica e priorità di resistenza entrano in ogni brano; il resto (errori, voto, avvisi, regole) sta in «metodo».
 metodo = leggi('metodo_v3.json')

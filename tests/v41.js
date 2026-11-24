@@ -37,6 +37,28 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
     ok(await p.locator('.circ .slot .chev').count() === 3, 'dopo uno spostamento le freccette restano');
     await p.locator('.circ .slot .chev').first().click(); await w();
   } else console.log('(ritagli non compilati: controlli saltati)');
+  // Nabucco ridiviso in frammenti di 8-16 battute: stati, voti, storico e bozza passano ai frammenti lunghi
+  await p.evaluate(() => {
+    const d = D;
+    d.stato_frammenti['nabucco-sinfonia-1-4'] = 'consolidato'; d.stato_frammenti['nabucco-sinfonia-5-8'] = 'consolidato';
+    d.stato_frammenti['nabucco-sinfonia-9-13'] = 'consolidato'; d.stato_frammenti['nabucco-sinfonia-14-16'] = 'consolidato';
+    d.stato_frammenti['nabucco-sinfonia-17-20'] = 'consolidato';
+    d.riascolti.push({ frammento: 'nabucco-sinfonia-5-8', data: todayStr(), voto: 6.5, fonte: 'mano', scala: 10 });
+    d.sessioni.push({ id: 'nab', tipo: 'libera', data: todayStr(), circuiti: [], log: [{ frammento: 'nabucco-sinfonia-17-20', brano: 'nabucco', secondi: 300 }] });
+    d.da_testare = [{ frammento: 'nabucco-sinfonia-21-24', data: todayStr() }, { frammento: 'nabucco-sinfonia-17-20', data: todayStr() }];
+    d.bozza.selezionati = ['nabucco-sinfonia-1-4', 'nabucco-sinfonia-5-8'];
+    d.frammenti_nascosti = ['nabucco-sinfonia-25-30'];
+    save();
+  });
+  await p.reload(); await w(700);
+  const m = await p.evaluate(() => ({ n: C.frammenti.filter(f => f.brano === 'nabucco').length, lung: C.frammenti.filter(f => f.brano === 'nabucco').every(f => { const [a, b] = f.battute.split('-').map(Number); return b - a + 1 >= 8 && b - a + 1 <= 16; }),
+    s1: D.stato_frammenti['nabucco-sinfonia-1-16'], s2: D.stato_frammenti['nabucco-sinfonia-17-24'], vecchi: Object.keys(D.stato_frammenti).filter(k => /^nabucco-sinfonia-(1-4|5-8|17-20)$/.test(k)).length,
+    v: infoVoto('nabucco-sinfonia-1-16') && infoVoto('nabucco-sinfonia-1-16').a, log: D.sessioni.find(s => s.id === 'nab').log[0].frammento,
+    dt: D.da_testare.map(x => x.frammento).join(), sel: D.bozza.selezionati.join(), nasc: D.frammenti_nascosti.length }));
+  ok(m.n === 34 && m.lung, 'Nabucco: 34 frammenti, tutti da 8 a 16 battute');
+  ok(m.s1 === 'consolidato' && m.s2 === 'nuovo' && m.vecchi === 0, 'stati: consolidato solo se lo erano tutti i pezzi vecchi');
+  ok(m.v === 6.5 && m.log === 'nabucco-sinfonia-17-24', 'voto e storico passano al frammento lungo');
+  ok(m.dt === 'nabucco-sinfonia-17-24' && m.sel === 'nabucco-sinfonia-1-16' && m.nasc === 0, 'coda dei nuovi e bozza senza doppioni; un vecchio pezzo nascosto non nasconde il frammento lungo');
   ok(!errs.length, 'nessun errore JavaScript ' + errs.join(' | '));
   await b.close();
   console.log(fails ? fails + ' controlli falliti' : 'Tutti i controlli passati'); process.exit(fails ? 1 : 0);

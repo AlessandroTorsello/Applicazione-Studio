@@ -26,22 +26,22 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
     await p.evaluate(([ids, andate]) => { D.sessione_aperta = null; D.bozza.cfg = Object.assign(D.bozza.cfg, { tipo: 'circuito', modo: 'scritti', slot: ids.length, andate }); D.bozza.selezionati = ids; D.bozza.circuiti = [{ andate, slot: ids }]; save(); startSession(); }, [ids, andate]);
     await w(700);
   };
-  const N1 = 'nabucco-sinfonia-1-4', A = 'op111-6-10';
+  const N1 = 'nabucco-sinfonia-1-16', A = 'op111-6-10';
 
   await p.goto(U); await w();
   /* --- 1. Nabucco: un brano, due estratti --- */
   const cat = await p.evaluate(() => ({ n: C.frammenti.filter(f => f.brano === 'nabucco').length, sez: sezioniDi('nabucco'), st: statoDi('nabucco'), altri: ['op111', 'op111-2', 'mephisto', 'scriabin28'].map(statoDi),
     ord: inOrdine('nabucco').map(f => f.id), prio: prioDi('nabucco').length, senza: ['op111', 'op111-2', 'mephisto', 'scriabin28'].map(x => sezioniDi(x).length) }));
-  ok(cat.n === 84 && cat.prio === 7 && cat.st === 'nuovo' && cat.altri.every(x => x === 'consolidato'), 'Nabucco: 84 frammenti, 7 priorità, brano nuovo; gli altri consolidati');
+  ok(cat.n === 34 && cat.prio === 7 && cat.st === 'nuovo' && cat.altri.every(x => x === 'consolidato'), 'Nabucco: 34 frammenti, 7 priorità, brano nuovo; gli altri consolidati');
   ok(cat.sez.join() === 'Sinfonia,Concertato' && cat.senza.every(x => x === 0), 'due estratti riconosciuti dai titoli; gli altri brani non ne hanno');
-  ok(cat.ord[68] === 'nabucco-sinfonia-324-329' && cat.ord[69] === 'nabucco-concertato-1-4', 'ordine: tutta la Sinfonia, poi il concertato (le battute ripartono da 1)');
+  ok(cat.ord[27] === 'nabucco-sinfonia-318-329' && cat.ord[28] === 'nabucco-concertato-1-12', 'ordine: tutta la Sinfonia, poi il concertato (le battute ripartono da 1)');
   await p.goto(U + '#new'); await w();
   ok(!(await p.locator('[data-k="tipo"][data-v="cucitura"]').count()), '3.5: la sessione Cucitura non c\'è più');
   await p.click('[data-k="tipo"][data-v="prova"]'); await w();
   const opts = await p.locator('#sb option').allInnerTexts();
   ok(opts.filter(x => x.includes('Nabucco')).length === 2 && opts.some(x => x.endsWith('· Concertato')), 'prova: il Nabucco si sceglie un estratto alla volta');
   await p.selectOption('#sb', { label: opts.find(x => x.endsWith('· Concertato')) }); await w();
-  ok((await txt('.card:has(#sb)')).includes('15 frammenti') && (await p.locator('#sda option').count()) === 15, 'estratto del concertato: 15 frammenti');
+  ok((await txt('.card:has(#sb)')).includes('6 frammenti') && (await p.locator('#sda option').count()) === 6, 'estratto del concertato: 6 frammenti');
   await shot('prova-estratti');
 
   /* --- 2. slot di controllo (sessione aperta con la 3.6) con varianti scelte da te --- */
@@ -76,11 +76,11 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(d.sessioni[d.sessioni.length - 1].log[0].bpm_rep2 === 70 && !(await txt('main')).includes('senza errori'), 'bpm salvati al secondo passaggio; riepilogo senza «senza errori»: ' + JSON.stringify(d.sessioni[d.sessioni.length - 1].log[0]) + ' ' + (await txt('main')).slice(0, 600));
   await shot('controllo-riepilogo');
   await p.goto(U + '#brano/nabucco'); await w();
-  ok(!(await txt('main')).includes('reggono') && (await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 84 consolidati 0'), 'scheda del brano: 84 nuovi, 0 consolidati');
+  ok(!(await txt('main')).includes('reggono') && (await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 34 consolidati 0'), 'scheda del brano: 34 nuovi, 0 consolidati');
   await shot('brano-nuovo');
   // 3.7: passaggio a consolidato del singolo frammento
   await p.click(`[data-act="consolida"][data-id="${N1}"]`); await w();
-  ok((await D()).stato_frammenti[N1] === 'consolidato' && (await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 83 consolidati 1'), 'un frammento passa ai consolidati');
+  ok((await D()).stato_frammenti[N1] === 'consolidato' && (await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 33 consolidati 1'), 'un frammento passa ai consolidati');
   await shot('brano-consolidato');
   await avvia([N1]);
   ok(/Rep 1/.test(await txt('.repnum')) && (await txt('.diag')).includes('è il test'), 'consolidato: slot da 4 Rep con il test del giorno');
@@ -172,7 +172,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('.sheet.on').count() === 1 && (await txt('.sheet.on .news')).includes('3.1'), 'chi arriva dalla 3.0 vede le novità della 3.1');
   await shot('novita-31');
   d = await D();
-  ok(d.impostazioni.visto_versione === '4.1.0' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato_frammenti['nabucco-sinfonia-1-4'] === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
+  ok(d.impostazioni.visto_versione === '4.1.1' && d.sessioni.length === 1 && d.frammenti_utente.length === 8 && d.stato_frammenti['nabucco-sinfonia-1-16'] === 'nuovo', 'dati mantenuti dopo il riavvio: ' + d.sessioni.length);
   await p.reload(); await w(900);
   ok(!(await p.locator('.sheet.on').count()), 'al secondo avvio le novità non tornano');
 

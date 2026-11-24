@@ -1,6 +1,6 @@
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '4.1.0';
+const APP_VERSION = '4.1.1';
 /* 3.6: slot e andate oltre i pulsanti (2-5) si scrivono a mano entro questi limiti; le andate partono da 2. */
 const LIM = { slot: [2, 20], andate: [2, 12] };
 const LEZIONE = 'lezione-pratica';   // «brano» delle lezioni pratiche: solo tempo
@@ -66,6 +66,37 @@ function normalize(d) {
   const S = out.sessione_aperta;
   if (S && (typeof S !== 'object' || !S.timer || !Array.isArray(S.log))) out.sessione_aperta = null;
   out.versione = 3;
+  return rinominaFrammenti(out);
+}
+/* 4.1: frammenti del catalogo ridivisi (Nabucco, frammenti di 8-16 battute al posto di quelli da 3-6). Stati, voti,
+   storico, coda dei nuovi e bozza passano al nuovo frammento che contiene le vecchie battute; non si perde nulla.
+   Un frammento nuovo è consolidato solo se lo erano tutti i vecchi che contiene. */
+function rinominaFrammenti(out) {
+  const R = (typeof CATALOGO !== 'undefined' && CATALOGO.rinomina_frammenti) || {};
+  const vecchi = Object.keys(R);
+  if (!vecchi.length) return out;
+  const raw = JSON.stringify(out);
+  if (!vecchi.some(id => raw.includes('"' + id + '"'))) return out;
+  const nuoviId = new Set();
+  vecchi.forEach(o => { if (out.stato_frammenti[o] !== undefined) nuoviId.add(R[o]); });
+  nuoviId.forEach(n => {
+    const parti = vecchi.filter(o => R[o] === n);
+    out.stato_frammenti[n] = parti.every(o => out.stato_frammenti[o] === 'consolidato') ? 'consolidato' : 'nuovo';
+  });
+  vecchi.forEach(o => delete out.stato_frammenti[o]);
+  out.frammenti_utente = out.frammenti_utente.filter(f => !R[f.id]);   // copie modificate dei vecchi frammenti del catalogo
+  const map = v => (typeof v === 'string' && R[v]) ? R[v] : v;
+  const walk = x => {
+    if (Array.isArray(x)) return x.map(walk);
+    if (x && typeof x === 'object') { const o = {}; Object.keys(x).forEach(k => { o[map(k)] = walk(x[k]); }); return o; }
+    return map(x);
+  };
+  ['riascolti', 'sessioni', 'da_testare', 'esiti_nuovi', 'famiglie_utente', 'livelli', 'metrica', 'target', 'bozza', 'sessione_aperta', 'frammenti_utente']
+    .forEach(k => { if (out[k] != null) out[k] = walk(out[k]); });
+  const uniq = a => [...new Set(a)];
+  out.frammenti_nascosti = out.frammenti_nascosti.filter(id => !R[id]);   // un vecchio pezzo nascosto non nasconde il frammento lungo
+  out.bozza.selezionati = uniq(out.bozza.selezionati);
+  const visti = new Set(); out.da_testare = out.da_testare.filter(x => !visti.has(x.frammento) && visti.add(x.frammento));
   return out;
 }
 let storageOk = true, arrivaDaV1 = false;

@@ -21,7 +21,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   const D = () => p.evaluate(() => JSON.parse(localStorage.getItem('circuiti_studio_v2')));
   const txt = sel => p.locator(sel).first().innerText();
   const hash = () => p.evaluate(() => decodeURIComponent(location.hash));
-  const N1 = 'nabucco-sinfonia-1-4', N2 = 'nabucco-sinfonia-5-8', A = 'op111-6-10';
+  const N1 = 'nabucco-sinfonia-1-16', N2 = 'nabucco-sinfonia-17-24', A = 'op111-6-10';
 
   /* --- 0. chi arriva dalla 3.6, con una bozza che conteneva il Nabucco --- */
   await p.goto(U); await w();
@@ -30,18 +30,18 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
       log: [{ circuito: 1, andata: 1, etichetta: 'A1', frammento: N1, brano: 'nabucco', secondi: 200, rep_completate: 5, controllo: true }] });
     localStorage.setItem('circuiti_studio_v2', JSON.stringify(D)); }, [N1, A]);
   await p.reload(); await w(900);
-  ok(await p.evaluate(() => APP_VERSION) === '4.1.0', 'versione 4.1.0');
+  ok(await p.evaluate(() => APP_VERSION) === '4.1.1', 'versione 4.1.1');
   ok((await txt('.sheet.on .news')).includes('3.7 · Frammenti nuovi e consolidati'), 'chi arriva dalla 3.6 vede le novità della 3.7');
   await shot('novita');
   await p.click('.sheet.on [data-act="closesheet"]').catch(() => p.evaluate(() => closeSheet())); await w();
   const st = await p.evaluate(() => ({ nab: C.frammenti.filter(f => f.brano === 'nabucco').every(f => eNuovo(f.id)), altri: C.frammenti.filter(f => !['nabucco', 'rach39-6', 'rach23-6', 'chopin25-7', 'scriabin9-1', 'scriabin9-2'].includes(f.brano)).every(f => !eNuovo(f.id)) && C.frammenti.filter(f => f.brano === 'rach39-6').length === 19 && C.frammenti.filter(f => f.brano === 'rach39-6').every(f => eNuovo(f.id)), sf: Object.keys(D.stato_frammenti).length }));
-  ok(st.nab && st.altri && st.sf === 0, 'migrazione: gli 84 frammenti del Nabucco e quelli dei due Rachmaninov nuovi, gli altri consolidati, senza scrivere nulla nei dati');
+  ok(st.nab && st.altri && st.sf === 0, 'migrazione: i 34 frammenti del Nabucco e quelli dei due Rachmaninov nuovi, gli altri consolidati, senza scrivere nulla nei dati');
   ok((await D()).sessioni.length === 1, 'storico intatto (sessione con slot di controllo della 3.6)');
 
   /* --- 1. circuiti: solo consolidati --- */
   await p.goto(U + '#select'); await w();
   ok(JSON.stringify(await p.evaluate(() => D.bozza.selezionati)) === JSON.stringify([A]), 'la bozza della 3.6 perde i frammenti nuovi');
-  ok((await txt('details.acc[data-brano="nabucco"] summary')).toLowerCase().includes('84 nuovi') && await p.locator('details.acc[data-brano="nabucco"] .frow').count() === 0, 'selezione: il Nabucco ha 84 nuovi e nessun frammento da scegliere');
+  ok((await txt('details.acc[data-brano="nabucco"] summary')).toLowerCase().includes('34 nuovi') && await p.locator('details.acc[data-brano="nabucco"] .frow').count() === 0, 'selezione: il Nabucco ha 34 nuovi e nessun frammento da scegliere');
   await p.click('details.acc[data-brano="nabucco"] summary'); await w(); await shot('selezione-nabucco');
   await p.goto(U + '#compose'); await w();
   ok(!(await txt('main')).includes('Sinfonia') && await p.locator('.slot').count() === 1, 'composizione: solo il frammento consolidato');
@@ -58,7 +58,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator('[data-act="studiati"]').count() === 1 && (await txt('[data-act="studiati"]')).includes('facoltativo'), 'sessione libera: pulsante «Passaggi nuovi studiati», facoltativo');
   await shot('libera');
   await p.click('[data-act="studiati"]'); await w();
-  ok(await p.locator('.sheet.on input[data-st]').count() === 84, 'elenco: solo i frammenti nuovi dei brani della sessione (84)');
+  ok(await p.locator('.sheet.on input[data-st]').count() === 34, 'elenco: solo i frammenti nuovi dei brani della sessione (34)');
   await p.check(`.sheet.on input[data-st="${N1}"]`); await p.check(`.sheet.on input[data-st="${N2}"]`); await shot('segna-studiati');
   await p.click('#stok'); await w();
   let d = await D();
@@ -111,7 +111,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
   ok(await p.locator(`main [data-act="consolida"][data-id="${N2}"]`).count() === 1, 'modifica del frammento: pulsante «Passa ai consolidati»');
   // scheda del brano: Consolida sulla riga
   await p.goto(U + '#brano/nabucco'); await w();
-  ok((await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 83 consolidati 1') && await p.locator('.frow [data-act="consolida"]').count() === 83, 'scheda del brano: 83 nuovi con «Consolida», 1 consolidato');
+  ok((await txt('.stat3')).replace(/\s+/g, ' ').toLowerCase().includes('nuovi 33 consolidati 1') && await p.locator('.frow [data-act="consolida"]').count() === 33, 'scheda del brano: 33 nuovi con «Consolida», 1 consolidato');
   await shot('scheda-brano');
 
   /* --- 5. prova: voti solo ai consolidati --- */
