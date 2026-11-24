@@ -1,6 +1,6 @@
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '4.0.1';
+const APP_VERSION = '4.1.0';
 /* 3.6: slot e andate oltre i pulsanti (2-5) si scrivono a mano entro questi limiti; le andate partono da 2. */
 const LIM = { slot: [2, 20], andate: [2, 12] };
 const LEZIONE = 'lezione-pratica';   // «brano» delle lezioni pratiche: solo tempo

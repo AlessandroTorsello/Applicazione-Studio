@@ -14,6 +14,20 @@ function perVotoHtml(sel) {
     <div class="accbody"><p class="small muted" style="margin:0 0 6px">Dal voto più basso al più alto.</p>${conV.map(x => fragRow(x.f, sel, true)).join('')}
     ${senza.length ? `<div class="famrec">Mai votati · ${senza.length}</div>${senza.sort((a, b) => pos(a) - pos(b) || bat(a) - bat(b)).map(x => fragRow(x.f, sel, true)).join('')}` : ''}</div></details>`;
 }
+/* 4.1: colore del voto attuale, rosso sotto 6 e poi un gradiente continuo fino al verde del 10 (tinta HSL 0 → 130). */
+function votoTinta(v) {
+  if (v == null || isNaN(v)) return null;
+  const t = Math.max(0, Math.min(1, (v - VOTO.ripasso) / (10 - VOTO.ripasso)));
+  return Math.round(130 * t);
+}
+function votoStyle(fid, M) {
+  const i = infoVoto(fid, M); if (!i) return '';
+  const h = votoTinta(i.a);
+  return ` data-vc style="--vc:hsl(${h} 72% 48%);--vcb:hsla(${h},72%,48%,.13);--vt:${h >= 30 && h <= 110 ? '#111' : '#fff'}"`;
+}
+function votoChip(fid, M) {
+  const i = infoVoto(fid, M); return i ? `<span class="vchip">${fmtV(i.a)}</span>` : '';
+}
 function fragMeta(f) {
   const x = LAST.get(f.id), liv = votoTesto(f.id, VMAP), p = [];
   if (x && x.data) p.push(`Studiato ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}`);
@@ -21,8 +35,8 @@ function fragMeta(f) {
   return p.length ? `<span class="fmeta">${p.join(' · ')}</span>` : '';
 }
 function fragRow(f, sel, conBrano) {
-  return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
-  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button>${scoreBtn(f, 'sel:')}</div>${scoreBox(f, 'sel:')}`;
+  return `<div class="frow"${votoStyle(f.id, VMAP)}><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
+  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button>${votoChip(f.id, VMAP)}${scoreBtn(f, 'sel:')}</div>${scoreBox(f, 'sel:')}`;
 }
 /* 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano (per estratto, se il brano ne ha più d'uno);
    la famiglia resta nella scheda del frammento e in Sigle e regole (3.7.1: niente più priorità). */
@@ -173,20 +187,21 @@ SCREENS.compose = () => {
   save();
   const placed = new Set(B.circuiti.flatMap(c => c.slot));
   const tray = sel.filter(id => !placed.has(id));
+  const VM = mappaVoti();
   const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])}${f.titolo ? ' · ' + esc(f.titolo) : ''}</span>` : esc(id); };
   const circs = B.circuiti.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3>
       <span class="small muted">Andate</span>${numSeg([2, 3, 4, 5], c.andate, n => `data-act="andate" data-ci="${ci}" data-n="${n}"`, `data-act="andatenum" data-ci="${ci}"`)}</div>
-      ${c.slot.map((id, i) => `<div class="slot"><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>
+      ${c.slot.map((id, i) => `<div class="slot"${votoStyle(id, VM)}><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>${votoChip(id, VM)}${fr(id) ? scoreBtn(fr(id), `c${ci}-${i}:`) : ''}
         <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="-1" aria-label="Sposta su"${i === 0 ? 'disabled' : ''}>↑</button>
         <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="1" aria-label="Sposta giù"${i === c.slot.length - 1 ? 'disabled' : ''}>↓</button>
-        <button class="ib" data-act="slotmenu" data-ci="${ci}" data-i="${i}" aria-label="Altre azioni sullo slot ${slotLab(i, ci)}">⋯</button></div>`).join('') || '<p class="muted small">Nessuno slot: aggiungine uno qui sotto, altrimenti questo circuito viene ignorato.</p>'}
+        <button class="ib" data-act="slotmenu" data-ci="${ci}" data-i="${i}" aria-label="Altre azioni sullo slot ${slotLab(i, ci)}">⋯</button></div>${fr(id) ? scoreBox(fr(id), `c${ci}-${i}:`) : ''}`).join('') || '<p class="muted small">Nessuno slot: aggiungine uno qui sotto, altrimenti questo circuito viene ignorato.</p>'}
       <select class="sel" data-addslot="${ci}" style="margin-top:8px;width:100%" aria-label="Aggiungi uno slot al circuito ${ci + 1}"><option value="">+ Aggiungi slot…</option>${sel.map(id => `<option value="${esc(id)}">${esc(frLabel(id))} · ${esc((fr(id) || {}).titolo || '')}</option>`).join('')}</select>
     </section>`).join('');
   const nCirc = B.circuiti.filter(c => c.slot.length).length, nSlot = B.circuiti.reduce((a, c) => a + c.slot.length, 0);
   app.innerHTML = header('Componi i circuiti', 'Ordine degli slot e numero di andate', '#select') + `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">
     ${steps(['Tipo', 'Passaggi', 'Circuiti'], 2)}
     <p class="lead">Frecce: ordine. ⋯: sposta o togli. <button class="link" data-act="go" data-h="#rules/fable">Regole di Fable</button> (solo da consultare)</p>
-    ${tray.length ? `<section class="card"><div class="label">Da collocare</div>${tray.map(id => `<div class="slot"><span class="nm">${fname(id)}</span>${B.circuiti.map((c, ci) => `<button class="ib" data-act="place" data-id="${esc(id)}" data-ci="${ci}">C${ci + 1}</button>`).join('')}</div>`).join('')}</section>` : ''}
+    ${tray.length ? `<section class="card"><div class="label">Da collocare</div>${tray.map(id => `<div class="slot"${votoStyle(id, VM)}><span class="nm">${fname(id)}</span>${votoChip(id, VM)}${fr(id) ? scoreBtn(fr(id), 'tray:') : ''}${B.circuiti.map((c, ci) => `<button class="ib" data-act="place" data-id="${esc(id)}" data-ci="${ci}">C${ci + 1}</button>`).join('')}</div>${fr(id) ? scoreBox(fr(id), 'tray:') : ''}`).join('')}</section>` : ''}
     ${circs}
     <button class="btn" data-act="addcirc">+ Nuovo circuito</button>
   </main><div class="bar"><div class="inner"><p class="barnote">${nCirc} ${nCirc === 1 ? 'circuito' : 'circuiti'} · ${nSlot} slot in tutto</p><button class="btn primary xl" data-act="start">Inizia</button></div></div>`;

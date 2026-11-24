@@ -30,7 +30,7 @@ const ok = (c, msg) => { if (!c) { fails++; console.log('FAIL', msg); } else con
       log: [{ circuito: 1, andata: 1, etichetta: 'A1', frammento: N1, brano: 'nabucco', secondi: 200, rep_completate: 5, controllo: true }] });
     localStorage.setItem('circuiti_studio_v2', JSON.stringify(D)); }, [N1, A]);
   await p.reload(); await w(900);
-  ok(await p.evaluate(() => APP_VERSION) === '4.0.1', 'versione 4.0.1');
+  ok(await p.evaluate(() => APP_VERSION) === '4.1.0', 'versione 4.1.0');
   ok((await txt('.sheet.on .news')).includes('3.7 · Frammenti nuovi e consolidati'), 'chi arriva dalla 3.6 vede le novità della 3.7');
   await shot('novita');
   await p.click('.sheet.on [data-act="closesheet"]').catch(() => p.evaluate(() => closeSheet())); await w();

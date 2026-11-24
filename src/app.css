@@ -459,3 +459,11 @@ details.avv>summary{color:var(--accent);font-weight:600}
 [data-stile="quadrante"] .runh .l1 .grow{font-weight:600;font-size:min(var(--t-sm),15px);color:var(--muted)}
 [data-stile="quadrante"] .runh .l3{font-weight:500}
 .qh .bat{white-space:nowrap}
+
+/* 4.1: colore del voto (rosso sotto 6, gradiente fino al verde) */
+[data-vc]{box-shadow:inset 4px 0 0 var(--vc);background:var(--vcb);padding-left:8px}
+.frow[data-vc]{border-radius:8px}
+.frow[data-vc]+.frow,.frow+.frow[data-vc]{margin-top:2px}
+.vchip{flex:0 0 auto;align-self:center;min-width:34px;text-align:center;font-weight:600;font-size:var(--t-sm);color:var(--vt,#fff);background:var(--vc,var(--muted));border-radius:999px;padding:2px 8px;font-variant-numeric:tabular-nums}
+.slot .chev{flex:0 0 auto}
+.slot+.score{margin:0 0 8px}

@@ -480,6 +480,14 @@ details.avv>summary{color:var(--accent);font-weight:600}
 [data-stile="quadrante"] .runh .l3{font-weight:500}
 .qh .bat{white-space:nowrap}
 
+/* 4.1: colore del voto (rosso sotto 6, gradiente fino al verde) */
+[data-vc]{box-shadow:inset 4px 0 0 var(--vc);background:var(--vcb);padding-left:8px}
+.frow[data-vc]{border-radius:8px}
+.frow[data-vc]+.frow,.frow+.frow[data-vc]{margin-top:2px}
+.vchip{flex:0 0 auto;align-self:center;min-width:34px;text-align:center;font-weight:600;font-size:var(--t-sm);color:var(--vt,#fff);background:var(--vc,var(--muted));border-radius:999px;padding:2px 8px;font-variant-numeric:tabular-nums}
+.slot .chev{flex:0 0 auto}
+.slot+.score{margin:0 0 8px}
+
 /* ===================== versione 2.1: dimensioni e stili ===================== */
 /* Dimensioni: testo di base più piccolo e titoli meno ingombranti; in più la misura «piccolo». */
 html{font-size:16px}
@@ -674,7 +682,7 @@ const PARTITURE_DATI = {"op111":{"s":[["s001.webp",1,2,1100,285,null],["s002.web
 <script>
 'use strict';
 /* Summum Studium (fino alla 3.0 «Circuiti di studio») — versione 3. Catalogo in CATALOGO (sola lettura, testi mostrati così come sono). */
-const APP_VERSION = '4.0.1';
+const APP_VERSION = '4.1.0';
 /* 3.6: slot e andate oltre i pulsanti (2-5) si scrivono a mano entro questi limiti; le andate partono da 2. */
 const LIM = { slot: [2, 20], andate: [2, 12] };
 const LEZIONE = 'lezione-pratica';   // «brano» delle lezioni pratiche: solo tempo
@@ -1464,6 +1472,20 @@ function perVotoHtml(sel) {
     <div class="accbody"><p class="small muted" style="margin:0 0 6px">Dal voto più basso al più alto.</p>${conV.map(x => fragRow(x.f, sel, true)).join('')}
     ${senza.length ? `<div class="famrec">Mai votati · ${senza.length}</div>${senza.sort((a, b) => pos(a) - pos(b) || bat(a) - bat(b)).map(x => fragRow(x.f, sel, true)).join('')}` : ''}</div></details>`;
 }
+/* 4.1: colore del voto attuale, rosso sotto 6 e poi un gradiente continuo fino al verde del 10 (tinta HSL 0 → 130). */
+function votoTinta(v) {
+  if (v == null || isNaN(v)) return null;
+  const t = Math.max(0, Math.min(1, (v - VOTO.ripasso) / (10 - VOTO.ripasso)));
+  return Math.round(130 * t);
+}
+function votoStyle(fid, M) {
+  const i = infoVoto(fid, M); if (!i) return '';
+  const h = votoTinta(i.a);
+  return ` data-vc style="--vc:hsl(${h} 72% 48%);--vcb:hsla(${h},72%,48%,.13);--vt:${h >= 30 && h <= 110 ? '#111' : '#fff'}"`;
+}
+function votoChip(fid, M) {
+  const i = infoVoto(fid, M); return i ? `<span class="vchip">${fmtV(i.a)}</span>` : '';
+}
 function fragMeta(f) {
   const x = LAST.get(f.id), liv = votoTesto(f.id, VMAP), p = [];
   if (x && x.data) p.push(`Studiato ${esc(fmtAgo(x.data))}${x.bpm != null ? ' · ' + esc(x.bpm) + ' bpm' : ''}`);
@@ -1471,8 +1493,8 @@ function fragMeta(f) {
   return p.length ? `<span class="fmeta">${p.join(' · ')}</span>` : '';
 }
 function fragRow(f, sel, conBrano) {
-  return `<div class="frow"><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
-  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button>${scoreBtn(f, 'sel:')}</div>${scoreBox(f, 'sel:')}`;
+  return `<div class="frow"${votoStyle(f.id, VMAP)}><label class="chk"><input type="checkbox" data-sel="${esc(f.id)}" ${sel.has(f.id) ? 'checked' : ''} aria-label="Seleziona ${esc(f.battute)}"></label>
+  <button class="fbody" data-act="preview" data-id="${esc(f.id)}"><b class="bat">${esc(f.battute)}</b>${esc(f.titolo)}${f.trillo_3_5 ? '<span class="tag">trillo 3-5</span>' : ''}${C.userIds.has(f.id) ? '<span class="tag">aggiunto</span>' : ''}${conBrano ? `<span class="fmeta">${esc(branoBreve(f.brano))}</span>` : ''}${fragMeta(f)}</button>${votoChip(f.id, VMAP)}${scoreBtn(f, 'sel:')}</div>${scoreBox(f, 'sel:')}`;
 }
 /* 3.5: i frammenti in ordine di battuta, dall'inizio alla fine del brano (per estratto, se il brano ne ha più d'uno);
    la famiglia resta nella scheda del frammento e in Sigle e regole (3.7.1: niente più priorità). */
@@ -1623,20 +1645,21 @@ SCREENS.compose = () => {
   save();
   const placed = new Set(B.circuiti.flatMap(c => c.slot));
   const tray = sel.filter(id => !placed.has(id));
+  const VM = mappaVoti();
   const fname = id => { const f = fr(id); return f ? `<b class="bat">${esc(f.battute)}</b><span class="t">${esc(branoNome(f.brano).split(',')[0])}${f.titolo ? ' · ' + esc(f.titolo) : ''}</span>` : esc(id); };
   const circs = B.circuiti.map((c, ci) => `<section class="circ"><div class="circh"><h3>Circuito ${ci + 1}</h3>
       <span class="small muted">Andate</span>${numSeg([2, 3, 4, 5], c.andate, n => `data-act="andate" data-ci="${ci}" data-n="${n}"`, `data-act="andatenum" data-ci="${ci}"`)}</div>
-      ${c.slot.map((id, i) => `<div class="slot"><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>
+      ${c.slot.map((id, i) => `<div class="slot"${votoStyle(id, VM)}><span class="lab">${slotLab(i, ci)}</span><span class="nm">${fname(id)}</span>${votoChip(id, VM)}${fr(id) ? scoreBtn(fr(id), `c${ci}-${i}:`) : ''}
         <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="-1" aria-label="Sposta su"${i === 0 ? 'disabled' : ''}>↑</button>
         <button class="ib" data-act="mv" data-ci="${ci}" data-i="${i}" data-d="1" aria-label="Sposta giù"${i === c.slot.length - 1 ? 'disabled' : ''}>↓</button>
-        <button class="ib" data-act="slotmenu" data-ci="${ci}" data-i="${i}" aria-label="Altre azioni sullo slot ${slotLab(i, ci)}">⋯</button></div>`).join('') || '<p class="muted small">Nessuno slot: aggiungine uno qui sotto, altrimenti questo circuito viene ignorato.</p>'}
+        <button class="ib" data-act="slotmenu" data-ci="${ci}" data-i="${i}" aria-label="Altre azioni sullo slot ${slotLab(i, ci)}">⋯</button></div>${fr(id) ? scoreBox(fr(id), `c${ci}-${i}:`) : ''}`).join('') || '<p class="muted small">Nessuno slot: aggiungine uno qui sotto, altrimenti questo circuito viene ignorato.</p>'}
       <select class="sel" data-addslot="${ci}" style="margin-top:8px;width:100%" aria-label="Aggiungi uno slot al circuito ${ci + 1}"><option value="">+ Aggiungi slot…</option>${sel.map(id => `<option value="${esc(id)}">${esc(frLabel(id))} · ${esc((fr(id) || {}).titolo || '')}</option>`).join('')}</select>
     </section>`).join('');
   const nCirc = B.circuiti.filter(c => c.slot.length).length, nSlot = B.circuiti.reduce((a, c) => a + c.slot.length, 0);
   app.innerHTML = header('Componi i circuiti', 'Ordine degli slot e numero di andate', '#select') + `<main class="wrap" style="padding-bottom:calc(150px + env(safe-area-inset-bottom))">
     ${steps(['Tipo', 'Passaggi', 'Circuiti'], 2)}
     <p class="lead">Frecce: ordine. ⋯: sposta o togli. <button class="link" data-act="go" data-h="#rules/fable">Regole di Fable</button> (solo da consultare)</p>
-    ${tray.length ? `<section class="card"><div class="label">Da collocare</div>${tray.map(id => `<div class="slot"><span class="nm">${fname(id)}</span>${B.circuiti.map((c, ci) => `<button class="ib" data-act="place" data-id="${esc(id)}" data-ci="${ci}">C${ci + 1}</button>`).join('')}</div>`).join('')}</section>` : ''}
+    ${tray.length ? `<section class="card"><div class="label">Da collocare</div>${tray.map(id => `<div class="slot"${votoStyle(id, VM)}><span class="nm">${fname(id)}</span>${votoChip(id, VM)}${fr(id) ? scoreBtn(fr(id), 'tray:') : ''}${B.circuiti.map((c, ci) => `<button class="ib" data-act="place" data-id="${esc(id)}" data-ci="${ci}">C${ci + 1}</button>`).join('')}</div>${fr(id) ? scoreBox(fr(id), 'tray:') : ''}`).join('')}</section>` : ''}
     ${circs}
     <button class="btn" data-act="addcirc">+ Nuovo circuito</button>
   </main><div class="bar"><div class="inner"><p class="barnote">${nCirc} ${nCirc === 1 ? 'circuito' : 'circuiti'} · ${nSlot} slot in tutto</p><button class="btn primary xl" data-act="start">Inizia</button></div></div>`;
@@ -3254,6 +3277,7 @@ function newsSheet() {
     <p class="small muted" style="margin-top:-6px">Le novità più recenti in cima. Il metodo è cambiato più volte (3.0, 3.2, 3.3, 3.5, 3.6, 3.7); le regole di composizione dei circuiti restano quelle di prima. Tutti i dati sono stati mantenuti.</p>
     <ul class="news">
       <li><b>4.0 · Nuovo design</b>: stile Quadrante, nero e azzurro (in chiaro carta e arancione; il tema può seguire il telefono). Anello della Rep con il tempo dello slot, voto con una tastiera di numeri, home con i conteggi e i tre passaggi col voto più basso. Gli stili di prima restano in Impostazioni. Funzioni e dati non cambiano.</li>
+      <li><b>4.1 · Colore del voto</b>: nella scelta dei passaggi e nei circuiti ogni frammento votato ha il colore del suo voto attuale, rosso sotto 6 e poi sfumato fino al verde del 10; quelli mai votati restano come prima. La freccetta della partitura c'è anche sugli slot quando componi i circuiti.</li>
       <li><b>4.0 · Battute in partitura</b>: la freccetta accanto a un frammento apre il ritaglio delle sue battute (Oggi, scelta dei passaggi, durante la Rep, nuovi da testare, scheda del frammento). Per ora: Beethoven op. 111 I e II (Arietta), Liszt Mephisto-Walzer n. 1, Chopin op. 25 n. 7, Rachmaninov op. 23 n. 6 e op. 39 n. 6, Scriabin op. 9 n. 1 (4.0.1: aggiunti Arietta e Mephisto).</li>
       <li><b>3.7.1 · Rachmaninov op. 39 n. 6</b>: nuovo brano, 19 frammenti divisi da te, tutti nuovi, con l'analisi (nodo motorio, suggerimenti, famiglie).</li>
       <li><b>3.8 · Per voto</b>: nella scelta dei passaggi, sotto «Da ripassare oggi», una sezione richiudibile con tutti i frammenti consolidati dal voto più basso al più alto; in fondo quelli mai votati.</li>
